@@ -34,7 +34,7 @@ dependencies = []
 experiments = ["anthropic>=0.70"]
 
 [project.urls]
-Homepage = "https://github.com/vyakymenko/noophorics"
+Homepage = "https://noophorics.org"
 Source = "https://github.com/vyakymenko/noophorics"
 Issues = "https://github.com/vyakymenko/noophorics/issues"
 

@@ -3,6 +3,8 @@
 **The quantitative science of transferring understanding across minds that do
 not share a substrate.**
 
+[noophorics.org](https://noophorics.org)
+
 Two minds are given the same problem. One explains it to the other. Both agree
 the explanation landed.
 
@@ -190,4 +192,4 @@ Dual-licensed, deliberately:
 See [CITATION.cff](CITATION.cff), or:
 
 > Noophorics: a quantitative science of transferring understanding across
-> heterogeneous minds. Version 0.1, 2026. https://github.com/vyakymenko/noophorics
+> heterogeneous minds. Version 0.1, 2026. https://noophorics.org

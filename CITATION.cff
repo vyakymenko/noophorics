@@ -5,6 +5,7 @@ type: software
 version: 0.1.0
 date-released: 2026-07-28
 license: Apache-2.0
+url: "https://noophorics.org"
 repository-code: "https://github.com/vyakymenko/noophorics"
 abstract: >-
   Noophorics is a research program that measures the transfer of understanding
@@ -29,4 +30,4 @@ keywords:
   - indeterminacy of translation
 authors:
   - name: "The Noophorics Project"
-    website: "https://github.com/vyakymenko/noophorics"
+    website: "https://noophorics.org"
