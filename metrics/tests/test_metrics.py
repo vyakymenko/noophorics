@@ -28,6 +28,7 @@ from noophorics import (  # noqa: E402
     mean_divergence,
     noise_floor,
     phantom_agreement,
+    self_divergence,
     to_distribution,
     transfer_fidelity,
 )
@@ -79,6 +80,31 @@ class TestNoiseFloor(unittest.TestCase):
     def test_floor_rejects_out_of_range_inputs(self):
         with self.assertRaises(ValueError):
             noise_floor(-0.1, 0.2)
+
+    def test_sample_order_must_be_preserved_when_splitting_halves(self):
+        """Regression: round-tripping samples through a distribution loses the
+        draw order, sorts them, and inflates the floor to its maximum.
+
+        An agent that genuinely alternates between two answers has moderate
+        self-divergence. The same six draws, sorted, split into two pure
+        halves and read as an agent that never agrees with itself.
+        """
+        drawn = ["A", "B", "A", "B", "A", "B"]
+        sorted_same_counts = ["A", "A", "A", "B", "B", "B"]
+
+        def floor_from(samples):
+            mid = len(samples) // 2
+            return self_divergence(
+                [to_distribution(samples[:mid])], [to_distribution(samples[mid:])]
+            )
+
+        drawn_floor = floor_from(drawn)
+        sorted_floor = floor_from(sorted_same_counts)
+
+        # Same six draws, same answer counts -- only the order differs.
+        self.assertLess(drawn_floor, 0.1)
+        self.assertAlmostEqual(sorted_floor, 1.0, places=12)
+        self.assertGreater(sorted_floor / max(drawn_floor, 1e-9), 10.0)
 
 
 class TestFidelity(unittest.TestCase):

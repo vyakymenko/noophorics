@@ -154,9 +154,9 @@ class _LiveSender(object):
         )
 
     def answer_samples(self, probe, n_samples: int) -> List[str]:
-        dist = self._prober.answer(probe, n_samples)
-        # answer() returns a distribution; re-expand to samples for half-splitting.
-        return _expand(dist, n_samples)
+        # Raw draw order, never round-tripped through a distribution: the
+        # halves-split floor estimate depends on it.
+        return self._prober.answer_samples(probe, n_samples)
 
     def claim_agreement(self, measure, counterpart: str) -> float:
         return self._prober.claim_agreement(measure, counterpart)
@@ -187,18 +187,6 @@ class _LiveSender(object):
         return self._prober.cost_of(message)
 
 
-def _expand(dist: Dict[str, float], n: int) -> List[str]:
-    """Turn a distribution back into a sample list of length n (largest remainder)."""
-    counts = {a: int(round(p * n)) for a, p in dist.items()}
-    samples: List[str] = []
-    for answer, count in counts.items():
-        samples.extend([answer] * count)
-    top = max(sorted(dist), key=lambda a: dist[a])
-    while len(samples) < n:
-        samples.append(top)
-    return samples[:n]
-
-
 class _LiveReceiver(object):
     def __init__(self, label: str, context: str, model: str, effort: str = "low"):
         self.name = "%s/%s" % (model, label)
@@ -207,7 +195,7 @@ class _LiveReceiver(object):
         )
 
     def answer_samples(self, probe, n_samples: int) -> List[str]:
-        return _expand(self._agent.answer(probe, n_samples), n_samples)
+        return self._agent.answer_samples(probe, n_samples)
 
     def claim_agreement(self, measure, counterpart: str) -> float:
         return self._agent.claim_agreement(measure, counterpart)

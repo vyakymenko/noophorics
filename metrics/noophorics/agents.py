@@ -31,8 +31,19 @@ class Agent(object):
 
     name = "abstract-agent"
 
-    def answer(self, probe: Probe, n_samples: int) -> AnswerDist:
+    def answer_samples(self, probe: Probe, n_samples: int) -> List[str]:
+        """Raw ordered samples. This is the primitive; ``answer`` derives from it.
+
+        Order is load-bearing. Self-divergence is estimated by splitting a
+        probe's samples into halves, and a caller that reconstructs samples
+        from a distribution rather than keeping the draw order will produce
+        sorted halves (AAABBB instead of ABABAB), inflating the noise floor
+        toward its maximum. Never round-trip samples through a distribution.
+        """
         raise NotImplementedError
+
+    def answer(self, probe: Probe, n_samples: int) -> AnswerDist:
+        return to_distribution(self.answer_samples(probe, n_samples))
 
     def answer_all(
         self, measure: ProbeMeasure, n_samples: int
@@ -61,10 +72,10 @@ class ScriptedAgent(Agent):
         self._answers = {k: list(v) for k, v in answers.items()}
         self._claim = claim
 
-    def answer(self, probe: Probe, n_samples: int) -> AnswerDist:
+    def answer_samples(self, probe: Probe, n_samples: int) -> List[str]:
         if probe.id not in self._answers:
             raise KeyError("scripted agent %s has no answers for %s" % (self.name, probe.id))
-        return to_distribution(self._answers[probe.id][:n_samples])
+        return list(self._answers[probe.id][:n_samples])
 
     def claim_agreement(self, measure: ProbeMeasure, counterpart: str) -> float:
         if self._claim is None:
@@ -156,7 +167,7 @@ class AnthropicAgent(Agent):
 
     # -- Agent interface ---------------------------------------------------
 
-    def answer(self, probe: Probe, n_samples: int) -> AnswerDist:
+    def answer_samples(self, probe: Probe, n_samples: int) -> List[str]:
         schema = {
             "type": "object",
             "properties": {"verdict": {"type": "string", "enum": probe.options}},
@@ -167,8 +178,8 @@ class AnthropicAgent(Agent):
             probe.prompt,
             ", ".join(probe.options),
         )
-        samples = [self._call(prompt, schema)["verdict"] for _ in range(n_samples)]
-        return to_distribution(samples)
+        # Draw order is preserved deliberately -- see Agent.answer_samples.
+        return [self._call(prompt, schema)["verdict"] for _ in range(n_samples)]
 
     def claim_agreement(self, measure: ProbeMeasure, counterpart: str) -> float:
         schema = {
