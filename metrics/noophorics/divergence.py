@@ -10,6 +10,7 @@ that treats a single sample as the agent's disposition is measuring noise.
 from __future__ import annotations
 
 import math
+import random
 from collections import Counter
 from typing import Dict, Iterable, Mapping, Sequence
 
@@ -22,6 +23,8 @@ __all__ = [
     "agreement_rate",
     "self_divergence",
     "noise_floor",
+    "permutation_floor",
+    "mean_permutation_floor",
 ]
 
 # An answer distribution: answer label -> probability. Sums to 1.
@@ -146,8 +149,79 @@ def self_divergence(
     return mean_divergence(run_one, run_two, weights)
 
 
+def permutation_floor(
+    samples_a: Sequence[str],
+    samples_b: Sequence[str],
+    permutations: int = 400,
+    seed: int = 0,
+) -> float:
+    """Expected divergence under the null that both agents draw alike. v0.2
+
+    This replaces the split-halves floor, which was wrong in two ways at once.
+
+    1. It estimated the floor from half as many samples as the divergence it
+       was subtracted from. JSD is biased upward at small n, so the floor was
+       systematically inflated relative to its own subtrahend. Measured: two
+       *identical* fair-coin agents score 0.175 at 3-vs-3 but 0.073 at 6-vs-6.
+    2. Matching n does not fix it. At 6-vs-6 two identical agents still score
+       0.073 -- pure finite-sample bias, which the old formula attributed to
+       agent stochasticity.
+
+    The permutation null fixes both. Pool the two agents' draws for a probe,
+    reshuffle into two groups of the original sizes, and measure divergence.
+    Under the null the groups come from one distribution, so the expected
+    divergence is exactly what a *perfectly aligned* pair would score -- at the
+    same n, with the same answer space, carrying the same estimator bias.
+
+    Note this is deliberately not a self-divergence: it is the floor for *this
+    comparison*, and it absorbs the entropy of the answer space the two agents
+    are actually using.
+    """
+    pooled = list(samples_a) + list(samples_b)
+    n_a = len(samples_a)
+    if n_a == 0 or len(samples_b) == 0:
+        raise ValueError("cannot build a permutation floor from an empty sample set")
+    if len(set(pooled)) == 1:
+        return 0.0  # both agents gave one answer throughout; no null variation
+    rng = random.Random(seed)
+    total = 0.0
+    for _ in range(permutations):
+        shuffled = pooled[:]
+        rng.shuffle(shuffled)
+        total += jensen_shannon(
+            to_distribution(shuffled[:n_a]), to_distribution(shuffled[n_a:])
+        )
+    return total / permutations
+
+
+def mean_permutation_floor(
+    samples_a: Sequence[Sequence[str]],
+    samples_b: Sequence[Sequence[str]],
+    weights: Sequence[float] = None,
+    permutations: int = 400,
+    seed: int = 0,
+) -> float:
+    """Permutation floor averaged over a probe measure. v0.2"""
+    if len(samples_a) != len(samples_b):
+        raise ValueError("probe count mismatch")
+    if not samples_a:
+        raise ValueError("empty probe measure")
+    if weights is None:
+        weights = [1.0] * len(samples_a)
+    total_w = sum(weights)
+    acc = 0.0
+    for index, (a, b, w) in enumerate(zip(samples_a, samples_b, weights)):
+        acc += w * permutation_floor(a, b, permutations, seed + index)
+    return acc / total_w
+
+
 def noise_floor(d_self_a: float, d_self_b: float) -> float:
-    """D_floor -- irreducible divergence between aligned agents. 3.2
+    """DEPRECATED (v0.1). Split-halves floor. Use mean_permutation_floor.
+
+    Kept so that v0.1 numbers remain recomputable, and struck through rather
+    than deleted for the same reason a refuted law is. It estimates the floor
+    at half the sample size of the divergence it is subtracted from, which
+    inflates it; see permutation_floor for the measurement.
 
     The divergence two *perfectly aligned* agents would still show, given
     their own stochasticity. No transfer can push measured divergence below

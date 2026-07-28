@@ -24,7 +24,9 @@ from .divergence import (
     agreement_rate,
     jensen_shannon,
     mean_divergence,
+    mean_permutation_floor,
     noise_floor,
+    permutation_floor,
     probe_divergence,
     self_divergence,
     to_distribution,
@@ -56,6 +58,8 @@ __all__ = [
     "agreement_rate",
     "self_divergence",
     "noise_floor",
+    "permutation_floor",
+    "mean_permutation_floor",
     # fidelity
     "DEFAULT_EPSILON",
     "InadmissibleProbeMeasure",
