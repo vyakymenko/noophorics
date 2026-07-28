@@ -48,27 +48,71 @@ SEED = 20260728
 SENDER_ACCURACY_GATE = 0.85
 CEILING_FIDELITY_GATE = 0.70
 
-NARRATIVE_PROMPT = """You have been given a set of eligibility rules. A colleague \
-must decide real cases using these rules, and will see nothing except what you \
-write. Write them a handover brief.
+# Both prompts were written by an independent agent that was blind to the
+# hypotheses, the laws, and which condition the experimenter expected to win.
+# It received only the source spec and the two style descriptions, and was
+# instructed to make the pair equally strong. This replaces an earlier pair
+# written by the experimenter, which on inspection favoured the contrastive
+# condition: it was prescriptive ("Write ONLY the boundaries. No prose.")
+# where the narrative prompt was vague ("Make it read well"). See
+# AMENDMENT-002.md.
 
-Write it as fluent, well-organized explanatory prose. Use clear paragraphs and \
-connective reasoning, the way you would brief a capable new colleague you \
-respect. Make it read well.
+NARRATIVE_PROMPT = """You are handing off your work. A colleague you respect \
+— capable, careful, but with no access to the document you are holding — is \
+about to decide real cases with nothing in front of them but what you write \
+now. You will not be reachable for questions. Whatever you leave out, they \
+will have to guess, and their guesses will become decisions.
 
-Hard limit: {budget} tokens. Write the brief and nothing else."""
+Write the handover brief.
 
-CONTRASTIVE_PROMPT = """You have been given a set of eligibility rules. A colleague \
-must decide real cases using these rules, and will see nothing except what you \
-write. Write them a handover brief.
+Write it as prose: paragraphs with connective reasoning, organized so that \
+each part prepares the reader for the next. Explain how the material fits \
+together, not just what it says — a reader who understands the shape of a \
+system can extend it to a case you never anticipated, while a reader who has \
+only been told facts is stranded the moment reality goes slightly off-script. \
+Where the material has structure (things that interact, things that take \
+precedence, thresholds that decide outcomes), make that structure legible in \
+the writing.
 
-Write ONLY the boundaries: the edge cases, the exclusions, the places where a \
-reasonable person would guess wrong, what does NOT follow from what, and which \
-rules override which. No prose, no introduction, no summary of the general \
-picture. Terse lines. If a fact would not change anyone's verdict on any case, \
-leave it out.
+You have {budget} tokens. That is far less than the material deserves, so \
+triage ruthlessly: prose earns its keep only when the connective tissue is \
+carrying real information. Spend words where a wrong reading is likely and \
+costly; compress or omit where a careful reader would land correctly anyway. \
+Be precise about anything a paraphrase would blur — approximate is worse than \
+absent, because it is believed.
 
-Hard limit: {budget} tokens. Write the brief and nothing else."""
+Do not describe the brief, apologize for its limits, or comment on what you \
+left out. Output the brief itself and nothing else. Hard limit: {budget} \
+tokens."""
+
+CONTRASTIVE_PROMPT = """You are handing off your work. A colleague you respect \
+— capable, careful, but with no access to the document you are holding — is \
+about to decide real cases with nothing in front of them but what you write \
+now. You will not be reachable for questions. They will reason competently \
+from whatever they have; your job is to make sure their competent reasoning \
+does not land in the wrong place.
+
+Write the handover brief as boundaries only.
+
+Include only what a smart reader would get wrong unaided: exact thresholds and \
+which side of the line is in or out; exceptions and their precise scope; what \
+does not follow from what; which provisions override which, and which override \
+everything; cases that look alike but resolve differently; and conditions that \
+are easy to assume are required, or assume are sufficient, when they are not. \
+Where a wrong default is likely, name the wrong reading and correct it.
+
+Omit everything else. No opening summary, no general picture, no restating \
+what holds in the ordinary case, no explanation of purpose or rationale, no \
+transitions. One boundary per line, terse, each line able to stand alone. \
+Assume the reader can handle the easy cases; you are spending the entire \
+budget on the ones that trap them.
+
+You have {budget} tokens. Order lines so the most consequential traps survive \
+if you run short. Be exact — an approximate boundary is worse than a missing \
+one, because it is believed.
+
+Do not describe the brief or comment on what you left out. Output the brief \
+itself and nothing else. Hard limit: {budget} tokens."""
 
 
 # --------------------------------------------------------------------------
