@@ -1,0 +1,219 @@
+"""Tests for the noophoric metrics.
+
+These check the properties the definitions claim, not just that the code runs:
+boundedness of JSD, the meaning of the fidelity endpoints, that antinoophors
+survive unclipped, and that inadmissible probe measures refuse to produce a
+flattering number instead of an error.
+"""
+
+from __future__ import annotations
+
+import math
+import sys
+import unittest
+from os.path import abspath, dirname, join
+
+sys.path.insert(0, dirname(dirname(abspath(__file__))))
+
+from noophorics import (  # noqa: E402
+    InadmissibleProbeMeasure,
+    Measurement,
+    Probe,
+    ProbeMeasure,
+    agreement_rate,
+    capacity_estimate,
+    claimed_agreement,
+    efficiency,
+    jensen_shannon,
+    mean_divergence,
+    noise_floor,
+    phantom_agreement,
+    to_distribution,
+    transfer_fidelity,
+)
+
+
+class TestDivergence(unittest.TestCase):
+    def test_identical_distributions_have_zero_divergence(self):
+        p = {"A": 0.7, "B": 0.3}
+        self.assertAlmostEqual(jensen_shannon(p, dict(p)), 0.0, places=12)
+
+    def test_disjoint_support_is_maximal(self):
+        # Base-2 JSD between fully disjoint point masses is exactly 1 bit.
+        self.assertAlmostEqual(
+            jensen_shannon({"A": 1.0}, {"B": 1.0}), 1.0, places=12
+        )
+
+    def test_divergence_is_symmetric(self):
+        p, q = {"A": 0.9, "B": 0.1}, {"A": 0.2, "C": 0.8}
+        self.assertAlmostEqual(jensen_shannon(p, q), jensen_shannon(q, p), places=12)
+
+    def test_divergence_is_bounded(self):
+        for p, q in [
+            ({"A": 1.0}, {"A": 1.0}),
+            ({"A": 1.0}, {"B": 1.0}),
+            ({"A": 0.5, "B": 0.5}, {"B": 0.5, "C": 0.5}),
+        ]:
+            value = jensen_shannon(p, q)
+            self.assertGreaterEqual(value, 0.0)
+            self.assertLessEqual(value, 1.0)
+
+    def test_empty_sample_set_is_an_error_not_a_uniform_prior(self):
+        with self.assertRaises(ValueError):
+            to_distribution([])
+
+    def test_mean_divergence_rejects_misaligned_probes(self):
+        with self.assertRaises(ValueError):
+            mean_divergence([{"A": 1.0}], [{"A": 1.0}, {"B": 1.0}])
+
+    def test_agreement_rate_uses_modal_answers(self):
+        a = [{"YES": 0.6, "NO": 0.4}, {"YES": 1.0}]
+        b = [{"YES": 0.9, "NO": 0.1}, {"NO": 1.0}]
+        self.assertAlmostEqual(agreement_rate(a, b), 0.5)
+
+
+class TestNoiseFloor(unittest.TestCase):
+    def test_floor_is_the_mean_of_self_divergences(self):
+        self.assertAlmostEqual(noise_floor(0.10, 0.20), 0.15)
+
+    def test_floor_rejects_out_of_range_inputs(self):
+        with self.assertRaises(ValueError):
+            noise_floor(-0.1, 0.2)
+
+
+class TestFidelity(unittest.TestCase):
+    def test_closing_the_gap_to_the_floor_is_unity(self):
+        self.assertAlmostEqual(
+            transfer_fidelity(d_prior=0.60, d_post=0.10, d_floor=0.10), 1.0
+        )
+
+    def test_no_change_is_zero(self):
+        self.assertAlmostEqual(
+            transfer_fidelity(d_prior=0.60, d_post=0.60, d_floor=0.10), 0.0
+        )
+
+    def test_half_the_closable_gap_is_one_half(self):
+        # closable gap = 0.60 - 0.10 = 0.50; post at 0.35 closed 0.25 of it.
+        self.assertAlmostEqual(
+            transfer_fidelity(d_prior=0.60, d_post=0.35, d_floor=0.10), 0.5
+        )
+
+    def test_ignoring_the_floor_understates_fidelity(self):
+        corrected = transfer_fidelity(0.60, 0.15, 0.10)
+        uncorrected = (0.60 - 0.15) / 0.60
+        self.assertGreater(corrected, uncorrected)
+
+    def test_antinoophor_stays_negative(self):
+        # A message that pushed the receiver further away must not be clipped.
+        value = transfer_fidelity(d_prior=0.40, d_post=0.65, d_floor=0.05)
+        self.assertLess(value, 0.0)
+
+    def test_capped_above_one(self):
+        # Post-transfer divergence below the floor is sampling luck.
+        self.assertAlmostEqual(
+            transfer_fidelity(d_prior=0.60, d_post=0.02, d_floor=0.10), 1.0
+        )
+
+    def test_inadmissible_measure_raises_rather_than_flattering(self):
+        with self.assertRaises(InadmissibleProbeMeasure):
+            transfer_fidelity(d_prior=0.11, d_post=0.02, d_floor=0.10)
+
+
+class TestEfficiencyAndPhantom(unittest.TestCase):
+    def test_efficiency_is_fidelity_per_kilotoken(self):
+        self.assertAlmostEqual(efficiency(0.8, cost=400.0), 2.0)
+
+    def test_zero_cost_is_rejected(self):
+        with self.assertRaises(ValueError):
+            efficiency(0.8, cost=0.0)
+
+    def test_shared_illusion_is_positive(self):
+        claimed = claimed_agreement(sender_claim=0.9, receiver_claim=0.8)
+        self.assertAlmostEqual(phantom_agreement(claimed, observed=0.5), 0.35)
+
+    def test_mutual_underconfidence_is_negative(self):
+        claimed = claimed_agreement(0.4, 0.3)
+        self.assertLess(phantom_agreement(claimed, observed=0.7), 0.0)
+
+    def test_claims_must_be_rates(self):
+        with self.assertRaises(ValueError):
+            claimed_agreement(1.4, 0.5)
+
+    def test_capacity_is_the_best_found(self):
+        self.assertAlmostEqual(capacity_estimate([0.2, 0.71, 0.55]), 0.71)
+
+
+class TestProbes(unittest.TestCase):
+    def _measure(self) -> ProbeMeasure:
+        return ProbeMeasure(
+            id="TEST-1",
+            probes=[
+                Probe("p1", "Case one.", ["YES", "NO"], key="YES"),
+                Probe("p2", "Case two.", ["YES", "NO"], key="NO"),
+            ],
+        )
+
+    def test_answer_space_needs_two_options(self):
+        with self.assertRaises(ValueError):
+            Probe("p", "prompt", ["ONLY"])
+
+    def test_key_must_be_in_the_answer_space(self):
+        with self.assertRaises(ValueError):
+            Probe("p", "prompt", ["YES", "NO"], key="MAYBE")
+
+    def test_content_hash_is_stable_across_roundtrip(self):
+        measure = self._measure()
+        restored = ProbeMeasure.from_dict(measure.to_dict())
+        self.assertEqual(measure.content_hash, restored.content_hash)
+
+    def test_content_hash_changes_when_a_probe_changes(self):
+        before = self._measure().content_hash
+        after = ProbeMeasure(
+            id="TEST-1",
+            probes=[
+                Probe("p1", "Case one, amended.", ["YES", "NO"], key="YES"),
+                Probe("p2", "Case two.", ["YES", "NO"], key="NO"),
+            ],
+        ).content_hash
+        self.assertNotEqual(before, after)
+
+    def test_accuracy_against_the_key(self):
+        self.assertAlmostEqual(self._measure().accuracy(["YES", "YES"]), 0.5)
+
+
+class TestMeasurement(unittest.TestCase):
+    def _m(self, **overrides) -> Measurement:
+        base = dict(
+            probe_measure_id="TEST-1@abc123",
+            samples_per_probe=5,
+            sender="claude-opus-5/spec",
+            receiver="claude-opus-5/blank",
+            d_prior=0.60,
+            d_post=0.20,
+            d_floor=0.10,
+            cost_tokens=350.0,
+            cost_unit="tokens",
+            agreement_observed=0.62,
+            claim_sender=0.85,
+            claim_receiver=0.80,
+            condition="narrative",
+        )
+        base.update(overrides)
+        return Measurement(**base)
+
+    def test_derived_quantities(self):
+        m = self._m()
+        self.assertAlmostEqual(m.fidelity, 0.8)
+        self.assertAlmostEqual(m.efficiency, 0.8 * 1000 / 350)
+        self.assertAlmostEqual(m.phantom, 0.825 - 0.62)
+        self.assertFalse(m.is_antinoophor)
+
+    def test_phantom_is_none_without_claims(self):
+        self.assertIsNone(self._m(claim_sender=None, claim_receiver=None).phantom)
+
+    def test_summary_is_printable(self):
+        self.assertIn("F*=", self._m().summary())
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

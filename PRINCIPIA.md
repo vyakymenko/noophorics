@@ -1,0 +1,247 @@
+# PRINCIPIA NOOPHORICA
+
+*The founding document of noophorics — the quantitative science of transferring
+understanding across minds that do not share a substrate.*
+
+Version 0.1 — 2026-07-28
+
+---
+
+## 0. The gap
+
+Two minds are given the same problem. One of them explains it to the other.
+Both agree the explanation landed.
+
+Nobody measures what was lost.
+
+This happens millions of times a day: a person specifies a task to a model, a
+model hands work off to another model, a session compacts itself into a summary
+that a later session inherits. Every one of these is a transfer of
+understanding across a boundary between systems whose internal models of the
+world do not match. Every one of them is lossy. And there is no theory that
+says *how* lossy, *what* was lost, or *whether a better encoding existed*.
+
+Noophorics is the attempt to build that theory.
+
+---
+
+## 1. Why the existing sciences do not cover this
+
+**Information theory** (Shannon, 1948) measures the reduction of uncertainty
+about a message, assuming sender and receiver share a codebook. Our entire
+problem is that the codebooks differ, are private, and are partially
+reconstructed on the fly. Shannon's channel capacity is defined over symbols;
+we need a capacity defined over *reconstructed dispositions*.
+
+**Pragmatics and common-ground theory** (Grice, 1975; Clark, 1996; Sperber &
+Wilson, 1986) describe the phenomenon well and measure it barely. They give us
+vocabulary — *common ground*, *implicature*, *relevance* — and no units.
+
+**Rational Speech Acts** (Frank & Goodman, 2012) formalizes recursive
+listener-speaker reasoning, but as a model of a dialogue, not as a theory of
+the channel between two arbitrary architectures.
+
+**Knowledge distillation** transfers behavior from a teacher network to a
+student, and measures success as task accuracy. It is one-directional, requires
+a shared task, and does not ask what an *optimal* transfer would have looked
+like.
+
+**Alignment research** asks whether a system's dispositions are the ones we
+want. Noophorics asks a prior, more mechanical question: when we try to move a
+disposition across a boundary, how much of it arrives?
+
+The gap is real: **there is no quantitative theory of communication between
+systems with non-identical priors, where success is measured as convergence of
+behavior rather than recovery of symbols.**
+
+---
+
+## 2. Why the science is possible now and was not before
+
+Every science begins with an instrument.
+
+The telescope made astronomy. The microscope made microbiology. The
+oscilloscope made electronics an empirical discipline rather than a set of
+maxims.
+
+The science of communication never got its instrument, because it could never
+open the receiver. You could ask a listener what they understood, but the
+report is not the state; people are unreliable narrators of their own
+comprehension, and you cannot run a thousand controlled trials on one human
+mind.
+
+Language models change this. For the first time, **the receiver is
+instrumentable**: we can resample its answers to build an empirical
+distribution over its dispositions, probe it on arbitrary decisions, ablate its
+input, and repeat the whole procedure ten thousand times at a cost measured in
+cents. And we can do the same to the sender.
+
+That is the instrument. Noophorics is what you build with it.
+
+---
+
+## 3. The move that makes it measurable
+
+We refuse to define understanding as a state, because states are private and
+not comparable across architectures. We define it **operationally, through
+behavior**:
+
+> **B understands what A understands, with respect to a domain, to the extent
+> that B would make the same decisions A would make, over that domain.**
+
+This is not a philosophical claim about what understanding *is*. It is a
+measurement convention — the same kind of move as defining temperature by the
+expansion of mercury rather than by the felt sensation of heat. It buys us
+everything: comparability across substrates, repeatability, falsifiability, and
+a number.
+
+It also forces a discipline that turns out to be the most important structural
+idea in the field:
+
+> **There is no such thing as understanding in general. There is only
+> understanding relative to a probe measure.**
+
+A probe measure `P` is a distribution over decidable decisions. Fixing `P` is
+the noophoric equivalent of fixing a frame of reference in mechanics. Two
+people arguing about whether an AI "really understood" the brief are, nine
+times out of ten, holding different `P` and not saying so.
+
+---
+
+## 4. The four axioms
+
+**A1 — Behavioral ground truth.**
+Understanding is measured by divergence of decisions over a probe measure, not
+by symbol recovery, self-report, or surface similarity of text.
+
+**A2 — Frame relativity.**
+Every noophoric quantity is defined relative to a stated probe measure `P`. A
+fidelity number reported without its `P` is meaningless, in the same way a
+velocity reported without a frame is meaningless.
+
+**A3 — Nonzero residual.**
+Between any two systems with non-identical priors there exists a set of
+dispositions that cannot be transferred at any message length. Channel capacity
+between minds is strictly less than 1 in the general case.
+
+A3 is the quantitative form of Quine's indeterminacy of translation. Quine
+argued from the armchair that no amount of behavioral evidence fixes a unique
+translation. We are claiming the same thing is *measurable*: the residual has a
+size, and the size depends on the overlap of the two priors.
+
+**A4 — Belief is not evidence.**
+The confidence of the parties that a transfer succeeded is an independent
+observable, not a proxy for whether it did. The difference between the two is
+itself a quantity worth measuring — and, we suspect, the field's most
+important pathology.
+
+---
+
+## 5. The central pathology: phantom agreement
+
+Both parties believe understanding occurred. Probes reveal it did not.
+
+We name this **phantom agreement**, Φ, and we claim it is to noophorics what
+dark matter is to cosmology: the thing everyone had felt, nobody had weighed,
+and which turns out to dominate the system.
+
+Φ is dangerous precisely because it is invisible from inside. Neither party has
+any signal that anything went wrong. The sender has discharged their intent;
+the receiver has a coherent, confident, wrong model; and the error surfaces
+only downstream, in an action nobody traces back to the conversation.
+
+Our sharpest conjecture — [L5](theory/laws.md#l5) — is that **fluency inflates
+Φ faster than it raises fidelity**. Well-formed prose is a stronger signal of
+successful transfer than it is a cause of one. If true, this is a direct
+indictment of systems that generate fluent text, including the one writing this
+document.
+
+---
+
+## 6. What follows if this is right
+
+The engineering consequences are not speculative; they are the reason to build
+the field rather than write the essay.
+
+- **Handoffs between agents** are currently optimized for completeness. They
+  should be optimized for η — fidelity per token. These are different targets
+  and we expect them to disagree sharply.
+- **Context compaction** currently reports compression ratio. It should report
+  a guarantee: *retained F\* = 0.9 with respect to probe measure P*. A
+  compression ratio without a fidelity bound is a statement about storage, not
+  about meaning.
+- **Task specification** — how a human should encode intent for a machine — is
+  currently folklore. [L6](theory/laws.md#l6) predicts contrastive encodings
+  (boundaries, exclusions, the cases where we would diverge) beat declarative
+  ones at equal cost. That is a testable, immediately actionable claim.
+- **Phantom-agreement detection in production**: cheap probes fired after a
+  handoff, catching divergence before the agent acts on it.
+- **Multi-agent topology** should follow measured channel capacities, not
+  organizational metaphor.
+
+---
+
+## 7. What would falsify the program
+
+A science that cannot lose is not a science. Noophorics is wrong if:
+
+1. **F\* is not stable under probe resampling.** If independently drawn probe
+   measures over the same nominal domain give uncorrelated fidelity scores, the
+   quantity is noise and A2 has not saved us.
+2. **Φ is consistently ≈ 0.** If parties' confidence tracks measured fidelity,
+   the central pathology does not exist and the field loses its motivating
+   phenomenon.
+3. **K ≈ 1 in practice.** If sufficiently long messages reliably close the gap
+   between arbitrary systems, A3 is false and the interesting structure
+   disappears.
+4. **No encoding beats any other at equal cost.** If η is invariant to message
+   form, there is nothing to engineer and the field is descriptive at best.
+
+We consider (2) the most likely to be wrong in our favor and (1) the most
+dangerous. [E-001](experiments/E-001-fluency-cost/) attacks (2) and (4)
+directly, and is designed so that a null result is publishable and damaging.
+
+---
+
+## 8. Method
+
+Noophorics is an experimental science or it is nothing.
+
+- Every experiment **pre-registers** its hypothesis in a committed file before
+  any data exists. The git history is the pre-registration record.
+- Every claim is stated with the probe measure it was measured against.
+- Every fidelity number is corrected for the **noise floor** — the irreducible
+  divergence caused by the parties' own stochasticity. An uncorrected fidelity
+  number is not wrong, it is unfinished.
+- Null results are committed with the same weight as positive ones. A
+  hypothesis that dies in `theory/laws.md` gets struck through, not deleted.
+- Where a bound is claimed, an adversarial attempt to violate it is expected in
+  the same commit.
+
+---
+
+## 9. The name
+
+*Noophorics*, from νόος (nous, mind) + φορά (phora, carrying): the carrying of
+mind across a gap. A single act of transfer is a **noophor**. A transfer that
+leaves the receiver further from the sender than before is an **antinoophor** —
+and yes, we have measured those.
+
+We acknowledge the *noo-* root's association with Vernadsky's and Teilhard's
+noosphere and disclaim any inheritance from it. Nothing in this program is
+mystical. Everything in it is supposed to have a number attached, or be deleted.
+
+---
+
+## 10. Standing
+
+This document is a research program, not a result. Version 0.1 contains one
+falsifiable experiment, six conjectural laws, and no confirmed findings. Its
+claims should be read as bets, and its confidence calibrated accordingly.
+
+The correct response to it is not agreement. It is a probe.
+
+---
+
+*Text of this document is licensed CC BY 4.0. See [CONTRIBUTING.md](CONTRIBUTING.md)
+for how to add a law, kill one, or run an experiment.*

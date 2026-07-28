@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "noophorics"
+version = "0.1.0"
+description = "Reference implementation of the noophoric metrics: measuring the transfer of understanding across heterogeneous minds."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+keywords = [
+    "noophorics",
+    "transfer-fidelity",
+    "phantom-agreement",
+    "agent-handoff",
+    "context-compaction",
+    "multi-agent",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# The core metrics deliberately depend on nothing but the standard library:
+# a measurement instrument should be auditable without a dependency tree.
+dependencies = []
+
+[project.optional-dependencies]
+# Only the live experiment runners need an API client.
+experiments = ["anthropic>=0.70"]
+
+[project.urls]
+Homepage = "https://github.com/vyakymenko/noophorics"
+Source = "https://github.com/vyakymenko/noophorics"
+Issues = "https://github.com/vyakymenko/noophorics/issues"
+
+[tool.setuptools]
+package-dir = { "" = "metrics" }
+
+[tool.setuptools.packages.find]
+where = ["metrics"]
+include = ["noophorics*"]

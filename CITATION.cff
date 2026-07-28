@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: "Noophorics: a quantitative science of transferring understanding across heterogeneous minds"
+message: "If you use this work, please cite it as below."
+type: software
+version: 0.1.0
+date-released: 2026-07-28
+license: Apache-2.0
+repository-code: "https://github.com/vyakymenko/noophorics"
+abstract: >-
+  Noophorics is a research program that measures the transfer of understanding
+  between systems with non-identical priors — human to model, model to model,
+  and a session to its own compacted successor. It replaces symbol recovery
+  with behavioral convergence as the criterion of successful transfer, which
+  yields measurable quantities: transfer fidelity relative to a stated probe
+  measure, noophoric efficiency, channel capacity between minds, and phantom
+  agreement — the gap between the parties' confidence that understanding
+  occurred and the evidence that it did. The repository contains the axiomatic
+  foundation, six falsifiable conjectural laws, ten open problems, a
+  dependency-free reference implementation of the metrics, and pre-registered
+  experiments.
+keywords:
+  - noophorics
+  - transfer fidelity
+  - phantom agreement
+  - probe measure
+  - agent handoff
+  - context compaction
+  - multi-agent systems
+  - indeterminacy of translation
+authors:
+  - name: "The Noophorics Project"
+    website: "https://github.com/vyakymenko/noophorics"
