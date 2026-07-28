@@ -208,11 +208,53 @@ class _LiveReceiver(object):
 # core
 
 
-def collect(agent, measure: ProbeMeasure, n_samples: int, label: str, verbose: bool):
+class SampleCache(object):
+    """On-disk cache of raw draws, so a failed run does not discard its calls.
+
+    Keyed by (condition label, probe id). Draw order is preserved verbatim --
+    the halves-split floor estimate depends on it, so the cache stores sample
+    lists, never distributions.
+    """
+
+    def __init__(self, path: Optional[str]):
+        self.path = path
+        self._data: Dict[str, Dict[str, List[str]]] = {}
+        if path and os.path.exists(path):
+            with open(path, "r", encoding="utf-8") as fh:
+                self._data = json.load(fh)
+
+    def get(self, label: str, probe_id: str, n: int) -> Optional[List[str]]:
+        cached = self._data.get(label, {}).get(probe_id)
+        if cached is not None and len(cached) == n:
+            return list(cached)
+        return None
+
+    def put(self, label: str, probe_id: str, samples: Sequence[str]) -> None:
+        self._data.setdefault(label, {})[probe_id] = list(samples)
+        if self.path:
+            with open(self.path, "w", encoding="utf-8") as fh:
+                json.dump(self._data, fh)
+
+    def count(self) -> int:
+        return sum(len(v) for v in self._data.values())
+
+
+def collect(
+    agent,
+    measure: ProbeMeasure,
+    n_samples: int,
+    label: str,
+    verbose: bool,
+    cache: Optional["SampleCache"] = None,
+):
     """Sample every probe. Returns (full dists, half-A dists, half-B dists, modes)."""
     full, half_a, half_b, modes = [], [], [], []
     for index, probe in enumerate(measure, 1):
-        samples = agent.answer_samples(probe, n_samples)
+        samples = cache.get(label, probe.id, n_samples) if cache else None
+        if samples is None:
+            samples = agent.answer_samples(probe, n_samples)
+            if cache:
+                cache.put(label, probe.id, samples)
         a, b = split_halves(samples)
         full.append(to_distribution(samples))
         half_a.append(to_distribution(a))
@@ -241,21 +283,55 @@ def run(args) -> Dict[str, Any]:
     print("models        : sender=%s receiver=%s" % (args.sender_model, args.receiver_model))
     print()
 
-    # --- sender ----------------------------------------------------------
+    cache = SampleCache(args.cache)
+    if cache.count():
+        print("resuming from cache: %s (%d conditions already collected)\n"
+              % (args.cache, cache.count()))
+
     if args.dry_run:
         sender = _StubAgent("stub-sender", accuracy=0.93, claim=0.88, seed=1)
     else:
         sender = _LiveSender(spec, args.sender_model)
 
-    s_full, s_a, s_b, s_modes = collect(sender, measure, n, "sender", args.verbose)
+    # --- messages FIRST ---------------------------------------------------
+    # Composition is the step most likely to fail outright (a safety
+    # classifier can decline it, as the KESTREL-34 domain did). Doing it
+    # before the ~200-call probe sweep means such a failure costs two calls
+    # rather than discarding the whole sweep. See AMENDMENT-001.md.
+    messages = {}
+    for label, template in (
+        ("NARRATIVE", NARRATIVE_PROMPT), ("CONTRASTIVE", CONTRASTIVE_PROMPT)
+    ):
+        try:
+            messages[label] = sender.compose(
+                template.format(budget=MESSAGE_BUDGET_TOKENS)
+            )
+        except RuntimeError as exc:
+            # VOID GATE. A condition whose message failed to generate must
+            # never contribute a zero-fidelity data point: an empty message
+            # scores F* ~ 0 and would read as a large, clean, significant
+            # effect against whichever condition was blocked. Refusal is
+            # missing data, not evidence. See AMENDMENT-001.md and
+            # journal/2026-07-28-first-live-run-void.md.
+            return {
+                "experiment": "E-001",
+                "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "dry_run": bool(args.dry_run),
+                "probe_measure": measure.qualified_id,
+                "void": True,
+                "void_reason": "message generation failed for condition %s: %s"
+                               % (label, exc),
+                "conditions_composed": sorted(messages),
+            }
+    print("  composed NARRATIVE (%d chars) and CONTRASTIVE (%d chars)\n"
+          % (len(messages["NARRATIVE"]), len(messages["CONTRASTIVE"])))
+
+    # --- sender probes ----------------------------------------------------
+    s_full, s_a, s_b, s_modes = collect(
+        sender, measure, n, "sender", args.verbose, cache
+    )
     sender_accuracy = measure.accuracy(s_modes)
     d_self_sender = mean_divergence(s_a, s_b, measure.weights)
-
-    # --- messages --------------------------------------------------------
-    messages = {
-        "NARRATIVE": sender.compose(NARRATIVE_PROMPT.format(budget=MESSAGE_BUDGET_TOKENS)),
-        "CONTRASTIVE": sender.compose(CONTRASTIVE_PROMPT.format(budget=MESSAGE_BUDGET_TOKENS)),
-    }
 
     # --- receivers -------------------------------------------------------
     contexts = {
@@ -275,7 +351,9 @@ def run(args) -> Dict[str, Any]:
             )
         else:
             receivers[label] = _LiveReceiver(label.lower(), context, args.receiver_model)
-        collected[label] = collect(receivers[label], measure, n, label.lower(), args.verbose)
+        collected[label] = collect(
+            receivers[label], measure, n, label.lower(), args.verbose, cache
+        )
 
     costs = {
         label: receivers["PRIOR"].cost_of(messages[label]) for label in messages
@@ -430,6 +508,8 @@ def main() -> int:
     parser.add_argument("--receiver-model", default=DEFAULT_MODEL)
     parser.add_argument("--epsilon", type=float, default=0.02)
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--cache", default=os.path.join(HERE, ".sample-cache.json"),
+                        help="resumable raw-sample cache; delete it to force a fresh run")
     parser.add_argument("--out", default=os.path.join(HERE, "results"))
     args = parser.parse_args()
 
@@ -444,7 +524,10 @@ def main() -> int:
         json.dump(results, fh, indent=2, sort_keys=True)
 
     print()
-    if results.get("aborted"):
+    if results.get("void"):
+        print("VOID: %s" % results["void_reason"])
+        print("No fidelity was measured. This run bears on no hypothesis.")
+    elif results.get("aborted"):
         print("ABORTED: %s" % results["aborted"])
     else:
         for name, verdict in results["hypotheses"].items():

@@ -1,245 +1,490 @@
 {
-  "id": "KESTREL-34",
-  "domain": "fictional-eligibility-rules",
-  "description": "34 decidable eligibility cases over the Kestrel Fellowship rules. Each case is resolvable from source-spec.md alone. Probes tagged with the rules they discriminate; boundary and interaction cases are the ones expected to separate narrative from contrastive encodings.",
+  "id": "MERIDIAN-34",
+  "domain": "fictional-submission-handling-rules",
+  "description": "34 decidable submission cases over the Meridian Review handling rules. Structurally identical to the withdrawn KESTREL-34 measure, rule for rule and key for key; only the semantics changed, after KESTREL-34 was found to trip a cyber-category safety classifier and make the sender unable to compose a brief. See AMENDMENT-001.md.",
   "probes": [
     {
-      "id": "K01",
-      "prompt": "Solo application. Applicant is 24 on the deadline, holds a completed degree, has no institutional affiliation, has never received a Kestrel award, requests 12,000 units, and has no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["baseline"]
+      "id": "M01",
+      "prompt": "Solo submission. Manuscript is 24 pages, uses the official template, has never been presented at a Tier-1 venue, was never accepted in a prior Meridian round, carries 12 figures, and has no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "baseline"
+      ]
     },
     {
-      "id": "K02",
-      "prompt": "Solo application. Applicant turns 22 on 15 March 2026, holds a completed degree, no affiliation, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R1", "boundary"]
+      "id": "M02",
+      "prompt": "Solo submission. Manuscript is 21 pages, uses the official template, no venue presentation, carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R1",
+        "boundary"
+      ]
     },
     {
-      "id": "K03",
-      "prompt": "Solo application. Applicant is 30, holds no degree but has 4 years of documented practice in the field, no affiliation, requests 15,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R2"]
+      "id": "M03",
+      "prompt": "Solo submission. Manuscript is 30 pages, does not use the official template but carries 4 years of documented revision history, no venue presentation, 15 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R2"
+      ]
     },
     {
-      "id": "K04",
-      "prompt": "Solo application. Applicant is 30, holds no degree, has 2 years of documented practice, does not reside in Region D, no affiliation, requests 15,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R2", "boundary"]
+      "id": "M04",
+      "prompt": "Solo submission. Manuscript is 30 pages, does not use the official template, carries 2 years of documented revision history, is not in Track D, no venue presentation, 15 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R2",
+        "boundary"
+      ]
     },
     {
-      "id": "K05",
-      "prompt": "Solo application. Applicant is 30, holds no degree, has 2 years of documented practice, primary residence is in Region D, supplies 2 letters of support from prior Kestrel recipients, no affiliation, requests 15,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R6"]
+      "id": "M05",
+      "prompt": "Solo submission. Manuscript is 30 pages, does not use the official template, carries 2 years of revision history, is submitted to Track D with 2 endorsements, no venue presentation, 15 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R6"
+      ]
     },
     {
-      "id": "K06",
-      "prompt": "Solo application. Applicant is 30, holds no degree, has no documented practice, primary residence is in Region D, supplies 1 letter of support from a prior Kestrel recipient, no affiliation, requests 15,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R6", "boundary"]
+      "id": "M06",
+      "prompt": "Solo submission. Manuscript is 30 pages, does not use the official template, carries no revision history, is submitted to Track D with 1 endorsement, no venue presentation, 15 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R6",
+        "boundary"
+      ]
     },
     {
-      "id": "K07",
-      "prompt": "Solo application. Applicant is 35, holds a completed degree, is currently affiliated with a Tier-1 institution, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R3"]
+      "id": "M07",
+      "prompt": "Solo submission. Manuscript is 35 pages, uses the official template, was presented at a Tier-1 venue this month, carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R3"
+      ]
     },
     {
-      "id": "K08",
-      "prompt": "Solo application. Applicant is 35, holds a completed degree, had a Tier-1 affiliation that ended 24 months before the deadline, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R3"]
+      "id": "M08",
+      "prompt": "Solo submission. Manuscript is 35 pages, uses the official template, was presented at a Tier-1 venue 24 months before the deadline, carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R3"
+      ]
     },
     {
-      "id": "K09",
-      "prompt": "Solo application. Applicant is 35, holds a completed degree, had a Tier-1 affiliation that ended 12 months before the deadline, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R3"]
+      "id": "M09",
+      "prompt": "Solo submission. Manuscript is 35 pages, uses the official template, was presented at a Tier-1 venue 12 months before the deadline, carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R3"
+      ]
     },
     {
-      "id": "K10",
-      "prompt": "Solo application. Applicant is 35, holds a completed degree, had a Tier-1 affiliation that ended exactly 18 months before the deadline, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R3", "boundary"]
+      "id": "M10",
+      "prompt": "Solo submission. Manuscript is 35 pages, uses the official template, was presented at a Tier-1 venue exactly 18 months before the deadline, carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R3",
+        "boundary"
+      ]
     },
     {
-      "id": "K11",
-      "prompt": "Solo application. Applicant is 40, holds a completed degree, received a Kestrel award 6 years ago, no affiliation, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R4"]
+      "id": "M11",
+      "prompt": "Solo submission. Manuscript is 40 pages, uses the official template, was accepted in a Meridian round 6 years ago, no venue presentation, 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R4"
+      ]
     },
     {
-      "id": "K12",
-      "prompt": "Solo application. Applicant is 40, holds a completed degree, received a Kestrel award 4 years ago, no affiliation, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R4"]
+      "id": "M12",
+      "prompt": "Solo submission. Manuscript is 40 pages, uses the official template, was accepted in a Meridian round 4 years ago, no venue presentation, 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R4"
+      ]
     },
     {
-      "id": "K13",
-      "prompt": "Solo application. Applicant is 40, holds a completed degree, received a Kestrel award exactly 5 years ago, no affiliation, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R4", "boundary"]
+      "id": "M13",
+      "prompt": "Solo submission. Manuscript is 40 pages, uses the official template, was accepted in a Meridian round exactly 5 years ago, no venue presentation, 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R4",
+        "boundary"
+      ]
     },
     {
-      "id": "K14",
-      "prompt": "Joint application by 2 applicants. Both are 28 and both hold completed degrees. One is currently affiliated with a Tier-1 institution; the other has never been affiliated. Combined request is 60,000 units. Neither has an ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R5", "R3", "R8", "interaction"]
+      "id": "M14",
+      "prompt": "Paired submission of 2 manuscripts. Both are 28 pages and both use the official template. One was presented at a Tier-1 venue this month; the other has never been presented. Combined figure count is 60. Neither has a retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R5",
+        "R3",
+        "R8",
+        "interaction"
+      ]
     },
     {
-      "id": "K15",
-      "prompt": "Joint application by 2 applicants. Both are 28. One holds a completed degree; the other holds no degree, has 1 year of documented practice, and does not reside in Region D. Combined request is 50,000 units. Neither has an ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R5", "R2", "interaction"]
+      "id": "M15",
+      "prompt": "Paired submission of 2 manuscripts. Both are 28 pages. One uses the official template; the other does not, carries 1 year of revision history, and is not in Track D. Combined figure count is 50. Neither has a retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R5",
+        "R2",
+        "interaction"
+      ]
     },
     {
-      "id": "K16",
-      "prompt": "Joint application by 3 applicants. All are 30, all hold completed degrees, none has any institutional affiliation. Combined request is 60,000 units. None has an ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R5", "boundary"]
+      "id": "M16",
+      "prompt": "Paired submission of 3 manuscripts. All are 30 pages, all use the official template, none has been presented at a venue. Combined figure count is 60. None has a retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R5",
+        "boundary"
+      ]
     },
     {
-      "id": "K17",
-      "prompt": "Solo application. Applicant is 30, holds a completed degree, no affiliation, requests 60,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R8", "R9"]
+      "id": "M17",
+      "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries 60 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R8",
+        "R9"
+      ]
     },
     {
-      "id": "K18",
-      "prompt": "Solo application. Applicant is 30, holds a completed degree, no affiliation, requests 5,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ADJUSTED",
-      "tags": ["R9"]
+      "id": "M18",
+      "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries 5 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "PADDED",
+      "tags": [
+        "R9"
+      ]
     },
     {
-      "id": "K19",
-      "prompt": "Joint application by 2 applicants. Both are 30, both hold completed degrees, neither has any affiliation. Combined request is 5,000 units. Neither has an ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ADJUSTED",
-      "tags": ["R9", "R8", "interaction"]
+      "id": "M19",
+      "prompt": "Paired submission of 2 manuscripts. Both are 30 pages, both use the official template, neither has been presented at a venue. Combined figure count is 5. Neither has a retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "PADDED",
+      "tags": [
+        "R9",
+        "R8",
+        "interaction"
+      ]
     },
     {
-      "id": "K20",
-      "prompt": "Joint application by 2 applicants. Both are 30, both hold completed degrees, neither has any affiliation. Combined request is 75,000 units. Neither has an ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R8", "R9", "boundary"]
+      "id": "M20",
+      "prompt": "Paired submission of 2 manuscripts. Both are 30 pages, both use the official template, neither has been presented at a venue. Combined figure count is 75. Neither has a retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R8",
+        "R9",
+        "boundary"
+      ]
     },
     {
-      "id": "K21",
-      "prompt": "Solo application. Applicant is 30, holds a completed degree, no affiliation, requests 20,000 units, and has an open ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R7", "override"]
+      "id": "M21",
+      "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries 20 figures, and has an open retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R7",
+        "override"
+      ]
     },
     {
-      "id": "K22",
-      "prompt": "Solo application. Applicant resides in Region D and supplies 2 letters of support from prior Kestrel recipients. Applicant is 30, holds no degree, has no documented practice, no affiliation, requests 20,000 units, and has an open ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R7", "R6", "override"]
+      "id": "M22",
+      "prompt": "Solo submission. Manuscript is submitted to Track D with 2 endorsements. It is 30 pages, does not use the official template, carries no revision history, has no venue presentation, carries 20 figures, and has an open retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R7",
+        "R6",
+        "override"
+      ]
     },
     {
-      "id": "K23",
-      "prompt": "Solo application. Applicant is 30, holds a completed degree, no affiliation, requests 4,000 units, and has an open ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R7", "R9", "override"]
+      "id": "M23",
+      "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries 4 figures, and has an open retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R7",
+        "R9",
+        "override"
+      ]
     },
     {
-      "id": "K24",
-      "prompt": "Solo application. Applicant is 28, holds a completed degree, withdrew an application in the previous cycle and has never received an award, has never been affiliated with a Tier-1 institution, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R10", "R4"]
+      "id": "M24",
+      "prompt": "Solo submission. Manuscript is 28 pages, uses the official template, was withdrawn in the prior Meridian round and has never been accepted, has never been presented at a Tier-1 venue, carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R10",
+        "R4"
+      ]
     },
     {
-      "id": "K25",
-      "prompt": "Solo application. Applicant is 28, holds a completed degree, withdrew an application in the previous cycle 10 months before this deadline, and had a Tier-1 affiliation that actually ended 30 months before this deadline. Requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R10", "R3", "interaction"]
+      "id": "M25",
+      "prompt": "Solo submission. Manuscript is 28 pages, uses the official template, was withdrawn in the prior round 10 months before this deadline, and was presented at a Tier-1 venue 30 months before this deadline. Carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R10",
+        "R3",
+        "interaction"
+      ]
     },
     {
-      "id": "K26",
-      "prompt": "Solo application. Applicant is 28, holds a completed degree, withdrew an application in the previous cycle 24 months before this deadline, and had a Tier-1 affiliation that actually ended 30 months before this deadline. Requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R10", "R3", "interaction"]
+      "id": "M26",
+      "prompt": "Solo submission. Manuscript is 28 pages, uses the official template, was withdrawn in the prior round 24 months before this deadline, and was presented at a Tier-1 venue 30 months before this deadline. Carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R10",
+        "R3",
+        "interaction"
+      ]
     },
     {
-      "id": "K27",
-      "prompt": "Solo application. Applicant turns 22 exactly on 1 March 2026, holds a completed degree, no affiliation, requests 8,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R1", "R8", "boundary"]
+      "id": "M27",
+      "prompt": "Solo submission. Manuscript is exactly 22 pages, uses the official template, no venue presentation, carries exactly 8 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R1",
+        "R8",
+        "boundary"
+      ]
     },
     {
-      "id": "K28",
-      "prompt": "Solo application. Applicant is 30, holds a completed degree, no affiliation, requests 45,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R8", "boundary"]
+      "id": "M28",
+      "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries exactly 45 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R8",
+        "boundary"
+      ]
     },
     {
-      "id": "K29",
-      "prompt": "Solo application. Applicant is 20, primary residence is in Region D, supplies 2 letters of support from prior Kestrel recipients, holds no degree, no affiliation, requests 20,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R6", "R1", "scope"]
+      "id": "M29",
+      "prompt": "Solo submission. Manuscript is 20 pages, is submitted to Track D with 2 endorsements, does not use the official template, has no venue presentation, carries 20 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R6",
+        "R1",
+        "scope"
+      ]
     },
     {
-      "id": "K30",
-      "prompt": "Joint application by 2 applicants. Both are 30 and both hold completed degrees. Both are currently affiliated with Tier-1 institutions. Combined request is 40,000 units. Neither has an ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R5", "R3", "interaction"]
+      "id": "M30",
+      "prompt": "Paired submission of 2 manuscripts. Both are 30 pages and both use the official template. Both were presented at Tier-1 venues this month. Combined figure count is 40. Neither has a retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R5",
+        "R3",
+        "interaction"
+      ]
     },
     {
-      "id": "K31",
-      "prompt": "Solo application. Applicant is 26, holds a completed degree, had a Tier-1 affiliation that ended 19 months before the deadline, requests 30,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R3", "boundary"]
+      "id": "M31",
+      "prompt": "Solo submission. Manuscript is 26 pages, uses the official template, was presented at a Tier-1 venue 19 months before the deadline, carries 30 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R3",
+        "boundary"
+      ]
     },
     {
-      "id": "K32",
-      "prompt": "Solo application. Applicant is 45, holds no degree but has 10 years of documented practice, received a Kestrel award 7 years ago, no affiliation, requests 7,500 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ADJUSTED",
-      "tags": ["R9", "R2", "R4", "interaction"]
+      "id": "M32",
+      "prompt": "Solo submission. Manuscript is 45 pages, does not use the official template but carries 10 years of documented revision history, was accepted in a Meridian round 7 years ago, no venue presentation, carries 7 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "PADDED",
+      "tags": [
+        "R9",
+        "R2",
+        "R4",
+        "interaction"
+      ]
     },
     {
-      "id": "K33",
-      "prompt": "Joint application by 2 applicants. Both are 25, both have primary residence in Region D, neither holds a degree, and each supplies 2 letters of support from prior Kestrel recipients. Neither has any institutional affiliation. Combined request is 20,000 units. Neither has an ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "ELIGIBLE",
-      "tags": ["R5", "R6", "interaction"]
+      "id": "M33",
+      "prompt": "Paired submission of 2 manuscripts. Both are 25 pages, both are submitted to Track D, neither uses the official template, and each carries 2 endorsements. Neither has been presented at a venue. Combined figure count is 20. Neither has a retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "HANDLED",
+      "tags": [
+        "R5",
+        "R6",
+        "interaction"
+      ]
     },
     {
-      "id": "K34",
-      "prompt": "Solo application. Applicant is 33, holds a completed degree, received a Kestrel award 3 years ago, no affiliation, requests 6,000 units, no ethics finding. Verdict?",
-      "options": ["ELIGIBLE", "INELIGIBLE", "ADJUSTED"],
-      "key": "INELIGIBLE",
-      "tags": ["R4", "R9", "interaction"]
+      "id": "M34",
+      "prompt": "Solo submission. Manuscript is 33 pages, uses the official template, was accepted in a Meridian round 3 years ago, no venue presentation, carries 6 figures, no retraction notice. Verdict?",
+      "options": [
+        "HANDLED",
+        "RETURNED",
+        "PADDED"
+      ],
+      "key": "RETURNED",
+      "tags": [
+        "R4",
+        "R9",
+        "interaction"
+      ]
     }
   ]
 }

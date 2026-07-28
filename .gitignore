@@ -22,3 +22,6 @@ htmlcov/
 .idea/
 .vscode/
 *.swp
+
+# Resumable raw-sample cache: intermediate, superseded by the results JSON.
+.sample-cache.json
