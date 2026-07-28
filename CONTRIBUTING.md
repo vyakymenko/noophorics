@@ -103,6 +103,51 @@ Runners must:
 
 ---
 
+## Automation: what may be looped
+
+Experiments here are reproducible by construction — probe measures are data,
+runners are seeded, laws carry kill conditions — so it is tempting to put the
+whole cycle on a loop and let it run. Half of that cycle may be automated. The
+other half may not.
+
+| Automate freely | Never automate |
+|---|---|
+| Running an already-pre-registered protocol | Generating new hypotheses |
+| Replication sweeps across model pairs, seeds, probe subsets | Promoting a law to `supported` |
+| Collecting data and committing raw results | Writing `FINDINGS.md` without human review |
+| Regenerating derived tables from committed results | Editing a pre-registration |
+
+The line is **execution versus interpretation**, and it is not a matter of
+taste.
+
+An agent that generates a hypothesis, designs the test, writes the prompts,
+runs it, and rules on whether it passed is a machine for confirming its own
+priors at speed. It does not violate the pre-registration norm — every
+hypothesis is still committed before its data — which is exactly why the norm
+alone does not protect against it. The commit order stays honest while the
+independence that made the order meaningful quietly disappears.
+
+There is a second reason, specific to this field. A long-running loop is a
+chain of **self-transfers**: each iteration hands its understanding to the next
+through the narrow channel of a commit message and a journal entry. That is
+[Problem 9](theory/open-problems.md), and [L5](theory/laws.md#l5) predicts
+self-transfer should exhibit *maximal* phantom agreement — an agent has every
+reason to believe its own summary preserved what mattered. An automated
+research loop in noophorics is therefore not only an instrument of the science
+but an instance of its central pathology, and should be instrumented as one:
+
+- Log `Φ` across iterations where the loop hands work to itself.
+- Treat a rising `Φ` across iterations as a stop condition, not a curiosity.
+
+**Operational requirements** for any automated sweep:
+
+- A hard cap on total runs, set in advance. Not a time interval — runs cost
+  money and an interval-bounded loop has no bounded cost.
+- Every run committed, including failures and void runs. A sweep that silently
+  drops its failures is worse than no sweep.
+- Gates verified on a **manual** first run before the sweep starts. Looping an
+  instrument whose gates have never passed multiplies broken data.
+
 ## Null results
 
 Committed with the same prominence as positive ones, in the same format, in the
