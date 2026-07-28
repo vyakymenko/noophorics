@@ -327,6 +327,12 @@ def run(args) -> Dict[str, Any]:
     print("models        : sender=%s receiver=%s" % (args.sender_model, args.receiver_model))
     print()
 
+    # Cache keys carry the model: samples drawn from one model must never be
+    # reused for another. A stale cache across a model change would silently
+    # compare an agent against draws it never made.
+    def key(label: str) -> str:
+        return "%s@%s/%s" % (label, args.sender_model, args.receiver_model)
+
     cache = SampleCache(args.cache)
     if cache.count():
         print("resuming from cache: %s (%d conditions already collected)\n"
@@ -372,7 +378,7 @@ def run(args) -> Dict[str, Any]:
 
     # --- sender probes ----------------------------------------------------
     s_full, s_a, s_b, s_modes = collect(
-        sender, measure, n, "sender", args.verbose, cache
+        sender, measure, n, key("sender"), args.verbose, cache
     )
     sender_accuracy = measure.accuracy(s_modes)
     d_self_sender = mean_divergence(s_a, s_b, measure.weights)
@@ -396,7 +402,7 @@ def run(args) -> Dict[str, Any]:
         else:
             receivers[label] = _LiveReceiver(label.lower(), context, args.receiver_model)
         collected[label] = collect(
-            receivers[label], measure, n, label.lower(), args.verbose, cache
+            receivers[label], measure, n, key(label.lower()), args.verbose, cache
         )
 
     costs = {
