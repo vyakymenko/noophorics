@@ -23,5 +23,7 @@ htmlcov/
 .vscode/
 *.swp
 
-# Resumable raw-sample cache: intermediate, superseded by the results JSON.
-.sample-cache.json
+# Raw sample caches ARE tracked. Excluding them was an audit hole: treatment
+# draws existed on disk, untracked, while arguments that could void the run were
+# being committed. The norm's whole value is that git proves temporal ordering,
+# and it cannot prove it about a file git does not see.

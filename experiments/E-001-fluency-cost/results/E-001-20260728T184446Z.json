@@ -1,0 +1,9 @@
+{
+  "conditions_composed": [],
+  "dry_run": false,
+  "experiment": "E-001",
+  "probe_measure": "MERIDIAN-34@707c48f18616",
+  "timestamp_utc": "2026-07-28T18:44:46Z",
+  "void": true,
+  "void_reason": "message generation failed for condition NARRATIVE: sender declined to compose the brief"
+}

@@ -1,0 +1,1447 @@
+<title>Noophorics — the quantitative science of transferring understanding</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Noophorics is the quantitative science of transferring understanding across minds that do not share a substrate. Understanding is measured by behavioural convergence, relative to a stated probe measure. Version 0.1 — six conjectural laws, ten open problems, zero confirmed findings.">
+<meta name="color-scheme" content="light dark">
+
+<style>
+/* ---------------------------------------------------------------
+   NOOPHORICS.ORG
+   Typographic system: scholarly serif for prose, mono for quantities.
+   Colour: plate + ink, with one accent — measurement red — reserved
+   for phantom agreement, claimed values, and the annotator's mark.
+   --------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+
+  --plate:        #e7e8e3;
+  --field:        #ddded8;
+  --ink:          #12161a;
+  --graphite:     #5c6369;
+  --rule:         #c5c7c0;
+  --rule-soft:    #d5d6d0;
+  --phantom:      #a3291d;
+  --phantom-wash: rgba(163, 41, 29, 0.11);
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter,
+           "Bitstream Charter", "Book Antiqua", Georgia, "Times New Roman", serif;
+  --mono:  ui-monospace, "SF Mono", SFMono-Regular, Menlo, "DejaVu Sans Mono",
+           "Liberation Mono", Consolas, monospace;
+
+  --measure: 40rem;
+  --rail: 11rem;
+  --gutter: 3rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --plate:        #0f1317;
+    --field:        #161b20;
+    --ink:          #d7d9d4;
+    --graphite:     #8c9299;
+    --rule:         #262c32;
+    --rule-soft:    #1d2329;
+    --phantom:      #e0705f;
+    --phantom-wash: rgba(224, 112, 95, 0.14);
+  }
+}
+
+/* Explicit toggle must win over the media query, in both directions. */
+:root[data-theme="dark"] {
+  --plate:        #0f1317;
+  --field:        #161b20;
+  --ink:          #d7d9d4;
+  --graphite:     #8c9299;
+  --rule:         #262c32;
+  --rule-soft:    #1d2329;
+  --phantom:      #e0705f;
+  --phantom-wash: rgba(224, 112, 95, 0.14);
+}
+:root[data-theme="light"] {
+  --plate:        #e7e8e3;
+  --field:        #ddded8;
+  --ink:          #12161a;
+  --graphite:     #5c6369;
+  --rule:         #c5c7c0;
+  --rule-soft:    #d5d6d0;
+  --phantom:      #a3291d;
+  --phantom-wash: rgba(163, 41, 29, 0.11);
+}
+
+/* ---- base ---------------------------------------------------- */
+
+body {
+  background: var(--plate);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  -webkit-text-size-adjust: 100%;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+p { margin: 0; text-wrap: pretty; }
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--phantom);
+}
+a:hover { color: var(--phantom); }
+
+:focus-visible {
+  outline: 2px solid var(--phantom);
+  outline-offset: 3px;
+}
+
+em { font-style: italic; }
+strong { font-weight: 600; }
+
+/* ---- layout band --------------------------------------------- */
+
+.band {
+  display: grid;
+  grid-template-columns:
+    [rail] minmax(0, var(--rail))
+    [text] minmax(0, var(--measure))
+    [end];
+  column-gap: var(--gutter);
+  row-gap: 0;
+  max-width: calc(var(--rail) + var(--gutter) + var(--measure) + 3rem);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.col  { grid-column: text; min-width: 0; }
+
+/* ---- marginal rail ------------------------------------------- */
+
+.rail {
+  grid-column: rail;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  text-align: right;
+  padding-top: 0.55rem;
+}
+.rail b {
+  display: block;
+  font-weight: 400;
+  color: var(--ink);
+}
+.rail .gloss {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: var(--serif);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--graphite);
+}
+.rail .sym {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 2.4rem;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--phantom);
+}
+
+/* ---- masthead ------------------------------------------------ */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  padding-block: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.masthead .band {
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  column-gap: 1.5rem;
+}
+.masthead .mark { color: var(--ink); }
+
+/* ---- front matter -------------------------------------------- */
+
+.front { padding-top: clamp(3rem, 8vw, 6rem); }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  margin-bottom: 1.4rem;
+}
+
+.wordmark {
+  font-size: clamp(2.5rem, 10vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+.etym {
+  margin-top: 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--graphite);
+}
+
+.deck {
+  margin-top: 2.6rem;
+  max-width: 34rem;
+  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+  line-height: 1.42;
+}
+
+.thesis {
+  margin-top: 2.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+  font-size: clamp(1.3rem, 3.2vw, 1.75rem);
+  line-height: 1.36;
+}
+.thesis .mark {
+  text-decoration: underline;
+  text-decoration-color: var(--phantom);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.16em;
+}
+.thesis-src {
+  margin-top: 1rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+/* ---- metadata block ------------------------------------------ */
+
+.meta {
+  margin-top: 3rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding-block: 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem 1.5rem;
+  font-family: var(--mono);
+}
+.meta div { display: flex; flex-direction: column; gap: 0.28rem; }
+.meta dt {
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.meta dd {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+.meta .zero { color: var(--phantom); }
+
+/* ---- contents ------------------------------------------------ */
+
+.contents { margin-top: 2.6rem; }
+.contents ol { display: grid; gap: 0.1rem; }
+.contents li {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  align-items: baseline;
+  padding-block: 0.38rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.contents .n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--graphite);
+  font-variant-numeric: tabular-nums;
+}
+.contents a { text-decoration: none; }
+.contents a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* ---- sections ------------------------------------------------ */
+
+.sec { padding-top: clamp(3.5rem, 8vw, 6rem); }
+.sec > .col > * + * { margin-top: 1.15rem; }
+
+.sec h2 {
+  font-size: clamp(1.5rem, 3.6vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--rule);
+}
+.sec h3 {
+  font-size: 1.0625rem;
+  letter-spacing: 0.005em;
+}
+.sec .lead { font-size: 1.125rem; line-height: 1.5; }
+
+.note {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--graphite);
+}
+
+/* ---- pull statement ------------------------------------------ */
+
+.pull {
+  margin-block: 2rem;
+  padding: 1.5rem 0 1.5rem 1.6rem;
+  border-left: 2px solid var(--phantom);
+  font-size: clamp(1.15rem, 2.8vw, 1.45rem);
+  line-height: 1.34;
+}
+.pull cite {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+/* ---- generic mono bits --------------------------------------- */
+
+.q {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  letter-spacing: -0.01em;
+}
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  border: 1px solid var(--rule);
+  padding: 0.14rem 0.42rem;
+  white-space: nowrap;
+}
+.tag-alert { color: var(--phantom); border-color: var(--phantom); }
+
+.scroll { overflow-x: auto; }
+
+.formula {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  white-space: pre;
+  background: var(--field);
+  border: 1px solid var(--rule);
+  padding: 1.1rem 1.25rem;
+  color: var(--ink);
+}
+
+/* ---- figures ------------------------------------------------- */
+
+.figure {
+  margin: 2.4rem 0 0;
+  border: 1px solid var(--rule);
+  background: var(--field);
+}
+/* plates break out of the measure into the marginal rail */
+@media (min-width: 62rem) {
+  .figure { margin-left: calc(-1 * (var(--rail) + var(--gutter))); }
+}
+.plate { overflow-x: auto; }
+.figure svg { display: block; width: 100%; min-width: 32rem; height: auto; }
+.figure figcaption {
+  border-top: 1px solid var(--rule);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--graphite);
+}
+.figure figcaption b {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-right: 0.5rem;
+}
+
+.fig-line   { fill: none; stroke: var(--ink);      stroke-width: 2; }
+.fig-line-p { fill: none; stroke: var(--phantom);  stroke-width: 2; }
+.fig-gap    { fill: var(--phantom-wash); stroke: none; }
+.fig-hatch  { stroke: var(--rule); stroke-width: 1; }
+.fig-axis   { fill: none; stroke: var(--rule); stroke-width: 1; }
+.fig-dash   { fill: none; stroke: var(--graphite); stroke-width: 1; stroke-dasharray: 4 5; }
+.fig-box    { fill: none; stroke: var(--ink); stroke-width: 1.25; }
+.fig-t      { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; fill: var(--graphite); }
+.fig-t-ink  { fill: var(--ink); letter-spacing: 0.04em; }
+.fig-t-p    { fill: var(--phantom); }
+.fig-big    { font-family: var(--mono); font-size: 20px; fill: var(--ink); letter-spacing: 0; }
+.fig-phi    { font-family: var(--mono); font-size: 34px; fill: var(--phantom); letter-spacing: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes trace { from { stroke-dasharray: 0 1400; } to { stroke-dasharray: 1400 0; } }
+  @keyframes wash  { from { opacity: 0; } to { opacity: 1; } }
+  .anim-a { animation: trace 1.5s cubic-bezier(.22,.61,.36,1) both; }
+  .anim-b { animation: trace 1.5s cubic-bezier(.22,.61,.36,1) 0.25s both; }
+  .anim-w { animation: wash 1.1s ease-out 1.2s both; }
+}
+
+/* ---- tables -------------------------------------------------- */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 34rem;
+  text-align: left;
+}
+caption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  padding-bottom: 0.7rem;
+}
+th {
+  font-weight: 400;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 0.9rem 0.5rem 0;
+  vertical-align: bottom;
+}
+td {
+  border-bottom: 1px solid var(--rule-soft);
+  padding: 0.75rem 0.9rem 0.75rem 0;
+  vertical-align: baseline;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+th:last-child, td:last-child { padding-right: 0; }
+.t-sym {
+  font-family: var(--mono);
+  font-size: 1.0625rem;
+  white-space: nowrap;
+  width: 5.5rem;
+}
+.t-name { width: 11rem; }
+.t-name span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  margin-top: 0.2rem;
+}
+.hero-sym { color: var(--phantom); }
+
+/* ---- law list ------------------------------------------------ */
+
+.laws { margin-top: 2rem; display: grid; }
+.law {
+  display: grid;
+  grid-template-columns: 3rem 1fr 7rem;
+  align-items: baseline;
+  gap: 0 1rem;
+  padding-block: 0.85rem;
+  border-top: 1px solid var(--rule-soft);
+}
+.law .tag { justify-self: end; }
+.law:last-child { border-bottom: 1px solid var(--rule-soft); }
+.law .id {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--graphite);
+}
+.law .txt { font-size: 0.9375rem; line-height: 1.5; }
+.law .txt i { color: var(--graphite); font-style: normal; }
+
+.law-major {
+  margin-top: 2.4rem;
+  border-top: 2px solid var(--ink);
+  padding-top: 1.3rem;
+}
+.law-major + .law-major { margin-top: 2.4rem; }
+.law-major .hd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.9rem;
+  margin-bottom: 0.9rem;
+}
+.law-major .hd .id {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--phantom);
+}
+.law-major .hd h3 { font-size: 1.125rem; }
+.law-major .claim {
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  padding-left: 1.1rem;
+  border-left: 1px solid var(--rule);
+}
+.law-major p { margin-top: 0.95rem; }
+.kill {
+  margin-top: 0.95rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: var(--graphite);
+}
+.kill b { color: var(--ink); font-weight: 400; }
+
+/* ---- problem groups ------------------------------------------ */
+
+.groups { margin-top: 1.8rem; display: grid; gap: 2.2rem; }
+.group h3 {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.group p { margin-top: 0.7rem; }
+.problems { margin-top: 0.9rem; display: grid; }
+.problem {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0 0.8rem;
+  padding-block: 0.6rem;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.problem .n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--graphite);
+  font-variant-numeric: tabular-nums;
+}
+.problem b { font-weight: 600; }
+.problem i { font-style: normal; color: var(--graphite); }
+
+/* ---- experiment ledger --------------------------------------- */
+
+.ledger { margin-top: 1.8rem; border-top: 1px solid var(--rule); }
+.exp {
+  padding-block: 1.05rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.exp .hd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem 0.9rem;
+}
+.exp .id {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+}
+.exp .nm { font-size: 1rem; }
+.exp .at {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--graphite);
+}
+.exp p {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--graphite);
+}
+.exp p b { color: var(--ink); font-weight: 400; }
+
+/* ---- falsifiers ---------------------------------------------- */
+
+.falsifiers { margin-top: 1.4rem; display: grid; }
+.falsifiers li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0 0.8rem;
+  padding-block: 0.62rem;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.falsifiers li:first-child { border-top: 1px solid var(--rule-soft); }
+.falsifiers .n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--phantom);
+}
+
+/* ---- closing / footer ---------------------------------------- */
+
+.closer {
+  margin-top: 2.6rem;
+  padding-top: 1.6rem;
+  border-top: 2px solid var(--ink);
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  line-height: 1.32;
+}
+
+.foot {
+  margin-top: clamp(4rem, 9vw, 7rem);
+  border-top: 1px solid var(--rule);
+  padding-block: 2.2rem 4rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.75;
+  color: var(--graphite);
+}
+.foot .cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1.6rem 2rem;
+}
+.foot .cols > div { overflow-wrap: break-word; }
+.foot h4 {
+  margin: 0 0 0.5rem;
+  font-weight: 400;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.foot .cite {
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule-soft);
+  font-family: var(--serif);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  max-width: 34rem;
+}
+
+/* ---- narrow -------------------------------------------------- */
+
+@media (max-width: 62rem) {
+  .band {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 44rem;
+  }
+  .col, .rail { grid-column: 1; }
+  .rail {
+    text-align: left;
+    padding-top: 0;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.9rem;
+  }
+  .rail b { display: inline; }
+  .rail .gloss, .rail .sym { display: none; }
+  .masthead .band { grid-template-columns: 1fr auto; }
+}
+
+@media (max-width: 34rem) {
+  body { font-size: 1rem; }
+  .law { grid-template-columns: 2.6rem 1fr; }
+  .law .tag { grid-column: 2; justify-self: start; margin-top: 0.4rem; }
+  .formula { font-size: 0.75rem; }
+}
+</style>
+
+<header class="masthead">
+  <div class="band">
+    <span class="mark">Noophorics.org</span>
+    <span>v0.1 &nbsp;·&nbsp; <a href="https://github.com/vyakymenko/noophorics">Repository</a></span>
+  </div>
+</header>
+
+<div class="band front">
+  <div class="col">
+    <p class="eyebrow">A research programme &nbsp;·&nbsp; founded 2026-07-28</p>
+    <h1 class="wordmark">Noophorics</h1>
+    <p class="etym">νόος <span style="opacity:.55">nous, mind</span> &nbsp;+&nbsp; φορά <span style="opacity:.55">phora, carrying</span></p>
+
+    <p class="deck">The quantitative science of transferring understanding across
+    minds that do not share a substrate — human to model, model to model, a
+    session to its own compacted summary.</p>
+
+    <p class="thesis">Two minds are given the same problem. One explains it to
+    the other. Both agree the explanation landed. <span class="mark">Nobody
+    measures what was lost.</span></p>
+    <p class="thesis-src">Principia Noophorica §0 — the gap</p>
+  </div>
+</div>
+
+<div class="band">
+  <div class="col">
+    <dl class="meta">
+      <div><dt>Version</dt><dd>0.1</dd></div>
+      <div><dt>Conjectural laws</dt><dd>6</dd></div>
+      <div><dt>Open problems</dt><dd>10</dd></div>
+      <div><dt>Experiments run to completion</dt><dd class="zero">0</dd></div>
+      <div><dt>Confirmed findings</dt><dd class="zero">0</dd></div>
+      <div><dt>Licence</dt><dd>Apache-2.0 · CC BY 4.0</dd></div>
+    </dl>
+
+    <nav class="contents" aria-label="Contents">
+      <p class="eyebrow" style="margin-bottom:.8rem">Contents</p>
+      <ol>
+        <li><span class="n">§0</span><a href="#gap">The gap no existing science covers</a></li>
+        <li><span class="n">§1</span><a href="#move">The move that makes it measurable</a></li>
+        <li><span class="n">§2</span><a href="#now">Why now: the receiver is instrumentable</a></li>
+        <li><span class="n">§3</span><a href="#quantities">The quantities</a></li>
+        <li><span class="n">§4</span><a href="#phi">Φ — phantom agreement</a></li>
+        <li><span class="n">§5</span><a href="#laws">The laws worth arguing about</a></li>
+        <li><span class="n">§6</span><a href="#roadmap">Roadmap: ten problems, five experiments</a></li>
+        <li><span class="n">§7</span><a href="#standing">Standing — what this is not</a></li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- ============================== §0 ============================== -->
+<section class="band sec" id="gap">
+  <div class="rail">
+    <b>§0</b>
+    The gap
+    <span class="gloss">Principia Noophorica §1 — why the existing sciences do not cover this.</span>
+  </div>
+  <div class="col">
+    <h2>Shannon assumed a shared codebook. Here the codebooks differ.</h2>
+
+    <p class="lead">Information theory measures how much uncertainty a message
+    removes — <em>assuming sender and receiver share a codebook</em>. Between a
+    person and a model, between two models, or between a session and the summary
+    it inherits, the codebooks differ, are private, and are partially
+    reconstructed on the fly. Shannon's capacity is defined over symbols. What is
+    needed is a capacity defined over reconstructed dispositions.</p>
+
+    <p>This happens millions of times a day, and every instance is lossy. No
+    theory says <em>how</em> lossy, <em>what</em> was lost, or <em>whether a
+    better encoding existed.</em></p>
+
+    <p>The neighbouring fields each supply part of the apparatus and stop short:</p>
+
+    <div class="scroll" style="margin-top:1.4rem">
+      <table>
+        <caption>Tab. 1 — Prior art, and what each one leaves undone</caption>
+        <thead>
+          <tr><th scope="col">Field</th><th scope="col">What it gives</th><th scope="col">Where it stops</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-name">Information theory<span>Shannon, 1948</span></td>
+            <td>Uncertainty reduction, channel capacity, coding theorems.</td>
+            <td>Assumes a shared codebook. That assumption is exactly the problem.</td>
+          </tr>
+          <tr>
+            <td class="t-name">Pragmatics<span>Grice · Clark · Sperber &amp; Wilson</span></td>
+            <td>Common ground, implicature, relevance — the right vocabulary.</td>
+            <td>Describes the phenomenon well and measures it barely. No units.</td>
+          </tr>
+          <tr>
+            <td class="t-name">Rational Speech Acts<span>Frank &amp; Goodman, 2012</span></td>
+            <td>Formal recursive listener–speaker reasoning.</td>
+            <td>A model of a dialogue, not a theory of the channel between two architectures.</td>
+          </tr>
+          <tr>
+            <td class="t-name">Knowledge distillation<span>teacher → student</span></td>
+            <td>Behaviour transferred between networks, measurably.</td>
+            <td>One-directional, requires a shared task, never asks what an optimal transfer would look like.</td>
+          </tr>
+          <tr>
+            <td class="t-name">Alignment<span>dispositions we want</span></td>
+            <td>Whether a system's dispositions are the intended ones.</td>
+            <td>Noophorics asks a prior, more mechanical question: how much of a disposition arrives when we move it across a boundary?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:1.6rem">The gap is real: <strong>there is no
+    quantitative theory of communication between systems with non-identical
+    priors, where success is measured as convergence of behaviour rather than
+    recovery of symbols.</strong></p>
+  </div>
+</section>
+
+<!-- ============================== §1 ============================== -->
+<section class="band sec" id="move">
+  <div class="rail">
+    <b>§1</b>
+    The move
+    <span class="gloss">Understanding defined operationally, the way temperature was defined by the expansion of mercury.</span>
+  </div>
+  <div class="col">
+    <h2>Understanding is measured by behavioural convergence.</h2>
+
+    <p class="lead">We refuse to define understanding as a state, because states
+    are private and not comparable across architectures. We define it through
+    behaviour:</p>
+
+    <blockquote class="pull">
+      B understands what A understands, with respect to a domain, to the extent
+      that B would make the same decisions A would make, over that domain.
+      <cite>Principia Noophorica §3</cite>
+    </blockquote>
+
+    <p>This is not a philosophical claim about what understanding <em>is</em>. It
+    is a measurement convention — the same kind of move as defining temperature
+    by the expansion of mercury rather than by the felt sensation of heat. It buys
+    comparability across substrates, repeatability, falsifiability, and a number.</p>
+
+    <p>It also forces the field's most important structural discipline:
+    <strong>there is no such thing as understanding in general — only
+    understanding relative to a probe measure.</strong> A probe measure
+    <span class="q">P</span> is a distribution over decidable decisions. Fixing
+    <span class="q">P</span> is the noophoric equivalent of fixing a frame of
+    reference in mechanics. Two people arguing about whether a model "really
+    understood" the brief are, nine times out of ten, holding different
+    <span class="q">P</span> and not saying so.</p>
+
+    <figure class="figure">
+      <div class="plate">
+      <svg viewBox="0 0 600 200" role="img" aria-label="Diagram: sender A emits an artifact m; receiver B conditions on it; a probe measure P is applied to both agents, and the divergence D between their answer distributions is what gets measured.">
+        <rect class="fig-box" x="30" y="34" width="104" height="52"></rect>
+        <text class="fig-big" x="82" y="68" text-anchor="middle" dominant-baseline="middle">A</text>
+        <text class="fig-t" x="82" y="104" text-anchor="middle">SENDER</text>
+
+        <rect class="fig-box" x="466" y="34" width="104" height="52"></rect>
+        <text class="fig-big" x="518" y="68" text-anchor="middle" dominant-baseline="middle">B|m</text>
+        <text class="fig-t" x="518" y="104" text-anchor="middle">RECEIVER</text>
+
+        <path class="fig-axis" d="M 142 60 H 456"></path>
+        <path class="fig-axis" d="M 456 60 l -9 -4.5 v 9 z" style="fill:var(--rule)"></path>
+        <text class="fig-big" x="300" y="48" text-anchor="middle">m</text>
+        <text class="fig-t" x="300" y="82" text-anchor="middle">THE ARTIFACT — COST C(m)</text>
+
+        <path class="fig-dash" d="M 82 114 V 142 M 518 114 V 142"></path>
+        <path class="fig-axis" d="M 82 142 H 518"></path>
+        <path class="fig-axis" d="M 110 142 v 7 M 158 142 v 7 M 206 142 v 7 M 254 142 v 7 M 302 142 v 7 M 350 142 v 7 M 398 142 v 7 M 446 142 v 7 M 494 142 v 7"></path>
+        <text class="fig-t fig-t-ink" x="300" y="134" text-anchor="middle" style="font-size:13px">D( A , B|m &nbsp;|&nbsp; P )</text>
+        <text class="fig-t" x="300" y="170" text-anchor="middle">P — PROBE MEASURE · THE FRAME OF REFERENCE</text>
+      </svg>
+      </div>
+      <figcaption><b>Fig. 1</b> The instrument. Both agents are resampled against
+      the same probe measure; what is measured is the divergence between their
+      answer distributions, before and after the artifact. Nothing about either
+      agent's internals is required — an agent is defined entirely by its answer
+      distributions over a probe space.</figcaption>
+    </figure>
+
+    <p style="margin-top:2.2rem">Four axioms carry the weight. <strong>A1</strong>
+    — understanding is measured by divergence of decisions, not by symbol
+    recovery, self-report, or surface similarity of text. <strong>A2</strong> —
+    every quantity is stated relative to a probe measure; a fidelity number
+    without its <span class="q">P</span> is as meaningless as a velocity without
+    a frame. <strong>A3</strong> — between any two systems with non-identical
+    priors there exist dispositions that cannot be transferred at any message
+    length; this is the quantitative form of Quine's indeterminacy of translation.
+    <strong>A4</strong> — the parties' confidence that a transfer succeeded is an
+    independent observable, not a proxy for whether it did.</p>
+
+    <p class="note">A4 is the axiom the rest of this page turns on. The difference
+    between belief and measurement has a name, a symbol, and a section: <a href="#phi">§4</a>.</p>
+  </div>
+</section>
+
+<!-- ============================== §2 ============================== -->
+<section class="band sec" id="now">
+  <div class="rail">
+    <b>§2</b>
+    Why now
+    <span class="gloss">Every science begins with an instrument.</span>
+  </div>
+  <div class="col">
+    <h2>The receiver is instrumentable for the first time.</h2>
+
+    <p class="lead">The science of communication never got its instrument,
+    because it could never open the receiver. You can ask a listener what they
+    understood, but the report is not the state — people are unreliable narrators
+    of their own comprehension, and you cannot run ten thousand controlled trials
+    on one human mind.</p>
+
+    <div class="scroll" style="margin-top:1.8rem">
+      <table>
+        <caption>Tab. 2 — Instrument, then field</caption>
+        <tbody>
+          <tr>
+            <td class="t-sym">1608</td>
+            <td class="t-name">The telescope</td>
+            <td>made astronomy.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">1670s</td>
+            <td class="t-name">The microscope</td>
+            <td>made microbiology.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">1890s</td>
+            <td class="t-name">The oscilloscope</td>
+            <td>made electronics an empirical discipline rather than a set of maxims.</td>
+          </tr>
+          <tr>
+            <td class="t-sym hero-sym">now</td>
+            <td class="t-name">The instrumentable mind</td>
+            <td>should make noophorics — or should fail to, publicly.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:1.8rem">Language models change the situation. A receiver
+    can be resampled to build an empirical distribution over its dispositions,
+    probed on arbitrary decisions, ablated at the input, and put through the whole
+    procedure ten thousand times at a cost measured in cents. The same is true of
+    the sender. That is the instrument. This programme is what we are trying to
+    build with it.</p>
+
+    <p class="note">The fourth row is a claim, not a record. The first three
+    happened; the fourth is what this repository is betting on.</p>
+  </div>
+</section>
+
+<!-- ============================== §3 ============================== -->
+<section class="band sec" id="quantities">
+  <div class="rail">
+    <b>§3</b>
+    The quantities
+    <span class="gloss">theory/definitions.md — formal definitions; metrics/ — reference implementation, stdlib only.</span>
+  </div>
+  <div class="col">
+    <h2>Nine quantities, each with a definition you can implement.</h2>
+
+    <p class="lead">Divergence is Jensen–Shannon, in bits, estimated from
+    <span class="q">n</span> independent samples per probe. JSD is chosen because
+    it is symmetric — noophoric divergence should not depend on which agent we
+    call the sender — finite for distributions with disjoint support, and bounded
+    in <span class="q">[0, 1]</span> at base 2.</p>
+
+    <div class="scroll" style="margin-top:1.8rem">
+      <table>
+        <caption>Tab. 3 — Core quantities</caption>
+        <thead>
+          <tr><th scope="col">Symbol</th><th scope="col">Name</th><th scope="col">Definition</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-sym">P</td>
+            <td class="t-name">Probe measure<span>the frame</span></td>
+            <td>A distribution over probes — decisions whose answer space is finite and discrete. No noophoric quantity is defined without one. A probe measure is <em>admissible</em> for a transfer only if the two agents actually disagree on it beforehand; measuring fidelity where agreement already exists measures nothing.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">D</td>
+            <td class="t-name">Divergence<span>§2.2</span></td>
+            <td>The expected Jensen–Shannon divergence between two agents' answer distributions over <span class="q">P</span>. Bounded <span class="q">[0, 1]</span>. <span class="q">D = 0</span> means behaviourally indistinguishable; <span class="q">D = 1</span> means they never give the same answer.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">Â</td>
+            <td class="t-name">Agreement rate<span>§2.3</span></td>
+            <td>The fraction of probes on which the two agents' modal answers match. Coarser than <span class="q">D</span>, and used for phantom agreement because it is the quantity parties can actually estimate about themselves — nobody has calibrated intuitions about expected JSD.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">D<sub>floor</sub></td>
+            <td class="t-name">Noise floor<span>§3.2</span></td>
+            <td>The mean self-divergence of the two agents: the divergence that two <em>perfectly aligned</em> agents would still show, from their own stochasticity. No transfer can push measured divergence below it. <strong>Not correcting for it is the field's most common error</strong> — an uncorrected fidelity number silently attributes sampling noise to untransferred meaning.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">F*</td>
+            <td class="t-name">Transfer fidelity<span>§4.1</span></td>
+            <td>The fraction of the pre-existing, closable gap that the message actually closed. <span class="q">F* = 1</span> — the gap is closed, up to noise. <span class="q">F* = 0</span> — the message changed nothing. <span class="q">F* &lt; 0</span> — the message made things <em>worse</em>: an <strong>antinoophor</strong>. Reported unclipped, because clipping hides antinoophors, which are among the most informative observations in the field.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">η</td>
+            <td class="t-name">Efficiency<span>§4.3</span></td>
+            <td><span class="q">F* / C</span>, where cost <span class="q">C</span> defaults to tokens measured with the <em>receiver's</em> tokenizer — the receiver is who pays to read it. Understanding per unit cost: the quantity engineering should optimise, and almost nothing currently does.</td>
+          </tr>
+          <tr>
+            <td class="t-sym hero-sym">Φ</td>
+            <td class="t-name">Phantom agreement<span>§5 · see below</span></td>
+            <td>Claimed agreement minus observed: <span class="q">Φ = Ĉ − Â</span>, where <span class="q">Ĉ</span> is the mean of the sender's prediction and the receiver's self-report. Both parties believe understanding transferred; probes say otherwise. The field's central pathology.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">K</td>
+            <td class="t-name">Channel capacity<span>§6.1</span></td>
+            <td>The best fidelity achievable by <em>any</em> message, at unbounded cost — the noophoric analogue of Shannon capacity and the central theoretical object of the field. Not directly computable; estimated as a lower bound over a stated search budget. We conjecture <span class="q">K &lt; 1</span> always.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">R</td>
+            <td class="t-name">Residual<span>§6.2</span></td>
+            <td><span class="q">1 − K</span>. The untransferable remainder. Axiom A3 asserts it is nonzero in the general case; characterising what lives inside it is <a href="#roadmap">Problem 1</a>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scroll" style="margin-top:1.8rem">
+      <div class="formula">              D(A, B | P)  −  D(A, B|m | P)
+F*(m)  =  ─────────────────────────────────
+              D(A, B | P)  −  D_floor(A, B | P)</div>
+    </div>
+
+    <p class="note" style="margin-top:1.1rem">Never report a fidelity without the
+    floor correction, and never report one without naming the probe measure it was
+    taken against. A number reported without its probe set, sample count, noise
+    floor, cost unit, and agent identities is an anecdote. Anecdotes are accepted
+    in the lab journal; they are not accepted in the theory.</p>
+  </div>
+</section>
+
+<!-- ============================== §4 ============================== -->
+<section class="band sec" id="phi">
+  <div class="rail">
+    <b>§4</b>
+    The pathology
+    <span class="sym" aria-hidden="true">Φ</span>
+    <span class="gloss">Axiom A4 — belief is not evidence. The difference is itself a quantity.</span>
+  </div>
+  <div class="col">
+    <h2>Φ — phantom agreement</h2>
+
+    <blockquote class="pull">
+      Both parties believe understanding occurred. Probes reveal it did not.
+      <cite>Principia Noophorica §5</cite>
+    </blockquote>
+
+    <p class="lead">Phantom agreement is to noophorics what dark matter is to
+    cosmology: the thing everyone had felt, nobody had weighed, and which we
+    suspect dominates the system. It is dangerous precisely because it is
+    invisible from inside. Neither party has any signal that anything went wrong.
+    The sender has discharged their intent; the receiver has a coherent,
+    confident, wrong model; and the error surfaces only downstream, in an action
+    nobody traces back to the conversation.</p>
+
+    <div class="scroll" style="margin-top:1.6rem">
+      <div class="formula">Φ  =  Ĉ  −  Â
+
+     Ĉ   claimed agreement — the mean of the sender's prediction and the
+         receiver's self-report, each elicited as: "over probes of this
+         kind, what fraction of your decisions would match the other
+         party's?"
+
+     Â   observed agreement — the fraction of probes on which the two
+         agents' modal answers actually match.</div>
+    </div>
+
+    <figure class="figure">
+      <div class="plate">
+      <svg viewBox="0 0 720 340" role="img" aria-label="Schematic chart. The horizontal axis is message cost; the vertical axis is agreement rate from zero to one. A red curve, claimed agreement, rises steeply and sits high. A dark curve, observed agreement, rises slowly and saturates at a dashed ceiling labelled K, the channel capacity. The shaded area between the two curves is labelled Phi. The band above the ceiling is labelled R, the residual.">
+        <defs>
+          <pattern id="hatch" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)">
+            <path class="fig-hatch" d="M 0 0 V 7"></path>
+          </pattern>
+        </defs>
+
+        <rect x="80" y="40" width="600" height="67" fill="url(#hatch)"></rect>
+
+        <path class="fig-gap anim-w" d="M 80 252 C 170 130, 260 80, 380 66 C 480 56, 580 52, 680 50 L 680 108 C 600 109, 520 112, 440 118 C 320 130, 200 180, 80 280 Z"></path>
+
+        <path class="fig-dash" d="M 80 107 H 680"></path>
+
+        <path class="fig-line anim-a" d="M 80 280 C 200 180, 320 130, 440 118 C 520 112, 600 109, 680 108"></path>
+        <path class="fig-line-p anim-b" d="M 80 252 C 170 130, 260 80, 380 66 C 480 56, 580 52, 680 50"></path>
+
+        <path class="fig-axis" d="M 80 40 V 280 H 680"></path>
+        <path class="fig-axis" d="M 74 40 H 80 M 74 280 H 80"></path>
+
+        <text class="fig-t" x="66" y="44" text-anchor="end">1.0</text>
+        <text class="fig-t" x="66" y="284" text-anchor="end">0</text>
+
+        <text class="fig-t fig-t-ink" x="94" y="62">R — RESIDUAL (1 − K)</text>
+        <text class="fig-t fig-t-ink" x="94" y="126">K — CAPACITY</text>
+
+        <text class="fig-phi" x="206" y="170">Φ</text>
+
+        <text class="fig-t fig-t-p" x="668" y="42" text-anchor="end">Ĉ — CLAIMED</text>
+        <text class="fig-t fig-t-ink" x="668" y="134" text-anchor="end">Â — OBSERVED</text>
+
+        <text class="fig-t" x="80" y="308">MESSAGE COST C(m) →</text>
+        <text class="fig-t" x="680" y="308" text-anchor="end">AGREEMENT RATE</text>
+      </svg>
+      </div>
+      <figcaption><b>Fig. 2</b> Schematic — <em>not data</em>. Claimed agreement
+      outruns observed agreement; the area between them is Φ. Observed agreement
+      saturates at the capacity <span class="q">K</span>, leaving the residual
+      <span class="q">R = 1 − K</span>. No curve on this plate has been measured.
+      It is what axiom A3 and law L5 predict, drawn so that it can be looked at
+      and disagreed with.</figcaption>
+    </figure>
+
+    <p style="margin-top:2.2rem">The sign of Φ is the whole reading:</p>
+
+    <div class="scroll" style="margin-top:1.2rem">
+      <table>
+        <tbody>
+          <tr>
+            <td class="t-sym hero-sym">Φ &gt; 0</td>
+            <td class="t-name">Shared illusion</td>
+            <td>Both parties overestimate how much landed. The expected case, and the one the field exists to catch.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">Φ ≈ 0</td>
+            <td class="t-name">Calibrated</td>
+            <td>Confidence tracks measurement. If this turns out to be the norm, noophorics loses its motivating phenomenon.</td>
+          </tr>
+          <tr>
+            <td class="t-sym">Φ &lt; 0</td>
+            <td class="t-name">Mutual underconfidence</td>
+            <td>More transferred than either party believes. Rarer, and its own kind of failure — it causes redundant re-explanation and unnecessary escalation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note" style="margin-top:1.4rem">Report the sender's and receiver's
+    claims separately as well as their mean. They are frequently asymmetric, and
+    the asymmetry is data.</p>
+  </div>
+</section>
+
+<!-- ============================== §5 ============================== -->
+<section class="band sec" id="laws">
+  <div class="rail">
+    <b>§5</b>
+    The laws
+    <span class="gloss">theory/laws.md — six conjectures, each with a stated kill condition. None is established.</span>
+  </div>
+  <div class="col">
+    <h2>Six conjectures. Two of them are the argument.</h2>
+
+    <p class="lead">A law enters the record only with a refutation condition
+    attached, and leaves it never — a refuted law is struck through and kept in
+    place, because knowing what is false is the larger part of the record. All
+    six currently hold the same status: <span class="tag">conjectured</span></p>
+
+    <div class="laws">
+      <div class="law">
+        <span class="id">L1</span>
+        <span class="txt"><strong>Diminishing noophoric return.</strong>
+        <i><span class="q">F*(C)</span> is concave in message cost and saturates strictly below 1.</i></span>
+        <span class="tag">E-002</span>
+      </div>
+      <div class="law">
+        <span class="id">L2</span>
+        <span class="txt"><strong>Asymmetry.</strong>
+        <i><span class="q">F*(A→B) ≠ F*(B→A)</span>, with the sign predictable from the asymmetry of the two priors — and we expect domain prior to dominate general capability.</i></span>
+        <span class="tag">E-003</span>
+      </div>
+      <div class="law">
+        <span class="id">L3</span>
+        <span class="txt"><strong>Prior overlap.</strong>
+        <i><span class="q">K</span> rises monotonically with the overlap of the agents' priors, and below a minimum shared basis no message length helps.</i></span>
+        <span class="tag">Needs Problem 2</span>
+      </div>
+      <div class="law">
+        <span class="id">L4</span>
+        <span class="txt"><strong>The curse of the summary.</strong>
+        <i>Fidelity is multiplicative along a chain — but an invariant core survives arbitrarily many hops, and we conjecture that core is constraints and prohibitions rather than descriptions.</i></span>
+        <span class="tag">E-004</span>
+      </div>
+      <div class="law">
+        <span class="id">L5</span>
+        <span class="txt"><strong>Fluency inflates phantom agreement.</strong>
+        <i>See below.</i></span>
+        <span class="tag">E-001</span>
+      </div>
+      <div class="law">
+        <span class="id">L6</span>
+        <span class="txt"><strong>Optimal encoding is contrastive.</strong>
+        <i>See below.</i></span>
+        <span class="tag">E-001</span>
+      </div>
+    </div>
+
+    <div class="law-major">
+      <div class="hd">
+        <span class="id">L5</span>
+        <h3>Fluency inflates phantom agreement</h3>
+        <span class="tag">Conjectured</span>
+      </div>
+      <p class="claim">The more fluent and well-organised a message, the more Φ
+      rises — and it rises faster than <span class="q">F*</span> does.</p>
+      <p>Eloquence increases the <em>belief</em> that understanding transferred
+      more than it increases the transfer. Fluency is a signal both parties read
+      as comprehension: the sender feels discharged because the artifact is
+      well-formed; the receiver feels informed because it is easy to process.
+      Neither feeling is evidence about decisions. Processing fluency is a known
+      source of misplaced confidence in human cognition, and we conjecture it is
+      at least as strong in systems trained on human text — possibly stronger,
+      since fluency is closer to their training objective than accuracy of
+      transfer is.</p>
+      <p class="note">This is an indictment of the systems writing most of
+      today's handoffs, including the one that drafted the founding documents.
+      That is a reason to test it, not a reason to soften it.</p>
+      <p class="kill"><b>Refuted if:</b> at equal cost, narrative and contrastive
+      encodings produce statistically indistinguishable Φ, or narrative produces
+      <em>lower</em> Φ.</p>
+    </div>
+
+    <div class="law-major">
+      <div class="hd">
+        <span class="id">L6</span>
+        <h3>Optimal encoding is contrastive, not declarative</h3>
+        <span class="tag">Conjectured</span>
+      </div>
+      <p class="claim">At equal cost, encoding <em>"the cases where we would
+      diverge"</em> transfers more fidelity than encoding <em>"what I
+      understand."</em></p>
+      <p>Do not send the model. Send the boundaries of the model. The receiver
+      already has a prior; a declarative description spends cost re-encoding the
+      parts of the sender's model the receiver would have reconstructed anyway. A
+      contrastive encoding spends cost only on the delta — precisely the probes
+      where the two agents currently disagree. Under the definition of
+      <span class="q">F*</span>, which measures gap closure rather than
+      information delivered, the contrastive encoding is spending every token on
+      the numerator.</p>
+      <p class="note">This is the field's first engineering prescription, and it
+      directly contradicts how nearly every handoff, summary, and spec is written
+      today.</p>
+      <p class="kill"><b>Refuted if:</b> contrastive encodings show
+      <span class="q">η ≤</span> declarative encodings at equal cost, across
+      domains.</p>
+    </div>
+
+    <p class="closer">Together they predict something uncomfortable: the encoding
+    that transfers best is the one that feels worst — and every party's
+    subjective sense of a good handoff would be anticorrelated with its quality.</p>
+
+    <p class="note" style="margin-top:1.2rem">E-001 tests both jointly, and is
+    pre-registered so that a null result is publishable and damaging.</p>
+  </div>
+</section>
+
+<!-- ============================== §6 ============================== -->
+<section class="band sec" id="roadmap">
+  <div class="rail">
+    <b>§6</b>
+    Roadmap
+    <span class="gloss">theory/open-problems.md — stated in Hilbert's spirit: precise enough to work on, open enough to be hard.</span>
+  </div>
+  <div class="col">
+    <h2>Ten problems for the first decade.</h2>
+
+    <p class="lead">Numbering is stable; solved problems are annotated, not
+    renumbered. Grouped here by what a solution would settle.</p>
+
+    <div class="groups">
+      <div class="group">
+        <h3>I — The ceiling · what cannot be transferred</h3>
+        <p>Axiom A3 asserts a nonzero residual. These three ask how big it is,
+        what is inside it, and whether its size is derivable rather than merely
+        measurable.</p>
+        <div class="problems">
+          <div class="problem"><span class="n">01</span><span><b>The residual characterisation problem.</b> What lives inside <span class="q">R = 1 − K</span>? Given two agents and a domain, predict <i>which</i> dispositions fall inside the residual before measuring.</span></div>
+          <div class="problem"><span class="n">02</span><span><b>Non-circular prior overlap.</b> Measure the overlap of two agents' priors without using transfer fidelity to do it. Until this is solved, L3 is a tautology — and it is currently the biggest hole in the theory.</span></div>
+          <div class="problem"><span class="n">03</span><span><b>The capacity theorem.</b> Is there a Shannon-style coding theorem for mismatched priors — does <span class="q">K</span> admit a closed form, or is it irreducibly empirical? <i>The field's central theoretical question. A negative answer is also a result.</i></span></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>II — The encoding · what to send</h3>
+        <p>L6 names a family that should beat another family. These ask for the
+        optimum, and for what survives being passed along.</p>
+        <div class="problems">
+          <div class="problem"><span class="n">04</span><span><b>Optimal encoding search.</b> Given <span class="q">(A, B, P, C_max)</span>, construct the message maximising <span class="q">F*</span>. <i>Practical payoff is immediate: this is the algorithm every agent handoff should be running.</i></span></div>
+          <div class="problem"><span class="n">08</span><span><b>The invariant core.</b> Prove or refute that constraints survive chained transfer where descriptions do not, and characterise the invariant class exactly. Candidate axis: dispositions whose <i>verification</i> is cheaper than their <i>derivation</i>.</span></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>III — The pathology · what goes wrong, and whether we can trust the measurement</h3>
+        <p>One problem is the most deployable in the list; the other decides
+        whether this is a science or a heap of incommensurable benchmarks.</p>
+        <div class="problems">
+          <div class="problem"><span class="n">07</span><span><b>Phantom agreement mechanics.</b> What generates Φ, and what is the cheapest reliable detector? Find the minimal probe set that detects <span class="q">Φ &gt; θ</span> at a stated sensitivity, cheap enough to fire on every production handoff.</span></div>
+          <div class="problem"><span class="n">06</span><span><b>Probe measure generalisation.</b> When do fidelity results on <span class="q">P₁</span> predict fidelity on <span class="q">P₂</span>? This is also the field's overfitting problem — without it, solutions to Problem 4 cannot be trusted.</span></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3>IV — The topology · who transfers to whom</h3>
+        <p>All the definitions above are dyadic. Real systems are graphs, and one
+        of the most economically weighted cases is an agent talking to itself.</p>
+        <div class="problems">
+          <div class="problem"><span class="n">05</span><span><b>The asymmetry law.</b> Predict the sign and magnitude of <span class="q">F*(A→B) − F*(B→A)</span> from properties of A and B. In particular, resolve the competition between general capability and domain prior.</span></div>
+          <div class="problem"><span class="n">09</span><span><b>Self-transfer.</b> How much of an agent survives its own compaction? Priors match perfectly, but the compaction artifact is generated under the same fluency pressure as any other message — so L5 predicts self-transfer should exhibit <i>maximal</i> Φ.</span></div>
+          <div class="problem"><span class="n">10</span><span><b>The multi-party problem.</b> Define fidelity over a topology, then find the communication graph maximising end-to-end fidelity under a cost budget. This turns multi-agent architecture from a design metaphor into an optimisation problem.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:3.2rem; padding-bottom:.7rem; border-bottom:1px solid var(--rule); font-size:1.25rem">Experiments</h3>
+    <p class="note" style="margin-top:1rem">Every experiment pre-registers its
+    hypothesis in a committed file before any data exists. The git history is the
+    pre-registration record. Null results are committed with the same prominence
+    as positive ones.</p>
+
+    <div class="ledger">
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-001</span>
+          <span class="nm">The cost of fluency</span>
+          <span class="at">attacks L5, L6</span>
+          <span class="tag tag-alert">Blocked</span>
+        </div>
+        <p>Two messages of equal token cost, same sender, same source material,
+        differing only in encoding style — fluent narrative against terse boundary
+        cases. Pre-registered 2026-07-28 and amended three times, on the
+        instrument only. <b>Currently blocked:</b> the sender model refuses to
+        compose the briefs at roughly nine attempts in ten. The refusal was
+        measured to be model-specific and unstable over time — the same request
+        that succeeded 204 consecutive times in the morning refused five out of
+        five that evening. Retry-until-success is not available, because at that
+        refusal rate it selects the briefs that happened to pass. <b>No data.</b></p>
+      </div>
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-002</span>
+          <span class="nm">Ablation ladder</span>
+          <span class="at">attacks L1</span>
+          <span class="tag">Planned</span>
+        </div>
+        <p>One message truncated at eight cost levels, with the resulting
+        <span class="q">F*(C)</span> curve fitted. The cheapest remaining
+        experiment.</p>
+      </div>
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-003</span>
+          <span class="nm">Asymmetry matrix</span>
+          <span class="at">attacks L2</span>
+          <span class="tag">Planned</span>
+        </div>
+        <p>Fidelity measured over a grid of sender/receiver pairs, in both
+        directions. Needs multiple model families to be interesting.</p>
+      </div>
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-004</span>
+          <span class="nm">Chain decay</span>
+          <span class="at">attacks L4</span>
+          <span class="tag">Planned</span>
+        </div>
+        <p>A telephone chain of six hops, content tagged by form, per-hop fidelity
+        measured — to test whether constraints outlast descriptions.</p>
+      </div>
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-005+</span>
+          <span class="nm">Protocol validation</span>
+          <span class="at">NHP-0001</span>
+          <span class="tag">Unscheduled</span>
+        </div>
+        <p>NHP-0001 is a draft handoff format that carries a fidelity claim. Its
+        unsolved problem is named in the draft itself: the protocol asks the
+        sender to write its own exam.</p>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:1.6rem">The first live run of E-001 was
+    recorded as void rather than discarded, and produced a finding that outlives
+    the experiment: a measurement instrument can be blocked by the safety
+    behaviour of the system it measures, and the block can be silent, asymmetric,
+    and shaped like a result. Any evaluation that varies prompt <em>style</em>
+    across conditions is also varying classifier surface across conditions.
+    Refusals must be treated as missing data, never as a zero.</p>
+  </div>
+</section>
+
+<!-- ============================== §7 ============================== -->
+<section class="band sec" id="standing">
+  <div class="rail">
+    <b>§7</b>
+    Standing
+    <span class="gloss">Principia Noophorica §7 and §10 — what would falsify the programme.</span>
+  </div>
+  <div class="col">
+    <h2>Version 0.1. Nothing here is established.</h2>
+
+    <p class="lead">One pre-registered experiment that has not produced data, six
+    conjectural laws, ten open problems, zero confirmed findings. Every claim in
+    this programme should be read as a bet, and its confidence calibrated
+    accordingly.</p>
+
+    <p>A science that cannot lose is not a science. Noophorics is wrong if:</p>
+
+    <ol class="falsifiers">
+      <li><span class="n">1</span><span><span class="q">F*</span> is not stable under probe resampling. If independently drawn probe measures over the same nominal domain give uncorrelated fidelity scores, the quantity is noise. <i>— the most dangerous of the four.</i></span></li>
+      <li><span class="n">2</span><span>Φ is consistently ≈ 0. If the parties' confidence tracks measured fidelity, the central pathology does not exist and the field loses its motivating phenomenon.</span></li>
+      <li><span class="n">3</span><span><span class="q">K ≈ 1</span> in practice. If sufficiently long messages reliably close the gap between arbitrary systems, axiom A3 is false and the interesting structure disappears.</span></li>
+      <li><span class="n">4</span><span>No encoding beats any other at equal cost. If η is invariant to message form, there is nothing to engineer and the field is descriptive at best.</span></li>
+    </ol>
+
+    <p style="margin-top:1.6rem">The method is the only part of this that is not
+    negotiable. Every experiment pre-registers before data exists. Every number
+    carries its probe measure, sample count, and noise floor. Refuted laws are
+    struck through, never deleted. Where a bound is claimed, an adversarial
+    attempt to violate it is expected in the same commit.</p>
+
+    <p class="note">The name takes the <em>noo-</em> root from νόος and disclaims
+    any inheritance from Vernadsky's or Teilhard's noosphere. Nothing in this
+    programme is mystical. Everything in it is supposed to have a number attached,
+    or be deleted.</p>
+
+    <p class="closer">The correct response to this is not agreement. It is a probe.</p>
+  </div>
+</section>
+
+<!-- ============================== foot ============================== -->
+<footer class="band foot">
+  <div class="col">
+    <div class="cols">
+      <div>
+        <h4>Repository</h4>
+        <a href="https://github.com/vyakymenko/noophorics">vyakymenko/noophorics</a><br>
+        PRINCIPIA.md — the programme<br>
+        theory/ — definitions, laws<br>
+        metrics/ — implementation<br>
+        experiments/ — pre-registered<br>
+        journal/ — lab notebook
+      </div>
+      <div>
+        <h4>Contributing</h4>
+        Laws enter with a kill condition. Experiments pre-register or do not
+        count. Null results are committed with the same prominence as positive
+        ones.
+      </div>
+      <div>
+        <h4>Licence</h4>
+        Code — Apache-2.0, for the explicit patent grant. Prose and theory —
+        CC BY 4.0.
+      </div>
+    </div>
+
+    <p class="cite">Noophorics: a quantitative science of transferring
+    understanding across heterogeneous minds. Version 0.1, 2026.
+    <a href="https://noophorics.org">noophorics.org</a></p>
+  </div>
+</footer>
