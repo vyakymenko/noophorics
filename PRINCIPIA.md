@@ -219,9 +219,35 @@ A science that cannot lose is not a science. Noophorics is wrong if:
 1. **F\* is not stable under probe resampling.** If independently drawn probe
    measures over the same nominal domain give uncorrelated fidelity scores, the
    quantity is noise and A2 has not saved us.
-2. **Φ is consistently ≈ 0.** If parties' confidence tracks measured fidelity,
-   the central pathology does not exist and the field loses its motivating
-   phenomenon.
+2. ~~**Φ is consistently ≈ 0.** If parties' confidence tracks measured
+   fidelity, the central pathology does not exist and the field loses its
+   motivating phenomenon.~~
+
+   **Invalid as written; corrected 2026-07-29.** `Φ` as defined in
+   [definitions §5](theory/definitions.md#5-phantom-agreement) is a single mean
+   difference — a *bias* term. Bias and **resolution** are independent, and
+   fifty years of calibration research separates them for exactly this reason.
+   A party that predicts 0.70 agreement on every probe, and is right on average
+   at 0.70, has `Φ = 0` and **no ability whatsoever** to say which probes it got
+   wrong. That party is maximally pathological and this criterion would score it
+   as the refutation of the programme.
+
+   **Corrected criterion.** Elicit the claim **per probe**, not once globally,
+   and report both terms:
+
+   - **bias** — mean claimed minus mean observed, which is `Φ` as it stands;
+   - **resolution** — the within-party association between per-probe claims and
+     per-probe outcomes.
+
+   The programme is falsified if **both** are consistently ≈ 0: parties are
+   unbiased *and* discriminating, so belief already tracks evidence and there is
+   nothing for the field to measure. Either alone is compatible with the
+   pathology being real and severe.
+
+   This was a regression, not merely a gap. The 2002 study this quantity most
+   closely reproduces elicited per-trial judgments and therefore recovered both
+   terms; collapsing to one global number discarded the half that carries the
+   diagnostic.
 3. **`K(C) ≈ 1` at bounded cost, on held-out probes.** If messages of bounded
    length reliably close the gap between arbitrary systems *on probes the
    sender never saw*, the restated A3 is false and the interesting structure

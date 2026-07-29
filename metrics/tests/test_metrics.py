@@ -18,6 +18,7 @@ from os.path import abspath, dirname, join
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
 
 from noophorics import (  # noqa: E402
+    net_value,
     InadmissibleProbeMeasure,
     Measurement,
     Probe,
@@ -561,6 +562,44 @@ class HandoffGateTest(unittest.TestCase):
         answers = {pid: [k] * 5 for pid, k in keys.items()}
         d = adjudicate(answers, checkset, 1.0, 1.0)  # independent_key default
         self.assertTrue(any("independently adjudicated" in n for n in d.notes))
+
+
+class EfficiencyOrderingTest(unittest.TestCase):
+    """eta is a ratio with a signed numerator, so it is not an ordering."""
+
+    def test_eta_refuses_an_antinoophor(self):
+        with self.assertRaises(ValueError):
+            efficiency(-0.5, cost=200.0)
+
+    def test_the_inversion_eta_would_have_produced(self):
+        """Pin the defect itself, so a future 'simplification' cannot restore it."""
+        short_damage = -1.0 / (100.0 / 1000.0)      # what eta would return
+        long_damage = -1.0 / (800.0 / 1000.0)
+        self.assertGreater(long_damage, short_damage)   # the wrong ordering
+        # net_value gets it right at the same inputs
+        self.assertLess(net_value(-1.0, 800.0, 0.5), net_value(-1.0, 100.0, 0.5))
+
+    def test_net_value_is_monotone_at_both_signs(self):
+        for f in (-1.0, -0.2, 0.0, 0.5, 1.0):
+            self.assertLess(net_value(f, 900.0, 0.5), net_value(f, 100.0, 0.5),
+                            "more cost must always be worse, at F*=%.1f" % f)
+        for c in (100.0, 900.0):
+            self.assertLess(net_value(-0.5, c, 0.5), net_value(0.5, c, 0.5),
+                            "more fidelity must always be better")
+
+    def test_net_value_requires_a_declared_lambda(self):
+        with self.assertRaises(TypeError):
+            net_value(0.5, 100.0)          # lam is positional and required
+
+    def test_report_yields_none_rather_than_an_unprintable_antinoophor(self):
+        r = Measurement(
+            probe_measure_id="m@abc", samples_per_probe=30, sender="a", receiver="b",
+            d_prior=0.40, d_post=0.70, d_floor=0.05, cost_tokens=300.0,
+            cost_unit="tokens", agreement_observed=0.2,
+        )
+        self.assertLess(r.fidelity, 0.0)          # an antinoophor
+        self.assertIsNone(r.efficiency)           # no eta, and no exception
+        self.assertLess(r.net_value_at(0.5), 0.0)
 
 
 if __name__ == "__main__":

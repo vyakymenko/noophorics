@@ -13,6 +13,7 @@ __all__ = [
     "is_admissible",
     "transfer_fidelity",
     "efficiency",
+    "net_value",
     "claimed_agreement",
     "phantom_agreement",
     "capacity_estimate",
@@ -71,12 +72,47 @@ def transfer_fidelity(
     return min(1.0, (d_prior - d_post) / (d_prior - d_floor))
 
 
+def net_value(fidelity: float, cost: float, lam: float, per: float = 1000.0) -> float:
+    """V_lambda = F* - lambda*C. definitions.md 4.3
+
+    The cost-adjusted comparison that works at every sign. ``lam`` is the
+    exchange rate between one unit of fidelity and ``per`` tokens, and it is a
+    required argument because it is a policy choice: pretending a ratio avoided
+    that choice was most of the appeal of the ratio, and the ratio was wrong.
+
+    Monotone in both arguments regardless of sign, so it orders messages the way
+    the field means to: more fidelity better, more cost worse, always. Sweeping
+    ``lam`` traces the frontier, which is the capacity curve K(C) seen sideways.
+    """
+    if cost <= 0:
+        raise ValueError("cost must be positive; a free message is not a message")
+    return fidelity - lam * (cost / per)
+
+
 def efficiency(fidelity: float, cost: float, per: float = 1000.0) -> float:
     """eta -- fidelity per unit cost. definitions.md 4.3
 
     ``cost`` in the receiver's tokens by default; ``per`` rescales the result
     (default: fidelity per kilotoken, to keep the numbers legible).
+
+    REFUSES A NEGATIVE FIDELITY, and this is the interesting part. A ratio with
+    a signed numerator is not an ordering: at F* = -1.0 a 100-token antinoophor
+    scores -10.00 and an 800-token one scores -1.25, so the message that spends
+    eight times as much to do the same damage ranks higher. eta inverts exactly
+    on the observations this library refuses to clip because they are the most
+    informative ones -- and it did so in the shipped implementation for three
+    versions, until an external prior-art review pointed at the ratio and the
+    inversion fell out of running our own code.
+
+    Use ``net_value`` when the sign is not known in advance.
     """
+    if fidelity < 0:
+        raise ValueError(
+            "eta is not defined for an antinoophor (F* = %.4f): dividing a "
+            "negative fidelity by cost ranks the more expensive failure higher. "
+            "Use net_value(fidelity, cost, lam) with a declared lambda."
+            % fidelity
+        )
     if cost <= 0:
         raise ValueError("cost must be positive; a free message is not a message")
     return fidelity * per / cost
@@ -232,8 +268,21 @@ class Measurement(NamedTuple):
         return transfer_fidelity(self.d_prior, self.d_post, self.d_floor)
 
     @property
-    def efficiency(self) -> float:
+    def efficiency(self) -> Optional[float]:
+        """eta, or None for an antinoophor -- where eta does not order.
+
+        None rather than a raise: a report of a negative-fidelity transfer is a
+        legitimate report and should not be unprintable. It simply has no eta.
+        Use ``net_value_at`` for a cost-adjusted comparison that survives the
+        sign.
+        """
+        if self.fidelity < 0:
+            return None
         return efficiency(self.fidelity, self.cost_tokens)
+
+    def net_value_at(self, lam: float) -> float:
+        """V_lambda for this report. Defined at every sign; lambda is declared."""
+        return net_value(self.fidelity, self.cost_tokens, lam)
 
     @property
     def phantom(self) -> Optional[float]:

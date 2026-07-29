@@ -203,9 +203,48 @@ are permitted but must be stated. Cross-study comparison requires the same unit.
 η(m) = F*(m) / C(m)
 ```
 
-Understanding per unit cost. This is the quantity that engineering should
-optimize, and almost nothing currently does. Report η in fidelity per
-kilotoken to keep the numbers legible.
+Understanding per unit cost, in fidelity per kilotoken. **Valid only where
+`F*(m) ≥ 0`.**
+
+> ~~"This is the quantity that engineering should optimize, and almost nothing
+> currently does."~~
+>
+> **Defect, found 2026-07-29 by external review and confirmed by running our
+> own code.** A ratio with a signed numerator is not an ordering. `F*` is
+> deliberately unbounded below — that is the whole point of antinoophors — and
+> dividing a negative number by cost makes the *cheaper* failure look worse:
+>
+> | message | `F*` | cost | `η` per ktok |
+> |---|---|---|---|
+> | short antinoophor | −1.0 | 100 tok | **−10.00** |
+> | long antinoophor | −1.0 | 800 tok | **−1.25** |
+>
+> The message that spends eight times as much to do the same damage **ranks
+> higher**. `η` inverts precisely on the observations §4.2 calls the most
+> informative in the field, and it did so in the shipped implementation for
+> three versions.
+>
+> The error is structural, not arithmetic: `F*/C` is a *rate*, and rates order
+> correctly only on a fixed sign. Rate–distortion theory and the information
+> bottleneck use a Lagrangian rather than a ratio for exactly this reason.
+
+**Use instead, when the sign is not known in advance:**
+
+```
+V_λ(m) = F*(m) − λ · C(m)
+```
+
+`V_λ` is monotone in both arguments at every sign, so it orders messages the
+way the field means to order them: more fidelity is better, more cost is worse,
+always. `λ` is the exchange rate between fidelity and a token and must be
+declared with any reported `V_λ` — it is a policy choice, and pretending a
+ratio avoided that choice was part of the appeal of the ratio.
+
+Sweeping `λ` traces the achievable frontier, which makes `V_λ` and the capacity
+curve `K(C)` (§6.1) the same object viewed two ways. `η` is retained for
+`F* ≥ 0`, where it is the familiar and legible quantity, and
+[`efficiency()`](../metrics/noophorics/fidelity.py) now refuses a negative
+fidelity rather than returning a number that cannot be compared.
 
 ---
 
