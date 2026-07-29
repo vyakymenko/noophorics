@@ -47,6 +47,13 @@ from .fidelity import (
     transfer_fidelity,
 )
 from .chain import ChainDecay, ChainPoint, chain_fidelity, fit_decay
+from .inference import (
+    bootstrap_ci,
+    goodman_kruskal_gamma,
+    holm_adjust,
+    permutation_diff,
+    point_biserial,
+)
 from .handoff import (
     Decision,
     KeyLeak,
@@ -91,6 +98,11 @@ __all__ = [
     "ChainPoint",
     "ChainDecay",
     "chain_fidelity",
+    "bootstrap_ci",
+    "goodman_kruskal_gamma",
+    "holm_adjust",
+    "permutation_diff",
+    "point_biserial",
     "Decision",
     "KeyLeak",
     "adjudicate",

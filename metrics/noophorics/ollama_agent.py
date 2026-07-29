@@ -171,6 +171,50 @@ class OllamaAgent(Agent):
             out.append(max(0.0, min(1.0, value)))
         return out
 
+    def claim_per_probe(
+        self,
+        probe: Probe,
+        counterpart: str,
+        artifact: Optional[str] = None,
+        n_elicitations: int = 5,
+    ) -> List[bool]:
+        """Per-probe binary judgment: will the counterpart's verdict match mine?
+
+        The v0.4 instrument, and the reason E-002 exists. ``claim_agreement``
+        returns one global rate for the whole measure, which yields a mean
+        difference -- a BIAS term -- and nothing else.
+
+        Keysar & Henly (2002) did not do that. Their speakers made a per-trial
+        forced choice about what the listener had understood, and the reported
+        72%/61% are aggregates computed afterwards. Because the judgment is
+        per-trial, each prediction pairs with THAT trial's outcome, which yields
+        resolution (can the party tell WHICH cases diverged) and the conditional
+        asymmetry that was their actual headline -- neither of which a global
+        rate can produce.
+
+        Returns the raw draws, unaggregated, in order. The caller averages.
+        Nothing about the key, the counterpart's answers, or any outcome appears
+        in the prompt: this is a prediction, and contaminating it would measure
+        reading instead.
+        """
+        schema = {
+            "type": "object",
+            "properties": {"same_verdict": {"type": "boolean"}},
+            "required": ["same_verdict"],
+        }
+        artifact_block = (
+            "\n\nThis is the brief that carries the transfer:\n\n%s\n" % artifact
+            if artifact is not None else ""
+        )
+        prompt = self._with_context(
+            "%s\n\nHere is a case you have just decided:\n\n%s%s\n\n"
+            "Will %s reach the same verdict as you on this specific case? "
+            "Answer only about this case."
+            % (_ANSWER_INSTRUCTION, probe.prompt, artifact_block, counterpart)
+        )
+        return [bool(json.loads(self._chat(prompt, schema)["_content"])["same_verdict"])
+                for _ in range(n_elicitations)]
+
     def compose(self, prompt: str, seed: int = 0) -> str:
         """Generate an artifact. Fast here, unlike the Codex CLI (>7 min)."""
         text = self._chat(self._with_context(prompt))["_content"].strip()

@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import math
 import random
+import statistics
 import sys
 import unittest
 from os.path import abspath, dirname, join
@@ -35,6 +36,10 @@ from noophorics import (  # noqa: E402
     self_divergence,
     to_distribution,
     transfer_fidelity,
+)
+from noophorics.inference import (  # noqa: E402
+    bootstrap_ci, goodman_kruskal_gamma, holm_adjust, permutation_diff,
+    point_biserial,
 )
 from noophorics.handoff import (  # noqa: E402
     DEFAULT_THETA, KeyLeak, adjudicate, key_marginal_baseline,
@@ -600,6 +605,64 @@ class EfficiencyOrderingTest(unittest.TestCase):
         self.assertLess(r.fidelity, 0.0)          # an antinoophor
         self.assertIsNone(r.efficiency)           # no eta, and no exception
         self.assertLess(r.net_value_at(0.5), 0.0)
+
+
+class InferenceTest(unittest.TestCase):
+    """Bias and resolution are independent. The tests say so explicitly."""
+
+    def test_holm_is_monotone_and_bounded(self):
+        adj = holm_adjust({"a": 0.01, "b": 0.04, "c": 0.5})
+        self.assertLessEqual(adj["a"], adj["b"])
+        self.assertLessEqual(adj["b"], adj["c"])
+        self.assertLessEqual(adj["c"], 1.0)
+        self.assertAlmostEqual(adj["a"], 0.03)      # 3 * 0.01
+
+    def test_holm_never_exceeds_one(self):
+        self.assertTrue(all(v <= 1.0 for v in
+                            holm_adjust({"a": 0.6, "b": 0.7}).values()))
+
+    def test_zero_bias_with_zero_resolution(self):
+        """The case that invalidated PRINCIPIA falsifier 2.
+
+        A party claiming 0.5 on every probe, right on average, that cannot tell
+        a single diverged probe from a matched one.
+        """
+        claims = [0.5] * 10
+        outcomes = [1.0] * 5 + [0.0] * 5
+        bias = statistics.mean(claims) - statistics.mean(outcomes)
+        self.assertAlmostEqual(bias, 0.0)             # perfectly calibrated
+        self.assertEqual(point_biserial(claims, outcomes), 0.0)   # and useless
+        self.assertEqual(goodman_kruskal_gamma(claims, outcomes), 0.0)
+
+    def test_perfect_resolution_with_large_bias(self):
+        """And the converse: badly biased, perfectly discriminating."""
+        outcomes = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0]
+        claims = [1.0, 1.0, 1.0, 0.4, 0.4, 0.4]       # every claim inflated
+        self.assertAlmostEqual(
+            statistics.mean(claims) - statistics.mean(outcomes), 0.2)
+        self.assertAlmostEqual(point_biserial(claims, outcomes), 1.0)
+        self.assertAlmostEqual(goodman_kruskal_gamma(claims, outcomes), 1.0)
+
+    def test_gamma_excludes_ties_rather_than_scoring_them(self):
+        self.assertEqual(goodman_kruskal_gamma([1, 1, 1], [1, 0, 1]), 0.0)
+
+    def test_bootstrap_is_seeded_and_brackets_the_point(self):
+        v = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+        a = bootstrap_ci(v, seed=3)
+        self.assertEqual(a, bootstrap_ci(v, seed=3))       # deterministic
+        self.assertLessEqual(a[1], a[0])
+        self.assertLessEqual(a[0], a[2])
+
+    def test_bootstrap_refuses_a_single_unit(self):
+        with self.assertRaises(ValueError):
+            bootstrap_ci([0.5])
+
+    def test_permutation_detects_a_real_difference(self):
+        _, p = permutation_diff([1.0] * 8, [0.0] * 8, permutations=2000, seed=1)
+        self.assertLess(p, 0.01)
+        _, q = permutation_diff([0.5, 0.5, 0.5, 0.5], [0.5, 0.5, 0.5, 0.5],
+                                permutations=2000, seed=1)
+        self.assertGreater(q, 0.5)
 
 
 if __name__ == "__main__":
