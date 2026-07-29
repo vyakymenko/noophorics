@@ -213,8 +213,12 @@ class Sender:
 
     def compose(self, prompt: str, seed: int = 0) -> str:
         """One generation, in a fresh request. Independence is per message."""
-        if self.provider == "codex":
-            return self._agent.compose(prompt, seed)
+        # Delegate whenever the provider supplies its own generator. Naming
+        # providers one by one here is what let ollama fall through to the
+        # Anthropic client path and crash on a missing attribute.
+        own = getattr(self._agent, "compose", None)
+        if callable(own):
+            return own(prompt, seed)
         response = self._agent._client.messages.create(
             model=self.model,
             max_tokens=4096,
