@@ -557,13 +557,16 @@ def run(args) -> Dict[str, Any]:
         "threshold": COST_PARITY_MAX_RATIO,
         "realised_cost_tokens": realised,
     }
-    # Both readings are reported and BOTH must pass. The pre-registration says
-    # "across cells" and the original code compared messages; rather than pick
-    # the one that happens to pass, the stricter conjunction is applied and both
-    # numbers go in the record.
-    parity["passed"] = bool(
-        parity["across_messages"] <= COST_PARITY_MAX_RATIO
-        and parity["across_cell_means"] <= COST_PARITY_MAX_RATIO)
+    # The gate is the CELL-MEANS reading, which is what the pre-registration
+    # says. Both numbers are recorded, but max/min over messages is not a
+    # scale-free statistic: sample extremes drift outward as the sample grows,
+    # so the same design fails the same threshold merely for collecting more
+    # messages. Measured by parametric bootstrap on real cost distributions
+    # (E-001c/FEASIBILITY.md): a genuinely cost-parous design fails the
+    # across-messages reading 40% of the time at k=3 and 86% at k=8. A gate that
+    # tightens with sample size penalises power, which is backwards.
+    parity["gate_reading"] = "across_cell_means"
+    parity["passed"] = bool(parity["across_cell_means"] <= COST_PARITY_MAX_RATIO)
     print("  cost parity: %.3f across messages, %.3f across cell means "
           "(threshold %.2f) -- %s"
           % (parity["across_messages"], parity["across_cell_means"],

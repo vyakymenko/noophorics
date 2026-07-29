@@ -65,6 +65,60 @@ E-001c's registration, not something this script can supply. What the numbers do
 rule out is the loud failure mode — pinning the length did not collapse the
 registers into one.
 
+## Result 1b — the calibration, confirmed rather than assumed
+
+Asking for **203** words, as the offset predicted:
+
+| target | compliance | parity across messages | parity across cell means | verdict |
+|---|---|---|---|---|
+| 220 | 50% | 1.320 | 1.160 | fail |
+| **203** | **56%** | **1.290** | **1.108** | **pass** |
+
+Both readings now pass, and the style separation survives the shift (fluent
+19.75 vs terse 11.52 mean sentence words; 1.77 vs 0.70 connectives per 100).
+
+The overshoot is **cell-dependent**, which the single-target correction cannot
+remove: A +14.4%, B +8.3%, C −2.8%, D +3.0%. Fluent registers run long, terse
+ones land. Word counts therefore do not equalise across cells — but the
+requirement is cost parity, and cost parity is what passes.
+
+## Result 1c — `max/min` over messages is the wrong statistic, and this is why
+
+`1.290` against a threshold of `1.30` is not a pass, it is a warning. The
+maximum and minimum of a sample both drift outward as the sample grows, so
+`max/min` is **not scale-free**: the same design fails the same gate simply for
+collecting more messages.
+
+Parametric bootstrap from the observed per-cell cost distributions
+(normal, 20 000 draws):
+
+| k per cell | messages | median `max/min` | **P(fail 1.30)** | cell-means `max/min` | P(fail) |
+|---|---|---|---|---|---|
+| 3 | 12 | 1.279 | 40% | 1.130 | 0% |
+| 4 | 16 | 1.308 | 54% | 1.124 | 0% |
+| 6 | 24 | 1.347 | 74% | 1.118 | 0% |
+| **8** | **32** | **1.375** | **86%** | 1.115 | 0% |
+| 12 | 48 | 1.415 | 96% | 1.112 | 0% |
+
+At E-001b's own pre-registered `k = 8`, a design with genuinely parous costs
+fails the across-messages gate **86% of the time**. A gate that gets harder as
+you collect more data penalises statistical power, and would have voided E-001c
+for the sin of being adequately sampled. The cell-means reading is flat across
+every `k`.
+
+So the ambiguity flagged in the void — the pre-registration said "across cells",
+the runner compared messages — resolves in favour of the pre-registration, on a
+statistical argument rather than a convenient one. The argument is that the
+sample max/min is not scale-invariant, which is true regardless of which side it
+favours; but the resolution does happen to favour the reading that passes, and
+that is stated here rather than left for a reader to notice.
+
+The runner is corrected to use cell means, and E-001c will register that reading
+explicitly. A stricter successor worth considering is an **equivalence test**
+(TOST) on cost across each axis: "the difference is inside a pre-specified
+negligible band" is the claim actually wanted, and a ratio threshold is a crude
+stand-in for it.
+
 ## Result 3 — the model overshoots, systematically and in one direction
 
 Six of twelve messages fell outside the ±10% band. **Every miss was long. None

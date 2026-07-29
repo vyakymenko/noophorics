@@ -1,0 +1,180 @@
+{
+ "experiment": "E-001c-feasibility",
+ "k": 4,
+ "model": "gpt-oss:120b",
+ "parity_threshold": 1.3,
+ "purpose": "instrument check before registration: does a two-sided word target produce cost parity, and does the style manipulation survive being pinned",
+ "targets": {
+  "203": {
+   "band": [
+    182,
+    223
+   ],
+   "cells": {
+    "A": [
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 2.192982456140351,
+      "cost_tokens": 392.0,
+      "in_band": false,
+      "mean_sentence_words": 19.0,
+      "words": 228.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.646090534979424,
+      "cost_tokens": 387.0,
+      "in_band": false,
+      "mean_sentence_words": 22.09090909090909,
+      "words": 243.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.7857142857142858,
+      "cost_tokens": 357.0,
+      "in_band": false,
+      "mean_sentence_words": 20.363636363636363,
+      "words": 224.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.2820512820512822,
+      "cost_tokens": 367.0,
+      "in_band": false,
+      "mean_sentence_words": 21.272727272727273,
+      "words": 234.0
+     }
+    ],
+    "B": [
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.408450704225352,
+      "cost_tokens": 331.0,
+      "in_band": true,
+      "mean_sentence_words": 16.384615384615383,
+      "words": 213.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.4018691588785046,
+      "cost_tokens": 338.0,
+      "in_band": true,
+      "mean_sentence_words": 17.833333333333332,
+      "words": 214.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.7699115044247788,
+      "cost_tokens": 350.0,
+      "in_band": false,
+      "mean_sentence_words": 20.545454545454547,
+      "words": 226.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 2.6548672566371683,
+      "cost_tokens": 371.0,
+      "in_band": false,
+      "mean_sentence_words": 20.545454545454547,
+      "words": 226.0
+     }
+    ],
+    "C": [
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.0416666666666667,
+      "cost_tokens": 365.0,
+      "in_band": true,
+      "mean_sentence_words": 14.76923076923077,
+      "words": 192.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.0638297872340425,
+      "cost_tokens": 360.0,
+      "in_band": true,
+      "mean_sentence_words": 13.428571428571429,
+      "words": 188.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.0,
+      "cost_tokens": 427.0,
+      "in_band": false,
+      "mean_sentence_words": 9.826086956521738,
+      "words": 226.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.092896174863388,
+      "cost_tokens": 344.0,
+      "in_band": true,
+      "mean_sentence_words": 7.956521739130435,
+      "words": 183.0
+     }
+    ],
+    "D": [
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.5050505050505051,
+      "cost_tokens": 383.0,
+      "in_band": true,
+      "mean_sentence_words": 13.2,
+      "words": 198.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.45871559633027525,
+      "cost_tokens": 404.0,
+      "in_band": true,
+      "mean_sentence_words": 10.9,
+      "words": 218.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.9049773755656109,
+      "cost_tokens": 399.0,
+      "in_band": true,
+      "mean_sentence_words": 11.05,
+      "words": 221.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.5025125628140703,
+      "cost_tokens": 354.0,
+      "in_band": true,
+      "mean_sentence_words": 11.055555555555555,
+      "words": 199.0
+     }
+    ]
+   },
+   "compliance_rate": 0.5625,
+   "fluent_cost_range": [
+    331.0,
+    392.0
+   ],
+   "parity_across_cell_means": 1.1079136690647482,
+   "parity_across_messages": 1.2900302114803626,
+   "parity_passes": true,
+   "style_separation": {
+    "bullet_fraction": {
+     "fluent": 0.0,
+     "terse": 0.0
+    },
+    "connectives_per_100w": {
+     "fluent": 1.7677421478813933,
+     "terse": 0.6962060835655699
+    },
+    "mean_sentence_words": {
+     "fluent": 19.754516317016318,
+     "terse": 11.52324580612624
+    }
+   },
+   "terse_cost_range": [
+    344.0,
+    427.0
+   ]
+  }
+ },
+ "timestamp_utc": "2026-07-29T14:36:29Z"
+}
