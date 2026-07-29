@@ -222,9 +222,19 @@ A science that cannot lose is not a science. Noophorics is wrong if:
 2. **Φ is consistently ≈ 0.** If parties' confidence tracks measured fidelity,
    the central pathology does not exist and the field loses its motivating
    phenomenon.
-3. **K ≈ 1 in practice.** If sufficiently long messages reliably close the gap
-   between arbitrary systems, A3 is false and the interesting structure
+3. **`K(C) ≈ 1` at bounded cost, on held-out probes.** If messages of bounded
+   length reliably close the gap between arbitrary systems *on probes the
+   sender never saw*, the restated A3 is false and the interesting structure
    disappears.
+
+   *(v0.3 correction. This criterion previously read "K ≈ 1 in practice", with
+   `K` estimated as the best fidelity found over a search. That estimator is the
+   maximum of noisy estimates and is biased upward — measured at 0.85 when the
+   truth was 0.60, for a 100-candidate search at the noise level our own
+   validation reports. The criterion would therefore have fired from search size
+   alone. A falsification criterion guaranteed to trigger is worse than an
+   unfalsifiable one: it manufactures its own refutation. Capacity is now
+   bounded by selecting on one probe split and scoring on another.)*
 4. **No encoding beats any other at equal cost.** If η is invariant to message
    form, there is nothing to engineer and the field is descriptive at best.
 

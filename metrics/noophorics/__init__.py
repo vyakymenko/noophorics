@@ -35,7 +35,9 @@ from .fidelity import (
     DEFAULT_EPSILON,
     InadmissibleProbeMeasure,
     Measurement,
+    CapacityBound,
     capacity_estimate,
+    capacity_lower_bound,
     claimed_agreement,
     efficiency,
     is_admissible,
@@ -69,6 +71,8 @@ __all__ = [
     "claimed_agreement",
     "phantom_agreement",
     "capacity_estimate",
+    "capacity_lower_bound",
+    "CapacityBound",
     "residual_estimate",
     "Measurement",
     # probes

@@ -16,6 +16,8 @@ __all__ = [
     "claimed_agreement",
     "phantom_agreement",
     "capacity_estimate",
+    "capacity_lower_bound",
+    "CapacityBound",
     "residual_estimate",
     "Measurement",
 ]
@@ -110,17 +112,88 @@ def phantom_agreement(claimed: float, observed: float) -> float:
 
 
 def capacity_estimate(fidelities: Iterable[float]) -> float:
-    """K-hat -- lower bound on channel capacity. definitions.md 6.1
+    """DEPRECATED (v0.1). Biased UPWARD. Use capacity_lower_bound. v0.3
 
-    K is a supremum over *all* possible messages and is not computable. This
-    returns the best fidelity found over a finite search. Any reported K-hat
-    must state its search procedure and budget; without them it is a fidelity
-    measurement wearing a bigger hat.
+    This returns the max of N noisy fidelity estimates and was documented as a
+    *lower* bound on K. That is wrong in expectation: the maximum of noisy
+    estimates is biased upward, and the bias grows with both N and the
+    per-estimate noise. Measured, with every candidate sharing a true F* of
+    0.60 and the ~0.10 estimator noise the validation reports at small n:
+
+        N =   3  ->  K-hat 0.685
+        N =  10  ->  K-hat 0.754
+        N =  30  ->  K-hat 0.804
+        N = 100  ->  K-hat 0.850
+
+    At sd = 0.20 and N = 30 it exceeds 1.0 outright. So PRINCIPIA's third
+    falsification criterion -- "K ~ 1 in practice" -- would fire from search
+    size alone, independent of the truth. A criterion guaranteed to trigger
+    is worse than an unfalsifiable one: it manufactures its own refutation.
+
+    Kept only so v0.1 numbers stay recomputable.
     """
     values = list(fidelities)
     if not values:
         raise ValueError("cannot estimate capacity from an empty search")
     return max(values)
+
+
+class CapacityBound(NamedTuple):
+    """A capacity estimate that states how it was obtained. v0.3"""
+
+    lower_bound: float        # held-out fidelity of the selected encoding
+    selected_index: int
+    selection_score: float    # its score on the selection split -- the biased one
+    winners_curse: float      # selection_score - lower_bound
+    search_size: int
+    cost_ceiling: Optional[float]  # K is a curve K(C); this is the C it belongs to
+
+    def summary(self) -> str:
+        return (
+            "K(C<=%s) >= %.3f  [selected #%d of %d; selection score %.3f, "
+            "winner's curse %+.3f]"
+            % (
+                "inf" if self.cost_ceiling is None else "%.0f" % self.cost_ceiling,
+                self.lower_bound, self.selected_index, self.search_size,
+                self.selection_score, self.winners_curse,
+            )
+        )
+
+
+def capacity_lower_bound(
+    selection_scores: Sequence[float],
+    holdout_scores: Sequence[float],
+    cost_ceiling: Optional[float] = None,
+) -> CapacityBound:
+    """K(C) lower bound by sample splitting. definitions.md 6.1 (v0.3)
+
+    Choose the best encoding using one probe split, then report its fidelity on
+    a split that played no part in choosing it. The held-out score is unbiased
+    for the encoding that was selected, so it is a genuine lower bound on K --
+    which is what v0.1 claimed to return and did not.
+
+    ``selection_scores`` and ``holdout_scores`` are aligned: one pair per
+    candidate encoding. The splits must be disjoint, and the holdout must be
+    probes the *sender* never saw either -- otherwise a lookup table wins (the
+    counterexample that refuted axiom A3).
+
+    ``cost_ceiling`` records which point of the curve this is. Capacity without
+    a cost bound is not a quantity: at unbounded cost and visible probes it is
+    trivially 1.
+    """
+    if len(selection_scores) != len(holdout_scores):
+        raise ValueError("candidate count mismatch between the two splits")
+    if not selection_scores:
+        raise ValueError("cannot estimate capacity from an empty search")
+    best = max(range(len(selection_scores)), key=lambda i: selection_scores[i])
+    return CapacityBound(
+        lower_bound=holdout_scores[best],
+        selected_index=best,
+        selection_score=selection_scores[best],
+        winners_curse=selection_scores[best] - holdout_scores[best],
+        search_size=len(selection_scores),
+        cost_ceiling=cost_ceiling,
+    )
 
 
 def residual_estimate(capacity: float) -> float:

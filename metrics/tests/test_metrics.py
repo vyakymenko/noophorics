@@ -9,6 +9,7 @@ flattering number instead of an error.
 from __future__ import annotations
 
 import math
+import random
 import sys
 import unittest
 from os.path import abspath, dirname, join
@@ -22,6 +23,7 @@ from noophorics import (  # noqa: E402
     ProbeMeasure,
     agreement_rate,
     capacity_estimate,
+    capacity_lower_bound,
     claimed_agreement,
     efficiency,
     jensen_shannon,
@@ -331,6 +333,49 @@ class TestHeldOutProbes(unittest.TestCase):
             weights=[3.0, 1.0],
         )
         self.assertNotEqual(base.content_hash, reweighted.content_hash)
+
+class TestCapacityWinnersCurse(unittest.TestCase):
+    """K-hat as max-of-noisy-estimates is biased UP, not a lower bound."""
+
+    def _search(self, n_candidates, true_f=0.60, sd=0.10, seed=5):
+        rng = random.Random(seed)
+        selection = [true_f + rng.gauss(0, sd) for _ in range(n_candidates)]
+        holdout = [true_f + rng.gauss(0, sd) for _ in range(n_candidates)]
+        return selection, holdout
+
+    def test_v01_max_is_biased_upward_and_grows_with_search_size(self):
+        small, _ = self._search(3)
+        large, _ = self._search(100)
+        self.assertGreater(capacity_estimate(large), capacity_estimate(small))
+        # It overshoots the truth it is supposed to bound from below.
+        self.assertGreater(capacity_estimate(large), 0.60)
+
+    def test_split_selection_recovers_the_truth_across_search_sizes(self):
+        means = []
+        for n in (3, 100):
+            total = 0.0
+            for trial in range(400):
+                sel, hold = self._search(n, seed=1000 + trial)
+                total += capacity_lower_bound(sel, hold).lower_bound
+            means.append(total / 400)
+        for mean in means:
+            self.assertLess(abs(mean - 0.60), 0.03)
+        # And unlike the max, it does not drift with search size.
+        self.assertLess(abs(means[0] - means[1]), 0.03)
+
+    def test_bound_records_how_it_was_obtained(self):
+        sel, hold = self._search(10)
+        bound = capacity_lower_bound(sel, hold, cost_ceiling=350)
+        self.assertEqual(bound.search_size, 10)
+        self.assertEqual(bound.cost_ceiling, 350)
+        self.assertAlmostEqual(
+            bound.winners_curse, bound.selection_score - bound.lower_bound
+        )
+
+    def test_splits_must_be_aligned(self):
+        with self.assertRaises(ValueError):
+            capacity_lower_bound([0.1, 0.2], [0.1])
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

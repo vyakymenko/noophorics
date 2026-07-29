@@ -103,31 +103,52 @@ same way?" — whereas nobody has calibrated intuitions about expected JSD.
 
 ## 3. The noise floor
 
-### 3.1 Self-divergence
+> **v0.3 correction — the floor is estimator bias, not a property of the agents.**
+>
+> v0.1 called `D_floor` "the irreducible divergence caused by the parties' own
+> stochasticity" and put it inside the *definition* of `F*`. That was a category
+> error. Two perfectly aligned stochastic agents have **identical true
+> distributions**, so their true JSD is exactly zero and `D_self → 0` as
+> `n → ∞`. There is no irreducible divergence; there is finite-sample bias in
+> the estimator, and nothing else.
+>
+> The consequence was not cosmetic. Because `D_floor` appeared in the
+> definition, the *defined* quantity was a function of sample size — and a
+> fidelity that changes when you sample more is not well-posed.
+>
+> **Corrected architecture.** `F*` is defined over true distributions:
+> `F* = (D_prior − D_post) / D_prior`. All floor machinery below is **bias
+> correction inside the estimator**, never part of the definition.
 
-An agent is not deterministic. Sampled twice, it diverges from itself:
+### 3.1 Self-divergence (deprecated)
 
 ```
 D_self(A | P) = E_{π ~ P} [ JSD( A⁽¹⁾(π) ‖ A⁽²⁾(π) ) ]
 ```
 
-where `A⁽¹⁾` and `A⁽²⁾` are independently drawn sample sets from the same agent
-under identical conditions.
+Retained so v0.1 numbers stay recomputable. Do not use it: estimated from
+half-sized sample sets, it is inflated relative to the divergences it was
+subtracted from — measured at 0.175 versus 0.073 for two identical fair-coin
+agents at n=6 versus n=12.
 
-### 3.2 Floor
+### 3.2 Floor, by permutation null
+
+Pool a probe's draws from both agents, reshuffle into two groups of the
+original sizes, and take the expected divergence:
 
 ```
-D_floor(A, B | P) = ½ ( D_self(A | P) + D_self(B | P) )
+D_floor(A, B | P, n) = E_{π ~ P} [ E_perm JSD( shuffle₁ ‖ shuffle₂ ) ]
 ```
 
-This is the divergence you would measure between two *perfectly aligned* agents
-with the same stochasticity. It is the irreducible remainder. No transfer can
-push measured divergence below it, and a fidelity measure that ignores it will
-systematically report ceilings below 1 and mistake sampling noise for
-untransferred meaning.
+Under the null the two groups come from one distribution, so this is exactly
+what a perfectly aligned pair scores — at the same `n`, in the same answer
+space, carrying the same estimator bias. Note the explicit `n`: this is a
+property of the *measurement*, not of the agents.
 
-**Correcting for the floor is not optional.** It is the single detail that
-separates a noophoric measurement from a plausible-looking number.
+**Correcting for it is not optional, and it is not sufficient.** Synthetic
+validation shows the corrected estimator still carries ~0.11 of error at n=6.
+No floor rescues too few samples; see
+[`metrics/validation/synthetic.py`](../metrics/validation/synthetic.py).
 
 ### 3.3 Admissibility
 
@@ -230,10 +251,29 @@ noophoric analogue of Shannon capacity, and the central theoretical object of
 the field.
 
 `K` is not directly computable — the supremum ranges over all possible
-artifacts. It is estimated as `K̂ = max over a search budget of N candidate
-encodings`, which is a lower bound. Every reported `K̂` must state its search
-procedure and `N`; a capacity estimate without them is a fidelity measurement
-wearing a bigger hat.
+artifacts.
+
+**It must not be estimated as the maximum over a search.** That is the maximum
+of noisy estimates, which is biased *upward*, with the bias growing in both the
+search size and the per-estimate noise. At the noise level our own validation
+reports, a 100-candidate search returns 0.85 when the truth is 0.60. A quantity
+so estimated is not a lower bound on anything.
+
+Estimate it instead by **sample splitting**: choose the best encoding on one
+probe split, and report its fidelity on a split that played no part in choosing
+it. That held-out score is unbiased for the selected encoding, and therefore is
+a genuine lower bound (`capacity_lower_bound`).
+
+Two conditions, both load-bearing:
+
+- The holdout must consist of probes the **sender** never saw. Otherwise a
+  lookup table wins — the counterexample that refuted axiom A3.
+- The bound belongs to a **stated cost ceiling**. `K` is a curve `K(C)`, not a
+  scalar; at unbounded cost over visible probes it is trivially 1.
+
+Every reported bound must state its search size, its cost ceiling, and the
+realised winner's curse (selection score minus held-out score), which measures
+how much the search overfitted.
 
 ### 6.2 Residual
 
