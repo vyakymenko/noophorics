@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="10" fill="#E7E8E3"/>
+  <rect width="64" height="64" rx="10" fill="#0F1317" class="d"/>
+  <style>.d{opacity:0}@media (prefers-color-scheme:dark){.d{opacity:1}.f{fill:#C7654A}}</style>
+  <text class="f" x="32" y="46" font-family="Georgia,serif" font-size="42" text-anchor="middle" fill="#8A3324">Φ</text>
+</svg>

@@ -1,0 +1,46 @@
+{
+  "ar": {
+    "name": "العربية",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "de": {
+    "name": "Deutsch",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "es": {
+    "name": "Español",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "fr": {
+    "name": "Français",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "hi": {
+    "name": "हिन्दी",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "ja": {
+    "name": "日本語",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "ko": {
+    "name": "한국어",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "pt": {
+    "name": "Português",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "ru": {
+    "name": "Русский",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "uk": {
+    "name": "Українська",
+    "source_fingerprint": "7a3cb39b0d4e"
+  },
+  "zh": {
+    "name": "中文",
+    "source_fingerprint": "7a3cb39b0d4e"
+  }
+}
