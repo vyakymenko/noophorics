@@ -1,0 +1,511 @@
+{
+ "description": "34 decidable submission cases over the Meridian Review handling rules. Structurally identical to the withdrawn KESTREL-34 measure, rule for rule and key for key; only the semantics changed, after KESTREL-34 was found to trip a cyber-category safety classifier and make the sender unable to compose a brief. See AMENDMENT-001.md.",
+ "domain": "fictional-submission-handling-rules",
+ "holdout": [],
+ "id": "MERIDIAN-33",
+ "probes": [
+  {
+   "id": "M01",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 24 pages, uses the official template, has never been presented at a Tier-1 venue, was never accepted in a prior Meridian round, carries 12 figures, and has no retraction notice. Verdict?",
+   "tags": [
+    "baseline"
+   ]
+  },
+  {
+   "id": "M02",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 21 pages, uses the official template, no venue presentation, carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R1",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M03",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, does not use the official template but carries 4 years of documented revision history, no venue presentation, 15 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R2"
+   ]
+  },
+  {
+   "id": "M04",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, does not use the official template, carries 2 years of documented revision history, is not in Track D, no venue presentation, 15 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R2",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M05",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, does not use the official template, carries 2 years of revision history, is submitted to Track D with 2 endorsements, no venue presentation, 15 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R6"
+   ]
+  },
+  {
+   "id": "M06",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, does not use the official template, carries no revision history, is submitted to Track D with 1 endorsement, no venue presentation, 15 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R6",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M07",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 35 pages, uses the official template, was presented at a Tier-1 venue this month, carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R3"
+   ]
+  },
+  {
+   "id": "M08",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 35 pages, uses the official template, was presented at a Tier-1 venue 24 months before the deadline, carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R3"
+   ]
+  },
+  {
+   "id": "M09",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 35 pages, uses the official template, was presented at a Tier-1 venue 12 months before the deadline, carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R3"
+   ]
+  },
+  {
+   "id": "M10",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 35 pages, uses the official template, was presented at a Tier-1 venue exactly 18 months before the deadline, carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R3",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M11",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 40 pages, uses the official template, was accepted in a Meridian round 6 years ago, no venue presentation, 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R4"
+   ]
+  },
+  {
+   "id": "M12",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 40 pages, uses the official template, was accepted in a Meridian round 4 years ago, no venue presentation, 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R4"
+   ]
+  },
+  {
+   "id": "M13",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 40 pages, uses the official template, was accepted in a Meridian round exactly 5 years ago, no venue presentation, 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R4",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M14",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Paired submission of 2 manuscripts. Both are 28 pages and both use the official template. One was presented at a Tier-1 venue this month; the other has never been presented. Combined figure count is 60. Neither has a retraction notice. Verdict?",
+   "tags": [
+    "R5",
+    "R3",
+    "R8",
+    "interaction"
+   ]
+  },
+  {
+   "id": "M15",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Paired submission of 2 manuscripts. Both are 28 pages. One uses the official template; the other does not, carries 1 year of revision history, and is not in Track D. Combined figure count is 50. Neither has a retraction notice. Verdict?",
+   "tags": [
+    "R5",
+    "R2",
+    "interaction"
+   ]
+  },
+  {
+   "id": "M16",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Paired submission of 3 manuscripts. All are 30 pages, all use the official template, none has been presented at a venue. Combined figure count is 60. None has a retraction notice. Verdict?",
+   "tags": [
+    "R5",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M17",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries 60 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R8",
+    "R9"
+   ]
+  },
+  {
+   "id": "M18",
+   "key": "PADDED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries 5 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R9"
+   ]
+  },
+  {
+   "id": "M19",
+   "key": "PADDED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Paired submission of 2 manuscripts. Both are 30 pages, both use the official template, neither has been presented at a venue. Combined figure count is 5. Neither has a retraction notice. Verdict?",
+   "tags": [
+    "R9",
+    "R8",
+    "interaction"
+   ]
+  },
+  {
+   "id": "M20",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Paired submission of 2 manuscripts. Both are 30 pages, both use the official template, neither has been presented at a venue. Combined figure count is 75. Neither has a retraction notice. Verdict?",
+   "tags": [
+    "R8",
+    "R9",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M21",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries 20 figures, and has an open retraction notice. Verdict?",
+   "tags": [
+    "R7",
+    "override"
+   ]
+  },
+  {
+   "id": "M22",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is submitted to Track D with 2 endorsements. It is 30 pages, does not use the official template, carries no revision history, has no venue presentation, carries 20 figures, and has an open retraction notice. Verdict?",
+   "tags": [
+    "R7",
+    "R6",
+    "override"
+   ]
+  },
+  {
+   "id": "M23",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries 4 figures, and has an open retraction notice. Verdict?",
+   "tags": [
+    "R7",
+    "R9",
+    "override"
+   ]
+  },
+  {
+   "id": "M24",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 28 pages, uses the official template, was withdrawn in the prior Meridian round and has never been accepted, has never been presented at a Tier-1 venue, carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R10",
+    "R4"
+   ]
+  },
+  {
+   "id": "M25",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 28 pages, uses the official template, was withdrawn in the prior round 10 months before this deadline, and was presented at a Tier-1 venue 30 months before this deadline. Carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R10",
+    "R3",
+    "interaction"
+   ]
+  },
+  {
+   "id": "M26",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 28 pages, uses the official template, was withdrawn in the prior round 24 months before this deadline, and was presented at a Tier-1 venue 30 months before this deadline. Carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R10",
+    "R3",
+    "interaction"
+   ]
+  },
+  {
+   "id": "M27",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is exactly 22 pages, uses the official template, no venue presentation, carries exactly 8 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R1",
+    "R8",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M28",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 30 pages, uses the official template, no venue presentation, carries exactly 45 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R8",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M29",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 20 pages, is submitted to Track D with 2 endorsements, does not use the official template, has no venue presentation, carries 20 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R6",
+    "R1",
+    "scope"
+   ]
+  },
+  {
+   "id": "M30",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Paired submission of 2 manuscripts. Both are 30 pages and both use the official template. Both were presented at Tier-1 venues this month. Combined figure count is 40. Neither has a retraction notice. Verdict?",
+   "tags": [
+    "R5",
+    "R3",
+    "interaction"
+   ]
+  },
+  {
+   "id": "M31",
+   "key": "HANDLED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 26 pages, uses the official template, was presented at a Tier-1 venue 19 months before the deadline, carries 30 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R3",
+    "boundary"
+   ]
+  },
+  {
+   "id": "M32",
+   "key": "PADDED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 45 pages, does not use the official template but carries 10 years of documented revision history, was accepted in a Meridian round 7 years ago, no venue presentation, carries 7 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R9",
+    "R2",
+    "R4",
+    "interaction"
+   ]
+  },
+  {
+   "id": "M34",
+   "key": "RETURNED",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "prompt": "Solo submission. Manuscript is 33 pages, uses the official template, was accepted in a Meridian round 3 years ago, no venue presentation, carries 6 figures, no retraction notice. Verdict?",
+   "tags": [
+    "R4",
+    "R9",
+    "interaction"
+   ]
+  }
+ ],
+ "weights": [
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0
+ ]
+}
