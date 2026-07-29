@@ -20,50 +20,356 @@
 <link rel="alternate" hreflang="uk" href="https://noophorics.org/uk/">
 <link rel="alternate" hreflang="zh" href="https://noophorics.org/zh/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Noophorics — 度量理解的传递"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Noophorics — 度量理解的传递">
+<meta name="twitter:description" content="版本 0.3。没有任何结论被确立，而我们自己的三项主张已被推翻。">
+<meta name="twitter:image" content="https://noophorics.org/og-v2.png">
+<meta property="og:title" content="Noophorics — 度量理解的传递">
+<meta property="og:type" content="website">
 <meta property="og:url" content="https://noophorics.org/zh/">
-<meta property="og:image" content="https://noophorics.org/og.png">
+<meta property="og:image" content="https://noophorics.org/og-v2.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Noophorics — Φ">
 <meta property="og:description" content="版本 0.3。没有任何结论被确立，而我们自己的三项主张已被推翻。">
 <style>
-:root{--plate:#E7E8E3;--ink:#1B2530;--soft:#5B6570;--rule:#B9BDB4;--accent:#8A3324}
-@media (prefers-color-scheme:dark){:root{--plate:#0F1317;--ink:#DCE0DC;--soft:#8B959E;--rule:#2A3138;--accent:#C7654A}}
-:root[data-theme="dark"]{--plate:#0F1317;--ink:#DCE0DC;--soft:#8B959E;--rule:#2A3138;--accent:#C7654A}
-:root[data-theme="light"]{--plate:#E7E8E3;--ink:#1B2530;--soft:#5B6570;--rule:#B9BDB4;--accent:#8A3324}
+:root{
+  color-scheme:light dark;
+  --plate:#e7e8e3;
+  --field:#ddded8;
+  --ink:#12161a;
+  --graphite:#5c6369;
+  --rule:#c5c7c0;
+  --rule-soft:#d5d6d0;
+  --phantom:#a3291d;
+  --phantom-wash:rgba(163,41,29,.11);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Charter,
+    "Bitstream Charter","Book Antiqua","Noto Serif",Georgia,serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"DejaVu Sans Mono",
+    "Liberation Mono",Consolas,monospace;
+  --measure:40rem;
+  --rail:9rem;
+  --gutter:3rem;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --plate:#0f1317;
+    --field:#161b20;
+    --ink:#d7d9d4;
+    --graphite:#8c9299;
+    --rule:#262c32;
+    --rule-soft:#1d2329;
+    --phantom:#e0705f;
+    --phantom-wash:rgba(224,112,95,.14);
+  }
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--plate);color:var(--ink);
-  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-  font-size:clamp(1rem,.95rem + .3vw,1.15rem);line-height:1.65}
-main{max-width:38rem;margin:0 auto;padding:clamp(2rem,6vw,5rem) 1.25rem 4rem}
-h1{font-size:clamp(2.2rem,1.6rem + 3vw,3.4rem);font-weight:400;margin:0 0 .2em;letter-spacing:-.01em}
-.etym{font-style:italic;color:var(--soft);margin:0 0 2.5rem}
-p{margin:0 0 1.4rem;text-wrap:pretty}
-.lede{font-size:1.15em}
-.q{font-family:ui-monospace,Menlo,monospace;font-size:.92em}
-.phi{border-inline-start:3px solid var(--accent);padding-inline-start:1.1rem;margin:2rem 0}
-.phi b{color:var(--accent)}
-.status{border-top:1px solid var(--rule);margin-top:3rem;padding-top:1.4rem;color:var(--soft);font-size:.95em}
-.stale{background:var(--accent);color:var(--plate);padding:.8rem 1.1rem;margin:0 0 2rem;font-size:.95em}
-nav.langs{border-top:1px solid var(--rule);margin-top:2.5rem;padding-top:1.2rem;
-  font-size:.9em;line-height:2.2;color:var(--soft)}
-a{color:inherit;text-underline-offset:.18em}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.skip{position:absolute;inset-inline-start:-9999px;top:0;z-index:9;background:var(--accent);
-  color:var(--plate);padding:.7rem 1.1rem;text-decoration:none}
-.skip:focus{inset-inline-start:0}
-nav.langs a{margin-inline-end:1rem;white-space:nowrap}
+html{scroll-behavior:smooth}
+body{
+  min-width:18rem;
+  margin:0;
+  background:var(--plate);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:clamp(1rem,.96rem + .2vw,1.0625rem);
+  line-height:1.62;
+  -webkit-text-size-adjust:100%;
+}
+p,h1{margin:0;text-wrap:pretty}
+a{
+  color:inherit;
+  text-decoration-color:var(--phantom);
+  text-decoration-thickness:from-font;
+  text-underline-offset:.2em;
+}
+a:hover{color:var(--phantom)}
+:focus-visible{outline:2px solid var(--phantom);outline-offset:3px}
+.shell{
+  width:min(100%,calc(var(--rail) + var(--gutter) + var(--measure) + 3rem));
+  margin-inline:auto;
+  padding-inline:clamp(1.125rem,4vw,1.5rem);
+}
+.skip{
+  position:absolute;
+  inset-block-start:.5rem;
+  inset-inline-start:-200vw;
+  z-index:10;
+  padding:.75rem 1rem;
+  background:var(--phantom);
+  color:var(--plate);
+  font:600 .75rem/1 var(--mono);
+  letter-spacing:.08em;
+  text-decoration:none;
+  text-transform:uppercase;
+}
+.skip:focus{inset-inline-start:.5rem}
+.masthead{
+  border-bottom:1px solid var(--rule);
+  font:500 .6875rem/1.2 var(--mono);
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.masthead .shell{
+  min-height:3.25rem;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:.75rem 1.5rem;
+  align-items:center;
+}
+.mark,.programme-nav{text-decoration:none}
+.mark{color:var(--ink);letter-spacing:.16em}
+.edition{color:var(--graphite);text-align:center}
+.programme-nav{color:var(--graphite)}
+.programme-nav span{color:var(--phantom)}
+.programme-nav:hover span{color:inherit}
+.page{
+  display:grid;
+  grid-template-columns:minmax(0,var(--rail)) minmax(0,var(--measure));
+  gap:0 var(--gutter);
+  padding-block:clamp(3.25rem,8vw,6.5rem) clamp(3.5rem,8vw,6rem);
+}
+.rail{
+  grid-column:1;
+  grid-row:1;
+  padding-block-start:.55rem;
+  color:var(--graphite);
+  font:400 .625rem/1.65 var(--mono);
+  letter-spacing:.14em;
+  text-align:end;
+  text-transform:uppercase;
+}
+.rail strong{
+  display:block;
+  color:var(--ink);
+  font-weight:400;
+}
+.rail .rail-phi{
+  display:block;
+  margin-block-start:1.15rem;
+  color:var(--phantom);
+  font-size:2.5rem;
+  line-height:1;
+  letter-spacing:0;
+}
+.content{grid-column:2;min-width:0;overflow-wrap:anywhere}
+.stale{
+  margin-block-end:2rem;
+  padding:.85rem 1rem;
+  border:1px solid var(--phantom);
+  background:var(--phantom-wash);
+  color:var(--ink);
+  font-size:.9375rem;
+}
+.stale:empty{display:none}
+.eyebrow{
+  margin-block-end:1.25rem;
+  color:var(--graphite);
+  font:400 .6875rem/1.5 var(--mono);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+h1{
+  font-size:clamp(3rem,9vw,5.25rem);
+  font-weight:400;
+  line-height:.98;
+  letter-spacing:.015em;
+  text-transform:uppercase;
+}
+.etym{
+  margin-block-start:1rem;
+  color:var(--graphite);
+  font:400 .8125rem/1.5 var(--mono);
+  letter-spacing:.02em;
+}
+.lede{
+  max-width:35rem;
+  margin-block-start:clamp(2.25rem,6vw,3.25rem);
+  font-size:clamp(1.2rem,2.8vw,1.45rem);
+  line-height:1.43;
+}
+.definition{
+  margin-block-start:clamp(2.25rem,6vw,3rem);
+  padding-block-start:1.6rem;
+  border-block-start:1px solid var(--rule);
+  font-size:clamp(1.08rem,2.3vw,1.22rem);
+  line-height:1.55;
+}
+.phi{
+  display:grid;
+  grid-template-columns:clamp(5.25rem,14vw,7rem) 1fr;
+  margin-block:clamp(2.5rem,7vw,4rem);
+  border-block:1px solid var(--phantom);
+  background:var(--field);
+}
+.phi-mark{
+  min-height:8.5rem;
+  display:grid;
+  place-items:center;
+  border-inline-end:1px solid var(--phantom);
+  background:var(--phantom-wash);
+  color:var(--phantom);
+  font:400 clamp(3.5rem,10vw,5.25rem)/1 var(--mono);
+}
+.phi-copy{
+  align-self:center;
+  padding:clamp(1.2rem,4vw,1.65rem);
+  font-size:clamp(1.02rem,2.2vw,1.15rem);
+  line-height:1.52;
+}
+.status{
+  padding-block:1.25rem;
+  border-block:1px solid var(--rule);
+  color:var(--graphite);
+  font-size:.9375rem;
+}
+.canonical{
+  margin-block-start:2.25rem;
+  padding:1.25rem;
+  border:1px solid var(--rule);
+  background:var(--field);
+}
+.canonical p{color:var(--graphite);font-size:.9375rem}
+.canonical-link{
+  min-height:2.75rem;
+  margin-block-start:1rem;
+  padding:.75rem 1rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.5rem;
+  background:var(--ink);
+  color:var(--plate);
+  font:500 .75rem/1.3 var(--mono);
+  letter-spacing:.1em;
+  text-decoration:none;
+  text-transform:uppercase;
+}
+.canonical-link:hover{background:var(--phantom);color:var(--plate)}
+.canonical-link .arrow{font-size:1rem}
+.foot{
+  padding-block:0 2.5rem;
+  border-top:1px solid var(--rule);
+}
+.foot .shell{
+  display:grid;
+  grid-template-columns:minmax(0,var(--rail)) minmax(0,var(--measure));
+  gap:0 var(--gutter);
+}
+.foot-inner{grid-column:2;min-width:0;padding-block-start:1.5rem}
+.foot-meta{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  color:var(--graphite);
+  font:400 .6875rem/1.5 var(--mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.foot-meta a{min-height:2.75rem;display:inline-flex;align-items:center}
+.langs{margin-block-start:1rem}
+.langs ul{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.25rem .5rem;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.langs a{
+  min-height:2.75rem;
+  display:inline-flex;
+  align-items:center;
+  padding-inline:.6rem;
+  border:1px solid transparent;
+  color:var(--graphite);
+  font-size:.875rem;
+  white-space:nowrap;
+}
+.langs a:hover{border-color:var(--rule);color:var(--phantom)}
+.langs a[aria-current="page"]{
+  border-color:var(--phantom);
+  color:var(--ink);
+  text-decoration:none;
+}
+@media (max-width:50rem){
+  .page{grid-template-columns:minmax(0,1fr)}
+  .rail{display:none}
+  .content{grid-column:1}
+  .foot .shell{grid-template-columns:minmax(0,1fr)}
+  .foot-inner{grid-column:1}
+}
+@media (max-width:34rem){
+  .masthead .shell{grid-template-columns:1fr auto}
+  .edition{display:none}
+  .programme-nav{text-align:end}
+  h1{font-size:clamp(2.4rem,14vw,3rem)}
+  .phi{grid-template-columns:4.5rem 1fr}
+  .phi-mark{min-height:7.5rem;font-size:3.25rem}
+  .phi-copy{padding:1rem}
+  .foot-meta{align-items:flex-start;flex-direction:column;gap:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
+@media (forced-colors:active){
+  .phi,.canonical-link,.langs a[aria-current="page"]{border:1px solid CanvasText}
+  .phi-mark{border-inline-end:1px solid CanvasText}
+}
+@media print{
+  .skip,.masthead,.foot{display:none}
+  .page{display:block;max-width:var(--measure);padding-block:2rem}
+  .canonical-link{border:1px solid var(--ink)}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#content">跳到正文</a>
-<main id="content">
-
-<h1>Noophorics</h1>
-<p class="etym">νόος + φορά</p>
-<p class="lede">两个心智面对同一个问题。其中一个向另一个解释。双方都认为解释传达到了。没有人度量失去了什么。</p>
-<p>理解由行为趋同来度量：就某个明确声明的探针测度而言，B 在多大程度上会做出与 A 相同的决策，就在多大程度上理解了 A 所理解的。</p>
-<div class="phi"><p style="margin:0"><b>Φ</b> — 幻影一致（Φ）：双方都相信理解已经传递，探针却显示并非如此。本领域的核心病理。</p></div>
-<p class="status">版本 0.3。没有任何结论被确立，而我们自己的三项主张已被推翻。<br><br>规范文本为英文。本页为摘要。 <a href="https://noophorics.org/">English (canonical)</a> · <a href="https://github.com/vyakymenko/noophorics">GitHub</a></p>
-<nav class="langs"><a href="/ar/" hreflang="ar">العربية</a> <a href="/de/" hreflang="de">Deutsch</a> <a href="/es/" hreflang="es">Español</a> <a href="/fr/" hreflang="fr">Français</a> <a href="/hi/" hreflang="hi">हिन्दी</a> <a href="/ja/" hreflang="ja">日本語</a> <a href="/ko/" hreflang="ko">한국어</a> <a href="/pt/" hreflang="pt">Português</a> <a href="/ru/" hreflang="ru">Русский</a> <a href="/uk/" hreflang="uk">Українська</a> <a href="/zh/" hreflang="zh">中文</a></nav>
+<header class="masthead">
+  <div class="shell">
+    <a class="mark" href="/" dir="ltr">Noophorics</a>
+    <span class="edition"><bdi>中文</bdi> / v0.3</span>
+    <a class="programme-nav" href="/" dir="ltr">Canonical programme <span aria-hidden="true">→</span></a>
+  </div>
+</header>
+<main class="page shell" id="content" tabindex="-1">
+  <aside class="rail" aria-hidden="true" dir="ltr">
+    Condensed summary
+    <strong>zh / v0.3</strong>
+    <span class="rail-phi">Φ</span>
+  </aside>
+  <article class="content" aria-labelledby="page-title">
+    <p class="stale" role="status"></p>
+    <p class="eyebrow" dir="ltr">zh / condensed summary / v0.3</p>
+    <h1 id="page-title" dir="ltr">Noophorics</h1>
+    <p class="etym" dir="ltr">νόος + φορά</p>
+    <p class="lede">两个心智面对同一个问题。其中一个向另一个解释。双方都认为解释传达到了。没有人度量失去了什么。</p>
+    <p class="definition">理解由行为趋同来度量：就某个明确声明的探针测度而言，B 在多大程度上会做出与 A 相同的决策，就在多大程度上理解了 A 所理解的。</p>
+    <aside class="phi" aria-label="Φ">
+      <div class="phi-mark" aria-hidden="true">Φ</div>
+      <p class="phi-copy">幻影一致（Φ）：双方都相信理解已经传递，探针却显示并非如此。本领域的核心病理。</p>
+    </aside>
+    <p class="status">版本 0.3。没有任何结论被确立，而我们自己的三项主张已被推翻。</p>
+    <section class="canonical" aria-label="Canonical programme">
+      <p>规范文本为英文。本页为摘要。</p>
+      <a class="canonical-link" href="/" dir="ltr">
+        <span>English (canonical)</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </section>
+  </article>
 </main>
+<footer class="foot">
+  <div class="shell">
+    <div class="foot-inner">
+      <div class="foot-meta">
+        <span><bdi>Noophorics</bdi> / <bdi>中文</bdi></span>
+        <a href="https://github.com/vyakymenko/noophorics" dir="ltr">GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+      <nav class="langs" aria-label="Language">
+        <ul><li><a href="/" lang="en" dir="ltr" hreflang="en">English</a></li><li><a href="/ar/" lang="ar" dir="rtl" hreflang="ar">العربية</a></li><li><a href="/de/" lang="de" dir="ltr" hreflang="de">Deutsch</a></li><li><a href="/es/" lang="es" dir="ltr" hreflang="es">Español</a></li><li><a href="/fr/" lang="fr" dir="ltr" hreflang="fr">Français</a></li><li><a href="/hi/" lang="hi" dir="ltr" hreflang="hi">हिन्दी</a></li><li><a href="/ja/" lang="ja" dir="ltr" hreflang="ja">日本語</a></li><li><a href="/ko/" lang="ko" dir="ltr" hreflang="ko">한국어</a></li><li><a href="/pt/" lang="pt" dir="ltr" hreflang="pt">Português</a></li><li><a href="/ru/" lang="ru" dir="ltr" hreflang="ru">Русский</a></li><li><a href="/uk/" lang="uk" dir="ltr" hreflang="uk">Українська</a></li><li><a href="/zh/" lang="zh" dir="ltr" hreflang="zh" aria-current="page">中文</a></li></ul>
+      </nav>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
