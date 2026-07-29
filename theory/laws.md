@@ -187,6 +187,28 @@ not a reason to soften it.
 **Refuted if:** at equal cost, narrative and contrastive encodings produce
 statistically indistinguishable `Φ`, or narrative produces *lower* `Φ`.
 
+**Prior art.** The human metacognitive version of this effect has substantial
+support and is **not ours**. Carpenter et al. (2013) held a 65-second script
+constant and varied delivery only: judgments of learning (t(40) = 3.34,
+d = 1.03), self-rated learning (d = 1.78) and all four instructor-evaluation
+items rose with fluency; free recall did not differ in either experiment, and
+restudy time was equal (1.39 vs 1.43 min, p = .88) — the "at equal cost" clause,
+incidentally satisfied. Deslauriers et al. (2019) found tested and felt learning
+anticorrelated in a randomized crossover (+0.46 SD, −0.56 SD, both P < 0.001),
+with perceived instructor effectiveness (+0.51 SD) displacing instruction type
+as the predictor of felt learning.
+
+Neither paper varies narrative against contrastive encoding, so neither
+addresses L5's refutation condition. Neither measures a *sender's* belief, so
+half the Φ construct is untouched. Carpenter's learning result is an accepted
+null, not a measured decrease, and Deslauriers manipulated active versus passive
+engagement rather than fluency. L5's untested content is therefore (a) two
+positive slopes with different gradients, not one slope and one flat line;
+(b) Φ as a two-party quantity; and (c) that any of this holds when sender and
+receiver are language models — which no human study can settle. Only (a)–(c)
+are what E-001c must establish, and under this repository's own rules a prior
+is not a test.
+
 **Status:** `conjectured`
 **Attacked by:** [E-001](../experiments/E-001-fluency-cost/) — primary
 hypothesis H2
@@ -208,8 +230,29 @@ disagree. Under the definition of `F*`, which measures gap closure and not
 information delivered, the contrastive encoding is spending every token on the
 numerator.
 
-This is the field's first engineering prescription, and it directly contradicts
-how nearly every handoff, summary, and spec is written today.
+> ~~This is the field's first engineering prescription, and it directly
+> contradicts how nearly every handoff, summary, and spec is written today.~~
+>
+> **Refuted 2026-07-29.** Structured-handoff prescriptions with mandated content
+> slots and a receiver-synthesis step have been deployed and outcome-measured
+> since 2014. The I-PASS bundle, evaluated across nine pediatric residency
+> programmes and 10,740 admissions, was associated with a **23% reduction in
+> medical errors** (24.5 → 18.8 per 100 admissions) and a 30% reduction in
+> preventable adverse events (4.7 → 3.3 per 100), both P < 0.001, without
+> lengthening handoffs (Starmer et al., *NEJM* 371(19), 2014).
+>
+> L6 is not first. What L6 claims that I-PASS does not test is the contrast
+> itself — I-PASS was compared against unstandardized usual care, not against
+> declarative prose at equal cost — and it claims it for machine receivers,
+> about which I-PASS says nothing. It remains a testable claim; it is no longer
+> a primacy claim.
+>
+> Three things this citation does **not** license. I-PASS was an undecomposed
+> five-part bundle, so receiver read-back is not shown to have caused the
+> effect. It was pre–post without a concurrent control, so it is not causal in
+> the trial sense — six of nine sites improved significantly and one worsened.
+> And its effect sizes are not a benchmark for a prose-versus-constraint
+> experiment, because it never ran that contrast.
 
 **Refuted if:** contrastive encodings show `η ≤` declarative encodings at equal
 cost, across domains.

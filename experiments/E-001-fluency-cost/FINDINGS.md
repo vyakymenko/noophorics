@@ -63,6 +63,31 @@ by the test — which is itself a finding about how these numbers read.
 
 ## 3. Why this is a construct failure, not an estimator failure
 
+> **Prior art, added 2026-07-29.** The separation this experiment forced —
+> agreement with the source is not the same quantity as being right — is
+> established in machine learning. Stanton et al. (2021), *Does Knowledge
+> Distillation Really Work?* (NeurIPS 34, 6906–6919), distinguish **fidelity**
+> (student–teacher prediction agreement, measured by top-1 agreement and
+> predictive KL) from **generalization**, supply dedicated fidelity metrics, and
+> show that good student accuracy does not imply good fidelity. Burns et al.
+> (arXiv:2312.09390) hit it from the other side: high student–supervisor
+> agreement is their *failure* signal, the imitation mode an auxiliary
+> confidence loss exists to suppress.
+>
+> Ours is an independent rediscovery in a different domain, and the framing
+> below is ours, not theirs: "construct failure" is our vocabulary about our
+> metric, Stanton et al. say nothing about understanding, meaning, or
+> communication, their evidence is supervised image classification, and their
+> prescription is to pursue fidelity *harder*. Their result is also
+> regime-dependent rather than general — fidelity and generalization are in
+> tension under self-distillation and positively correlated when distilling
+> large ensembles.
+>
+> It cost this programme a live run and an amendment to find something a
+> five-year-old NeurIPS paper reports in its abstract. That is a reading
+> failure, and it is the reason [`theory/prior-art.md`](../../theory/prior-art.md)
+> now exists.
+
 No floor estimator, no sample size, and no amendment repairs this. It follows
 directly from the definition:
 

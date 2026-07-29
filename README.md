@@ -37,7 +37,14 @@ codebooks differ and are partially reconstructed on the fly. Adjacent
 literatures address parts of this — decision-preserving compression, semantic
 rate–distortion for heterogeneous agents, goal-oriented semantic communication.
 What we have not found elsewhere is one instrument carrying fidelity, cost,
-**and the calibration of both parties** together. Noophorics builds it by
+**and the calibration of both parties** together. That is a claim about
+*coverage*, not about discovery, and it is deliberately narrower than what this
+document said before 2026-07-29: the believed-versus-actual gap itself has been
+measured in humans since at least 1990, and
+[PRINCIPIA §1](PRINCIPIA.md) carries the retraction and
+[theory/prior-art.md](theory/prior-art.md) the verified ledger. What
+has not been measured by anyone, including us, is that gap where sender and
+receiver are both language models. Noophorics builds it by
 replacing *symbol recovery* with *behavioral convergence*: **B understood what A
 understood, over a domain, to the extent that B would make the same decisions
 A would make.** That single move makes understanding measurable, comparable

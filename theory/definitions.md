@@ -187,6 +187,21 @@ F*(m) = ────────────────────────
 hides antinoophors, which are among the most informative observations in the
 field.
 
+**Prior art (added 2026-07-29).** `F*` is a normalized-recovery statistic and
+the form is not ours. Burns et al. define *performance gap recovered*,
+`PGR = (weak-to-strong − weak) / (strong ceiling − weak)` — the same shape with
+the sign reversed, since `D` is minimized where performance is maximized
+(arXiv:2312.09390 §3; ICML 2024, PMLR 235:4971–5012). The form is generic and
+predates that paper too; we make no priority claim on it and this note is not
+one either.
+
+Two differences must be stated wherever the parallel is drawn. PGR's terms are
+task performance against ground truth; `F*`'s are divergence from the sender.
+And in Burns et al. high student–supervisor agreement is the *failure* signal —
+the imitation mode their auxiliary confidence loss exists to suppress — which is
+[E-001's defect](../experiments/E-001-fluency-cost/FINDINGS.md) arriving from
+the opposite direction, earlier, in a literature we had not read.
+
 ### 4.2 Cost
 
 ```

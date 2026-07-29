@@ -42,7 +42,13 @@ listener-speaker reasoning, but as a model of a dialogue, not as a theory of
 the channel between two arbitrary architectures.
 
 **Knowledge distillation** transfers behavior from a teacher network to a
-student, and measures success as task accuracy. It is one-directional, requires
+student. ~~and measures success as task accuracy.~~ **Corrected 2026-07-29:
+false as written.** Stanton et al. (2021) define *fidelity* — student–teacher
+prediction agreement, by top-1 agreement and predictive KL — separately from
+generalization, and show good student accuracy does not imply good fidelity.
+Burns et al. define performance gap recovered, a gap-closure quantity
+normalized against a ceiling model, not a raw accuracy. The separation E-001
+arrived at independently was established in that literature first. It is one-directional, requires
 a shared task, and does not ask what an *optimal* transfer would have looked
 like.
 
@@ -60,8 +66,28 @@ first.
 
 The defensible claim is narrower: **a unified measurement framework for
 decision-preserving transfer between black-box agents, carrying fidelity, cost,
-and the calibration of both parties in one instrument.** The calibration term —
-Φ — is the part we have not found elsewhere.
+and the calibration of both parties in one instrument.** ~~The calibration term —
+Φ — is the part we have not found elsewhere.~~
+
+**Refuted 2026-07-29.** The gap between believed and actual transfer has been
+measured, with numbers, since at least 1990. Keysar & Henly (2002) elicited it
+per trial from 40 speaker–listener pairs. Newton (1990) measured it at 50%
+predicted against 2.5% observed. Chang et al. (2010) measured it in clinical
+handoff. Endsley (2020) reviewed 37 studies of the same divergence in situation
+awareness. Their instruments are in places **better than ours**: Keysar &
+Henly's per-trial elicitation recovers a conditional asymmetry that our single
+global elicitation cannot compute at all.
+
+The full ledger, with per-item confidence and the constraints each source
+imposes, is in [theory/prior-art.md](theory/prior-art.md).
+
+What survives is a claim about coverage, not about discovery: we have not found
+one instrument that reports fidelity, cost, and both parties' calibration
+against a single stated probe measure — and we have found no measurement of
+this gap where the sender and receiver are language models. The second half is
+the programme's distinct object. As of this version it is also **unmeasured by
+us**: E-001 voided, E-001b voided before any Φ was examined, and the worked
+example in the README is labelled illustrative because it is.
 
 ---
 
@@ -172,17 +198,41 @@ important pathology.
 
 Both parties believe understanding occurred. Probes reveal it did not.
 
-We name this **phantom agreement**, Φ, and we claim it is to noophorics what
-dark matter is to cosmology: the thing everyone had felt, nobody had weighed,
-and which turns out to dominate the system.
+We name this **phantom agreement**, Φ.
+
+> ~~It is to noophorics what dark matter is to cosmology: the thing everyone had
+> felt, nobody had weighed, and which turns out to dominate the system.~~
+>
+> **Refuted 2026-07-29.** It has been weighed, in humans, many times.
+> Newton (1990): tappers predicted 50%, listeners identified 3 of 120 tunes —
+> 2.5%. Keysar & Henly (2002): where the addressee had *not* understood,
+> speakers judged that they had on 46% of trials, against 12% in the other
+> direction — a 34-point asymmetry, t(39) = 6.74, p < .001, present in 80% of
+> individual speakers. Chang et al. (2010): the item the sender considered most
+> important was not successfully communicated 60% of the time, while ratings of
+> handoff quality stayed high. Carpenter et al. (2013): fluent delivery raised
+> predicted recall (d = 1.03) and self-rated learning (d = 1.78) with no
+> detectable effect on recall. Deslauriers et al. (2019): +0.46 SD tested
+> learning against −0.56 SD felt learning. Endsley (2020): objective and
+> subjective situation awareness diverge across 37 studies.
+>
+> The analogy fails at the other end too. Dark matter was inferred from a
+> *quantitative* anomaly, not a felt one. And "dominates the system" is a claim
+> about magnitude that we have no measurement to support.
+>
+> What is actually open is the language-model case: no measurement of this gap
+> exists where both parties are models, including ours.
 
 Φ is dangerous precisely because it is invisible from inside. Neither party has
 any signal that anything went wrong. The sender has discharged their intent;
 the receiver has a coherent, confident, wrong model; and the error surfaces
 only downstream, in an action nobody traces back to the conversation.
 
-Our sharpest conjecture — [L5](theory/laws.md#l5) — is that **fluency inflates
-Φ faster than it raises fidelity**. Well-formed prose is a stronger signal of
+~~Our sharpest conjecture —~~ [L5](theory/laws.md#l5) claims that **fluency
+inflates Φ faster than it raises fidelity**. The human half of this is neither
+ours nor new — see the prior-art note under L5. What L5 adds, and what nobody
+has tested, is the differential-slope form, Φ as a two-party quantity, and the
+extension to language-model senders and receivers. Well-formed prose is a stronger signal of
 successful transfer than it is a cause of one. If true, this is a direct
 indictment of systems that generate fluent text, including the one writing this
 document.
