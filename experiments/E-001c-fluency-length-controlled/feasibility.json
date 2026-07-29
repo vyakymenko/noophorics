@@ -1,0 +1,148 @@
+{
+ "experiment": "E-001c-feasibility",
+ "k": 3,
+ "model": "gpt-oss:120b",
+ "parity_threshold": 1.3,
+ "purpose": "instrument check before registration: does a two-sided word target produce cost parity, and does the style manipulation survive being pinned",
+ "targets": {
+  "220": {
+   "band": [
+    198,
+    242
+   ],
+   "cells": {
+    "A": [
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.7543859649122806,
+      "cost_tokens": 405.0,
+      "in_band": true,
+      "mean_sentence_words": 16.285714285714285,
+      "words": 228.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 2.183406113537118,
+      "cost_tokens": 376.0,
+      "in_band": true,
+      "mean_sentence_words": 20.818181818181817,
+      "words": 229.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.639344262295082,
+      "cost_tokens": 409.0,
+      "in_band": false,
+      "mean_sentence_words": 20.333333333333332,
+      "words": 244.0
+     }
+    ],
+    "B": [
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 2.0408163265306123,
+      "cost_tokens": 365.0,
+      "in_band": false,
+      "mean_sentence_words": 24.5,
+      "words": 245.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 2.5,
+      "cost_tokens": 359.0,
+      "in_band": true,
+      "mean_sentence_words": 21.818181818181817,
+      "words": 240.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 2.8,
+      "cost_tokens": 374.0,
+      "in_band": false,
+      "mean_sentence_words": 22.727272727272727,
+      "words": 250.0
+     }
+    ],
+    "C": [
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.4608294930875576,
+      "cost_tokens": 406.0,
+      "in_band": true,
+      "mean_sentence_words": 12.055555555555555,
+      "words": 217.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.2448132780082988,
+      "cost_tokens": 394.0,
+      "in_band": true,
+      "mean_sentence_words": 16.066666666666666,
+      "words": 241.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 1.486988847583643,
+      "cost_tokens": 474.0,
+      "in_band": false,
+      "mean_sentence_words": 12.80952380952381,
+      "words": 269.0
+     }
+    ],
+    "D": [
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.0,
+      "cost_tokens": 437.0,
+      "in_band": false,
+      "mean_sentence_words": 10.208333333333334,
+      "words": 245.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.0,
+      "cost_tokens": 425.0,
+      "in_band": false,
+      "mean_sentence_words": 12.15,
+      "words": 243.0
+     },
+     {
+      "bullet_fraction": 0.0,
+      "connectives_per_100w": 0.4830917874396135,
+      "cost_tokens": 375.0,
+      "in_band": true,
+      "mean_sentence_words": 9.857142857142858,
+      "words": 207.0
+     }
+    ]
+   },
+   "compliance_rate": 0.5,
+   "fluent_cost_range": [
+    359.0,
+    409.0
+   ],
+   "parity_across_cell_means": 1.1602914389799637,
+   "parity_across_messages": 1.3203342618384402,
+   "parity_passes": false,
+   "style_separation": {
+    "bullet_fraction": {
+     "fluent": 0.0,
+     "terse": 0.0
+    },
+    "connectives_per_100w": {
+     "fluent": 2.1529921112125154,
+     "terse": 0.6126205676865188
+    },
+    "mean_sentence_words": {
+     "fluent": 21.080447330447328,
+     "terse": 12.191203703703703
+    }
+   },
+   "terse_cost_range": [
+    375.0,
+    474.0
+   ]
+  }
+ },
+ "timestamp_utc": "2026-07-29T14:21:28Z"
+}
