@@ -1,19 +1,30 @@
 # Noophorics
 
-**The quantitative science of transferring understanding across minds that do
-not share a substrate.**
+**Measure what survives a handoff.**
+
+Noophorics is an open research programme developing falsifiable measurements
+for transfers of understanding between people, models, and sessions. It asks
+whether the receiver would make the same decisions after the transfer — not
+merely repeat the same words.
 
 [noophorics.org](https://noophorics.org) · founded 2026 by
 [Valentyn Yakymenko](https://github.com/vyakymenko) ·
 [authorship and contributor roles](AUTHORS.md)
+
+[See Φ in 60 seconds](https://noophorics.org/#instrument) ·
+[run the reference metrics](#quick-start) ·
+[read the research programme](https://noophorics.org/#gap)
 
 Two minds are given the same problem. One explains it to the other. Both agree
 the explanation landed.
 
 Nobody measures what was lost.
 
-Noophorics is the attempt to measure it — with units, laws, falsifiable
-predictions, and experiments that can fail.
+Every handoff makes a claim. Noophorics is the attempt to test it — with units,
+falsifiable predictions, and experiments that can fail.
+
+> **Experimental by design.** No law is established, and several of our own
+> claims have already been refuted or revised.
 
 ---
 
@@ -34,20 +45,54 @@ across substrates, and falsifiable.
 
 ---
 
+## Φ in 60 seconds
+
+A coding agent hands a migration task to another agent. Against a stated probe
+measure of ten held-out decisions:
+
+| Observable | Rate |
+|---|---:|
+| Sender's predicted agreement | 90% |
+| Receiver's predicted agreement | 80% |
+| Observed agreement | 60% |
+
+`Φ = mean(90%, 80%) − 60% = 25 percentage points`
+
+Both agents are confident, yet their decisions diverge. We call that gap
+**phantom agreement**.
+
+*Illustrative example only. Whether Φ is reliable and useful across domains
+remains an open empirical question.*
+
+---
+
+## Available today
+
+- [`metrics/`](metrics/) — reference implementations of divergence, transfer
+  fidelity, its decomposition, and synthetic validation.
+- [`probes/`](probes/) — a format for stating the decisions against which a
+  transfer is measured.
+- [`NHP-0001`](protocols/NHP-0001-handoff.md) — a draft handoff protocol
+  carrying constraints, probes, and a fidelity claim.
+- [`experiments/`](experiments/) and [`journal/`](journal/) — pre-registrations,
+  void and null results, corrections, and refuted claims kept in the public
+  record.
+
+These are research instruments, not a validated standard or production
+product.
+
+---
+
 ## Why now
 
-Every science begins with an instrument. The telescope made astronomy; the
-microscope made microbiology.
+Understanding is difficult to instrument because the receiver's state is
+private. You can ask a listener what they understood, but the report is not the
+state, and you cannot run ten thousand controlled trials on one human mind.
 
-The science of communication never got its instrument, because it could never
-open the receiver. You can ask a listener what they understood, but the report
-is not the state, and you cannot run ten thousand controlled trials on one
-human mind.
-
-Language models change this. **For the first time the receiver is
-instrumentable** — resample its dispositions, probe arbitrary decisions, ablate
-its input, repeat at a cost measured in cents. And the sender too. That is the
-instrument. This repository is what we are building with it.
+Language models create a newly instrumentable case: resample their
+dispositions, probe arbitrary decisions, ablate the input, and repeat at a cost
+measured in cents. The same is true of the sender. This repository is an attempt
+to build a measurement programme around that capability.
 
 ---
 
@@ -83,8 +128,10 @@ Together they predict something uncomfortable: **the encoding that transfers
 best is the one that feels worst.** Every party's sense of a good handoff would
 be anticorrelated with its quality.
 
-[E-001](experiments/E-001-fluency-cost/) tests both. It is pre-registered and
-designed so that a null result is publishable and damaging.
+[E-001](experiments/E-001-fluency-cost/) was pre-registered to test both, but
+the run was void and the partial data tested neither. It still exposed a defect
+in aggregate `F*`: a receiver can outperform the sender and be penalised for not
+copying the sender's errors. L5 and L6 remain conjectured.
 
 ---
 
@@ -96,12 +143,13 @@ theory/
   definitions.md      formal definitions of every quantity
   laws.md             six falsifiable conjectures, each with a kill condition
   open-problems.md    ten problems for the first decade
-metrics/              reference implementation (stdlib + anthropic only)
+metrics/              reference metrics, decomposition, and agent adapters
 probes/               probe-measure format and schema
 experiments/          one directory per experiment, pre-registration first
 protocols/            NHP-0001: a handoff format carrying a fidelity claim
 benchmarks/           the Noophora Benchmark (not yet populated)
 journal/              dated lab notebook
+docs/                 website and condensed language summaries
 lexicon.md            canonical terminology
 ```
 
@@ -112,7 +160,7 @@ lexicon.md            canonical terminology
 ```bash
 git clone https://github.com/vyakymenko/noophorics
 cd noophorics
-python3 metrics/tests/test_metrics.py       # 38 tests, no deps
+python3 metrics/tests/test_metrics.py       # 46 tests, no deps
 python3 metrics/validation/synthetic.py    # does the estimator recover a known F*?
 python3 experiments/E-001-fluency-cost/runner.py --dry-run   # pipeline, no API calls
 ```
@@ -181,7 +229,7 @@ programme itself:
 
 **Version 0.3. Nothing is established, and several things are refuted.**
 
-Six conjectural laws (one restated after refutation), ten open problems, zero
+Six conjectural laws (two restated after refutation), ten open problems, zero
 confirmed positive findings. Every claim in this repository should be read
 as a bet, and its confidence calibrated accordingly.
 
@@ -198,7 +246,9 @@ Wilson (relevance), Frank & Goodman (RSA), Gärdenfors (conceptual spaces), and
 the knowledge-distillation literature (transfer between networks, but measured
 as task accuracy rather than as understanding).
 
-None of them had the instrument.
+The narrower claim is that no single lineage supplies the combined instrument
+used here: fidelity, cost, and the calibration of both parties over an explicit
+probe measure.
 
 ---
 
