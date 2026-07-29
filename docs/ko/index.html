@@ -46,11 +46,16 @@ p{margin:0 0 1.4rem;text-wrap:pretty}
 nav.langs{border-top:1px solid var(--rule);margin-top:2.5rem;padding-top:1.2rem;
   font-size:.9em;line-height:2.2;color:var(--soft)}
 a{color:inherit;text-underline-offset:.18em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;inset-inline-start:-9999px;top:0;z-index:9;background:var(--accent);
+  color:var(--plate);padding:.7rem 1.1rem;text-decoration:none}
+.skip:focus{inset-inline-start:0}
 nav.langs a{margin-inline-end:1rem;white-space:nowrap}
 </style>
 </head>
 <body>
-<main>
+<a class="skip" href="#content">본문으로 건너뛰기</a>
+<main id="content">
 
 <h1>Noophorics</h1>
 <p class="etym">νόος + φορά</p>

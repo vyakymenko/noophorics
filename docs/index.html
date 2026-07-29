@@ -78,6 +78,9 @@
 <meta property="og:description" content="Version 0.3. Nothing is established, and three of our own claims are refuted.">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<main id="content">
+
 <meta name="description" content="Noophorics is the quantitative science of transferring understanding across minds that do not share a substrate. Understanding is measured by behavioural convergence, relative to a stated probe measure. Version 0.3 — six conjectural laws, ten open problems, zero confirmed findings, and three of our own claims refuted.">
 <meta name="color-scheme" content="light dark">
 
@@ -145,6 +148,13 @@
   --phantom:      #a3291d;
   --phantom-wash: rgba(163, 41, 29, 0.11);
 }
+
+/* ---- skip link ------------------------------------------------ */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--accent);
+  color:var(--plate);padding:.7rem 1.1rem;text-decoration:none;
+  font:500 1rem/1 ui-monospace,Menlo,monospace}
+.skip:focus{left:0}
+main{display:block}
 
 /* ---- base ---------------------------------------------------- */
 
@@ -707,7 +717,7 @@ th:last-child, td:last-child { padding-right: 0; }
   gap: 1.6rem 2rem;
 }
 .foot .cols > div { overflow-wrap: break-word; }
-.foot h4 {
+.foot h2 {
   margin: 0 0 0.5rem;
   font-weight: 400;
   font-size: 0.625rem;
@@ -1521,12 +1531,13 @@ F*(m)  =  ───────────────────────�
   </div>
 </section>
 
+</main>
 <!-- ============================== foot ============================== -->
 <footer class="band foot">
   <div class="col">
     <div class="cols">
       <div>
-        <h4>Repository</h4>
+        <h2>Repository</h2>
         <a href="https://github.com/vyakymenko/noophorics">vyakymenko/noophorics</a><br>
         PRINCIPIA.md — the programme<br>
         theory/ — definitions, laws<br>
@@ -1535,19 +1546,19 @@ F*(m)  =  ───────────────────────�
         journal/ — lab notebook
       </div>
       <div>
-        <h4>Contributing</h4>
+        <h2>Contributing</h2>
         Laws enter with a kill condition. Experiments pre-register or do not
         count. Null results are committed with the same prominence as positive
         ones.
       </div>
       <div>
-        <h4>Founded</h4>
+        <h2>Founded</h2>
         2026 by Valentyn Yakymenko<br>
         <a href="https://github.com/vyakymenko/noophorics/blob/main/AUTHORS.md">Authorship &amp; contributor roles</a><br>
         <span style="color:var(--soft)">Contributions by an AI system are disclosed there, not elided.</span>
       </div>
       <div>
-        <h4>Licence</h4>
+        <h2>Licence</h2>
         Code — Apache-2.0, for the explicit patent grant. Prose and theory —
         CC BY 4.0.
       </div>
