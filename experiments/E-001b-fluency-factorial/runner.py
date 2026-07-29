@@ -433,6 +433,12 @@ def run(args) -> Dict[str, Any]:
 def main() -> int:
     ap = argparse.ArgumentParser(description="E-001b factorial")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--smoke", action="store_true",
+                    help="instrument check below pre-registered parameters. "
+                         "Stamps the results file as non-inferential: a run at "
+                         "reduced k or n cannot support any hypothesis, and a "
+                         "file in results/ without this marker could later be "
+                         "mistaken for the experiment")
     ap.add_argument("--samples", type=int, default=30)
     ap.add_argument("--k", type=int, default=8)
     ap.add_argument("--model", default=DEFAULT_MODEL)
@@ -443,10 +449,19 @@ def main() -> int:
     args = ap.parse_args()
 
     results = run(args)
+    if args.smoke:
+        results["SMOKE_TEST"] = True
+        results["inferential"] = False
+        results["smoke_note"] = (
+            "Instrument check at k=%d, n=%d -- both below the pre-registered "
+            "k=8, n=30. Supports NO hypothesis. Its numbers exist to show the "
+            "pipeline runs live and the gates evaluate, nothing more."
+            % (args.k, args.samples)
+        )
     os.makedirs(args.out, exist_ok=True)
     stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
-    path = os.path.join(args.out, "E-001b-%s%s.json"
-                        % (stamp, "-dryrun" if args.dry_run else ""))
+    suffix = "-dryrun" if args.dry_run else ("-SMOKE" if args.smoke else "")
+    path = os.path.join(args.out, "E-001b-%s%s.json" % (stamp, suffix))
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(results, fh, indent=2, sort_keys=True)
 
@@ -465,6 +480,8 @@ def main() -> int:
     print("\nwrote %s" % path)
     if results.get("dry_run"):
         print("DRY RUN -- synthetic, no scientific weight.")
+    elif results.get("SMOKE_TEST"):
+        print("SMOKE TEST -- below pre-registered parameters. Supports no hypothesis.")
     return 0
 
 
