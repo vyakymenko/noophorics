@@ -14,6 +14,7 @@ The message is the unit of analysis. Probes are within-message noise.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import random
@@ -53,6 +54,12 @@ SENDER_MAX_ERRORS = 2
 CEILING_GATE = 0.70
 COST_PARITY_MAX_RATIO = 1.30
 H4_CI_MAX_WIDTH = 0.15
+# Below this spread in the sender's claims across cells, Phi is -A up to a
+# constant, H2 restates H1, and the two become one family (prereg §4.6).
+CLAIM_SPREAD_DEGENERACY = 0.05
+# Permutations for the shared floor. Identical in the full-measure analysis and
+# in the M33 sensitivity, so the two floors differ only by the dropped probe.
+FLOOR_PERMUTATIONS = 300
 
 # Local-provider sampling regime. Reported, never assumed -- see the note in
 # PARAMETERS.md. think=medium is the setting at which gpt-oss:120b clears the
@@ -93,6 +100,182 @@ def permutation_main_effect(
     return observed, (extreme + 1) / (permutations + 1)
 
 
+def restrict(full_ids: Sequence[str], rows: Sequence[Sequence[str]],
+             keep_ids: Sequence[str]) -> List[List[str]]:
+    """Select the draw rows for `keep_ids`, preserving the restricted order.
+
+    Draws are stored as a list parallel to the probe measure, so restricting the
+    measure without restricting the draws in the same order silently pairs each
+    probe with a different probe's answers.
+    """
+    index = {pid: i for i, pid in enumerate(full_ids)}
+    return [list(rows[index[p]]) for p in keep_ids]
+
+
+def derive_per_message(
+    measure: ProbeMeasure,
+    sender_rows: Sequence[Sequence[str]],
+    prior_rows: Sequence[Sequence[str]],
+    post_rows_by_label: Dict[str, Sequence[Sequence[str]]],
+    elicited: Dict[str, Dict[str, Any]],
+    d_prior: float,
+    floor: float,
+    epsilon: float,
+) -> Dict[str, Dict[str, Any]]:
+    """Everything downstream of the draws, with no live calls.
+
+    Split out from `run` so the same computation serves three callers: the run
+    itself, the M33 sensitivity on a restricted measure, and a re-analysis from
+    a stored record. Costs and claim elicitations are inputs here rather than
+    being fetched, because they are properties of the message and do not change
+    when the probe measure is restricted.
+    """
+    s_dists = [to_distribution(d) for d in sender_rows]
+    table: Dict[str, Dict[str, Any]] = {}
+    for label in sorted(post_rows_by_label):
+        post = post_rows_by_label[label]
+        p_dists = [to_distribution(d) for d in post]
+        dec = decompose(measure, sender_rows, prior_rows, post)
+        observed = agreement_rate(s_dists, p_dists, measure.weights)
+        cs = elicited[label]["claims_sender"]
+        cr = elicited[label]["claims_receiver"]
+        cost = float(elicited[label]["cost_tokens"])
+        claimed = (statistics.mean(cs) + statistics.mean(cr)) / 2
+        cell = label[0]
+        table[label] = {
+            "cell": cell, "polish": CELL_AXES[cell][0],
+            "selection": CELL_AXES[cell][1],
+            "d_post": mean_divergence(s_dists, p_dists, measure.weights),
+            "fidelity_aggregate": transfer_fidelity(
+                d_prior,
+                mean_divergence(s_dists, p_dists, measure.weights),
+                floor, epsilon),
+            "fidelity_where_sender_right": dec.fidelity_where_sender_right,
+            "error_replication": dec.error_replication,
+            "rule_content": dec.rule_content,
+            "accuracy_gain": dec.accuracy_gain,
+            "agreement_observed": observed,
+            "claims_sender": list(cs), "claims_receiver": list(cr),
+            "phi": claimed - observed,
+            "phi_sender": statistics.mean(cs) - observed,
+            "phi_receiver": statistics.mean(cr) - observed,
+            "cost_tokens": cost,
+            "efficiency_per_ktok": dec.fidelity_where_sender_right * 1000.0 / cost,
+        }
+    return table
+
+
+HYPOTHESES = [
+    # (name, quantity, axis, high level, low level)
+    ("H1_contrastiveness_on_understanding", "fidelity_where_sender_right", 1,
+     "contrastive", "declarative"),
+    ("H2_fluency_on_phantom", "phi", 0, "fluent", "terse"),
+    ("H3_contrastiveness_on_efficiency", "efficiency_per_ktok", 1,
+     "contrastive", "declarative"),
+    ("H4_fluency_on_understanding", "fidelity_where_sender_right", 0,
+     "fluent", "terse"),
+]
+
+
+def compute_effects(per_message: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
+    """The four pre-registered main effects. Exchangeable unit: message."""
+    effects: Dict[str, Any] = {}
+    for name, quantity, axis, hi, lo in HYPOTHESES:
+        a = [v[quantity] for v in per_message.values()
+             if CELL_AXES[v["cell"]][axis] == hi]
+        b = [v[quantity] for v in per_message.values()
+             if CELL_AXES[v["cell"]][axis] == lo]
+        obs, p = permutation_main_effect(a, b)
+        mean, lo95, hi95 = bootstrap_effect_ci(a, b)
+        effects[name] = {
+            "quantity": quantity, "contrast": "%s minus %s" % (hi, lo),
+            "effect": obs, "p_value": p, "ci95": [lo95, hi95],
+            "ci_width": hi95 - lo95, "n_messages": [len(a), len(b)],
+        }
+    h4 = effects["H4_fluency_on_understanding"]
+    h4["predicted_null_survives"] = bool(
+        h4["ci95"][0] <= 0.0 <= h4["ci95"][1] and h4["ci_width"] < H4_CI_MAX_WIDTH)
+    h4["note"] = ("a wide CI containing zero is not evidence of no effect; the "
+                  "width gate is why this is not adjudicated by failure to reject")
+    return effects
+
+
+def sensitivity_without(
+    measure: ProbeMeasure,
+    raw: Dict[str, Sequence[Sequence[str]]],
+    elicited: Dict[str, Dict[str, Any]],
+    epsilon: float,
+    drop: Sequence[str] = ("M33",),
+    permutations: int = FLOOR_PERMUTATIONS,
+) -> Dict[str, Any]:
+    """Recompute every effect over the measure with `drop` removed.
+
+    Pre-specified in SENSITIVITY-M33.md while collection was still running and
+    before any effect had been computed. M33's key is not determined by the
+    source specification, and in v0.3 the key is load-bearing: `decompose`
+    partitions probes by whether the sender was right, so a wrong key puts a
+    probe in the wrong half of two reported quantities.
+
+    Everything is recomputed, not just the effects: dropping a probe changes the
+    prior gap and the floor as well, and reusing the full-measure values here
+    would compare effects computed against different denominators.
+    """
+    full_ids = [p.id for p in measure]
+    keep_ids = [pid for pid in full_ids if pid not in set(drop)]
+    if len(keep_ids) == len(full_ids):
+        return {"applicable": False,
+                "reason": "none of %s is in the measure" % list(drop)}
+    reduced = measure._subset([p for p in measure if p.id in set(keep_ids)],
+                              measure.id + "-minus-" + "-".join(drop))
+
+    r = {label: restrict(full_ids, rows, keep_ids) for label, rows in raw.items()}
+    s_dists = [to_distribution(d) for d in r["sender"]]
+    p_dists = [to_distribution(d) for d in r["PRIOR"]]
+    d_prior = mean_divergence(s_dists, p_dists, reduced.weights)
+    floor = mean_permutation_floor(r["sender"], r["PRIOR"], reduced.weights,
+                                   permutations, SEED)
+
+    labels = {k: v for k, v in r.items()
+              if k not in ("sender", "PRIOR", "CEILING")}
+    table = derive_per_message(reduced, r["sender"], r["PRIOR"], labels,
+                               elicited, d_prior, floor, epsilon)
+    return {
+        "applicable": True,
+        "dropped": list(drop),
+        "probe_measure": reduced.qualified_id,
+        "n_probes": len(reduced),
+        "d_prior": d_prior,
+        "d_floor_shared": floor,
+        "admissible": bool((d_prior - floor) > epsilon),
+        "effects": compute_effects(table),
+        "note": ("pre-specified in SENSITIVITY-M33.md before any effect existed. "
+                 "If these disagree with the full-measure effects, the "
+                 "disagreement is the finding and no directional claim survives it."),
+    }
+
+
+def holm_adjust(p_values: Dict[str, float]) -> Dict[str, float]:
+    """Holm-Bonferroni step-down, applied when the degeneracy condition fires.
+
+    The pre-registration says correction *is applied* in that case. Detecting a
+    multiplicity problem and then reporting uncorrected p-values is the same as
+    not detecting it, and it is the more misleading of the two because the
+    detection appears in the record as though it had been acted on.
+
+    Holm rather than Bonferroni: uniformly more powerful, no extra assumption.
+    Adjusted values are enforced monotone, so a later hypothesis can never be
+    reported as more significant than an earlier one it dominates.
+    """
+    ordered = sorted(p_values.items(), key=lambda kv: kv[1])
+    m = len(ordered)
+    out: Dict[str, float] = {}
+    running = 0.0
+    for i, (name, p) in enumerate(ordered):
+        running = max(running, min(1.0, (m - i) * p))
+        out[name] = running
+    return out
+
+
 def bootstrap_effect_ci(
     group_a: Sequence[float], group_b: Sequence[float],
     resamples: int = BOOTSTRAP, seed: int = SEED,
@@ -115,6 +298,11 @@ def bootstrap_effect_ci(
 
 # --------------------------------------------------------------------------
 # cache
+
+
+def message_fingerprint(message: str) -> str:
+    """Short content hash binding a set of draws to the text that produced it."""
+    return hashlib.sha256(message.encode("utf-8")).hexdigest()[:10]
 
 
 class Cache:
@@ -336,6 +524,21 @@ def run(args) -> Dict[str, Any]:
                     "void_reason": "composition failed for %s: %s" % (label, exc),
                     "composed": sorted(messages),
                 }
+    # Persist before anything else touches them. The messages exist only in
+    # memory until this point, and the sweep that follows runs for tens of
+    # hours: a crash anywhere after composition would strand every draw, because
+    # a draw is only interpretable against the message it answered. Composition
+    # is not deterministic (temperature > 0), so re-composing does not recover
+    # them -- it produces different messages wearing the same labels.
+    if args.messages_out:
+        with open(args.messages_out, "w", encoding="utf-8") as fh:
+            json.dump({"probe_measure": measure.qualified_id,
+                       "model": args.model, "provider": args.provider,
+                       "budget_tokens": BUDGET_TOKENS,
+                       "fingerprints": {l: message_fingerprint(m)
+                                        for l, m in messages.items()},
+                       "messages": messages}, fh, indent=1, sort_keys=True)
+        print("  messages persisted -> %s" % args.messages_out)
     print("  composed %d messages across %d cells\n" % (len(messages), len(CELLS)))
 
     # --- conditions --------------------------------------------------------
@@ -350,9 +553,16 @@ def run(args) -> Dict[str, Any]:
                  if args.dry_run
                  else (sender if label == "sender"
                        else Receiver(label, ctx, args.model, provider=args.provider)))
+        # Message conditions carry a fingerprint of the message itself. Without
+        # it the cache is keyed by a label, and a resumed run whose messages
+        # were re-composed would silently inherit draws that answered different
+        # text -- the cache would report a hit and the data would be wrong in a
+        # way nothing downstream could detect.
+        cond = "%s@%s" % (label, args.model)
+        if label in messages:
+            cond += "#" + message_fingerprint(messages[label])
         raw[label] = collect_concurrent(
-            agent, measure, n, "%s@%s" % (label, args.model), cache,
-            args.workers, progress,
+            agent, measure, n, cond, cache, args.workers, progress,
         )
     sys.stderr.write("\n\n")
 
@@ -360,7 +570,8 @@ def run(args) -> Dict[str, Any]:
     s_dists = [to_distribution(d) for d in raw["sender"]]
     p_dists = [to_distribution(d) for d in raw["PRIOR"]]
     d_prior = mean_divergence(s_dists, p_dists, measure.weights)
-    floor = mean_permutation_floor(raw["sender"], raw["PRIOR"], measure.weights, 300, SEED)
+    floor = mean_permutation_floor(raw["sender"], raw["PRIOR"], measure.weights,
+                                  FLOOR_PERMUTATIONS, SEED)
 
     s_modes = [max(sorted(d), key=lambda x: d[x]) for d in s_dists]
     errors = [p.id for p, m in zip(measure, s_modes) if m != p.key]
@@ -386,82 +597,76 @@ def run(args) -> Dict[str, Any]:
         results["aborted"] = "inadmissible: gap %.4f <= epsilon" % (d_prior - floor)
         return results
 
-    # --- per message -------------------------------------------------------
+    # --- elicitation: the only live calls left in the analysis path ---------
+    # Separated from computation so that every derived number can be recomputed
+    # from the stored record without contacting a model. Costs and claims are
+    # properties of the message, not of the probe measure, so they are elicited
+    # once and reused by the M33 sensitivity.
+    elicited: Dict[str, Dict[str, Any]] = {}
     for label in sorted(messages):
-        cell = label[0]
-        post = raw[label]
-        d_post = mean_divergence(s_dists, [to_distribution(d) for d in post], measure.weights)
-        dec = decompose(measure, raw["sender"], raw["PRIOR"], post)
-        observed = agreement_rate(s_dists, [to_distribution(d) for d in post], measure.weights)
-        cost = float(sender.cost_of(messages[label]))
-        cs = sender.claim_agreement(measure, "your colleague", artifact=messages[label])
-        cr = (Stub("stub-r", 0.9, 0.8, 7) if args.dry_run
-              else Receiver(label, messages[label], args.model,
-                            provider=args.provider)).claim_agreement(
-                  measure, "the person who briefed you")
-        claimed = (statistics.mean(cs) + statistics.mean(cr)) / 2
-        results["per_message"][label] = {
-            "cell": cell, "polish": CELL_AXES[cell][0], "selection": CELL_AXES[cell][1],
-            "d_post": d_post,
-            "fidelity_aggregate": transfer_fidelity(d_prior, d_post, floor, args.epsilon),
-            "fidelity_where_sender_right": dec.fidelity_where_sender_right,
-            "error_replication": dec.error_replication,
-            "rule_content": dec.rule_content,
-            "accuracy_gain": dec.accuracy_gain,
-            "agreement_observed": observed,
-            "claims_sender": cs, "claims_receiver": cr,
-            "phi": claimed - observed,
-            "phi_sender": statistics.mean(cs) - observed,
-            "phi_receiver": statistics.mean(cr) - observed,
-            "cost_tokens": cost,
-            "efficiency_per_ktok": dec.fidelity_where_sender_right * 1000.0 / cost,
+        elicited[label] = {
+            "cost_tokens": float(sender.cost_of(messages[label])),
+            "claims_sender": sender.claim_agreement(
+                measure, "your colleague", artifact=messages[label]),
+            "claims_receiver": (
+                Stub("stub-r", 0.9, 0.8, 7) if args.dry_run
+                else Receiver(label, messages[label], args.model,
+                              provider=args.provider)
+            ).claim_agreement(measure, "the person who briefed you"),
         }
+    results["elicited"] = elicited
+
+    # --- per message -------------------------------------------------------
+    results["per_message"] = derive_per_message(
+        measure, raw["sender"], raw["PRIOR"],
+        {k: v for k, v in raw.items()
+         if k not in ("sender", "PRIOR", "CEILING")},
+        elicited, d_prior, floor, args.epsilon,
+    )
 
     # --- main effects, message as unit -------------------------------------
-    def margin(axis: int, value: str) -> List[str]:
-        return [m for m in results["per_message"]
-                if CELL_AXES[m[0]][axis] == value]
+    results["effects"] = compute_effects(results["per_message"])
 
     # Pre-specified sensitivity: M33's ground truth is not determined by the
     # source spec (SENSITIVITY-M33.md, committed mid-collection). Every effect
     # is computed over all probes AND over the measure without M33, so the
     # choice cannot be made after seeing which is more favourable.
-    def effect(name: str, quantity: str, axis: int, hi: str, lo: str) -> None:
-        a = [results["per_message"][m][quantity] for m in margin(axis, hi)]
-        b = [results["per_message"][m][quantity] for m in margin(axis, lo)]
-        obs, p = permutation_main_effect(a, b)
-        mean, lo95, hi95 = bootstrap_effect_ci(a, b)
-        results["effects"][name] = {
-            "quantity": quantity, "contrast": "%s minus %s" % (hi, lo),
-            "effect": obs, "p_value": p, "ci95": [lo95, hi95],
-            "ci_width": hi95 - lo95, "n_messages": [len(a), len(b)],
-        }
-
-    effect("H1_contrastiveness_on_understanding",
-           "fidelity_where_sender_right", 1, "contrastive", "declarative")
-    results["sensitivity_M33"] = _sensitivity(
-        measure, raw_draws, results["per_message"], d_prior, floor, args.epsilon
-    )
-    effect("H2_fluency_on_phantom", "phi", 0, "fluent", "terse")
-    effect("H3_contrastiveness_on_efficiency",
-           "efficiency_per_ktok", 1, "contrastive", "declarative")
-    effect("H4_fluency_on_understanding",
-           "fidelity_where_sender_right", 0, "fluent", "terse")
-
-    h4 = results["effects"]["H4_fluency_on_understanding"]
-    results["effects"]["H4_fluency_on_understanding"]["predicted_null_survives"] = bool(
-        h4["ci95"][0] <= 0.0 <= h4["ci95"][1] and h4["ci_width"] < H4_CI_MAX_WIDTH
-    )
-    results["effects"]["H4_fluency_on_understanding"]["note"] = (
-        "a wide CI containing zero is not evidence of no effect; the width gate "
-        "is why this is not adjudicated by failure to reject"
+    results["sensitivity_M33"] = sensitivity_without(
+        measure, raw, elicited, args.epsilon, drop=("M33",)
     )
 
     # Degeneracy: if claims barely move, Phi is -A and H2 restates H1.
     claims = [results["per_message"][m]["claims_sender"][0] for m in results["per_message"]]
     gap = max(claims) - min(claims)
+    degenerate = gap < CLAIM_SPREAD_DEGENERACY
     results["effects"]["H2_fluency_on_phantom"]["claim_spread"] = gap
-    results["effects"]["H2_fluency_on_phantom"]["degenerate_with_H1"] = gap < 0.05
+    results["effects"]["H2_fluency_on_phantom"]["degenerate_with_H1"] = degenerate
+
+    # ...and if it does, the pre-registration says Holm is APPLIED, not merely
+    # that the condition is noted. Detecting a multiplicity problem and
+    # reporting uncorrected p-values is the same as not detecting it.
+    results["multiplicity"] = {
+        "condition": "claim spread < %.2f" % CLAIM_SPREAD_DEGENERACY,
+        "claim_spread": gap,
+        "triggered": degenerate,
+        "family": ["H1_contrastiveness_on_understanding", "H2_fluency_on_phantom"],
+        "rationale": (
+            "H1 and H2 are separate hypotheses about separate quantities and are "
+            "not corrected against each other -- unless the sender's claims barely "
+            "move between cells, in which case Phi is -A up to a constant, H2 is "
+            "H1 restated, and the two are one family."
+        ),
+    }
+    if degenerate:
+        family = results["multiplicity"]["family"]
+        for name, p_adj in holm_adjust({n: results["effects"][n]["p_value"]
+                                        for n in family}).items():
+            results["effects"][name]["p_value_holm"] = p_adj
+            results["effects"][name]["significant_at_005"] = bool(p_adj < 0.05)
+    else:
+        for name in results["multiplicity"]["family"]:
+            results["effects"][name]["significant_at_005"] = bool(
+                results["effects"][name]["p_value"] < 0.05)
 
     # --- gates -------------------------------------------------------------
     costs = [results["per_message"][m]["cost_tokens"] for m in results["per_message"]]
@@ -505,6 +710,9 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--cache", default=os.path.join(HERE, "sample-cache.json"))
     ap.add_argument("--out", default=os.path.join(HERE, "results"))
+    ap.add_argument("--messages-out", default=os.path.join(HERE, "messages.json"),
+                    help="where composed messages are written, immediately "
+                         "after composition and before the sweep begins")
     args = ap.parse_args()
 
     results = run(args)
