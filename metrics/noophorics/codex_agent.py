@@ -177,6 +177,24 @@ class CodexAgent(Agent):
             value = float(raw.strip().split()[0])
         return max(0.0, min(1.0, value))
 
+    def compose(self, prompt: str, seed: int = 0) -> str:
+        """Generate an artifact. Used when a CodexAgent plays the sender.
+
+        ``codex exec`` has no system-prompt channel, so the spec is prepended
+        to the prompt rather than placed in a system block. That is a real
+        difference from AnthropicAgent, not a cosmetic one -- the material sits
+        in a different position in the context -- and it is recorded as a
+        parameter rather than smoothed over.
+
+        Composition runs at the agent's configured reasoning effort, the same
+        one used for probes, so the sender is one agent in both roles.
+        """
+        full = "%s\n\n---\n%s" % (self.context, prompt) if self.context else prompt
+        out = self._call(full)
+        if not out:
+            raise RuntimeError("codex produced an empty brief")
+        return out
+
     def cost_of(self, message: str) -> int:
         """Approximate token cost.
 

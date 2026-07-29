@@ -39,6 +39,7 @@ from noophorics import (  # noqa: E402
     transfer_fidelity,
 )
 from noophorics.agents import DEFAULT_MODEL, AnthropicAgent  # noqa: E402
+from noophorics.codex_agent import CodexAgent, codex_available  # noqa: E402
 from noophorics.decomposition import decompose  # noqa: E402
 from prompts import CELL_AXES, CELLS  # noqa: E402
 
@@ -162,13 +163,26 @@ class Stub:
         return "STUB(%s/%d): %s" % (self.name, seed, prompt.splitlines()[0][:40])
 
 
+def _make_agent(provider: str, name: str, context: str, model: str, effort: str):
+    """Provider selection. PREREGISTRATION 2.4 records the model per run rather
+    than fixing one, so choosing a provider before any data exists is a run
+    parameter and not an amendment."""
+    if provider == "codex":
+        if not codex_available():
+            raise SystemExit("--provider codex but the codex CLI is not on PATH")
+        return CodexAgent(name, context=context, reasoning_effort=effort)
+    return AnthropicAgent(name, context=context, model=model, effort=effort)
+
+
 class Sender:
     """One agent, one effort, both roles. See E-001's AMENDMENT-003."""
 
-    def __init__(self, spec: str, model: str, effort: str = "low"):
+    def __init__(self, spec: str, model: str, effort: str = "low",
+                 provider: str = "anthropic"):
         self.name = "%s/spec" % model
         self.model, self.spec, self.effort = model, spec, effort
-        self._agent = AnthropicAgent(self.name, context=spec, model=model, effort=effort)
+        self.provider = provider
+        self._agent = _make_agent(provider, self.name, spec, model, effort)
 
     def answer_samples(self, probe, n: int) -> List[str]:
         return self._agent.answer_samples(probe, n)
@@ -184,6 +198,8 @@ class Sender:
 
     def compose(self, prompt: str, seed: int = 0) -> str:
         """One generation, in a fresh request. Independence is per message."""
+        if self.provider == "codex":
+            return self._agent.compose(prompt, seed)
         response = self._agent._client.messages.create(
             model=self.model,
             max_tokens=4096,
@@ -206,9 +222,10 @@ class Sender:
 
 
 class Receiver:
-    def __init__(self, label: str, context: str, model: str, effort: str = "low"):
+    def __init__(self, label: str, context: str, model: str, effort: str = "low",
+                 provider: str = "anthropic"):
         self.name = "%s/%s" % (model, label)
-        self._agent = AnthropicAgent(self.name, context=context, model=model, effort=effort)
+        self._agent = _make_agent(provider, self.name, context, model, effort)
 
     def answer_samples(self, probe, n: int) -> List[str]:
         return self._agent.answer_samples(probe, n)
@@ -276,12 +293,14 @@ def run(args) -> Dict[str, Any]:
     print("E-001b  Fluency x Contrastiveness")
     print("measure   : %s (%d probes)" % (measure.qualified_id, len(measure)))
     print("design    : 4 cells x k=%d messages, n=%d samples/probe" % (k, n))
-    print("model     : %s (both roles)" % args.model)
+    print("provider  : %s" % args.provider)
+    print("model     : %s (both roles)" % (
+        "codex CLI default" if args.provider == "codex" else args.model))
     print("mode      : %s\n" % ("DRY RUN" if args.dry_run else "live"))
 
     cache = Cache(args.cache)
     sender = (Stub("stub-sender", 0.94, 0.88, 1) if args.dry_run
-              else Sender(spec, args.model))
+              else Sender(spec, args.model, provider=args.provider))
 
     # --- compose first: a refusal must cost k calls, not the whole sweep ----
     messages: Dict[str, str] = {}
@@ -310,7 +329,8 @@ def run(args) -> Dict[str, Any]:
     for label, ctx in contexts.items():
         agent = (Stub("stub-" + label, 0.5 + 0.45 * (label != "PRIOR"), 0.8, hash(label) % 999)
                  if args.dry_run
-                 else (sender if label == "sender" else Receiver(label, ctx, args.model)))
+                 else (sender if label == "sender"
+                       else Receiver(label, ctx, args.model, provider=args.provider)))
         raw[label] = collect_concurrent(
             agent, measure, n, "%s@%s" % (label, args.model), cache,
             args.workers, progress,
@@ -331,7 +351,11 @@ def run(args) -> Dict[str, Any]:
         "experiment": "E-001b", "core_version": "0.3",
         "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "dry_run": bool(args.dry_run), "probe_measure": measure.qualified_id,
-        "model": args.model, "k": k, "samples_per_probe": n,
+        "provider": args.provider,
+        "model": ("codex-cli-default" if args.provider == "codex" else args.model),
+        "cost_unit": ("approx-tokens-from-words" if args.provider == "codex"
+                      else "tokens"),
+        "k": k, "samples_per_probe": n,
         "cell_axes": CELL_AXES, "messages": messages,
         "d_prior": d_prior, "d_floor_shared": floor,
         "sender_accuracy": sender_acc, "sender_errors": errors,
@@ -351,7 +375,8 @@ def run(args) -> Dict[str, Any]:
         cost = float(sender.cost_of(messages[label]))
         cs = sender.claim_agreement(measure, "your colleague", artifact=messages[label])
         cr = (Stub("stub-r", 0.9, 0.8, 7) if args.dry_run
-              else Receiver(label, messages[label], args.model)).claim_agreement(
+              else Receiver(label, messages[label], args.model,
+                            provider=args.provider)).claim_agreement(
                   measure, "the person who briefed you")
         claimed = (statistics.mean(cs) + statistics.mean(cr)) / 2
         results["per_message"][label] = {
@@ -442,6 +467,12 @@ def main() -> int:
     ap.add_argument("--samples", type=int, default=30)
     ap.add_argument("--k", type=int, default=8)
     ap.add_argument("--model", default=DEFAULT_MODEL)
+    ap.add_argument("--provider", choices=("anthropic", "codex"), default="anthropic",
+                    help="codex uses the codex CLI (subscription auth, no "
+                         "platform billing). Cost is then measured in "
+                         "approximate tokens from a word count -- the CLI "
+                         "exposes no tokenizer -- so eta is NOT comparable "
+                         "with an anthropic run")
     ap.add_argument("--epsilon", type=float, default=0.02)
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--cache", default=os.path.join(HERE, "sample-cache.json"))
