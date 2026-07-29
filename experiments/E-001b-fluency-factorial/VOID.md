@@ -88,19 +88,36 @@ gates and the analysis plan.
 The available repairs all change the generating process for the experimental
 unit:
 
-1. **Rejection sampling to a realised-cost band.** Compose, measure, resample
+1. ~~**Rejection sampling to a realised-cost band.** Compose, measure, resample
    until within tolerance. Preserves the style manipulation; changes the
-   distribution of messages to one conditioned on length.
+   distribution of messages to one conditioned on length.~~
+   **Refuted within the hour, by data already on disk when it was proposed.**
+   The two style families' realised costs are **disjoint** — fluent
+   `[559, 716]` tokens, terse `[365, 441]`, with 118 tokens of clear air
+   between them. No band intersects both, so acceptance is zero for *every*
+   band. The proposal was not expensive, it was impossible, and it was written
+   without checking sixteen numbers that were already measured.
 2. **Truncation to a common budget.** Rejected: fluent structure loads its
    payload late, so truncation removes different content from different cells —
    a new confound in place of the old one.
 3. **Abandon equal cost; test the per-cost quantities directly.** Changes the
    hypotheses, so it needs a new registration in any case.
+4. **Replace the ceiling with a two-sided target.** The diagnosis that makes
+   this the candidate: `Stay within {budget} tokens` is a **one-sided
+   constraint used to enforce a two-sided requirement**. A ceiling bounds above
+   and says nothing about below, so it cannot produce parity even when obeyed —
+   and it was not obeyed. Every cell exceeded 350 tokens; the fluent cells by
+   76%. A model cannot observe its own tokenizer, so the successor states a
+   **word** band and verifies the realised token cost afterwards.
 
-Option 1 is the intended design for **E-001c**, with the resampling attempt
-count per cell recorded as data — how hard it is to make a fluent message cost
-what a terse one costs is a direct measurement of how entangled the two axes
-are, and that number is worth more than the effect it enables.
+Option 4 is the candidate for **E-001c**, and it is not yet known to work.
+Whether the four registers survive being pinned to a common length is an open
+instrument question, measured in
+[`E-001c/feasibility.py`](../E-001c-fluency-length-controlled/feasibility.py)
+before anything is registered. Convergence is not sufficient: if "fluent at 220
+words" is indistinguishable from "terse at 220 words", the manipulation has been
+destroyed rather than controlled, and there is nothing left to test L5 or L6
+against. **E-001c does not exist until that measurement says it can.**
 
 This is not classified as an amendment. E-001b is closed as void, and the
 repair is registered under a new ID with its own hypotheses committed before
@@ -120,16 +137,32 @@ its own data — which is what the norm is for.
 
 ## The uncomfortable part
 
-Two independent defects were found in one experiment on one day, both by
-attempting to run things rather than by reading them, and one of them only
-because the other forced a restart. Had the analysis path not crashed, this
-sweep would have run for thirty hours and *then* reported void on a gate that
-was already decidable from the composed messages.
+Three defects in one experiment on one day. Two were found by attempting to run
+things rather than by reading them, and one of those only because the other
+forced a restart. Had the analysis path not crashed, this sweep would have run
+for thirty hours and *then* reported void on a gate that was already decidable
+from the composed messages.
 
 The cost parity gate is computable the moment composition finishes. It was
 placed at the end of the analysis instead. **Gates that can be evaluated early
 should be evaluated early**, and E-001c will evaluate every gate at the earliest
 point its inputs exist.
+
+The third is the one worth dwelling on, because it is not a coding error. The
+first version of this document proposed rejection sampling as the repair — a
+paragraph of confident reasoning about a procedure that sixteen already-measured
+numbers, sitting in the same directory, prove has acceptance zero. It took
+twenty minutes to refute and would have taken two to check.
+
+That is the failure this programme is about. The proposal was fluent, internally
+coherent, and written by someone who believed it. Nothing about the writing
+signalled that it had not been checked, and had it not been checked here it
+would have been checked by whoever tried to build E-001c. A well-formed artifact
+produced confidence out of proportion to the evidence behind it, in a document
+about an experiment testing whether well-formed artifacts produce confidence out
+of proportion to the evidence behind them.
+
+`Φ` is not only something the instruments measure.
 
 ---
 
