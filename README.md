@@ -3,7 +3,9 @@
 **The quantitative science of transferring understanding across minds that do
 not share a substrate.**
 
-[noophorics.org](https://noophorics.org)
+[noophorics.org](https://noophorics.org) · founded 2026 by
+[Valentyn Yakymenko](https://github.com/vyakymenko) ·
+[authorship and contributor roles](AUTHORS.md)
 
 Two minds are given the same problem. One explains it to the other. Both agree
 the explanation landed.
@@ -215,7 +217,9 @@ Dual-licensed, deliberately:
 
 ## Citation
 
-See [CITATION.cff](CITATION.cff), or:
+Contributor roles, and the disclosure of AI contribution, are in
+[AUTHORS.md](AUTHORS.md). See [CITATION.cff](CITATION.cff), or:
 
-> Noophorics: a quantitative science of transferring understanding across
-> heterogeneous minds. Version 0.1, 2026. https://noophorics.org
+> Yakymenko, V. (2026). *Noophorics: a quantitative science of transferring
+> understanding across heterogeneous minds.* Version 0.3.
+> https://noophorics.org

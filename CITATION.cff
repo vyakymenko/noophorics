@@ -2,8 +2,9 @@ cff-version: 1.2.0
 title: "Noophorics: a quantitative science of transferring understanding across heterogeneous minds"
 message: "If you use this work, please cite it as below."
 type: software
-version: 0.1.0
+version: 0.3.0
 date-released: 2026-07-28
+# Founded 2026-07-28 by Valentyn Yakymenko.
 license: Apache-2.0
 url: "https://noophorics.org"
 repository-code: "https://github.com/vyakymenko/noophorics"
@@ -29,5 +30,9 @@ keywords:
   - multi-agent systems
   - indeterminacy of translation
 authors:
-  - name: "The Noophorics Project"
-    website: "https://noophorics.org"
+  - family-names: "Yakymenko"
+    given-names: "Valentyn"
+    website: "https://github.com/vyakymenko"
+    # Founder and principal investigator. See AUTHORS.md for contributor roles
+    # under the CRediT taxonomy, and for disclosure of AI contribution --
+    # substantial, and not admissible as authorship under prevailing norms.
