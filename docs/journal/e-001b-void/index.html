@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab journal — Noophorics</title>
-<meta name="description" content="The lab notebook of the noophorics programme: the void run, the near miss, and the retraction of its own diagnosis.">
+<title>E-001b is void — the cost parity gate failed before the sweep ran — Noophorics</title>
+<meta name="description" content="(PREREGISTRATION §4.1(PREREGISTRATION.md))">
 <meta name="color-scheme" content="light dark">
-<link rel="canonical" href="https://noophorics.org/journal/">
+<link rel="canonical" href="https://noophorics.org/journal/e-001b-void/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Lab journal — Noophorics">
+<meta property="og:title" content="E-001b is void — the cost parity gate failed before the sweep ran — Noophorics">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://noophorics.org/journal/">
+<meta property="og:url" content="https://noophorics.org/journal/e-001b-void/">
 <meta property="og:image" content="https://noophorics.org/og.png">
 <style>
 /* ---------------------------------------------------------------
@@ -1221,29 +1221,42 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <main id="content">
-<p class="jn">Lab notebook</p>
-<h1>The record of being wrong</h1>
-<p>Dated, append-only, and never edited after the fact except for typos. The entries below are the programme's most load-bearing documents: they are where it recorded its own failures while they were still fresh.</p>
+<p class="jn">void · e 001b void</p>
+<h1>E-001b is void — the cost parity gate failed before the sweep ran</h1>
+<p><strong>Status:</strong> void · closed · superseded by E-001c (not yet registered) <strong>Voided:</strong> 2026-07-29, after composition, before any probe outcome was examined <strong>Gate:</strong> cost parity across cells, <code>max/min realised cost ≤ 1.30</code> (<a href="https://github.com/vyakymenko/noophorics/blob/main/journal/PREREGISTRATION.md">PREREGISTRATION §4.1</a>)</p>
 <hr>
-<h2><a href="/journal/founding/">2026-07-28 — Founding</a></h2>
-<p>First entry. The lab notebook is for the things that do not belong in…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-founding.md">source</a></p>
-<h2><a href="/journal/first-live-run-void/">2026-07-28 — First live run: void, and the reason is worth keeping</a></h2>
-<p>E-001 ran against the API for the first time and died. Full record in…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-first-live-run-void.md">source</a></p>
-<h2><a href="/journal/e-001-findings/">E-001 — Findings</a></h2>
-<p>It nonetheless produced the most important result this programme has: the…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/FINDINGS.md">source</a></p>
-<h2><a href="/journal/e-001b-void/">E-001b is void — the cost parity gate failed before the sweep ran</a></h2>
-<p>(PREREGISTRATION §4.1(PREREGISTRATION.md))…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/VOID.md">source</a></p>
-<h2><a href="/journal/e-001b-defect/">DEFECT-001 — the analysis path was never executed, and would have crashed</a></h2>
-<p>provider comparison. No effect had been computed. No results file existed.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/e-001c-feasibility/">Can the four registers survive being pinned to a common length?</a></h2>
-<p>may be read off it. It exists to answer whether E-001c is buildable at all,…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/FEASIBILITY.md">source</a></p>
-
+<h2>The numbers</h2>
+<p>Realised cost of the 32 composed messages, measured with the sender's own tokenizer (<code>prompt_eval_count</code>), all four cells given the identical instruction to write within a 350-token budget:</p>
+<div class="scroll"><table><thead><tr><th>cell</th><th>style</th><th>n</th><th>mean tokens</th><th>min</th><th>max</th></tr></thead><tbody><tr><td>A</td><td>fluent · declarative</td><td>8</td><td>620.0</td><td>561</td><td>688</td></tr><tr><td>B</td><td>fluent · contrastive</td><td>8</td><td>608.6</td><td>559</td><td>716</td></tr><tr><td>C</td><td>terse · declarative</td><td>8</td><td>406.6</td><td>366</td><td>441</td></tr><tr><td>D</td><td>terse · contrastive</td><td>8</td><td>392.8</td><td>365</td><td>432</td></tr></tbody></table></div>
+<div class="scroll"><table><thead><tr><th>reading of the gate</th><th>ratio</th><th>threshold</th><th>verdict</th></tr></thead><tbody><tr><td>across messages (as coded)</td><td><strong>1.962</strong></td><td>1.30</td><td>FAIL</td></tr><tr><td>across cell means (as worded)</td><td><strong>1.579</strong></td><td>1.30</td><td>FAIL</td></tr></tbody></table></div>
+<p>The pre-registration says "cost parity across <strong>cells</strong>"; the runner computed max/min across <strong>messages</strong>. That discrepancy is real and is recorded here — but it did not have to be adjudicated, because both readings fail. Which is the only reason this document can be trusted: the author noticed the ambiguity while already knowing which way it would resolve, and it resolved the same way regardless.</p>
+<h2>What was and was not seen</h2>
+<p>Voiding is a decision, and a decision made after seeing outcome data is not the same decision. So, precisely:</p>
+<p><strong>Examined:</strong> message word counts, message token costs, cache key names and counts, the persisted messages' fingerprints. <strong>Not examined:</strong> any probe answer, any divergence, any fidelity, any <code>Φ</code>, any effect. No analysis was run. No results file exists.</p>
+<p>The draws on disk at void time are <code>sender</code>, <code>PRIOR</code> and <code>CEILING</code> — the three conditions that do not depend on any composed message — plus nothing else. The sweep over message conditions had not begun.</p>
+<h2>Why this is a finding and not just a mishap</h2>
+<p>E-001's fatal defect was that its two conditions confounded style with cost: a longer message transfers more by containing more, so any fidelity difference between a polished narrative and a terse list is unattributable.</p>
+<p>E-001b's whole answer to that was <strong>a shared token budget plus a parity gate</strong>. Every cell received the same <code>budget=350</code> instruction. The gate existed to check that the instruction worked.</p>
+<p>It did not work. Instructed identically, the model produced fluent messages at <strong>1.5×</strong> the cost of terse ones. The budget is not a constraint the model honours uniformly across style instructions — asking for fluent prose in 350 tokens and terse prose in 350 tokens does not produce two messages of 350 tokens, it produces one of ~614 and one of ~400.</p>
+<p>That is the finding, and it is more general than this experiment:</p>
+<blockquote><p><strong>Style and length are entangled in the generator.</strong> A style manipulation instructed by prompt cannot be assumed cost-neutral, and an experiment comparing styles "at equal cost" must <em>verify</em> cost parity rather than instruct it.</p></blockquote>
+<p>Both laws under test are stated with that clause. <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/laws.md#l5">L5</a>: fluency inflates <code>Φ</code> faster than it raises <code>F*</code>. <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/laws.md#l6">L6</a>: <em>"At equal cost</em>, encoding the cases where we would diverge transfers more fidelity than encoding what I understand." If equal cost is unattainable by instruction, then testing either law requires constraining generation — and the constraint may change what the styles <em>are</em>. That difficulty was not visible before this run and is now the central design problem for the successor.</p>
+<h2>Why the successor is E-001c and not an E-001b amendment</h2>
+<p>The <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/PREREGISTRATION.md#5-amendment-policy">amendment policy</a> enumerates a closed list of permissible instrument changes: replacing the domain, fixing a defect in the metrics library, reducing <code>k</code> for budget. Changing how messages are composed is not on it, and the policy's "not permissible" list includes the gates and the analysis plan.</p>
+<p>The available repairs all change the generating process for the experimental unit:</p>
+<ol><li><s><strong>Rejection sampling to a realised-cost band.</strong> Compose, measure, resample until within tolerance. Preserves the style manipulation; changes the distribution of messages to one conditioned on length.</s> <strong>Refuted within the hour, by data already on disk when it was proposed.</strong> The two style families' realised costs are <strong>disjoint</strong> — fluent <code>[559, 716]</code> tokens, terse <code>[365, 441]</code>, with 118 tokens of clear air between them. No band intersects both, so acceptance is zero for <em>every</em> band. The proposal was not expensive, it was impossible, and it was written without checking sixteen numbers that were already measured.</li><li><strong>Truncation to a common budget.</strong> Rejected: fluent structure loads its payload late, so truncation removes different content from different cells — a new confound in place of the old one.</li><li><strong>Abandon equal cost; test the per-cost quantities directly.</strong> Changes the hypotheses, so it needs a new registration in any case.</li><li><strong>Replace the ceiling with a two-sided target.</strong> The diagnosis that makes this the candidate: <code>Stay within {budget} tokens</code> is a <strong>one-sided constraint used to enforce a two-sided requirement</strong>. A ceiling bounds above and says nothing about below, so it cannot produce parity even when obeyed — and it was not obeyed. Every cell exceeded 350 tokens; the fluent cells by 76%. A model cannot observe its own tokenizer, so the successor states a <strong>word</strong> band and verifies the realised token cost afterwards.</li></ol>
+<p>Option 4 is the candidate for <strong>E-001c</strong>, and it is not yet known to work. Whether the four registers survive being pinned to a common length is an open instrument question, measured in <a href="https://github.com/vyakymenko/noophorics/blob/main/E-001c-fluency-length-controlled/feasibility.py"><code>E-001c/feasibility.py</code></a> before anything is registered. Convergence is not sufficient: if "fluent at 220 words" is indistinguishable from "terse at 220 words", the manipulation has been destroyed rather than controlled, and there is nothing left to test L5 or L6 against. <strong>E-001c does not exist until that measurement says it can.</strong></p>
+<p>This is not classified as an amendment. E-001b is closed as void, and the repair is registered under a new ID with its own hypotheses committed before its own data — which is what the norm is for.</p>
+<h2>What carries forward</h2>
+<ul><li><strong>The messages.</strong> 32 composed messages with their fingerprints and realised costs, in <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/messages.json"><code>messages.json</code></a>. They are the evidence for the finding above and are not discarded.</li><li><strong>The three message-independent conditions.</strong> <code>sender</code>, <code>PRIOR</code> and <code>CEILING</code> at n=30 remain valid for the same model, spec and probe measure, and are retained in the sample cache for E-001c.</li><li><strong>The repaired runner.</strong> <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/DEFECT-001.md">DEFECT-001</a> — the analysis path was never executable and would have crashed after the full sweep. Found and fixed in the same session, before this.</li></ul>
+<h2>The uncomfortable part</h2>
+<p>Three defects in one experiment on one day. Two were found by attempting to run things rather than by reading them, and one of those only because the other forced a restart. Had the analysis path not crashed, this sweep would have run for thirty hours and <em>then</em> reported void on a gate that was already decidable from the composed messages.</p>
+<p>The cost parity gate is computable the moment composition finishes. It was placed at the end of the analysis instead. <strong>Gates that can be evaluated early should be evaluated early</strong>, and E-001c will evaluate every gate at the earliest point its inputs exist.</p>
+<p>The third is the one worth dwelling on, because it is not a coding error. The first version of this document proposed rejection sampling as the repair — a paragraph of confident reasoning about a procedure that sixteen already-measured numbers, sitting in the same directory, prove has acceptance zero. It took twenty minutes to refute and would have taken two to check.</p>
+<p>That is the failure this programme is about. The proposal was fluent, internally coherent, and written by someone who believed it. Nothing about the writing signalled that it had not been checked, and had it not been checked here it would have been checked by whoever tried to build E-001c. A well-formed artifact produced confidence out of proportion to the evidence behind it, in a document about an experiment testing whether well-formed artifacts produce confidence out of proportion to the evidence behind them.</p>
+<p><code>Φ</code> is not only something the instruments measure.</p>
+<hr>
+<p><em>This document is licensed CC BY 4.0.</em></p>
 <p class="back"><a href="/journal/">All journal entries</a> · <a href="/">Noophorics</a> · <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
 </main>
 </body>

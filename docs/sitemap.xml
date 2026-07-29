@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://noophorics.org/</loc><lastmod>2026-07-29</lastmod></url>
+  <url><loc>https://noophorics.org/journal/</loc><lastmod>2026-07-29</lastmod></url>
+  <url><loc>https://noophorics.org/journal/e-001-findings/</loc><lastmod>2026-07-29</lastmod></url>
+  <url><loc>https://noophorics.org/journal/e-001b-defect/</loc><lastmod>2026-07-29</lastmod></url>
+  <url><loc>https://noophorics.org/journal/e-001b-void/</loc><lastmod>2026-07-29</lastmod></url>
+  <url><loc>https://noophorics.org/journal/e-001c-feasibility/</loc><lastmod>2026-07-29</lastmod></url>
+  <url><loc>https://noophorics.org/journal/first-live-run-void/</loc><lastmod>2026-07-29</lastmod></url>
+  <url><loc>https://noophorics.org/journal/founding/</loc><lastmod>2026-07-29</lastmod></url>
   <url><loc>https://noophorics.org/ar/</loc><lastmod>2026-07-29</lastmod></url>
   <url><loc>https://noophorics.org/de/</loc><lastmod>2026-07-29</lastmod></url>
   <url><loc>https://noophorics.org/es/</loc><lastmod>2026-07-29</lastmod></url>

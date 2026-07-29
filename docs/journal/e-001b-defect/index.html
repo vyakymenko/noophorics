@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab journal — Noophorics</title>
-<meta name="description" content="The lab notebook of the noophorics programme: the void run, the near miss, and the retraction of its own diagnosis.">
+<title>DEFECT-001 — the analysis path was never executed, and would have crashed — Noophorics</title>
+<meta name="description" content="provider comparison. No effect had been computed. No results file existed.">
 <meta name="color-scheme" content="light dark">
-<link rel="canonical" href="https://noophorics.org/journal/">
+<link rel="canonical" href="https://noophorics.org/journal/e-001b-defect/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Lab journal — Noophorics">
+<meta property="og:title" content="DEFECT-001 — the analysis path was never executed, and would have crashed — Noophorics">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://noophorics.org/journal/">
+<meta property="og:url" content="https://noophorics.org/journal/e-001b-defect/">
 <meta property="og:image" content="https://noophorics.org/og.png">
 <style>
 /* ---------------------------------------------------------------
@@ -1221,29 +1221,32 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <main id="content">
-<p class="jn">Lab notebook</p>
-<h1>The record of being wrong</h1>
-<p>Dated, append-only, and never edited after the fact except for typos. The entries below are the programme's most load-bearing documents: they are where it recorded its own failures while they were still fresh.</p>
+<p class="jn">defect · e 001b defect</p>
+<h1>DEFECT-001 — the analysis path was never executed, and would have crashed</h1>
+<p><strong>Found:</strong> 2026-07-29, ~4 hours into collection <strong>Status:</strong> repaired; collection restarted <strong>Data on disk when found:</strong> <code>sender</code> 34/34, <code>PRIOR</code> 34/34, <code>CEILING</code> 34/34, <code>A0</code> 6/34, all at n=30, plus a stale <code>sender@claude-opus-4-8</code> 17/34 from the provider comparison. No effect had been computed. No results file existed.</p>
 <hr>
-<h2><a href="/journal/founding/">2026-07-28 — Founding</a></h2>
-<p>First entry. The lab notebook is for the things that do not belong in…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-founding.md">source</a></p>
-<h2><a href="/journal/first-live-run-void/">2026-07-28 — First live run: void, and the reason is worth keeping</a></h2>
-<p>E-001 ran against the API for the first time and died. Full record in…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-first-live-run-void.md">source</a></p>
-<h2><a href="/journal/e-001-findings/">E-001 — Findings</a></h2>
-<p>It nonetheless produced the most important result this programme has: the…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/FINDINGS.md">source</a></p>
-<h2><a href="/journal/e-001b-void/">E-001b is void — the cost parity gate failed before the sweep ran</a></h2>
-<p>(PREREGISTRATION §4.1(PREREGISTRATION.md))…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/VOID.md">source</a></p>
-<h2><a href="/journal/e-001b-defect/">DEFECT-001 — the analysis path was never executed, and would have crashed</a></h2>
-<p>provider comparison. No effect had been computed. No results file existed.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/e-001c-feasibility/">Can the four registers survive being pinned to a common length?</a></h2>
-<p>may be read off it. It exists to answer whether E-001c is buildable at all,…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/FEASIBILITY.md">source</a></p>
-
+<h2>What was wrong</h2>
+<p><code>runner.py</code> called <code>_sensitivity(measure, raw_draws, ...)</code> — a function that was <strong>never defined</strong>, with a variable <code>raw_draws</code> that <strong>does not exist</strong> (the draws live in <code>raw</code>). Two <code>NameError</code>s on the same line, in the analysis block, which runs only after the entire sweep completes.</p>
+<p>Collection would have run for roughly thirty hours and then crashed before writing anything.</p>
+<h2>Why that was nearly fatal rather than merely annoying</h2>
+<p>The sample cache is written incrementally and tracked, so draws survive a crash. The <strong>messages do not</strong>. They are composed at run start, held in memory, and written only as part of the final results file. And composition runs at <code>temperature = 0.7</code>, so re-composing does not recover them — it produces different messages wearing the same labels.</p>
+<p>A draw is only interpretable against the message it answered. Thirty hours of draws with no record of which text produced them is not a damaged dataset, it is not a dataset.</p>
+<p>The cache made this worse rather than better. Its keys were condition labels (<code>A0@gpt-oss:120b</code>), so a resumed run would have found a hit for <code>A0</code> and attributed draws that answered the <em>old</em> A0 to the <em>new</em> one. It would have reported a cache hit, produced numbers, and been wrong in a way nothing downstream could detect.</p>
+<h2>How it was found</h2>
+<p>Not by rereading the file. By starting to write a separate analyzer and asking whether the results record was self-sufficient — at which point the missing function was immediately visible.</p>
+<p>The tests did not catch it because the test suite covers the metrics library, and this is runner code. <code>--dry-run</code> did not catch it because <code>--dry-run</code> had never been run <em>since the sensitivity call was added</em>. That is the whole lesson: the call was added in the same commit that documented it, and the documentation was checked while the code was not.</p>
+<p>This is the third time in this repository that a change was verified by reading rather than by running, and the second time the reading passed while the code was broken.</p>
+<h2>What was discarded and what was kept</h2>
+<div class="scroll"><table><thead><tr><th>Condition</th><th>Status</th><th>Kept?</th></tr></thead><tbody><tr><td><code>sender</code>, <code>PRIOR</code>, <code>CEILING</code></td><td>34/34 each</td><td><strong>Kept.</strong> Their contexts are the source spec and the empty string. They do not depend on any composed message, so re-composition cannot invalidate them.</td></tr><tr><td><code>A0</code></td><td>6/34</td><td><strong>Discarded.</strong> Its draws answered a message that no longer exists.</td></tr></tbody></table></div>
+<p>Cost of the restart: six probe-conditions, about twenty minutes. Cost of not restarting: thirty hours producing an uninterpretable result.</p>
+<h2>Repairs</h2>
+<ol><li><strong><code>sensitivity_without()</code> implemented.</strong> It recomputes <code>d_prior</code>, the floor, the per-message table and all four effects over the measure with <code>M33</code> removed — not just the effects. Dropping a probe changes the denominator and the floor too, and reusing the full-measure values would compare effects computed against different bases.</li><li><strong>Analysis split from elicitation.</strong> <code>derive_per_message()</code> and <code>compute_effects()</code> are pure functions over the draws. The only live calls left in the analysis path are the claim elicitations and the cost query, and both are stored in the record. Every derived number can now be recomputed from the committed record without contacting a model.</li><li><strong>Messages persisted immediately after composition</strong>, to <code>messages.json</code>, before the sweep starts.</li><li><strong>Cache keys bound to message content.</strong> Message conditions are keyed <code>label@model#sha256(message)[:10]</code>. A resumed run with re-composed messages now <em>misses</em> the cache instead of silently inheriting the wrong draws.</li><li><strong>Holm correction applied, not merely detected.</strong> Separately found while reading the same block: the degeneracy condition set a flag and the p-values stayed uncorrected. The pre-registration says correction <em>is applied</em>. Detecting a multiplicity problem and reporting uncorrected p-values is worse than not detecting it, because the detection appears in the record as though it had been acted on.</li><li><strong>The full analysis path is now exercised by <code>--dry-run</code></strong> and was run before the restart.</li></ol>
+<h2>Is this an amendment?</h2>
+<p>The <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/PREREGISTRATION.md#5-amendment-policy">amendment policy</a> caps E-001b at two, and <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/AMENDMENT-001.md">AMENDMENT-001</a> used one. This is recorded as a defect repair rather than an amendment, on the following reasoning:</p>
+<ul><li>No hypothesis, gate, threshold, sample size, cell structure, model or analysis specification changed. The pre-registration is untouched.</li><li>Every repair moves the code <strong>toward</strong> the pre-registered plan. The M33 sensitivity and the Holm correction were both specified and neither was executable. Making specified analysis executable is conformance.</li><li>The discarded data is 6 of 1190 probe-conditions, discarded because it was uninterpretable, not because of anything it contained. Nothing had been analysed; there was no result to be steered by.</li></ul>
+<p>That classification is a judgment, and it is the kind of judgment an experimenter makes in his own favour. It is recorded here in full, with the data state at the time, so a reader who thinks this should count against the cap has everything needed to say so. If it does count, E-001b's budget is exhausted and any further change requires a new pre-registration under a new ID — a consequence we accept in advance rather than argue about afterwards.</p>
+<hr>
+<p><em>This document is licensed CC BY 4.0.</em></p>
 <p class="back"><a href="/journal/">All journal entries</a> · <a href="/">Noophorics</a> · <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
 </main>
 </body>

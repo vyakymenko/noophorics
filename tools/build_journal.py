@@ -35,6 +35,10 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("founding", "journal/2026-07-28-founding.md", "journal"),
     ("first-live-run-void", "journal/2026-07-28-first-live-run-void.md", "journal"),
     ("e-001-findings", "experiments/E-001-fluency-cost/FINDINGS.md", "findings"),
+    ("e-001b-void", "experiments/E-001b-fluency-factorial/VOID.md", "void"),
+    ("e-001b-defect", "experiments/E-001b-fluency-factorial/DEFECT-001.md", "defect"),
+    ("e-001c-feasibility",
+     "experiments/E-001c-fluency-length-controlled/FEASIBILITY.md", "instrument"),
 ]
 
 REPO = "https://github.com/vyakymenko/noophorics/blob/main/"
