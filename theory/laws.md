@@ -110,7 +110,7 @@ this law. See [Problem 2](open-problems.md).
 
 ---
 
-## L4 — The curse of the summary  *(restated v0.3; original was ill-typed)*
+## L4 — The curse of the summary <a id="l4"></a>  *(restated v0.3; original was ill-typed)*
 
 > ~~Fidelity is multiplicative along a chain of transfers,
 > `F*(A→B→C) ≈ F*(A→B) · F*(B→C)`~~
@@ -130,13 +130,13 @@ this law. See [Problem 2](open-problems.md).
 **Restated.** Score every hop against the **origin**, in the origin's frame,
 sharing one prior gap and one floor (`metrics/noophorics/chain.py`). Then:
 
-**L4a — decay.** Chain fidelity in the origin's frame is non-increasing in hop
+<a id="l4a"></a>**L4a — decay.** Chain fidelity in the origin's frame is non-increasing in hop
 count.
 
-**L4b — geometric decay.** While fidelity remains positive, `log F*` is
+<a id="l4b"></a>**L4b — geometric decay.** While fidelity remains positive, `log F*` is
 approximately linear in hop count; the chain has a half-life measured in hops.
 
-**L4c — the invariant core.** Content expressed as **constraints and
+<a id="l4c"></a>**L4c — the invariant core.** Content expressed as **constraints and
 prohibitions** decays measurably more slowly than content expressed as
 **descriptions**.
 

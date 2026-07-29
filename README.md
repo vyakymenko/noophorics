@@ -73,7 +73,10 @@ remains an open empirical question.*
 - [`probes/`](probes/) — a format for stating the decisions against which a
   transfer is measured.
 - [`NHP-0001`](protocols/NHP-0001-handoff.md) — a draft handoff protocol
-  carrying constraints, probes, and a fidelity claim.
+  carrying constraints, probes, and a fidelity claim. v0.1 was published
+  without an implementation; writing one found four defects in it, including a
+  gate that passed the case it existed to catch. All four are repaired in v0.2
+  and left visible in the document.
 - [`experiments/`](experiments/) and [`journal/`](journal/) — pre-registrations,
   void and null results, corrections, and refuted claims kept in the public
   record.

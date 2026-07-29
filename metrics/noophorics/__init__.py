@@ -46,6 +46,15 @@ from .fidelity import (
     transfer_fidelity,
 )
 from .chain import ChainDecay, ChainPoint, chain_fidelity, fit_decay
+from .handoff import (
+    Decision,
+    KeyLeak,
+    adjudicate,
+    key_marginal_baseline,
+    minimum_draws,
+    seal,
+    verify_no_key_leak,
+)
 from .probes import Probe, ProbeMeasure, load_probe_measure
 
 __version__ = "0.1.0"
@@ -80,6 +89,13 @@ __all__ = [
     "ChainPoint",
     "ChainDecay",
     "chain_fidelity",
+    "Decision",
+    "KeyLeak",
+    "adjudicate",
+    "key_marginal_baseline",
+    "minimum_draws",
+    "seal",
+    "verify_no_key_leak",
     "fit_decay",
     # probes
     "Probe",

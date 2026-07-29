@@ -43,14 +43,36 @@ MANIFEST = os.path.join(DOCS, "i18n-manifest.json")
 # and the long-form monograph are excluded, so a CSS tweak does not invalidate
 # eleven pages.
 def source_fingerprint() -> str:
+    """Hash only the canonical passages the translations actually restate.
+
+    v1 hashed every visible word on the canonical page. Any edit anywhere --
+    a new card, a corrected footer -- marked all eleven translations stale,
+    and rebuilding re-stamped the fingerprint without changing a translated
+    word. A staleness check whose remedy is a no-op is worse than none: it
+    trains you to clear the warning rather than read it.
+
+    The four passages below are marked ``data-i18n-src`` in the canonical page,
+    so the coupling is visible at both ends. If a marker disappears this raises
+    rather than quietly hashing less -- silently narrowing what is watched is
+    exactly the failure mode being repaired.
+    """
     with open(CANON, "r", encoding="utf-8") as fh:
         html = fh.read()
     import re
-    text = re.sub(r"<style.*?</style>", "", html, flags=re.S)
-    text = re.sub(r"<script.*?</script>", "", text, flags=re.S)
-    text = re.sub(r"<[^>]+>", " ", text)
-    text = " ".join(text.split())
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:12]
+
+    parts = []
+    for key in ("lede", "move", "phi", "status"):
+        m = re.search(
+            r'<([a-z0-9]+)[^>]*data-i18n-src="%s"[^>]*>(.*?)</\1>' % key,
+            html, re.S)
+        if not m:
+            raise SystemExit(
+                "canonical page has no data-i18n-src=\"%s\" element. The "
+                "translations restate it, so it must stay marked; re-mark it "
+                "or drop the string from the translation set." % key)
+        text = " ".join(re.sub(r"<[^>]+>", " ", m.group(2)).split())
+        parts.append("%s\x1f%s" % (key, text))
+    return hashlib.sha256("\x1e".join(parts).encode("utf-8")).hexdigest()[:12]
 
 
 # lang -> (endonym, dir, strings)

@@ -8,6 +8,7 @@ flattering number instead of an error.
 
 from __future__ import annotations
 
+import json
 import math
 import random
 import sys
@@ -33,6 +34,10 @@ from noophorics import (  # noqa: E402
     self_divergence,
     to_distribution,
     transfer_fidelity,
+)
+from noophorics.handoff import (  # noqa: E402
+    DEFAULT_THETA, KeyLeak, adjudicate, key_marginal_baseline,
+    minimum_draws, seal, verify_no_key_leak,
 )
 
 
@@ -429,6 +434,133 @@ class TestChainTyping(unittest.TestCase):
         ]
         decay = fit_decay(points)
         self.assertEqual(decay.positive_hops, 2)
+
+
+class HandoffGateTest(unittest.TestCase):
+    """NHP-0001 v0.2. Each test names the v0.1 defect it pins down."""
+
+    def _probes(self, n=10):
+        probes = [{"id": "p%d" % i, "prompt": "?", "options": ["a", "b"]}
+                  for i in range(n)]
+        keys = {p["id"]: ("a" if i % 2 else "b") for i, p in enumerate(probes)}
+        return probes, keys
+
+    # D1 -- the exam shipped with its answer key -------------------------
+
+    def test_sealed_payload_carries_no_key(self):
+        probes, keys = self._probes()
+        payload, checkset = seal(probes, keys)
+        self.assertNotIn("expected", json.dumps(payload))
+        self.assertEqual(set(checkset["keys"]), set(keys))
+        self.assertEqual(payload["probe_measure_id"],
+                         checkset["probe_measure_id"])
+
+    def test_key_leak_detected_at_any_depth(self):
+        for leaky in (
+            {"probes": [{"id": "p1", "expected": "a"}]},
+            {"a": {"b": {"c": [{"ground_truth": "x"}]}}},
+            {"answers": {"p1": "a"}},
+        ):
+            with self.assertRaises(KeyLeak):
+                verify_no_key_leak(leaky)
+
+    def test_commitment_breaks_when_a_key_is_revised(self):
+        """The hash is what makes the sender's own key admissible."""
+        probes, keys = self._probes()
+        _, before = seal(probes, keys)
+        keys["p0"] = "a" if keys["p0"] == "b" else "b"
+        _, after = seal(probes, keys)
+        self.assertNotEqual(before["probe_measure_id"],
+                            after["probe_measure_id"])
+
+    def test_undecidable_probe_rejected(self):
+        probes, keys = self._probes(3)
+        keys["p0"] = "c"                       # not among the options
+        with self.assertRaises(ValueError):
+            seal(probes, keys)
+
+    # D2 -- the gate passes its own worst case ---------------------------
+
+    def test_well_calibrated_catastrophe_blocked(self):
+        probes, keys = self._probes()
+        _, checkset = seal(probes, keys)
+        # Receiver diverges on every probe; both parties predicted it.
+        answers = {pid: [("a" if k == "b" else "b")] * 6
+                   for pid, k in keys.items()}
+        d = adjudicate(answers, checkset, 0.0, 0.0, independent_key=True)
+        self.assertEqual(d.agreement, 0.0)
+        self.assertLessEqual(d.phi, DEFAULT_THETA)   # v0.1 would proceed
+        self.assertTrue(d.gate_calibration)          # calibration is perfect
+        self.assertFalse(d.gate_fidelity)            # and nothing transferred
+        self.assertIs(d.proceed, False)
+        self.assertEqual(len(d.diverged), len(keys))
+
+    def test_overclaim_blocked_on_calibration(self):
+        probes, keys = self._probes()
+        _, checkset = seal(probes, keys)
+        answers = {pid: [k] * 5 for pid, k in keys.items()}
+        for pid in ("p0", "p1"):                     # 8/10 probes transfer
+            answers[pid] = ["a" if keys[pid] == "b" else "b"] * 5
+        d = adjudicate(answers, checkset, 1.0, 1.0, independent_key=True)
+        self.assertAlmostEqual(d.agreement, 0.80)
+        self.assertTrue(d.gate_fidelity)             # 0.80 did transfer
+        self.assertFalse(d.gate_calibration)         # but they claimed 1.00
+        self.assertIs(d.proceed, False)
+
+    # D3 -- Â is not floor-corrected -------------------------------------
+
+    def test_lopsided_key_set_has_a_high_baseline(self):
+        keys = {"p%d" % i: ("a" if i < 9 else "b") for i in range(10)}
+        self.assertAlmostEqual(key_marginal_baseline(keys), 0.82, places=6)
+
+    def test_corrected_agreement_can_fall_below_zero(self):
+        """0.80 raw against a 0.82 baseline is worse than not reading."""
+        keys = {"p%d" % i: ("a" if i < 9 else "b") for i in range(10)}
+        checkset = {"probe_measure_id": "x", "keys": keys}
+        answers = {pid: (["a"] * 8 + ["b"] * 2) for pid in keys}
+        d = adjudicate(answers, checkset, 0.8, 0.8, independent_key=True)
+        self.assertAlmostEqual(d.baseline, 0.82, places=6)
+        self.assertLess(d.agreement_corrected, 0.0)  # never clipped
+
+    def test_constant_key_set_is_flagged_not_scored(self):
+        keys = {"p%d" % i: "a" for i in range(10)}
+        checkset = {"probe_measure_id": "x", "keys": keys}
+        d = adjudicate({pid: ["a"] * 5 for pid in keys}, checkset, 1.0, 1.0,
+                       independent_key=True)
+        self.assertTrue(math.isnan(d.agreement_corrected))
+        self.assertTrue(any("uninformative" in n for n in d.notes))
+
+    # D4 -- the threshold is finer than the instrument -------------------
+
+    def test_minimum_draws_is_bound_by_noise_not_grid(self):
+        self.assertEqual(minimum_draws(0.15), 43)    # grid alone wants 7
+        self.assertGreater(minimum_draws(0.10), minimum_draws(0.20))
+
+    def test_underpowered_returns_no_verdict_rather_than_a_pass(self):
+        probes, keys = self._probes(3)
+        _, checkset = seal(probes, keys)
+        d = adjudicate({pid: [k] for pid, k in keys.items()},
+                       checkset, 1.0, 1.0, independent_key=True)
+        self.assertEqual(d.agreement, 1.0)           # a perfect score
+        self.assertIsNone(d.proceed)                 # and still no verdict
+        self.assertTrue(any("underpowered" in n for n in d.notes))
+
+    # standing obligations ------------------------------------------------
+
+    def test_unanswered_probes_are_missing_data_not_zeros(self):
+        probes, keys = self._probes()
+        _, checkset = seal(probes, keys)
+        answers = {pid: [k] * 5 for pid, k in list(keys.items())[:8]}
+        d = adjudicate(answers, checkset, 1.0, 1.0, independent_key=True)
+        self.assertEqual(d.agreement, 1.0)           # not 0.8
+        self.assertTrue(any("unanswered" in n for n in d.notes))
+
+    def test_self_written_key_is_disclosed(self):
+        probes, keys = self._probes()
+        _, checkset = seal(probes, keys)
+        answers = {pid: [k] * 5 for pid, k in keys.items()}
+        d = adjudicate(answers, checkset, 1.0, 1.0)  # independent_key default
+        self.assertTrue(any("independently adjudicated" in n for n in d.notes))
 
 
 if __name__ == "__main__":
