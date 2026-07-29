@@ -40,6 +40,7 @@ from noophorics import (  # noqa: E402
 )
 from noophorics.agents import DEFAULT_MODEL, AnthropicAgent  # noqa: E402
 from noophorics.codex_agent import CodexAgent, codex_available  # noqa: E402
+from noophorics.ollama_agent import OllamaAgent, ollama_available  # noqa: E402
 from noophorics.decomposition import decompose  # noqa: E402
 from prompts import CELL_AXES, CELLS  # noqa: E402
 
@@ -52,6 +53,15 @@ SENDER_MAX_ERRORS = 2
 CEILING_GATE = 0.70
 COST_PARITY_MAX_RATIO = 1.30
 H4_CI_MAX_WIDTH = 0.15
+
+# Local-provider sampling regime. Reported, never assumed -- see the note in
+# PARAMETERS.md. think=medium is the setting at which gpt-oss:120b clears the
+# sender gate perfectly (0 errors of 34); at low it makes 3, all on interaction
+# probes. temperature>0 is required BY the pre-registered analysis plan: at 0
+# the model is deterministic, per-probe distributions collapse, and the
+# permutation floor is identically zero.
+OLLAMA_THINK = "medium"
+OLLAMA_TEMPERATURE = 0.7
 
 
 # --------------------------------------------------------------------------
@@ -167,6 +177,11 @@ def _make_agent(provider: str, name: str, context: str, model: str, effort: str)
     """Provider selection. PREREGISTRATION 2.4 records the model per run rather
     than fixing one, so choosing a provider before any data exists is a run
     parameter and not an amendment."""
+    if provider == "ollama":
+        if not ollama_available():
+            raise SystemExit("--provider ollama but no server on :11434")
+        return OllamaAgent(name, context=context, model=model,
+                           think=OLLAMA_THINK, temperature=OLLAMA_TEMPERATURE)
     if provider == "codex":
         if not codex_available():
             raise SystemExit("--provider codex but the codex CLI is not on PATH")
@@ -355,6 +370,8 @@ def run(args) -> Dict[str, Any]:
         "model": ("codex-cli-default" if args.provider == "codex" else args.model),
         "cost_unit": ("approx-tokens-from-words" if args.provider == "codex"
                       else "tokens"),
+        "sampling_regime": ({"think": OLLAMA_THINK, "temperature": OLLAMA_TEMPERATURE}
+                            if args.provider == "ollama" else None),
         "k": k, "samples_per_probe": n,
         "cell_axes": CELL_AXES, "messages": messages,
         "d_prior": d_prior, "d_floor_shared": floor,
@@ -467,7 +484,7 @@ def main() -> int:
     ap.add_argument("--samples", type=int, default=30)
     ap.add_argument("--k", type=int, default=8)
     ap.add_argument("--model", default=DEFAULT_MODEL)
-    ap.add_argument("--provider", choices=("anthropic", "codex"), default="anthropic",
+    ap.add_argument("--provider", choices=("anthropic", "codex", "ollama"), default="anthropic",
                     help="codex uses the codex CLI (subscription auth, no "
                          "platform billing). Cost is then measured in "
                          "approximate tokens from a word count -- the CLI "
