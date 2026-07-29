@@ -45,6 +45,7 @@ from .fidelity import (
     residual_estimate,
     transfer_fidelity,
 )
+from .chain import ChainDecay, ChainPoint, chain_fidelity, fit_decay
 from .probes import Probe, ProbeMeasure, load_probe_measure
 
 __version__ = "0.1.0"
@@ -75,6 +76,11 @@ __all__ = [
     "CapacityBound",
     "residual_estimate",
     "Measurement",
+    # chain
+    "ChainPoint",
+    "ChainDecay",
+    "chain_fidelity",
+    "fit_decay",
     # probes
     "Probe",
     "ProbeMeasure",

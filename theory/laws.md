@@ -1,7 +1,17 @@
 # Conjectural Laws
 
-Six falsifiable conjectures. None is established. Each states what would kill
-it and which experiment attacks it.
+Six conjectures. **None is established, two have been restated after their
+original forms were found defective, and the defects are recorded in place.**
+Each law states what would kill it and which experiment attacks it.
+
+| | status |
+|---|---|
+| L1 | conjectured |
+| L2 | conjectured — headline form withdrawn as tautological (v0.3) |
+| L3 | conjectured — operationalization blocked on Problem 2 |
+| L4 | conjectured — original form withdrawn as ill-typed (v0.3) |
+| L5 | conjectured |
+| L6 | conjectured |
 
 **Status vocabulary:** `conjectured` (stated, untested) · `supported`
 (survived ≥1 pre-registered test) · `contested` (mixed evidence) ·
@@ -51,12 +61,27 @@ which is always.
 dominate direction of general capability, which would mean a weaker model with
 domain grounding receives better than a stronger model without it.
 
-**Refuted if:** `F*(A→B) ≈ F*(B→A)` within noise across pairs with clearly
-unequal priors.
+**The headline form is a tautology and is withdrawn as a law.** `F*(A→B) ≠
+F*(B→A)` is almost surely true of any two noisy real quantities, and "refuted if
+equal within noise" makes its truth a function of statistical power rather than
+of the world. Stated that way it could only ever be confirmed.
 
-**Status:** `conjectured`
-**Attacked by:** planned E-003 (fidelity matrix over a grid of sender/receiver
-pairs, both directions)
+**What is actually claimed (L2, v0.3):** the *sign* of `F*(A→B) − F*(B→A)` is
+predicted by the direction of **domain** prior, and that prediction beats the
+direction of **general capability** where the two disagree. That is refutable by
+a single pair chosen so the two point opposite ways.
+
+**Refuted if:** across pairs where domain prior and general capability point in
+opposite directions, the sign of the asymmetry follows capability, or follows
+neither at better than chance.
+
+**Depends on:** [Problem 2](open-problems.md). Without a non-circular measure of
+prior overlap, "direction of domain prior" is not independently observable and
+L2 remains a promissory note.
+
+**Status:** `conjectured` · *headline form withdrawn as tautological*
+**Attacked by:** planned E-003, cross-provider (fidelity matrix over a grid of
+sender/receiver pairs, both directions)
 
 ---
 
@@ -85,34 +110,55 @@ this law. See [Problem 2](open-problems.md).
 
 ---
 
-## L4 — The curse of the summary
+## L4 — The curse of the summary  *(restated v0.3; original was ill-typed)*
 
-> Fidelity is multiplicative along a chain of transfers,
-> `F*(A→B→C) ≈ F*(A→B) · F*(B→C)`, so understanding decays exponentially in
-> chain length — **but** there exists an invariant core that survives
-> arbitrarily many hops without loss.
+> ~~Fidelity is multiplicative along a chain of transfers,
+> `F*(A→B→C) ≈ F*(A→B) · F*(B→C)`~~
 
-**The interesting half is the second one.** Our conjecture about the core's
-composition:
+**Withdrawn as written.** Two defects, both fatal to the statement:
 
-> The invariant core is what can be expressed as **constraints and
-> prohibitions**, not as descriptions.
+- **Frames.** `F*(A→B)` is a fraction of the A–B prior gap; `F*(B→C)` is a
+  fraction of the B–C gap. Multiplying them multiplies two percentages of
+  different bases. And `F*(A→C)` was never defined — axiom A2 requires a stated
+  probe measure *and pair*, and the composite names a pair whose prior gap
+  nobody measured.
+- **Sign.** `F*` is unbounded below, so two antinoophors compose to a positive
+  product. Measured: hops of `−0.629` and `−1.000` multiply to `+0.629`. Two
+  transfers that each left the receiver *further* from the sender are reported
+  as a substantially successful chain.
 
-"Never call this endpoint with a null tenant" survives ten summarizations.
-"The tenant model is roughly hierarchical, with some exceptions around
-migrated accounts" does not survive two. Constraints are compact, checkable,
-and resist paraphrase; descriptions are none of those.
+**Restated.** Score every hop against the **origin**, in the origin's frame,
+sharing one prior gap and one floor (`metrics/noophorics/chain.py`). Then:
 
-If true, this is the single most actionable result in the field: it says the
-first thing you write into a handoff is the boundary, not the picture.
+**L4a — decay.** Chain fidelity in the origin's frame is non-increasing in hop
+count.
 
-**Refuted if:** measured chain fidelity is additive rather than multiplicative,
-or if constraint-form and description-form content decay at the same rate
-under repeated transfer.
+**L4b — geometric decay.** While fidelity remains positive, `log F*` is
+approximately linear in hop count; the chain has a half-life measured in hops.
 
-**Status:** `conjectured`
-**Attacked by:** planned E-004 (telephone chain, n=6 hops, content tagged by
-form, per-hop fidelity measured)
+**L4c — the invariant core.** Content expressed as **constraints and
+prohibitions** decays measurably more slowly than content expressed as
+**descriptions**.
+
+**Why we expect it.** Constraints are compact, checkable against a case, and
+resist paraphrase; descriptions are none of those. "Never call this endpoint
+with a null tenant" survives ten summarizations. "The tenant model is roughly
+hierarchical, with some exceptions" does not survive two.
+
+**What changed in what is claimed.** The original also asserted a core surviving
+*arbitrarily many* hops. That existence claim is unfalsifiable by any finite
+experiment — failure at any observed N only kills the candidate composition,
+never the existence. It is dropped. L4c compares two *decay rates*, which a
+six-hop chain can refute.
+
+**Refuted if:** chain fidelity is not monotone (L4a); `log F*` is not
+approximately linear over the positive range (L4b); or constraint-form and
+description-form content show decay slopes that are statistically
+indistinguishable (L4c).
+
+**Status:** `conjectured` · *restated after the original was found ill-typed*
+**Attacked by:** planned E-004 (six-hop chain, content tagged by form, every hop
+scored against the origin)
 
 ---
 

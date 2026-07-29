@@ -377,5 +377,59 @@ class TestCapacityWinnersCurse(unittest.TestCase):
             capacity_lower_bound([0.1, 0.2], [0.1])
 
 
+class TestChainTyping(unittest.TestCase):
+    """L4's original form was ill-typed; the restated form must not be."""
+
+    def test_two_antinoophors_multiply_to_a_positive_number(self):
+        """The defect that withdrew L4 as written. Kept as a standing witness."""
+        f1 = transfer_fidelity(d_prior=0.40, d_post=0.62, d_floor=0.05)
+        f2 = transfer_fidelity(d_prior=0.30, d_post=0.55, d_floor=0.05)
+        self.assertLess(f1, 0.0)
+        self.assertLess(f2, 0.0)
+        self.assertGreater(f1 * f2, 0.0)   # two failures compose to a success
+
+    def _chain(self):
+        from noophorics.chain import chain_fidelity
+        measure = ProbeMeasure(
+            "C-6", [Probe("c%d" % i, "p", ["A", "B"], key="A") for i in range(6)]
+        )
+        origin = [["A"] * 6 for _ in range(6)]
+        prior = [["B"] * 6 for _ in range(6)]
+        # Each hop keeps fewer probes aligned with the ORIGIN.
+        hops = []
+        for kept in (5, 3, 1):
+            hops.append(
+                [["A"] * 6 if i < kept else ["B"] * 6 for i in range(6)]
+            )
+        return chain_fidelity(measure, origin, prior, hops)
+
+    def test_every_hop_is_scored_against_the_origin(self):
+        points = self._chain()
+        self.assertEqual([p.hop for p in points], [1, 2, 3])
+        # Decaying alignment with the origin must show as decaying fidelity.
+        self.assertGreater(points[0].fidelity, points[1].fidelity)
+        self.assertGreater(points[1].fidelity, points[2].fidelity)
+
+    def test_decay_fit_reports_monotonicity_and_half_life(self):
+        from noophorics.chain import fit_decay
+
+        decay = fit_decay(self._chain())
+        self.assertTrue(decay.monotone)
+        self.assertIsNotNone(decay.log_slope)
+        self.assertLess(decay.log_slope, 0.0)
+        self.assertGreater(decay.half_life_hops, 0.0)
+
+    def test_dead_hops_are_excluded_not_clipped(self):
+        from noophorics.chain import ChainPoint, fit_decay
+
+        points = [
+            ChainPoint(1, 0.2, 0.80, 0.9),
+            ChainPoint(2, 0.4, 0.40, 0.7),
+            ChainPoint(3, 0.6, 0.00, 0.5),   # signal is gone
+        ]
+        decay = fit_decay(points)
+        self.assertEqual(decay.positive_hops, 2)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
