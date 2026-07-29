@@ -148,6 +148,21 @@ but an instance of its central pathology, and should be instrumented as one:
 - Gates verified on a **manual** first run before the sweep starts. Looping an
   instrument whose gates have never passed multiplies broken data.
 
+## Keyed probes need independent adjudication
+
+A probe whose ground truth is contestable is a defective probe, and its author
+is the last person able to see that. `MERIDIAN-34`'s M33 was written by the
+person who wrote the rules and set the key, read as obvious to him, and turned
+out to be undetermined by the source text — found by outside readers, like every
+other finding in this repository.
+
+So: **before a keyed probe is committed, its key must be adjudicated by someone
+who did not write it**, working from the source specification alone. A
+disagreement means the probe is repaired or dropped, not argued.
+
+Probes are the frame of reference (axiom A2). A frame nobody checked is not a
+frame.
+
 ## Null results
 
 Committed with the same prominence as positive ones, in the same format, in the

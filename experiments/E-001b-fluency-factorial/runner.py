@@ -422,6 +422,10 @@ def run(args) -> Dict[str, Any]:
         return [m for m in results["per_message"]
                 if CELL_AXES[m[0]][axis] == value]
 
+    # Pre-specified sensitivity: M33's ground truth is not determined by the
+    # source spec (SENSITIVITY-M33.md, committed mid-collection). Every effect
+    # is computed over all probes AND over the measure without M33, so the
+    # choice cannot be made after seeing which is more favourable.
     def effect(name: str, quantity: str, axis: int, hi: str, lo: str) -> None:
         a = [results["per_message"][m][quantity] for m in margin(axis, hi)]
         b = [results["per_message"][m][quantity] for m in margin(axis, lo)]
@@ -435,6 +439,9 @@ def run(args) -> Dict[str, Any]:
 
     effect("H1_contrastiveness_on_understanding",
            "fidelity_where_sender_right", 1, "contrastive", "declarative")
+    results["sensitivity_M33"] = _sensitivity(
+        measure, raw_draws, results["per_message"], d_prior, floor, args.epsilon
+    )
     effect("H2_fluency_on_phantom", "phi", 0, "fluent", "terse")
     effect("H3_contrastiveness_on_efficiency",
            "efficiency_per_ktok", 1, "contrastive", "declarative")
