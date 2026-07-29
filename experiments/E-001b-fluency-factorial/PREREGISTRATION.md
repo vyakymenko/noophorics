@@ -1,6 +1,6 @@
 # E-001b — Fluency × Contrastiveness, factorial
 
-**Status:** pre-registered, not yet run
+**Status:** pre-registered, not yet run · [AMENDMENT-001](AMENDMENT-001.md) raised `k` 4 → 8 (no data existed)
 **Registered:** 2026-07-29
 **Attacks:** [L5](../../theory/laws.md#l5), [L6](../../theory/laws.md#l6)
 **Supersedes:** [E-001](../E-001-fluency-cost/), which is closed as
