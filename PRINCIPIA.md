@@ -89,6 +89,16 @@ behavior**:
 > **B understands what A understands, with respect to a domain, to the extent
 > that B would make the same decisions A would make, over that domain.**
 
+**This is insufficient on its own, and E-001 proved it.** Convergence to the
+sender cannot distinguish B reconstructing the domain from B reconstructing the
+sender's *defects*: on our own data both receivers out-decided the sender, and
+the receiver that scored higher did so largely by copying the sender's errors.
+Fidelity must therefore be decomposed — convergence where the sender is right,
+error replication where it is wrong, and gap closure attributable to class-prior
+matching alone. See [FINDINGS](experiments/E-001-fluency-cost/FINDINGS.md) and
+`metrics/noophorics/decomposition.py`. The definition above is retained as the
+*aggregate*; reporting it alone is now a methodological error.
+
 This is not a philosophical claim about what understanding *is*. It is a
 measurement convention — the same kind of move as defining temperature by the
 expansion of mercury rather than by the felt sensation of heat. It buys us
@@ -119,15 +129,27 @@ Every noophoric quantity is defined relative to a stated probe measure `P`. A
 fidelity number reported without its `P` is meaningless, in the same way a
 velocity reported without a frame is meaningless.
 
-**A3 — Nonzero residual.**
-Between any two systems with non-identical priors there exists a set of
-dispositions that cannot be transferred at any message length. Channel capacity
-between minds is strictly less than 1 in the general case.
+**A3 — Nonzero residual.** *(refuted as originally stated; restated v0.3)*
 
-A3 is the quantitative form of Quine's indeterminacy of translation. Quine
-argued from the armchair that no amount of behavioral evidence fixes a unique
-translation. We are claiming the same thing is *measurable*: the residual has a
-size, and the size depends on the overlap of the two priors.
+> ~~Between any two systems with non-identical priors there exists a set of
+> dispositions that cannot be transferred at any message length. Channel
+> capacity between minds is strictly less than 1 in the general case.~~
+>
+> **Refuted.** For a finite probe measure the sender can see, a 113-token
+> lookup table over its 34 probes reaches `F* = 1`. Capacity was 1, trivially,
+> and the axiom said otherwise.
+
+Restated: **against probes the sender has never seen, and for messages of
+bounded cost, capacity is strictly less than 1.** Capacity is therefore a curve
+`K(C)`, not a scalar, and is only estimable on a held-out sub-measure
+(`ProbeMeasure.held_out()`). The residual is a claim about compression, not
+about magic.
+
+In restated form A3 is the quantitative version of Quine's indeterminacy of
+translation. Quine argued from the armchair that no amount of behavioral
+evidence fixes a unique translation; we claim the residual is *measurable* —
+but only once the probes are held out and the message class is bounded, which
+the first version forgot.
 
 **A4 — Belief is not evidence.**
 The confidence of the parties that a transfer succeeded is an independent

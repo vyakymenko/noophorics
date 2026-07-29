@@ -82,7 +82,7 @@ class ProbeMeasure(object):
     not silently change the frame identity, and edits to a probe's text do.
     """
 
-    __slots__ = ("id", "description", "probes", "weights", "domain")
+    __slots__ = ("id", "description", "probes", "weights", "domain", "holdout")
 
     def __init__(
         self,
@@ -91,6 +91,7 @@ class ProbeMeasure(object):
         description: str = "",
         weights: Optional[Sequence[float]] = None,
         domain: str = "",
+        holdout: Optional[Sequence[str]] = None,
     ):
         if not probes:
             raise ValueError("probe measure %s: empty" % id)
@@ -104,6 +105,38 @@ class ProbeMeasure(object):
         self.probes = list(probes)
         self.weights = list(weights) if weights is not None else [1.0] * len(probes)
         self.domain = domain
+        held = set(holdout or [])
+        unknown = held - set(ids)
+        if unknown:
+            raise ValueError(
+                "probe measure %s: holdout names unknown probes %s"
+                % (id, sorted(unknown))
+            )
+        self.holdout = held
+
+    # -- held-out split (v0.3) --------------------------------------------
+    #
+    # Axiom A3 asserted K < 1 always. That is false for a finite, sender-visible
+    # probe measure: a 113-token lookup table over 34 probes reaches F* = 1.
+    # Capacity is only meaningful against probes the sender never saw, so a
+    # measure now carries its own holdout and capacity is estimated on it.
+
+    def visible(self) -> "ProbeMeasure":
+        """The sub-measure a sender may be shown."""
+        return self._subset([p for p in self.probes if p.id not in self.holdout],
+                            self.id + "/visible")
+
+    def held_out(self) -> "ProbeMeasure":
+        """The sub-measure reserved for capacity estimation. Never shown to a sender."""
+        return self._subset([p for p in self.probes if p.id in self.holdout],
+                            self.id + "/heldout")
+
+    def _subset(self, probes, new_id: str) -> "ProbeMeasure":
+        if not probes:
+            raise ValueError("%s: empty subset" % new_id)
+        keep = {p.id for p in probes}
+        weights = [w for p, w in zip(self.probes, self.weights) if p.id in keep]
+        return ProbeMeasure(new_id, probes, self.description, weights, self.domain)
 
     def __len__(self) -> int:
         return len(self.probes)
@@ -115,10 +148,15 @@ class ProbeMeasure(object):
     def content_hash(self) -> str:
         """Stable 12-hex-char digest of the measure's semantic content."""
         payload = json.dumps(
-            [
-                [p.id, p.prompt, p.options, p.key]
-                for p in self.probes
-            ],
+            {
+                "probes": [
+                    [p.id, p.prompt, p.options, p.key] for p in self.probes
+                ],
+                # Weights are part of the measure: two measures with the same
+                # probes and different densities are different frames.
+                "weights": self.weights,
+                "holdout": sorted(self.holdout),
+            },
             sort_keys=True,
             ensure_ascii=True,
         )
@@ -147,6 +185,7 @@ class ProbeMeasure(object):
             "description": self.description,
             "domain": self.domain,
             "weights": self.weights,
+            "holdout": sorted(self.holdout),
             "probes": [p.to_dict() for p in self.probes],
         }
 
@@ -158,6 +197,7 @@ class ProbeMeasure(object):
             description=data.get("description", ""),
             weights=data.get("weights"),
             domain=data.get("domain", ""),
+            holdout=data.get("holdout"),
         )
 
     def __repr__(self) -> str:

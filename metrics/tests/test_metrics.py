@@ -241,5 +241,96 @@ class TestMeasurement(unittest.TestCase):
         self.assertIn("F*=", self._m().summary())
 
 
+
+
+class TestV03Decomposition(unittest.TestCase):
+    """The v0.3 decomposition: understanding vs mimicry vs decisiveness."""
+
+    def _measure(self) -> ProbeMeasure:
+        return ProbeMeasure(
+            id="D-4",
+            probes=[
+                Probe("d1", "one", ["A", "B"], key="A"),
+                Probe("d2", "two", ["A", "B"], key="A"),
+                Probe("d3", "three", ["A", "B"], key="B"),
+                Probe("d4", "four", ["A", "B"], key="B"),
+            ],
+        )
+
+    def test_error_replication_is_visible(self):
+        from noophorics.decomposition import decompose
+
+        measure = self._measure()
+        # Sender is wrong on d4: says A where the key says B.
+        sender = [["A"] * 4, ["A"] * 4, ["B"] * 4, ["A"] * 4]
+        prior = [["B"] * 4, ["B"] * 4, ["A"] * 4, ["B"] * 4]
+
+        mimic = [["A"] * 4, ["A"] * 4, ["B"] * 4, ["A"] * 4]   # copies the error
+        correct = [["A"] * 4, ["A"] * 4, ["B"] * 4, ["B"] * 4]  # gets d4 right
+
+        d_mimic = decompose(measure, sender, prior, mimic)
+        d_correct = decompose(measure, sender, prior, correct)
+
+        self.assertAlmostEqual(d_mimic.error_replication, 1.0)
+        self.assertAlmostEqual(d_correct.error_replication, 0.0)
+        # The mimic scores HIGHER on aggregate fidelity while being less
+        # accurate -- the exact pathology E-001 exposed.
+        self.assertGreater(d_mimic.fidelity_aggregate, d_correct.fidelity_aggregate)
+        self.assertGreater(d_correct.accuracy_gain, d_mimic.accuracy_gain)
+
+    def test_decomposition_requires_a_key(self):
+        from noophorics.decomposition import decompose
+
+        unkeyed = ProbeMeasure("U", [Probe("u1", "one", ["A", "B"])])
+        with self.assertRaises(ValueError):
+            decompose(unkeyed, [["A"] * 4], [["B"] * 4], [["A"] * 4])
+
+    def test_class_prior_baseline_carries_no_rule_content(self):
+        from noophorics.decomposition import class_prior_baseline_draws
+
+        sender = [["A"] * 4, ["A"] * 4, ["B"] * 4, ["B"] * 4]
+        baseline = class_prior_baseline_draws(sender, 4, seed=3)
+        self.assertEqual(len(baseline), 4)
+        self.assertTrue(all(len(b) == 4 for b in baseline))
+        # Every draw comes from the sender's pooled marginal, never the probe.
+        self.assertTrue(all(a in ("A", "B") for b in baseline for a in b))
+
+
+class TestHeldOutProbes(unittest.TestCase):
+    """A3's repair: capacity is only meaningful on probes the sender never saw."""
+
+    def _measure(self, holdout=None) -> ProbeMeasure:
+        return ProbeMeasure(
+            id="H-4",
+            probes=[Probe("h%d" % i, "p", ["A", "B"], key="A") for i in range(4)],
+            holdout=holdout,
+        )
+
+    def test_split_partitions_the_measure(self):
+        m = self._measure(holdout=["h0", "h1"])
+        self.assertEqual(len(m.visible()), 2)
+        self.assertEqual(len(m.held_out()), 2)
+        self.assertEqual(
+            sorted(p.id for p in m.held_out()), ["h0", "h1"]
+        )
+
+    def test_holdout_must_name_real_probes(self):
+        with self.assertRaises(ValueError):
+            self._measure(holdout=["nope"])
+
+    def test_holdout_changes_the_frame_identity(self):
+        self.assertNotEqual(
+            self._measure().content_hash,
+            self._measure(holdout=["h0"]).content_hash,
+        )
+
+    def test_weights_are_part_of_the_frame(self):
+        base = ProbeMeasure("W", [Probe("w1", "p", ["A", "B"]), Probe("w2", "p", ["A", "B"])])
+        reweighted = ProbeMeasure(
+            "W", [Probe("w1", "p", ["A", "B"]), Probe("w2", "p", ["A", "B"])],
+            weights=[3.0, 1.0],
+        )
+        self.assertNotEqual(base.content_hash, reweighted.content_hash)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
