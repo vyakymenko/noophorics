@@ -50,9 +50,18 @@ like.
 want. Noophorics asks a prior, more mechanical question: when we try to move a
 disposition across a boundary, how much of it arrives?
 
-The gap is real: **there is no quantitative theory of communication between
-systems with non-identical priors, where success is measured as convergence of
-behavior rather than recovery of symbols.**
+**Correction (v0.3).** An earlier version of this section claimed there was *no
+theory* for this case. That was an overclaim, and a self-undermining one in a
+programme whose credibility rests on calibration. Adjacent literatures exist and
+are close: decision-preserving compression, semantic rate–distortion for
+heterogeneous agents, goal-oriented and semantic communication, and work on
+learning a black-box receiver. Anyone taking this seriously should read them
+first.
+
+The defensible claim is narrower: **a unified measurement framework for
+decision-preserving transfer between black-box agents, carrying fidelity, cost,
+and the calibration of both parties in one instrument.** The calibration term —
+Φ — is the part we have not found elsewhere.
 
 ---
 
