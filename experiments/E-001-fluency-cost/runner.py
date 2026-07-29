@@ -31,21 +31,27 @@ sys.path.insert(0, os.path.join(REPO, "metrics"))
 
 from noophorics import (  # noqa: E402
     InadmissibleProbeMeasure,
-    Measurement,
     ProbeMeasure,
     agreement_rate,
     load_probe_measure,
     mean_divergence,
-    noise_floor,
+    mean_permutation_floor,
     to_distribution,
     transfer_fidelity,
 )
+from noophorics.decomposition import decompose  # noqa: E402
 from noophorics.agents import DEFAULT_MODEL, AnthropicAgent  # noqa: E402
 
 MESSAGE_BUDGET_TOKENS = 350
 PERMUTATIONS = 10_000
 SEED = 20260728
 SENDER_ACCURACY_GATE = 0.85
+# A gate on the MEAN cannot protect a statistic whose effect concentrates on a
+# handful of probes: E-001's sender passed at 0.882 while its four errors
+# carried 62% of the headline effect. The decomposition reports error
+# replication directly, and this second gate bounds the count.
+SENDER_MAX_ERRORS = 2
+BOOTSTRAP = 5000
 CEILING_FIDELITY_GATE = 0.70
 
 # Both prompts were written by an independent agent that was blind to the
@@ -141,9 +147,28 @@ def permutation_test(
     return observed, (extreme + 1) / (permutations + 1)
 
 
-def split_halves(samples: Sequence[str]) -> Tuple[List[str], List[str]]:
-    mid = len(samples) // 2
-    return list(samples[:mid]), list(samples[mid:])
+def bootstrap_ci(
+    values: Sequence[float], resamples: int = BOOTSTRAP, seed: int = SEED
+) -> Tuple[float, float, float]:
+    """Percentile bootstrap over probes. Returns (mean, lo95, hi95).
+
+    Every fidelity this repository reported in v0.1 and v0.2 was a bare point
+    estimate of a ratio whose sampling distribution nobody had characterised.
+    """
+    vals = list(values)
+    if not vals:
+        raise ValueError("nothing to bootstrap")
+    rng = random.Random(seed)
+    n = len(vals)
+    means = []
+    for _ in range(resamples):
+        means.append(sum(vals[rng.randrange(n)] for _ in range(n)) / n)
+    means.sort()
+    return (
+        sum(vals) / n,
+        means[int(0.025 * resamples)],
+        means[int(0.975 * resamples) - 1],
+    )
 
 
 # --------------------------------------------------------------------------
@@ -173,8 +198,11 @@ class _StubAgent(object):
                 out.append(self._rng.choice(probe.options))
         return out
 
-    def claim_agreement(self, measure, counterpart: str) -> float:
-        return self._claim
+    def claim_agreement(self, measure, counterpart: str, artifact=None,
+                        n_elicitations: int = 3, seed: int = 0):
+        # Slight jitter so the dry run exercises the multi-elicitation path.
+        return [max(0.0, min(1.0, self._claim + 0.02 * (i - 1)))
+                for i in range(n_elicitations)]
 
     def cost_of(self, message: str) -> int:
         return max(1, len(message.split()))
@@ -192,9 +220,12 @@ class _LiveSender(object):
         self._prober = AnthropicAgent(
             name=self.name, context=spec, model=model, effort=samples_effort
         )
+        # ONE sender, one effort. v0.1 answered probes at effort=low and
+        # composed at effort=high, so F* measured convergence toward an agent
+        # that did not write the message being measured.
         self._composer = AnthropicAgent(
             name=self.name + "/composer", context=spec, model=model,
-            effort="high", max_tokens=4096,
+            effort=samples_effort, max_tokens=4096,
         )
 
     def answer_samples(self, probe, n_samples: int) -> List[str]:
@@ -202,8 +233,11 @@ class _LiveSender(object):
         # halves-split floor estimate depends on it.
         return self._prober.answer_samples(probe, n_samples)
 
-    def claim_agreement(self, measure, counterpart: str) -> float:
-        return self._prober.claim_agreement(measure, counterpart)
+    def claim_agreement(self, measure, counterpart: str, artifact=None,
+                        n_elicitations: int = 3, seed: int = 0):
+        return self._prober.claim_agreement(
+            measure, counterpart, artifact, n_elicitations, seed
+        )
 
     def compose(self, prompt: str) -> str:
         import anthropic  # noqa: F401  (import checked in AnthropicAgent)
@@ -220,7 +254,7 @@ class _LiveSender(object):
                 "text": self._composer.context,
                 "cache_control": {"type": "ephemeral"},
             }],
-            output_config={"effort": "high"},
+            output_config={"effort": self._composer.effort},
             messages=[{"role": "user", "content": prompt}],
         )
         if response.stop_reason == "refusal":
@@ -241,8 +275,11 @@ class _LiveReceiver(object):
     def answer_samples(self, probe, n_samples: int) -> List[str]:
         return self._agent.answer_samples(probe, n_samples)
 
-    def claim_agreement(self, measure, counterpart: str) -> float:
-        return self._agent.claim_agreement(measure, counterpart)
+    def claim_agreement(self, measure, counterpart: str, artifact=None,
+                        n_elicitations: int = 3, seed: int = 0):
+        return self._agent.claim_agreement(
+            measure, counterpart, artifact, n_elicitations, seed
+        )
 
     def cost_of(self, message: str) -> int:
         return self._agent.cost_of(message)
@@ -291,25 +328,27 @@ def collect(
     verbose: bool,
     cache: Optional["SampleCache"] = None,
 ):
-    """Sample every probe. Returns (full dists, half-A dists, half-B dists, modes)."""
-    full, half_a, half_b, modes = [], [], [], []
+    """Sample every probe. Returns (full dists, modes, raw draws).
+
+    The half-splits the v0.1 floor needed are gone: the permutation floor is
+    computed from the full draws, at the same n as the divergence it corrects.
+    """
+    full, modes, raws = [], [], []
     for index, probe in enumerate(measure, 1):
         samples = cache.get(label, probe.id, n_samples) if cache else None
         if samples is None:
             samples = agent.answer_samples(probe, n_samples)
             if cache:
                 cache.put(label, probe.id, samples)
-        a, b = split_halves(samples)
         full.append(to_distribution(samples))
-        half_a.append(to_distribution(a))
-        half_b.append(to_distribution(b))
         modes.append(max(sorted(full[-1]), key=lambda k: full[-1][k]))
+        raws.append(list(samples))
         if verbose:
             sys.stderr.write("\r  %-12s %d/%d" % (label, index, len(measure)))
             sys.stderr.flush()
     if verbose:
         sys.stderr.write("\r  %-12s %d/%d  done\n" % (label, len(measure), len(measure)))
-    return full, half_a, half_b, modes
+    return full, modes, raws
 
 
 def run(args) -> Dict[str, Any]:
@@ -318,8 +357,8 @@ def run(args) -> Dict[str, Any]:
         spec = fh.read()
 
     n = args.samples
-    if n < 4 or n % 2 != 0:
-        raise SystemExit("--samples must be an even number >= 4 (halves for the floor)")
+    if n < 4:
+        raise SystemExit("--samples must be at least 4")
 
     print("E-001 The Cost of Fluency")
     print("probe measure : %s (%d probes)" % (measure.qualified_id, len(measure)))
@@ -377,11 +416,11 @@ def run(args) -> Dict[str, Any]:
           % (len(messages["NARRATIVE"]), len(messages["CONTRASTIVE"])))
 
     # --- sender probes ----------------------------------------------------
-    s_full, s_a, s_b, s_modes = collect(
+    s_full, s_modes, s_raw = collect(
         sender, measure, n, key("sender"), args.verbose, cache
     )
+    raw_draws: Dict[str, List[List[str]]] = {"sender": s_raw}
     sender_accuracy = measure.accuracy(s_modes)
-    d_self_sender = mean_divergence(s_a, s_b, measure.weights)
 
     # --- receivers -------------------------------------------------------
     contexts = {
@@ -404,21 +443,31 @@ def run(args) -> Dict[str, Any]:
         collected[label] = collect(
             receivers[label], measure, n, key(label.lower()), args.verbose, cache
         )
+        raw_draws[label] = collected[label][2]
 
     costs = {
         label: receivers["PRIOR"].cost_of(messages[label]) for label in messages
     }
 
     # --- quantities ------------------------------------------------------
+    #
+    # ONE floor for the whole experiment, not one per condition. v0.1 computed
+    # each condition's floor from that condition's own receiver, so
+    # F*(NARRATIVE) and F*(CONTRASTIVE) had DIFFERENT denominators -- and
+    # perversely, a noisier receiver earned a higher floor, a smaller
+    # denominator and therefore a higher fidelity. On the cached run that
+    # asymmetry alone inflated the H1 margin by ~17%. The floor belongs to the
+    # comparison in the denominator, so it is the null for sender-vs-PRIOR, and
+    # every condition is now scored against the same one.
     d_prior = mean_divergence(s_full, collected["PRIOR"][0], measure.weights)
-    floor_prior = noise_floor(
-        d_self_sender,
-        mean_divergence(collected["PRIOR"][1], collected["PRIOR"][2], measure.weights),
+    floor = mean_permutation_floor(
+        raw_draws["sender"], raw_draws["PRIOR"], measure.weights, 300, SEED
     )
 
-    admissible = (d_prior - floor_prior) > args.epsilon
+    admissible = (d_prior - floor) > args.epsilon
     results: Dict[str, Any] = {
         "experiment": "E-001",
+        "core_version": "0.3",
         "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "dry_run": bool(args.dry_run),
         "probe_measure": measure.qualified_id,
@@ -428,13 +477,20 @@ def run(args) -> Dict[str, Any]:
         "receiver_model": args.receiver_model,
         "message_budget_tokens": MESSAGE_BUDGET_TOKENS,
         "sender_accuracy_vs_key": sender_accuracy,
-        "d_self_sender": d_self_sender,
+        "sender_errors": [
+            measure.probes[i].id
+            for i, (p, a) in enumerate(zip(measure, s_modes)) if a != p.key
+        ],
         "d_prior": d_prior,
-        "d_floor_prior": floor_prior,
+        "d_floor_common": floor,
+        "floor_method": "permutation-null on sender vs PRIOR, shared by all conditions",
         "admissible": admissible,
         "epsilon": args.epsilon,
         "messages": messages,
         "message_costs_tokens": costs,
+        # The reproducibility bundle: without raw draws nothing above can be
+        # recomputed, and a result that cannot be recomputed is an assertion.
+        "raw_draws": raw_draws,
         "conditions": {},
         "gates": {},
         "tests": {},
@@ -443,100 +499,164 @@ def run(args) -> Dict[str, Any]:
     if not admissible:
         results["aborted"] = (
             "inadmissible probe measure: prior gap %.4f does not exceed floor "
-            "%.4f by epsilon %.4f" % (d_prior, floor_prior, args.epsilon)
+            "%.4f by epsilon %.4f" % (d_prior, floor, args.epsilon)
         )
         return results
 
-    per_probe_divergence: Dict[str, List[float]] = {}
+    per_probe: Dict[str, List[float]] = {}
     for label in ("NARRATIVE", "CONTRASTIVE", "CEILING"):
-        full, half_a, half_b, modes = collected[label]
+        full, modes, _ = collected[label]
         d_post = mean_divergence(s_full, full, measure.weights)
-        floor = noise_floor(
-            d_self_sender, mean_divergence(half_a, half_b, measure.weights)
-        )
-        per_probe_divergence[label] = [
-            mean_divergence([s], [r]) for s, r in zip(s_full, full)
+        per_probe[label] = [
+            mean_divergence([a], [b]) for a, b in zip(s_full, full)
         ]
 
-        claim_s = claim_r = None
+        claims_s = claims_r = None
         if label in messages:
-            claim_s = sender.claim_agreement(measure, "your colleague")
-            claim_r = receivers[label].claim_agreement(measure, "the person who briefed you")
-
-        try:
-            measurement = Measurement(
-                probe_measure_id=measure.qualified_id,
-                samples_per_probe=n,
-                sender=getattr(sender, "name", "sender"),
-                receiver=receivers[label].name,
-                d_prior=d_prior,
-                d_post=d_post,
-                d_floor=floor,
-                cost_tokens=float(costs.get(label, len(spec.split()))),
-                cost_unit="tokens",
-                agreement_observed=agreement_rate(s_full, full, measure.weights),
-                claim_sender=claim_s,
-                claim_receiver=claim_r,
-                condition=label,
+            claims_s = sender.claim_agreement(
+                measure, "your colleague", artifact=messages[label]
             )
-            entry = measurement._asdict()
-            entry.update({
-                "fidelity": measurement.fidelity,
-                "efficiency_per_ktok": measurement.efficiency,
-                "phantom_agreement": measurement.phantom,
-                "is_antinoophor": measurement.is_antinoophor,
-                "accuracy_vs_key": measure.accuracy(modes),
-            })
-            print("  " + measurement.summary())
+            claims_r = receivers[label].claim_agreement(
+                measure, "the person who briefed you"
+            )
+
+        observed = agreement_rate(s_full, full, measure.weights)
+        try:
+            fidelity = transfer_fidelity(d_prior, d_post, floor, args.epsilon)
         except InadmissibleProbeMeasure as exc:
-            entry = {"error": str(exc)}
+            results["conditions"][label] = {"error": str(exc)}
+            continue
+
+        cost = float(costs.get(label, receivers["PRIOR"].cost_of(spec)))
+        entry = {
+            "d_post": d_post,
+            "fidelity": fidelity,
+            "efficiency_per_ktok": fidelity * 1000.0 / cost,
+            "cost_tokens": cost,
+            "cost_unit": "tokens",
+            "agreement_observed": observed,
+            "accuracy_vs_key": measure.accuracy(modes),
+        }
+        if claims_s is not None:
+            claimed = (sum(claims_s) / len(claims_s) + sum(claims_r) / len(claims_r)) / 2
+            entry.update({
+                "claims_sender": claims_s,
+                "claims_receiver": claims_r,
+                "claimed_agreement": claimed,
+                "phi": claimed - observed,
+                "phi_sender": sum(claims_s) / len(claims_s) - observed,
+                "phi_receiver": sum(claims_r) / len(claims_r) - observed,
+            })
+        # v0.3: the aggregate alone is a methodological error.
+        try:
+            dec = decompose(
+                measure, raw_draws["sender"], raw_draws["PRIOR"], raw_draws[label]
+            )
+            entry["decomposition"] = dec._asdict()
+        except ValueError as exc:
+            entry["decomposition_error"] = str(exc)
         results["conditions"][label] = entry
+        print("  %-12s F*=%+.3f  A=%.3f  %s"
+              % (label, fidelity, observed,
+                 entry.get("decomposition", {}).get("error_replication", "")))
 
     # --- pre-registered tests --------------------------------------------
-    diffs = [
-        nar - con
-        for nar, con in zip(
-            per_probe_divergence["NARRATIVE"], per_probe_divergence["CONTRASTIVE"]
-        )
-    ]
-    observed, p_value = permutation_test(diffs)
-    results["tests"]["H1_divergence_narrative_minus_contrastive"] = {
-        "mean_difference": observed,
-        "p_value": p_value,
+    #
+    # With a common floor, F* is a strictly decreasing affine function of
+    # D_post, so a test on per-probe divergence differences IS a test of the
+    # fidelity ordering. In v0.1 the floors differed by condition and the test
+    # therefore addressed a different statistic than the verdict it decorated.
+    diffs = [n_ - c for n_, c in zip(per_probe["NARRATIVE"], per_probe["CONTRASTIVE"])]
+    observed_diff, p_h1 = permutation_test(diffs)
+    mean_d, lo_d, hi_d = bootstrap_ci(diffs)
+    results["tests"]["H1"] = {
+        "statistic": "per-probe divergence, NARRATIVE minus CONTRASTIVE",
+        "mean_difference": observed_diff,
+        "p_value": p_h1,
+        "bootstrap_ci95": [lo_d, hi_d],
         "permutations": PERMUTATIONS,
         "seed": SEED,
-        "reading": "positive mean difference favours H1 (contrastive diverges less)",
+        "note": "valid as a test of the F* ordering only because the floor is shared",
     }
+
+    # H2 had no test at all in v0.1 -- the hypothesis was adjudicated by
+    # eyeballing a margin. Phi's per-probe term is the agreement indicator, so
+    # it bootstraps; the claims are scalars and enter as constants.
+    nar, con = results["conditions"]["NARRATIVE"], results["conditions"]["CONTRASTIVE"]
+    if "phi" in nar and "phi" in con:
+        ind_n = [1.0 if _mode_of(a) == _mode_of(b) else 0.0
+                 for a, b in zip(s_full, collected["NARRATIVE"][0])]
+        ind_c = [1.0 if _mode_of(a) == _mode_of(b) else 0.0
+                 for a, b in zip(s_full, collected["CONTRASTIVE"][0])]
+        phi_diffs = [
+            (nar["claimed_agreement"] - a) - (con["claimed_agreement"] - b)
+            for a, b in zip(ind_n, ind_c)
+        ]
+        _, p_h2 = permutation_test(phi_diffs, seed=SEED + 1)
+        m_p, lo_p, hi_p = bootstrap_ci(phi_diffs, seed=SEED + 1)
+        claim_gap = abs(nar["claimed_agreement"] - con["claimed_agreement"])
+        results["tests"]["H2"] = {
+            "statistic": "per-probe Phi contribution, NARRATIVE minus CONTRASTIVE",
+            "mean_difference": m_p,
+            "p_value": p_h2,
+            "bootstrap_ci95": [lo_p, hi_p],
+            "claim_gap": claim_gap,
+            "degenerate_with_H1": claim_gap < 0.05,
+            "note": (
+                "if the claims barely differ by condition, Phi(N)-Phi(K) is "
+                "-(A(N)-A(K)) and H2 is H1 measured with a coarser statistic; "
+                "the pre-registration's no-multiplicity-correction argument "
+                "does not survive that case"
+            ),
+        }
 
     fid = {k: results["conditions"][k].get("fidelity") for k in ("NARRATIVE", "CONTRASTIVE")}
-    phi = {k: results["conditions"][k].get("phantom_agreement") for k in fid}
+    phi = {k: results["conditions"][k].get("phi") for k in fid}
     eff = {k: results["conditions"][k].get("efficiency_per_ktok") for k in fid}
     cost_gap = abs(costs["NARRATIVE"] - costs["CONTRASTIVE"]) / max(costs.values())
+    cost_parity = cost_gap <= 0.15
 
+    n_errors = len(results["sender_errors"])
     results["gates"] = {
         "sender_accuracy": {
-            "value": sender_accuracy,
-            "threshold": SENDER_ACCURACY_GATE,
-            "passed": bool(sender_accuracy is not None and sender_accuracy > SENDER_ACCURACY_GATE),
+            "value": sender_accuracy, "threshold": SENDER_ACCURACY_GATE,
+            "passed": bool(sender_accuracy is not None
+                           and sender_accuracy > SENDER_ACCURACY_GATE),
+        },
+        "sender_error_count": {
+            "value": n_errors, "threshold": SENDER_MAX_ERRORS,
+            "passed": bool(n_errors <= SENDER_MAX_ERRORS),
+            "note": "a mean-accuracy gate cannot protect an effect that "
+                    "concentrates on the sender's few wrong probes",
         },
         "ceiling_fidelity": {
-            "value": results["conditions"]["CEILING"].get("fidelity"),
+            "value": results["conditions"].get("CEILING", {}).get("fidelity"),
             "threshold": CEILING_FIDELITY_GATE,
-            "passed": bool((results["conditions"]["CEILING"].get("fidelity") or -1) > CEILING_FIDELITY_GATE),
+            "passed": bool((results["conditions"].get("CEILING", {}).get("fidelity")
+                            or -1) > CEILING_FIDELITY_GATE),
         },
         "cost_parity": {
-            "relative_gap": cost_gap,
-            "threshold": 0.15,
-            "passed": bool(cost_gap <= 0.15),
-            "note": "if failed, H1 is evaluated on efficiency rather than raw fidelity",
+            "relative_gap": cost_gap, "threshold": 0.15, "passed": bool(cost_parity),
         },
     }
+
+    # The pre-registration promised this substitution; v0.1 computed the gate
+    # and then ignored it. It is applied here, and recorded as applied.
+    h1_metric = "fidelity" if cost_parity else "efficiency_per_ktok"
+    h1_values = fid if cost_parity else eff
     results["hypotheses"] = {
-        "H1_contrastive_higher_fidelity": _verdict(fid["CONTRASTIVE"], fid["NARRATIVE"]),
+        "H1_contrastive_higher": dict(
+            _verdict(h1_values["CONTRASTIVE"], h1_values["NARRATIVE"]),
+            metric=h1_metric,
+            metric_substituted=not cost_parity,
+        ),
         "H2_narrative_higher_phantom": _verdict(phi["NARRATIVE"], phi["CONTRASTIVE"]),
-        "H3_contrastive_higher_efficiency": _verdict(eff["CONTRASTIVE"], eff["NARRATIVE"]),
     }
     return results
+
+
+def _mode_of(dist):
+    return max(sorted(dist), key=lambda k: dist[k])
 
 
 def _verdict(predicted_larger: Optional[float], predicted_smaller: Optional[float]):
@@ -552,8 +672,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="E-001 The Cost of Fluency")
     parser.add_argument("--dry-run", action="store_true",
                         help="verify the pipeline with stub agents, no API calls")
-    parser.add_argument("--samples", type=int, default=6,
-                        help="samples per probe (even, >=4); default 6")
+    parser.add_argument("--samples", type=int, default=30,
+                        help="samples per probe (even, >=4). Default 30: "
+                             "synthetic validation shows n=6 carries ~0.11 of "
+                             "estimator error, which is not a measurement")
     parser.add_argument("--sender-model", default=DEFAULT_MODEL)
     parser.add_argument("--receiver-model", default=DEFAULT_MODEL)
     parser.add_argument("--epsilon", type=float, default=0.02)
@@ -584,8 +706,13 @@ def main() -> int:
             holds = verdict["direction_holds"]
             mark = "?" if holds is None else ("holds" if holds else "FAILS")
             print("  %-38s %-6s (margin %+.4f)" % (name, mark, verdict["margin"] or 0.0))
-        test = results["tests"]["H1_divergence_narrative_minus_contrastive"]
-        print("  permutation test p = %.4f" % test["p_value"])
+        for hid in ("H1", "H2"):
+            t = results["tests"].get(hid)
+            if t:
+                print("  %s  p = %.4f  CI95 [%+.4f, %+.4f]%s"
+                      % (hid, t["p_value"], t["bootstrap_ci95"][0],
+                         t["bootstrap_ci95"][1],
+                         "  DEGENERATE WITH H1" if t.get("degenerate_with_H1") else ""))
         gates = results["gates"]
         failed = [k for k, v in gates.items() if not v["passed"]]
         print("  gates failed: %s" % (", ".join(failed) if failed else "none"))

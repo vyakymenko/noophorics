@@ -181,28 +181,64 @@ class AnthropicAgent(Agent):
         # Draw order is preserved deliberately -- see Agent.answer_samples.
         return [self._call(prompt, schema)["verdict"] for _ in range(n_samples)]
 
-    def claim_agreement(self, measure: ProbeMeasure, counterpart: str) -> float:
+    def claim_agreement(
+        self,
+        measure: ProbeMeasure,
+        counterpart: str,
+        artifact: Optional[str] = None,
+        n_elicitations: int = 3,
+        seed: int = 0,
+    ) -> List[float]:
+        """Elicit claimed agreement. Returns one rate per elicitation. v0.3
+
+        Three defects in the v0.1 version, all of which biased Phi:
+
+        * It was a SINGLE call. definitions.md 1.1 names treating one sample as
+          a disposition the most common error in this field, and the instrument
+          for the field's central pathology was committing it.
+        * The preview was the FIRST FIVE probes in file order -- in practice
+          the easy single-rule cases. C-hat was anchored on an easy subframe
+          while A-hat is measured on the whole measure, so Phi carried a
+          structural upward bias and violated A2 inside the A4 instrument.
+        * It never saw the artifact. A sender was predicting the success of a
+          brief it had not been shown, so its claim could not vary by condition
+          even in principle -- half of any Phi contrast was elicitation noise.
+
+        Now: the preview is drawn spread across the measure, the artifact is
+        included when there is one, and the elicitation is repeated so its
+        noise can be estimated rather than assumed away.
+        """
         schema = {
             "type": "object",
-            "properties": {
-                "agreement_rate": {"type": "number"},
-            },
+            "properties": {"agreement_rate": {"type": "number"}},
             "required": ["agreement_rate"],
             "additionalProperties": False,
         }
+        probes = list(measure)
+        step = max(1, len(probes) // 6)
+        spread = probes[::step][:6]
         preview = "\n".join(
-            "- %s" % p.prompt.strip().splitlines()[0][:160] for p in list(measure)[:5]
+            "- %s" % p.prompt.strip().splitlines()[0][:160] for p in spread
         )
+        artifact_block = ""
+        if artifact is not None:
+            artifact_block = (
+                "\n\nThis is the brief that carries the transfer:\n\n%s\n" % artifact
+            )
         prompt = (
             "You are about to be compared against %s on %d decision cases from "
-            "this domain. Five representative cases:\n\n%s\n\nEstimate the "
-            "fraction of all %d cases on which your verdict would match theirs. "
-            "Answer with a single number between 0 and 1. Do not hedge and do "
-            "not explain -- an honest point estimate is what is being measured."
-            % (counterpart, len(measure), preview, len(measure))
+            "this domain, sampled across its full range. Six of them:\n\n%s%s"
+            "\n\nEstimate the fraction of all %d cases on which your verdict "
+            "would match theirs. Answer with a single number between 0 and 1. "
+            "Do not hedge and do not explain -- an honest point estimate is "
+            "what is being measured."
+            % (counterpart, len(measure), preview, artifact_block, len(measure))
         )
-        value = float(self._call(prompt, schema)["agreement_rate"])
-        return max(0.0, min(1.0, value))
+        out = []
+        for _ in range(n_elicitations):
+            value = float(self._call(prompt, schema)["agreement_rate"])
+            out.append(max(0.0, min(1.0, value)))
+        return out
 
     # -- cost --------------------------------------------------------------
 
