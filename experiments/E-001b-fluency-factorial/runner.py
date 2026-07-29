@@ -539,7 +539,47 @@ def run(args) -> Dict[str, Any]:
                                         for l, m in messages.items()},
                        "messages": messages}, fh, indent=1, sort_keys=True)
         print("  messages persisted -> %s" % args.messages_out)
-    print("  composed %d messages across %d cells\n" % (len(messages), len(CELLS)))
+    print("  composed %d messages across %d cells" % (len(messages), len(CELLS)))
+
+    # --- gates that are decidable now are decided now ----------------------
+    # Cost parity depends only on the composed messages. E-001b placed it at the
+    # end of the analysis, so a run that was already void by construction would
+    # have spent thirty hours discovering it (VOID.md). A gate evaluated later
+    # than its inputs allow is not a gate, it is a postmortem.
+    realised = {l: float(sender.cost_of(m)) for l, m in sorted(messages.items())}
+    by_cell: Dict[str, List[float]] = {}
+    for label, c in realised.items():
+        by_cell.setdefault(label[0], []).append(c)
+    cell_means = [statistics.mean(v) for v in by_cell.values()]
+    parity = {
+        "across_messages": max(realised.values()) / min(realised.values()),
+        "across_cell_means": max(cell_means) / min(cell_means),
+        "threshold": COST_PARITY_MAX_RATIO,
+        "realised_cost_tokens": realised,
+    }
+    # Both readings are reported and BOTH must pass. The pre-registration says
+    # "across cells" and the original code compared messages; rather than pick
+    # the one that happens to pass, the stricter conjunction is applied and both
+    # numbers go in the record.
+    parity["passed"] = bool(
+        parity["across_messages"] <= COST_PARITY_MAX_RATIO
+        and parity["across_cell_means"] <= COST_PARITY_MAX_RATIO)
+    print("  cost parity: %.3f across messages, %.3f across cell means "
+          "(threshold %.2f) -- %s"
+          % (parity["across_messages"], parity["across_cell_means"],
+             COST_PARITY_MAX_RATIO, "pass" if parity["passed"] else "FAIL"))
+    if not parity["passed"] and not args.ignore_early_gates:
+        return {
+            "experiment": "E-001b", "void": True,
+            "void_reason": ("cost parity failed on the composed messages, "
+                            "before any probe was answered"),
+            "voided_at": "composition",
+            "cost_parity": parity,
+            "messages": messages,
+            "note": ("Nothing about probe outcomes was computed or examined. "
+                     "The sweep did not run."),
+        }
+    print()
 
     # --- conditions --------------------------------------------------------
     contexts = {"sender": spec, "PRIOR": "", "CEILING": spec}
@@ -710,6 +750,10 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--cache", default=os.path.join(HERE, "sample-cache.json"))
     ap.add_argument("--out", default=os.path.join(HERE, "results"))
+    ap.add_argument("--ignore-early-gates", action="store_true",
+                    help="collect even when a pre-composition gate fails. For "
+                         "instrument work only: the resulting run is void by "
+                         "its own pre-registration and cannot support a claim.")
     ap.add_argument("--messages-out", default=os.path.join(HERE, "messages.json"),
                     help="where composed messages are written, immediately "
                          "after composition and before the sweep begins")
