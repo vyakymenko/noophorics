@@ -1264,7 +1264,7 @@ th:last-child, td:last-child { padding-right: 0; }
   <div class="band">
     <a class="mark" href="#top">Noophorics.org</a>
     <div class="mast-actions">
-      <span class="mast-secondary">v0.3</span>
+      <span class="mast-secondary">v0.4</span>
       <a class="mast-secondary" href="#instrument">Φ in 60 sec</a>
       <details class="site-menu">
         <summary>Navigate</summary>
@@ -1327,12 +1327,12 @@ th:last-child, td:last-child { padding-right: 0; }
 <div class="band front" id="top">
   <div class="rail hero-rail">
     <b>Open research programme</b>
-    Version 0.3
+    Version 0.4
     <span class="sym" aria-hidden="true">Φ</span>
     <span class="gloss">An instrument for measuring what a receiver can still decide after a transfer.</span>
   </div>
   <div class="col">
-    <p class="eyebrow">Open research programme &nbsp;·&nbsp; v0.3</p>
+    <p class="eyebrow">Open research programme &nbsp;·&nbsp; v0.4</p>
     <h1 class="wordmark">Noophorics</h1>
     <p class="etym">νόος <span style="opacity:.55">nous, mind</span> &nbsp;+&nbsp; φορά <span style="opacity:.55">phora, carrying</span></p>
 
@@ -1625,7 +1625,7 @@ th:last-child, td:last-child { padding-right: 0; }
     <span class="gloss">Understanding defined operationally, the way temperature was defined by the expansion of mercury.</span>
   </div>
   <div class="col">
-    <h2 data-i18n-src="move">Understanding is measured by behavioural convergence.</h2>
+    <h2 data-i18n-src="move">Understanding is measured by behavioural convergence toward a declared reference.</h2>
 
     <p class="lead">We refuse to define understanding as a state, because states
     are private and not comparable across architectures. We define it through
@@ -1799,9 +1799,18 @@ th:last-child, td:last-child { padding-right: 0; }
             <td>The mean self-divergence of the two agents: the divergence that two <em>perfectly aligned</em> agents would still show, from their own stochasticity. No transfer can push measured divergence below it. <strong>Not correcting for it is the field's most common error</strong> — an uncorrected fidelity number silently attributes sampling noise to untransferred meaning.</td>
           </tr>
           <tr>
-            <td class="t-sym">F*</td>
+            <td class="t-sym">F*<sub>R</sub></td>
             <td class="t-name">Transfer fidelity<span>§4.1</span></td>
-            <td>The fraction of the pre-existing, closable gap that the message actually closed. <span class="q">F* = 1</span> — the gap is closed, up to noise. <span class="q">F* = 0</span> — the message changed nothing. <span class="q">F* &lt; 0</span> — the message made things <em>worse</em>: an <strong>antinoophor</strong>. Reported unclipped, because clipping hides antinoophors, which are among the most informative observations in the field.</td>
+            <td>The fraction of the pre-existing, closable gap toward a <strong>declared reference
+            <span class="q">R</span></strong> that the message actually closed. <span class="q">F* = 1</span> — the gap is closed, up to noise. <span class="q">F* = 0</span> — the message changed nothing. <span class="q">F* &lt; 0</span> — the message made things <em>worse</em>: an <strong>antinoophor</strong>. Reported unclipped, because clipping hides antinoophors, which are among the most informative observations in the field.
+            <br><br><strong>v0.4:</strong> the reference is an argument, not an assumption. For three
+            versions this measured movement toward <em>the sender</em> and never said so &mdash; and
+            <a href="/journal/e-001-findings/">E-001</a> measured the cost: both receivers out-decided
+            the sender against the key, fidelity ranked them the other way, and 62% of the effect sat on
+            the four probes where the sender was wrong. Where <span class="q">R</span> is the sender the
+            quantity is <strong>replication</strong>, which is a real thing to measure and is not
+            understanding. <span class="q">F*<sub>R=sender</sub></span> is identically the old number, so
+            nothing published moved.</td>
           </tr>
           <tr>
             <td class="t-sym">η</td>
@@ -2230,7 +2239,7 @@ F*(m)  =  ───────────────────────�
     <span class="gloss">Principia Noophorica §7 and §10 — what would falsify the programme.</span>
   </div>
   <div class="col">
-    <h2 data-i18n-src="status">Version 0.3. Nothing is established, eleven of our own claims are withdrawn, and three experiments are void.</h2>
+    <h2 data-i18n-src="status">Version 0.4. Nothing is established, eleven of our own claims are withdrawn, and three experiments are void.</h2>
 
       <p style="margin-top:1rem"><a href="/journal/retractions/">Every one of them, with what killed it &rarr;</a> &nbsp;A count nobody can audit is worse than no count.</p>
 
@@ -2320,7 +2329,7 @@ F*(m)  =  ───────────────────────�
     </div>
 
     <p class="cite">Yakymenko, V. (2026). Noophorics: a quantitative science of
-    transferring understanding across heterogeneous minds. Version 0.3.
+    transferring understanding across heterogeneous minds. Version 0.4.
     <a href="https://noophorics.org">noophorics.org</a></p>
   </div>
 </footer>

@@ -2,8 +2,8 @@ cff-version: 1.2.0
 title: "Noophorics: a quantitative science of transferring understanding across heterogeneous minds"
 message: "If you use this work, please cite it as below."
 type: software
-version: 0.3.0
-date-released: 2026-07-28
+version: 0.4.0
+date-released: 2026-07-30
 # Founded 2026-07-28 by Valentyn Yakymenko.
 license: Apache-2.0
 url: "https://noophorics.org"
@@ -14,7 +14,7 @@ abstract: >-
   and a session to its own compacted successor. It replaces symbol recovery
   with behavioral convergence as the criterion of successful transfer, which
   yields measurable quantities: transfer fidelity relative to a stated probe
-  measure, noophoric efficiency, channel capacity between minds, and phantom
+  measure *and a stated reference disposition*, noophoric efficiency, channel capacity between minds, and phantom
   agreement — the gap between the parties' confidence that understanding
   occurred and the evidence that it did. The repository contains the axiomatic
   foundation, six falsifiable conjectural laws, ten open problems, a
