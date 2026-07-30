@@ -167,6 +167,44 @@ from a design metaphor into an optimization problem.
 
 ---
 
+## 11. Post-transfer admissibility
+
+**A probe measure can be admissible before a transfer and useless after it.
+State the criterion that rules this out in advance.**
+
+[definitions §3.3](definitions.md#33-admissibility) gates admissibility on the
+**prior** gap: the parties must disagree before the message, or there is no gap
+to close. There is no post-side criterion, and
+[E-002](../experiments/E-002-phantom-agreement/VOID.md) died of its absence.
+Its measure was admissible — pre-transfer agreement 0.515 — and the transfer
+closed the gap **completely**, to 1.000, with 0 of 33 probes diverging.
+
+At that point `Φ` is not small, it is undefined in the same sense resolution is:
+there is no diverged case for a belief to be wrong about, and any elicitation
+returns the same answer whether or not the party has insight. The experiment
+reported `Φ = +0.0000` and that number means nothing.
+
+The problem is not "make the probes harder". A frame chosen after seeing that
+the previous one was too easy is a frame tuned until the result appears, which
+is [Problem 6](#6-probe-measure-generalization) wearing a disguise. What is
+wanted is a property statable **in advance**:
+
+- a *predicted* post-transfer divergence given the message budget, so a measure
+  can be rejected before collection rather than after;
+- or a design in which the transfer is constrained rather than the frame — sweep
+  the cost ceiling so fidelity varies by construction, and `Φ` has a gradient to
+  live on.
+
+The second is a workaround and E-002b will use it. The first is the actual
+problem, and it is a small piece of the capacity theorem
+([Problem 3](#3-the-capacity-theorem)): predicting post-transfer divergence at a
+stated cost *is* predicting `K(C)`.
+
+*A solution would let an experimenter know, before spending the compute, whether
+the quantity they intend to measure will exist when they get there.*
+
+---
+
 ## Contributing a problem
 
 Open problems are added by pull request with: a precise statement, an argument
