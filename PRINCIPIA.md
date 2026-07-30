@@ -155,14 +155,30 @@ times out of ten, holding different `P` and not saying so.
 
 ## 4. The four axioms
 
-**A1 — Behavioral ground truth.**
+**A1 — Behavioral ground truth.** *(amended v0.4)*
 Understanding is measured by divergence of decisions over a probe measure, not
-by symbol recovery, self-report, or surface similarity of text.
+by symbol recovery, self-report, or surface similarity of text. The divergence
+is taken against a **declared reference disposition `R`**, committed with `P`
+before data exists. The sender's own answer distribution is one admissible
+reference and **is not the default**; where it is chosen, the quantity measured
+is *replication*, and it may not be reported as understanding.
 
-**A2 — Frame relativity.**
-Every noophoric quantity is defined relative to a stated probe measure `P`. A
-fidelity number reported without its `P` is meaningless, in the same way a
-velocity reported without a frame is meaningless.
+> The original text never named the sender, and survives with that clause added.
+> What is retracted is the unstated identification of the target with the
+> sender, which lived in §3's operational sentence and in
+> [definitions §4.1](theory/definitions.md) rather than in the axiom — and which
+> [E-001](experiments/E-001-fluency-cost/FINDINGS.md) showed costs the headline.
+
+**A2 — Frame relativity.** *(widened v0.4)*
+Every noophoric quantity is defined relative to a stated probe measure `P`
+**and a stated reference `R`**. A fidelity number reported without either is
+meaningless, in the same way a velocity reported without a frame is meaningless.
+
+> `R` is bundled into A2 rather than made a fifth axiom because it is the same
+> kind of thing: a declared frame parameter. The risk in bundling — that two
+> parameters get reported as a pair and then forgotten as a pair — is met by
+> [§7's reporting standard](theory/definitions.md), which requires `R`, its
+> provenance, and whether it was independently adjudicated as separate fields.
 
 **A3 — Nonzero residual.** *(refuted as originally stated; restated v0.3)*
 

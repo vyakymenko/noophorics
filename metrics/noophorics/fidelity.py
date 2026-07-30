@@ -5,7 +5,9 @@ Reference implementation of theory/definitions.md sections 4, 5 and 6.
 
 from __future__ import annotations
 
-from typing import Iterable, NamedTuple, Optional, Sequence
+from typing import Dict, Iterable, NamedTuple, Optional, Sequence
+
+from .divergence import jensen_shannon
 
 __all__ = [
     "DEFAULT_EPSILON",
@@ -14,6 +16,7 @@ __all__ = [
     "transfer_fidelity",
     "efficiency",
     "net_value",
+    "fidelity_to_reference",
     "claimed_agreement",
     "phantom_agreement",
     "capacity_estimate",
@@ -70,6 +73,53 @@ def transfer_fidelity(
             % (d_prior, d_floor, epsilon)
         )
     return min(1.0, (d_prior - d_post) / (d_prior - d_floor))
+
+
+def fidelity_to_reference(
+    reference,
+    prior_dists: Sequence[Dict[str, float]],
+    post_dists: Sequence[Dict[str, float]],
+    weights: Optional[Sequence[float]] = None,
+    d_floor: float = 0.0,
+    epsilon: float = DEFAULT_EPSILON,
+) -> float:
+    """F*_R -- the fraction of the receiver's distance to R that the message closed.
+
+        F*_R = (D_R(B) - D_R(B|m)) / (D_R(B) - D_floor,R)
+
+    The reference is an ARGUMENT, not an assumption. For three versions this
+    quantity measured movement toward the sender and never said so; see
+    ``reference.py`` for why that cost E-001 its headline.
+
+    WHICH F* THIS GENERALISES, stated because the repository defines two
+    objects and they are not the same. definitions.md 3 defines F* over TRUE
+    distributions as (D_prior - D_post) / D_prior; 4.1 and this module compute
+    the floor-corrected ESTIMATOR. F*_R generalises the definition, and the
+    floor stays exactly where v0.3 put it -- inside the estimator, correcting
+    finite-sample bias, never inside the definition.
+
+    THE FLOOR UNDER A DECLARED REFERENCE. ``D_floor`` is a permutation null over
+    *the pair being compared*, so under reference R it is the null between R's
+    draws and the receiver's. Where R is a declared distribution carrying no
+    sampling noise -- a key -- there is nothing to permute and the null is
+    UNDEFINED, not zero. The receiver's finite-sample bias does not vanish
+    because the reference is exact. Passing ``d_floor=0.0`` for a keyed
+    reference is a choice to leave that bias uncorrected, and it is the caller's
+    to make and to report.
+
+    ``F*_{R=sender} `` is identically the v0.1-v0.3 ``transfer_fidelity``. Every
+    published number stays valid under a longer name; the test suite pins it.
+    """
+    dists = reference.distributions if hasattr(reference, "distributions") else reference
+    if not (len(dists) == len(prior_dists) == len(post_dists)):
+        raise ValueError("reference, prior and post must be the same length")
+    w = list(weights) if weights is not None else [1.0] * len(dists)
+    total = float(sum(w))
+    d_prior = sum(jensen_shannon(r, b) * wi for r, b, wi in
+                  zip(dists, prior_dists, w)) / total
+    d_post = sum(jensen_shannon(r, b) * wi for r, b, wi in
+                 zip(dists, post_dists, w)) / total
+    return transfer_fidelity(d_prior, d_post, d_floor, epsilon)
 
 
 def net_value(fidelity: float, cost: float, lam: float, per: float = 1000.0) -> float:

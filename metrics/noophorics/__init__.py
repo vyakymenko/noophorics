@@ -38,6 +38,7 @@ from .fidelity import (
     CapacityBound,
     capacity_estimate,
     capacity_lower_bound,
+    fidelity_to_reference,
     net_value,
     claimed_agreement,
     efficiency,
@@ -47,6 +48,7 @@ from .fidelity import (
     transfer_fidelity,
 )
 from .chain import ChainDecay, ChainPoint, chain_fidelity, fit_decay
+from .reference import Reference, independence_of
 from .inference import (
     bootstrap_ci,
     goodman_kruskal_gamma,
@@ -90,6 +92,7 @@ __all__ = [
     "phantom_agreement",
     "capacity_estimate",
     "capacity_lower_bound",
+    "fidelity_to_reference",
     "net_value",
     "CapacityBound",
     "residual_estimate",
@@ -103,6 +106,8 @@ __all__ = [
     "holm_adjust",
     "permutation_diff",
     "point_biserial",
+    "Reference",
+    "independence_of",
     "Decision",
     "KeyLeak",
     "adjudicate",

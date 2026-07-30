@@ -187,6 +187,93 @@ F*(m) = ────────────────────────
 hides antinoophors, which are among the most informative observations in the
 field.
 
+### 4.1.1 The reference is an argument, not an assumption *(v0.4)*
+
+The definition above says "the gap between sender and receiver" and never asks
+why the sender is the target. For three versions that was an assumption wearing
+a parameter's clothes, and
+[E-001](../experiments/E-001-fluency-cost/FINDINGS.md) measured what it costs:
+both receivers out-decided the sender against the key, `F*` ranked them the
+other way, and 62% of the headline effect sat on the four probes where the
+sender was wrong and a receiver was right.
+
+A **reference disposition** `R` is a per-probe distribution over the answer
+space, declared with `P` **before data exists**, carrying a recorded
+provenance. Admissible constructions
+([`reference.py`](../metrics/noophorics/reference.py)):
+
+- `R_key` — a point mass on each key, or a distribution over the defensible
+  readings where a key is contested. `M33` is exactly that case, and a binary
+  key cannot express it while a distribution can.
+- `R_panel` — a declared mixture over independent adjudicators, none of which
+  wrote the message, authored the probes, or is the sender. **Inter-adjudicator
+  agreement is reported alongside, and a unanimous panel is a warning rather
+  than a validation**: a panel sharing the sender's bias reproduces "the sender
+  is always right" at group level.
+- `R_sender` — the replication reference.
+
+```
+D_R(X | P) = E_{π ~ P} [ JSD( R(π) ‖ X(π) ) ]
+
+              D_R(B | P) − D_R(B|m | P)
+F*_R(m) = ───────────────────────────────────
+               D_R(B | P) − D_floor,R
+```
+
+**`F*_{R=sender} ≡ F*`, term for term.** Nothing is recomputed and no published
+number moves; the test suite pins the identity. What changes is what may be
+claimed.
+
+**Which `F*` this generalises**, stated because this document defines two
+objects. §3 defines `F*` over **true distributions** as
+`(D_prior − D_post)/D_prior`; §4.1 and the code compute the **floor-corrected
+estimator**. `F*_R` generalises the *definition*. The floor stays exactly where
+v0.3 put it — inside the estimator, correcting finite-sample bias, never inside
+the definition.
+
+**The floor under a declared reference.** `D_floor` is a permutation null over
+*the pair being compared*, so under `R` it is the null between `R`'s draws and
+the receiver's. Where `R` carries no sampling noise — a key — there is nothing
+to permute and **the null is undefined, not zero**. The receiver's finite-sample
+bias does not vanish because the reference is exact. Setting it to zero is a
+choice to leave that bias uncorrected, and it must be reported as one; doing it
+silently would be [retraction #2](../RETRACTIONS.md) in a mirror.
+
+**Admissibility gains a second condition.** Under a sender-independent `R` the
+sender drops out of the first, so both are required:
+
+1. `D_R(B | P) − D_floor,R > ε` — the receiver has headroom against the
+   reference.
+2. `D(A, B | P) > D_floor + ε` — sender and receiver disagree before transfer.
+   Without this a "transfer" could be reported on a measure where the parties
+   already agree, which §1.3 calls measuring nothing.
+
+**The licensing rule.** The word *understanding* is licensed only where `R` is
+**independent of the sender**. Independence from the *message* is not the
+criterion and does not bite: the sender's own probe draws are not descendants of
+its message, so `R_sender` would pass that test. Where `R` is the sender, the
+reportable claim is **replication**, never understanding.
+
+**And independence must be measured, not asserted.** The repository already
+shipped a reference that was the sender resampled: the `CEILING` arm gave the
+same model the same context and produced 25 of 25 **bit-identical** draw
+sequences, mean JSD 0.0000, while passing a 0.70 gate at 1.0000
+([journal](../journal/2026-07-30-two-audit-holes.md)).
+`independence_of()` reports two distinct facts, because the first version of it
+conflated them and would have rejected a legitimate key:
+
+- **independent by construction** — from `R`'s provenance;
+- **distinguishable on this measure** — from the measured `JSD(R, A)`.
+
+A key drawn from the source specification is independently constructed. On a
+measure where the sender answers every probe correctly it is nonetheless
+behaviourally identical to the sender, `F*_key` equals `F*_sender` exactly, and
+the reference choice cannot inform anything. Measured: on `MERIDIAN-33` with a
+33/33 sender, `JSD(key, sender) = 0.0010`; on `MERIDIAN-34` with the E-001
+sender, wrong on four probes, `0.1176`. **A perfect sender hides the entire
+problem**, which is the argument for declaring `R` even where it provably does
+not move the number.
+
 **Prior art (added 2026-07-29).** `F*` is a normalized-recovery statistic and
 the form is not ours. Burns et al. define *performance gap recovered*,
 `PGR = (weak-to-strong − weak) / (strong ceiling − weak)` — the same shape with

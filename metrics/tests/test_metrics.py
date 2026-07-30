@@ -19,6 +19,9 @@ from os.path import abspath, dirname, join
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
 
 from noophorics import (  # noqa: E402
+    Reference,
+    fidelity_to_reference,
+    independence_of,
     net_value,
     InadmissibleProbeMeasure,
     Measurement,
@@ -699,6 +702,100 @@ class InferenceTest(unittest.TestCase):
         _, q = permutation_diff([0.5, 0.5, 0.5, 0.5], [0.5, 0.5, 0.5, 0.5],
                                 permutations=2000, seed=1)
         self.assertGreater(q, 0.5)
+
+
+class ReferenceTest(unittest.TestCase):
+    """F*_R. The first test is the one that lets the migration ship."""
+
+    def _measure(self):
+        return ProbeMeasure(
+            id="R",
+            probes=[Probe(id="p%d" % i, prompt="?", options=["A", "B", "C"],
+                          key=("A" if i % 2 else "B")) for i in range(6)],
+        )
+
+    def test_sender_reference_is_the_old_quantity_exactly(self):
+        """F*_{R=sender} == transfer_fidelity, term for term.
+
+        This is the regression guard for the whole v0.4 change. If it ever
+        fails, a published number has silently moved.
+        """
+        m = self._measure()
+        rng = random.Random(11)
+        opts = ["A", "B", "C"]
+        sender = [[rng.choice(opts) for _ in range(8)] for _ in m]
+        prior = [[rng.choice(opts) for _ in range(8)] for _ in m]
+        post = [[rng.choice(opts) for _ in range(8)] for _ in m]
+
+        s_d = [to_distribution(x) for x in sender]
+        p_d = [to_distribution(x) for x in prior]
+        o_d = [to_distribution(x) for x in post]
+        floor = 0.05
+        old = transfer_fidelity(
+            mean_divergence(s_d, p_d, m.weights),
+            mean_divergence(s_d, o_d, m.weights), floor)
+
+        ref = Reference.from_agent(m, sender, "s", provenance="the sender")
+        new = fidelity_to_reference(ref, p_d, o_d, m.weights, d_floor=floor)
+        self.assertAlmostEqual(old, new, places=12)
+
+    def test_a_sender_reference_does_not_license_the_word(self):
+        m = self._measure()
+        sender = [["A"] * 4 for _ in m]
+        self.assertFalse(
+            Reference.from_agent(m, sender, "s", provenance="x")
+            .licenses_understanding)
+        self.assertTrue(Reference.from_key(m, provenance="x")
+                        .licenses_understanding)
+
+    def test_independence_separates_construction_from_discriminability(self):
+        """A key is independently CONSTRUCTED even when it cannot discriminate.
+
+        Conflating the two would reject a legitimate key merely because the
+        sender happened to answer every probe correctly.
+        """
+        m = self._measure()
+        perfect = [[p.key] * 4 for p in m]          # sender is never wrong
+        r = independence_of(Reference.from_key(m, provenance="x"), perfect)
+        self.assertTrue(r["independent_by_construction"])
+        self.assertFalse(r["distinguishable_on_this_measure"])
+        self.assertFalse(r["usable"])
+        self.assertIn("perfect sender", r["verdict"])
+
+        wrong = [[("C")] * 4 for _ in m]            # sender is always wrong
+        r2 = independence_of(Reference.from_key(m, provenance="x"), wrong)
+        self.assertTrue(r2["usable"])
+
+    def test_the_ceiling_trap_is_refused(self):
+        """A reference that resamples the sender is caught, not certified."""
+        m = self._measure()
+        sender = [["A"] * 4 for _ in m]
+        ceiling = {"c1": [["A"] * 4 for _ in m], "c2": [["A"] * 4 for _ in m]}
+        r = independence_of(
+            Reference.from_panel(m, ceiling, provenance="same model, same context"),
+            sender)
+        self.assertEqual(r["identical_distributions"], len(m))
+        self.assertFalse(r["usable"])
+
+    def test_a_panel_needs_more_than_one_adjudicator(self):
+        m = self._measure()
+        with self.assertRaises(ValueError):
+            Reference.from_panel(m, {"only": [["A"] * 4 for _ in m]},
+                                 provenance="x")
+
+    def test_a_contested_key_may_be_a_distribution(self):
+        """M33 has a key the source does not determine; a point mass lies."""
+        m = self._measure()
+        ref = Reference.from_key(
+            m, provenance="x", contested={"p0": {"A": 0.5, "B": 0.5}})
+        self.assertEqual(ref.distributions[0], {"A": 0.5, "B": 0.5})
+        self.assertEqual(sum(ref.distributions[1].values()), 1.0)
+
+    def test_contested_mass_on_a_non_option_is_refused(self):
+        m = self._measure()
+        with self.assertRaises(ValueError):
+            Reference.from_key(m, provenance="x",
+                               contested={"p0": {"Z": 1.0}})
 
 
 if __name__ == "__main__":
