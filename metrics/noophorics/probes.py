@@ -24,10 +24,20 @@ class Probe(object):
     measure that is stable across paraphrase. Free-form probes must be resolved
     into a discrete space by a stated rubric before they enter a measurement.
 
-    ``key`` is the ground-truth answer where one exists. It is *not* used to
-    compute any noophoric quantity -- fidelity measures sender/receiver
-    convergence, not correctness -- but it lets an experiment report accuracy
-    alongside fidelity as a sanity check on the sender.
+    ``key`` is the ground-truth answer where one exists.
+
+    ~~It is *not* used to compute any noophoric quantity.~~ **False since
+    v0.3.** :mod:`noophorics.decomposition` partitions probes by whether the
+    sender was right, so the key is load-bearing in
+    ``fidelity_where_sender_right`` and ``error_replication`` -- the two numbers
+    E-001 needed to show that the aggregate rewards mimicry. A wrong key puts a
+    probe in the wrong half of both, which is why
+    ``experiments/E-001b-fluency-factorial/SENSITIVITY-M33.md`` exists.
+
+    A measure may still carry no key at all: a preference, a house style, a
+    judgment call whose owner defines the right answer. ``decompose`` returns
+    the keyed fields as ``None`` in that case rather than refusing, because the
+    class-prior baseline and the rule-content number never needed a key.
     """
 
     __slots__ = ("id", "prompt", "options", "key", "tags")

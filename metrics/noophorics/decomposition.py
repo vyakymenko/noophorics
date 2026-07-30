@@ -96,17 +96,31 @@ class Decomposition(NamedTuple):
     """Fidelity separated into its three components. All relative to a stated P."""
 
     fidelity_aggregate: float          # F* over the whole measure -- the v0.1 number
-    fidelity_where_sender_right: float # convergence where the sender is correct
-    error_replication: float           # rate of copying the sender's wrong answers
+    # The two keyed fields are None on a measure with no key. They are the only
+    # ones that need one; everything else here is computed from the sender's own
+    # draws. The first version raised instead, so a keyless measure -- a
+    # preference, a house style, a judgment call, all of which the theory
+    # explicitly admits -- lost the baseline and the rule-content number for
+    # want of something neither of them uses.
+    fidelity_where_sender_right: Optional[float]
+    error_replication: Optional[float] # rate of copying the sender's wrong answers
     fidelity_class_prior_baseline: float  # what a rule-free class-prior agent scores
     rule_content: float                # aggregate minus the baseline
-    accuracy_gain: float               # receiver accuracy minus prior accuracy
-    n_right: int
-    n_wrong: int
+    accuracy_gain: Optional[float]     # receiver accuracy minus prior accuracy
+    n_right: Optional[int]
+    n_wrong: Optional[int]
+    keyed: bool = True                 # False when the measure carries no key
 
     @property
-    def is_mimicry_dominated(self) -> bool:
-        """The receiver copies the sender's errors more than it avoids them."""
+    def is_mimicry_dominated(self) -> Optional[bool]:
+        """The receiver copies the sender's errors more than it avoids them.
+
+        None without a key: on a keyless measure there is no sender error to
+        replicate, and returning False would assert the absence of a pathology
+        that was never measurable.
+        """
+        if self.error_replication is None:
+            return None
         return self.error_replication > 0.5
 
     @property
@@ -144,8 +158,12 @@ def decompose(
     All four draw sequences are raw ordered samples, one list per probe. Draw
     order is preserved throughout: the permutation floor depends on it.
     """
-    split = sender_split(measure, sender_draws)
-    right, wrong = split["right"], split["wrong"]
+    keyed = all(p.key is not None for p in measure)
+    if keyed:
+        split = sender_split(measure, sender_draws)
+        right, wrong = split["right"], split["wrong"]
+    else:
+        right, wrong = [], []
 
     def fstar(idx: Sequence[int]) -> float:
         if not idx:
@@ -166,11 +184,11 @@ def decompose(
 
     all_idx = list(range(len(measure)))
     aggregate = fstar(all_idx)
-    where_right = fstar(right)
+    where_right = fstar(right) if keyed else None
 
     # Error replication: on probes the sender got wrong, how often does the
     # receiver's modal answer match the SENDER rather than the key?
-    replication = float("nan")
+    replication = float("nan") if keyed else None
     if wrong:
         hits = 0
         for i in wrong:
@@ -210,7 +228,9 @@ def decompose(
         error_replication=replication,
         fidelity_class_prior_baseline=baseline,
         rule_content=aggregate - baseline,
-        accuracy_gain=accuracy(post_draws) - accuracy(prior_draws),
-        n_right=len(right),
-        n_wrong=len(wrong),
+        accuracy_gain=(accuracy(post_draws) - accuracy(prior_draws)
+                       if keyed else None),
+        n_right=len(right) if keyed else None,
+        n_wrong=len(wrong) if keyed else None,
+        keyed=keyed,
     )

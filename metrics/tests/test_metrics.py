@@ -271,7 +271,7 @@ class TestV03Decomposition(unittest.TestCase):
         )
 
     def test_error_replication_is_visible(self):
-        from noophorics.decomposition import decompose
+        from noophorics.decomposition import sender_split, decompose
 
         measure = self._measure()
         # Sender is wrong on d4: says A where the key says B.
@@ -291,12 +291,48 @@ class TestV03Decomposition(unittest.TestCase):
         self.assertGreater(d_mimic.fidelity_aggregate, d_correct.fidelity_aggregate)
         self.assertGreater(d_correct.accuracy_gain, d_mimic.accuracy_gain)
 
-    def test_decomposition_requires_a_key(self):
+    def test_decomposition_without_a_key_returns_what_it_can(self):
+        """Changed behaviour, deliberately. This test used to assert a raise.
+
+        `decompose` refused any measure without a key, so a keyless transfer --
+        a preference, a house style, a judgment call whose owner defines the
+        right answer, all of which the theory admits -- lost the class-prior
+        baseline and the rule-content number too. Neither of those uses a key:
+        the baseline is drawn from the SENDER's own pooled marginal.
+
+        The keyed fields are None rather than NaN or 0.0, because "not
+        measurable here" and "measured as zero" are different states and the
+        second would assert the absence of a pathology that was never
+        observable.
+        """
         from noophorics.decomposition import decompose
 
-        unkeyed = ProbeMeasure("U", [Probe("u1", "one", ["A", "B"])])
+        unkeyed = ProbeMeasure(
+            id="unkeyed",
+            probes=[Probe(id="p%d" % i, prompt="?", options=["A", "B"])
+                    for i in range(3)],
+        )
+        draws = [["A"] * 4 for _ in range(3)]
+        prior = [["B"] * 4 for _ in range(3)]
+        d = decompose(unkeyed, draws, prior, draws)
+        self.assertFalse(d.keyed)
+        self.assertIsNone(d.fidelity_where_sender_right)
+        self.assertIsNone(d.error_replication)
+        self.assertIsNone(d.accuracy_gain)
+        self.assertIsNone(d.is_mimicry_dominated)
+        self.assertFalse(math.isnan(d.fidelity_class_prior_baseline))
+
+    def test_sender_split_still_requires_a_key(self):
+        """The one function that genuinely cannot work without one."""
+        from noophorics.decomposition import sender_split
+
+        unkeyed = ProbeMeasure(
+            id="unkeyed",
+            probes=[Probe(id="p%d" % i, prompt="?", options=["A", "B"])
+                    for i in range(3)],
+        )
         with self.assertRaises(ValueError):
-            decompose(unkeyed, [["A"] * 4], [["B"] * 4], [["A"] * 4])
+            sender_split(unkeyed, [["A"] * 4 for _ in range(3)])
 
     def test_class_prior_baseline_carries_no_rule_content(self):
         from noophorics.decomposition import class_prior_baseline_draws
