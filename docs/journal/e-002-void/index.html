@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab journal — Noophorics</title>
-<meta name="description" content="The lab notebook of the noophorics programme: the void run, the near miss, and the retraction of its own diagnosis.">
+<title>E-002 is void — the elicitation saturated, and so did the transfer — Noophorics</title>
+<meta name="description" content="degeneracy gate">
 <meta name="color-scheme" content="light dark">
-<link rel="canonical" href="https://noophorics.org/journal/">
+<link rel="canonical" href="https://noophorics.org/journal/e-002-void/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Lab journal — Noophorics">
+<meta property="og:title" content="E-002 is void — the elicitation saturated, and so did the transfer — Noophorics">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://noophorics.org/journal/">
+<meta property="og:url" content="https://noophorics.org/journal/e-002-void/">
 <meta property="og:image" content="https://noophorics.org/og.png">
 <style>
 /* ---------------------------------------------------------------
@@ -1221,32 +1221,42 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <main id="content">
-<p class="jn">Lab notebook</p>
-<h1>The record of being wrong</h1>
-<p>Dated, append-only, and never edited after the fact except for typos. The entries below are the programme's most load-bearing documents: they are where it recorded its own failures while they were still fresh.</p>
+<p class="jn">void · e 002 void</p>
+<h1>E-002 is void — the elicitation saturated, and so did the transfer</h1>
+<p><strong>Status:</strong> void · closed · superseded by E-002b (not yet registered) <strong>Voided:</strong> 2026-07-30, at the first brief's elicitation, by the pre-registered degeneracy gate <strong>Cost:</strong> ~4.5 hours of the ~13 the full sweep would have taken</p>
 <hr>
-<h2><a href="/journal/founding/">2026-07-28 — Founding</a></h2>
-<p>First entry. The lab notebook is for the things that do not belong in…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-founding.md">source</a></p>
-<h2><a href="/journal/first-live-run-void/">2026-07-28 — First live run: void, and the reason is worth keeping</a></h2>
-<p>E-001 ran against the API for the first time and died. Full record in…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-first-live-run-void.md">source</a></p>
-<h2><a href="/journal/e-001-findings/">E-001 — Findings</a></h2>
-<p>It nonetheless produced the most important result this programme has: the…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/FINDINGS.md">source</a></p>
-<h2><a href="/journal/e-001b-void/">E-001b is void — the cost parity gate failed before the sweep ran</a></h2>
-<p>(PREREGISTRATION §4.1(PREREGISTRATION.md))…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/VOID.md">source</a></p>
-<h2><a href="/journal/e-001b-defect/">DEFECT-001 — the analysis path was never executed, and would have crashed</a></h2>
-<p>provider comparison. No effect had been computed. No results file existed.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/e-001c-feasibility/">Can the four registers survive being pinned to a common length?</a></h2>
-<p>may be read off it. It exists to answer whether E-001c is buildable at all,…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/FEASIBILITY.md">source</a></p>
-<h2><a href="/journal/e-002-void/">E-002 is void — the elicitation saturated, and so did the transfer</a></h2>
-<p>degeneracy gate…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002-phantom-agreement/VOID.md">source</a></p>
-
+<h2>What the gate caught</h2>
+<p>The <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/PREREGISTRATION.md">pre-registration §5.1</a> gates the run on <em>elicitation degeneracy</em>: a party that answers identically on every probe has zero resolution <strong>by construction</strong>, so H2 would be untestable rather than false.</p>
+<p>It fired on the first brief.</p>
+<pre><code>claim-sender@gpt-oss:120b#7c0bcdec32     165 judgments, distinct values: [True]
+claim-receiver@gpt-oss:120b#7c0bcdec32   165 judgments, distinct values: [True]</code></pre>
+<p>330 binary judgments — 33 probes × 5 elicitations × 2 parties — and <strong>every one of them was "yes, we will agree."</strong> Not a majority. All of them.</p>
+<h2>And the outcome saturated too</h2>
+<p>The second degeneracy was predicted the day before, in <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/RISK-NOTE.md">RISK-NOTE.md</a>, and arrived exactly as described:</p>
+<div class="scroll"><table><thead><tr><th>quantity</th><th>value</th></tr></thead><tbody><tr><td>sender–receiver agreement, pre-transfer</td><td>0.5152</td></tr><tr><td>sender–receiver agreement, post-transfer</td><td><strong>1.0000</strong></td></tr><tr><td>probes where they actually diverged</td><td><strong>0 of 33</strong></td></tr><tr><td>claimed agreement, both parties, every probe</td><td>1.0000</td></tr><tr><td><strong>Φ</strong></td><td><strong>+0.0000</strong></td></tr></tbody></table></div>
+<p>Both parties said they would agree on everything. They agreed on everything. They were right.</p>
+<p><strong>This is not a measurement of Φ = 0.</strong> It is precisely the pathological case that the <a href="https://github.com/vyakymenko/noophorics/blob/main/PRINCIPIA.md">corrected falsification criterion 2</a> was rewritten for the previous day: bias exactly zero, resolution <strong>undefined</strong>. Nobody demonstrated any ability to tell a diverged case from a matched one, because there were no diverged cases — and the elicitation would have returned "yes" either way.</p>
+<p>Reporting <code>Φ = 0.0000</code> here as evidence about the world would be the exact error the corrected criterion exists to prevent. It is reported as an instrument result, per <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/PREREGISTRATION.md">§7</a>.</p>
+<hr>
+<h2>Diagnosis 1 — the elicitation has a default answer</h2>
+<p>I ported Keysar &amp; Henly's <strong>granularity</strong> and not their <strong>structure</strong>, and the structure was the part doing the work.</p>
+<p>Their speakers did not answer "did the listener understand?" They were shown <strong>two paraphrases</strong> and had to say <strong>which one</strong> the listener had taken. The 72% is an aggregate the experimenters computed afterwards by checking how often the chosen paraphrase matched the speaker's own intention. The instrument has <strong>no "everything is fine" response available</strong> — the speaker must commit to a reading, and the overconfidence shows up in <em>which</em> reading it commits to.</p>
+<p>E-002 asked: <em>"Will your colleague reach the same verdict as you on this case?"</em> That is a yes/no with an obvious default, and the model took it 330 times out of 330.</p>
+<p>The <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/prior-art.md">citation verification</a> had already stated this explicitly — <em>"the speaker's per-trial response was a binary choice between the two projected paraphrases — WHICH reading the listener took — not a yes/no 'did they get it'"</em> — and I built the yes/no anyway. The information was in the repository before the runner was written.</p>
+<p><strong>Repair.</strong> The sender predicts the receiver's <strong>verdict</strong>, choosing among the probe's own options. Agreement is scored afterwards, by comparison, exactly as Keysar &amp; Henly computed it. There is no way to answer "yes".</p>
+<h2>Diagnosis 2 — the probe measure admits a perfect transfer</h2>
+<p><code>MERIDIAN-33</code> is answerable from a 180–260 word brief with no loss at all. Once the transfer is perfect there is nothing for a belief to be wrong <em>about</em>, and <code>Φ</code> is not small — it is undefined in the same way resolution is.</p>
+<p>This is a hole in the theory, not just in the experiment. <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/definitions.md">definitions §3.3</a> gates <strong>admissibility on the prior gap</strong>: the parties must disagree <em>before</em> the transfer. There is no post-side criterion. A probe measure can be perfectly admissible and still be useless, because the quantity being measured evaporates when the transfer succeeds.</p>
+<p>Recorded as <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/open-problems.md">Problem 11</a>.</p>
+<p><strong>Repair.</strong> Do not harden the probes — that changes the frame and invites tuning it until the result appears. Constrain the <em>channel</em>, which is the theory's own axis: sweep the brief budget so that transfer quality varies by design, and measure Φ across the ladder. Then Φ has a gradient to live on, and the hypothesis becomes the interesting one — <strong>does Φ rise where fidelity falls?</strong></p>
+<hr>
+<h2>What carries forward</h2>
+<ul><li><strong>The gate worked.</strong> It was placed after the first brief rather than after the sweep, deliberately, following <a href="https://github.com/vyakymenko/noophorics/blob/main/E-001b-fluency-factorial/VOID.md">E-001b's postmortem</a>. It saved roughly eight and a half hours.</li><li><strong>The risk note worked.</strong> Outcome degeneracy was written down, with its mechanism, before any data existed. That it then happened is the second time in three days that pre-registration paid for itself in something other than virtue.</li><li><strong><code>sender</code>, <code>PRIOR</code> and <code>CEILING</code> at n=30</strong> remain valid and carry into E-002b — they depend on no brief.</li><li><strong>b0's draws</strong> are retained and committed. The run is void; the data is real.</li></ul>
+<h2>The uncomfortable part</h2>
+<p>Three experiments have now voided, and each void was caught by machinery built after the previous one. That is the system working. But the failure this time was not an oversight — the correct instrument design was written down in this repository, by a verification pass I commissioned, and I read it, quoted it in a commit message, and then built the weaker thing.</p>
+<p>The gap between having the information and using it is not fixed by having more information. It is the same gap the programme claims to study, and it appeared here between a document and its own author.</p>
+<hr>
+<p><em>This document is licensed CC BY 4.0.</em></p>
 <p class="back"><a href="/journal/">All journal entries</a> · <a href="/">Noophorics</a> · <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
 </main>
 </body>

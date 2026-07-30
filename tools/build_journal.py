@@ -39,6 +39,7 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("e-001b-defect", "experiments/E-001b-fluency-factorial/DEFECT-001.md", "defect"),
     ("e-001c-feasibility",
      "experiments/E-001c-fluency-length-controlled/FEASIBILITY.md", "instrument"),
+    ("e-002-void", "experiments/E-002-phantom-agreement/VOID.md", "void"),
 ]
 
 REPO = "https://github.com/vyakymenko/noophorics/blob/main/"
