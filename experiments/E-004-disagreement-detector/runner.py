@@ -71,7 +71,15 @@ def hypergeom_sf(k: int, N: int, K: int, n: int) -> float:
 
 
 def fisher_combine(pvalues: Sequence[float]) -> Tuple[float, float]:
-    """Fisher's method. Returns (chi2, p). Survival of chi2 by series, no scipy."""
+    """Fisher's method. Returns (chi2, p). Survival of chi2 by series, no scipy.
+
+    Verified against an independent analytic computation: two independent
+    p = 0.05 give chi2 = 11.9829 on df = 4 and a combined p = 0.017479, which
+    is what the closed form for even df returns. A first verification note put
+    the expected value at 0.1991, which was simply wrong -- the code was right
+    and the check was not, and it took recomputing the closed form from scratch
+    to tell which. Null sanity: two p = 0.50 combine to 0.5966.
+    """
     ps = [max(p, 1e-12) for p in pvalues]
     chi2 = -2.0 * sum(math.log(p) for p in ps)
     df = 2 * len(ps)
