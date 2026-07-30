@@ -1,0 +1,340 @@
+{
+ "description": "Equipment loan policy \u2014 Riverside Tool Library: due-date computation, renewal windows, hold queues and collection periods, suspension, and forfeit",
+ "domain": "equipment-loan policy; temporal and sequential",
+ "holdout": [],
+ "id": "RIVERSIDE-30",
+ "probes": [
+  {
+   "id": "T01",
+   "key": "15 March",
+   "options": [
+    "14 March",
+    "15 March",
+    "16 March"
+   ],
+   "prompt": "Dana borrows a cordless drill, an item not on the Restricted Register, on 5 March. What is its effective due date?"
+  },
+  {
+   "id": "T02",
+   "key": "17 March",
+   "options": [
+    "16 March",
+    "17 March",
+    "18 March"
+   ],
+   "prompt": "Eli borrows a mitre box, not on the Restricted Register, on 6 March. What is its effective due date?"
+  },
+  {
+   "id": "T03",
+   "key": "16 April",
+   "options": [
+    "15 April",
+    "16 April",
+    "17 April"
+   ],
+   "prompt": "Farrah borrows a tile saw on 10 April. What is its effective due date?"
+  },
+  {
+   "id": "T04",
+   "key": "REFUSED \u2014 the 3-loan cap",
+   "options": [
+    "REFUSED \u2014 the 3-loan cap",
+    "REFUSED \u2014 the Restricted-item cap",
+    "ALLOWED"
+   ],
+   "prompt": "Greg registered two years ago and his balance is $0. On 12 March he has three loans open: a router, a sander (neither on the Restricted Register) and a chainsaw. That same day he comes to the desk to borrow a hand plane, which is not on the Restricted Register. What happens?"
+  },
+  {
+   "id": "T05",
+   "key": "REFUSED \u2014 the new-member restriction",
+   "options": [
+    "ALLOWED",
+    "REFUSED \u2014 the Restricted-item cap",
+    "REFUSED \u2014 the new-member restriction"
+   ],
+   "prompt": "Hana registered on 20 March. Her balance is $0 and she has no items out. On 16 April she comes to the desk to borrow a pressure washer. What happens?"
+  },
+  {
+   "id": "T06",
+   "key": "$0",
+   "options": [
+    "$0",
+    "$1",
+    "$2"
+   ],
+   "prompt": "Ivo's hand sander, not on the Restricted Register, has an effective due date of 14 March. He puts it in the return box on 16 March. What late fee is charged for that item?"
+  },
+  {
+   "id": "T07",
+   "key": "$4",
+   "options": [
+    "$2",
+    "$4",
+    "$0"
+   ],
+   "prompt": "Jae's hand sander, not on the Restricted Register, has an effective due date of 14 March. She hands it to staff on 18 March. What late fee is charged for that item?"
+  },
+  {
+   "id": "T08",
+   "key": "$75",
+   "options": [
+    "$107",
+    "$75",
+    "$32"
+   ],
+   "prompt": "Kim's orbital sander, not on the Restricted Register, has an effective due date of 1 April. She does not bring it back until 3 May. What total is charged on her account in respect of that item?"
+  },
+  {
+   "id": "T09",
+   "key": "Overdue but not forfeit",
+   "options": [
+    "On loan, not overdue",
+    "Forfeit",
+    "Overdue but not forfeit"
+   ],
+   "prompt": "Luis borrowed a concrete mixer; its effective due date was 22 April. On 21 May it has still not been returned. What is the item's status on 21 May?"
+  },
+  {
+   "id": "T10",
+   "key": "DENIED",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 26 March",
+    "GRANTED, new effective due date 27 March"
+   ],
+   "prompt": "Mira borrowed a bench vice, not on the Restricted Register, on 6 March. On 14 March she submits a renewal request. Her balance is $0, she has no other items out, no hold stands on the vice, the loan has not been renewed before, and she is not enrolled in a Build Project. What is the outcome?"
+  },
+  {
+   "id": "T11",
+   "key": "GRANTED, new effective due date 31 March",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 30 March",
+    "GRANTED, new effective due date 31 March"
+   ],
+   "prompt": "Nils borrowed a router, not on the Restricted Register, on 10 March. On 19 March he submits a renewal request. His balance is $0, he has no other items out, no hold stands on the router, the loan has not been renewed before, and he is not enrolled in a Build Project. What is the outcome?"
+  },
+  {
+   "id": "T12",
+   "key": "It goes to the open shelf, available to anyone",
+   "options": [
+    "Shelved for Member 96, collection period ending 14 April",
+    "Shelved for Member 96, collection period ending 15 April",
+    "It goes to the open shelf, available to anyone"
+   ],
+   "prompt": "Member 96's unpaid balance is $22 on 4 April, and on that date he places a hold on a heat gun (not on the Restricted Register) that is out on loan to another member. On 6 April he pays the $22 in full. The heat gun is returned on 10 April. No one else has ever placed a hold on it. What happens to the heat gun on 10 April?"
+  },
+  {
+   "id": "T13",
+   "key": "DENIED",
+   "options": [
+    "GRANTED, new effective due date 30 May",
+    "GRANTED, new effective due date 31 May",
+    "DENIED"
+   ],
+   "prompt": "Member 120 has a jigsaw out, not on the Restricted Register, with an effective due date of 20 May. His balance is $0, he has no other items out, the loan has not been renewed, and he is not enrolled in a Build Project. The system log shows two entries both dated 19 May with no times recorded: a hold on the jigsaw placed by Member 455 (balance $0), and a renewal request from Member 120. What is the outcome of the renewal request?"
+  },
+  {
+   "id": "T14",
+   "key": "GRANTED, new effective due date 30 May",
+   "options": [
+    "GRANTED, new effective due date 30 May",
+    "GRANTED, new effective due date 31 May",
+    "DENIED"
+   ],
+   "prompt": "Member 120 has a jigsaw out, not on the Restricted Register, with an effective due date of 20 May. His balance is $0, he has no other items out, the loan has not been renewed, and he is not enrolled in a Build Project. On 19 May the log records his renewal request at 08:40 and a hold on the jigsaw placed by Member 455 (balance $0) at 15:10. What is the outcome of the renewal request?"
+  },
+  {
+   "id": "T15",
+   "key": "GRANTED, new effective due date 18 April",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 18 April",
+    "GRANTED, new effective due date 19 April"
+   ],
+   "prompt": "Priya's unpaid balance is $24 at the start of 8 April. Her belt sander (not on the Restricted Register) has an effective due date of 8 April; it has not been renewed, no hold stands on it, she has no other items out, and she is not enrolled in a Build Project. The log shows a $6 payment and a renewal request, both dated 8 April, with no times recorded. What is the outcome of the renewal request?"
+  },
+  {
+   "id": "T16",
+   "key": "Yes \u2014 the collection is in time",
+   "options": [
+    "Yes \u2014 the collection is in time",
+    "No \u2014 the hold lapsed at the end of 4 May",
+    "No \u2014 the hold lapsed at the end of 3 May"
+   ],
+   "prompt": "A biscuit joiner is returned and shelved for Member 610 on 30 April; she is first in the queue, her hold is valid, and her balance is $0. She comes to the library and collects it on 5 May. Is the collection in time?"
+  },
+  {
+   "id": "T17",
+   "key": "22 March",
+   "options": [
+    "21 March",
+    "22 March",
+    "23 March"
+   ],
+   "prompt": "Two valid holds stand on a thickness planer: Member 214 placed one on 5 March, and Member 87 placed one on 7 March. Both members have $0 balances. The planer is returned on 12 March. Member 214 never collects it. What is the last date on which Member 87 may collect the planer?"
+  },
+  {
+   "id": "T18",
+   "key": "Member 512",
+   "options": [
+    "Member 96",
+    "Member 512",
+    "Nobody \u2014 it goes to the open shelf"
+   ],
+   "prompt": "On 4 April two members place holds on a nail gun that is out on loan: Member 512, whose balance is $0, and Member 96, whose unpaid balance is $22 that day. The nail gun is returned on 9 April. Who is it shelved for?"
+  },
+  {
+   "id": "T19",
+   "key": "No \u2014 the hold lapsed at the end of 9 May",
+   "options": [
+    "She may collect it on 10 May",
+    "No \u2014 the hold lapsed at the end of 9 May",
+    "No \u2014 the hold lapsed at the end of 8 May"
+   ],
+   "prompt": "A tile saw is shelved for Member 288 on 5 May; she is first in the queue and her hold is valid. Her unpaid balance is $26 continuously from 1 May through 9 May. She pays it in full on 10 May and comes to the library that day to collect the saw. What is the position?"
+  },
+  {
+   "id": "T20",
+   "key": "ALLOWED",
+   "options": [
+    "ALLOWED",
+    "REFUSED \u2014 the 3-loan cap",
+    "REFUSED \u2014 the Restricted-item cap"
+   ],
+   "prompt": "Quinn registered three years ago and his balance is $0. On 9 April he has three loans open: two items not on the Restricted Register, plus a pressure washer. The day's log shows two entries both dated 9 April with no times recorded: the return of the pressure washer, and the checkout of a chainsaw. What is the outcome of the chainsaw checkout?"
+  },
+  {
+   "id": "T21",
+   "key": "DENIED",
+   "options": [
+    "GRANTED, new effective due date 4 May",
+    "GRANTED, new effective due date 5 May",
+    "DENIED"
+   ],
+   "prompt": "Rafi borrowed a heat gun, not on the Restricted Register, on 14 April. On 21 April he submits a renewal request. His balance is $0, he has no other items out, no hold stands on the heat gun, the loan has not been renewed before, and he is not enrolled in a Build Project. What is the outcome?"
+  },
+  {
+   "id": "T22",
+   "key": "GRANTED, new effective due date 27 March",
+   "options": [
+    "DENIED \u2014 the request was made on a closed day",
+    "GRANTED, new effective due date 26 March",
+    "GRANTED, new effective due date 27 March"
+   ],
+   "prompt": "Sena borrowed a bench grinder, not on the Restricted Register, on 7 March. She submits a renewal request online on 16 March, a day on which the library is closed. Her balance is $0, she has no other items out, no hold stands on the grinder, the loan has not been renewed before, and she is not enrolled in a Build Project. What is the outcome?"
+  },
+  {
+   "id": "T23",
+   "key": "DENIED",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 21 May",
+    "GRANTED, new effective due date 23 May"
+   ],
+   "prompt": "Tomas has a scaffold tower out; its current effective due date is 16 May and it has already been renewed once. On 16 May he requests another renewal. His balance is $0, he has no other items out, no hold stands on the tower, and he is not enrolled in a Build Project. What is the outcome?"
+  },
+  {
+   "id": "T24",
+   "key": "GRANTED, new effective due date 27 March",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 23 March",
+    "GRANTED, new effective due date 27 March"
+   ],
+   "prompt": "Uma is enrolled in a registered Build Project. Her power drill, not on the Restricted Register, has a current effective due date of 20 March and has not been renewed. On 16 March she submits a renewal request and invokes the Project Override; no Override has been invoked on this loan before. Her balance is $0, she has no other items out, and no hold stands on the drill. What is the outcome?"
+  },
+  {
+   "id": "T25",
+   "key": "DENIED",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 2 May",
+    "GRANTED, new effective due date 5 May"
+   ],
+   "prompt": "Vik is enrolled in a registered Build Project. His hand router, not on the Restricted Register, has a current effective due date of 25 April and has not been renewed; no hold stands on it and his balance is $0. He also has a second item out, a bench vice, whose effective due date was 19 April and which he has not returned. On 25 April he requests a renewal of the router and invokes the Project Override; no Override has been invoked on this loan before. What is the outcome?"
+  },
+  {
+   "id": "T26",
+   "key": "DENIED",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 9 May",
+    "GRANTED, new effective due date 12 May"
+   ],
+   "prompt": "Wren is enrolled in a registered Build Project. Her heat gun, not on the Restricted Register, has a current effective due date of 2 May and has not been renewed. She still has it on 5 May, when she submits a renewal request and invokes the Project Override; no Override has been invoked on this loan before. Her balance is $0, she has no other items out, and no hold stands on the heat gun. What is the outcome?"
+  },
+  {
+   "id": "T27",
+   "key": "GRANTED, new effective due date 19 May",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 19 May",
+    "GRANTED, new effective due date 22 May"
+   ],
+   "prompt": "Xan is enrolled in a registered Build Project. His planer, not on the Restricted Register, has a current effective due date of 12 May and has not been renewed; his balance is $0 and he has no other items out. Member 620, whose balance is $0, placed a hold on the planer on 9 May. On 11 May Xan submits a renewal request and invokes the Project Override; no Override has been invoked on this loan before. What is the outcome?"
+  },
+  {
+   "id": "T28",
+   "key": "GRANTED, new effective due date 27 May",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 26 May",
+    "GRANTED, new effective due date 27 May"
+   ],
+   "prompt": "Yara is enrolled in a registered Build Project. Her concrete mixer has a current effective due date of 20 May and has already been renewed once. On 20 May she requests another renewal and invokes the Project Override; no Override has been invoked on this loan before. Her balance is $0, she has no other items out, and no hold stands on the mixer. What is the outcome?"
+  },
+  {
+   "id": "T29",
+   "key": "DENIED",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 13 May",
+    "GRANTED, new effective due date 16 May"
+   ],
+   "prompt": "Zeb is enrolled in a registered Build Project. His unpaid balance is exactly $20 on 6 May and he makes no payment that day. His jigsaw, not on the Restricted Register, has a current effective due date of 6 May and has not been renewed; he has no other items out. Member 700, whose balance is $0, placed a valid hold on the jigsaw on 4 May. On 6 May Zeb submits a renewal request and invokes the Project Override; no Override has been invoked on this loan before. What is the outcome?"
+  },
+  {
+   "id": "T30",
+   "key": "DENIED",
+   "options": [
+    "DENIED",
+    "GRANTED, new effective due date 24 April",
+    "GRANTED, new effective due date 28 April"
+   ],
+   "prompt": "Ada is enrolled in a registered Build Project. Her hand planer, not on the Restricted Register, had an effective due date of 10 April; on 10 April she invoked the Project Override and the renewal was granted, moving the effective due date to 17 April. Member 480, whose balance is $0, placed a hold on the planer on 14 April. On 17 April Ada submits a further renewal request and invokes the Project Override again. Her balance is $0, she has no other items out, and the planer is not overdue. What is the outcome?"
+  }
+ ],
+ "weights": [
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0
+ ]
+}

@@ -1,0 +1,985 @@
+{
+ "adjudicator_reports": [
+  {
+   "adjudicator": 1,
+   "spec_defects": "Places the spec is silent, ambiguous, or self-contradictory (none of these changed an answer above, but each is a latent hole):\n\n1. 1.2 defines counting only forward (\"a period of n days from date D begins on D+1\"), yet 2.3 requires a backward measurement (\"registration date fewer than 30 days before the checkout date\"). 1.2 says it is \"measured the same way\" without saying which endpoint is D. T05 (27 days) is safe on any reading, but a case at 29/30/31 days would be undecidable.\n\n2. 4.3 re-shelving is doubly loose. (a) \"the item is shelved the following day\" \u2014 following the end of the extended period, or the day after the natural 4-day period? (b) \"with a fresh 4-day period counted from that day\" does not re-cite 1.2, so whether the shelving day is counted is left to inference. T17 turns on both; importing 1.2's global convention yields 22 March, but readings producing 21 or 23 March are only weakly excluded.\n\n3. 4.3 adjusts only the LAST day of a collection period for closure. It says nothing about a shelving day (or a re-shelving day) that falls on a closed day, even though 1.4 lets returns happen on closed days and 1.6 bars in-person collection on closed days \u2014 so a period can begin on a day the member cannot act.\n\n4. 5.1 states a loan \"carries at most one invocation\" but never states the consequence of a second attempt: is the second invocation void (leaving the request judged on ordinary rules), or does it invalidate the request outright? T30 reaches DENIED either way, but a fact pattern with no other bar would be undecidable.\n\n5. 6.3 fixes suspension by balance \"at that moment\", while 7.2's deemed order is a rule about events, not about balances. The spec never expressly says the deemed order also fixes the balance at the moment of a later same-date event. T15 depends on that inference.\n\n6. 7.2's deemed order omits several event types that the rules make operative: fee postings and forfeit charges under 6.5/6.4, and the act of shelving under 4.3. A same-date return-plus-hold-placement (not tested here) would leave it unsettled whether the hold is in the queue when the item is shelved.\n\n7. 3.2 defines the window as \"the effective due date and the two dates immediately before it\" without saying whether those two dates skip closed days. Since renewals may be made on closed days (1.6), calendar dates is the natural reading, but the text does not say so.\n\n8. 6.2's grace and 6.4's forfeit are not related to each other; 6.4 simply cancels \"late fees accrued\", which is unproblematic only because grace suppresses fees rather than accrual.",
+   "verdicts": [
+    {
+     "answer": "15 March",
+     "determinate": true,
+     "id": "T01",
+     "reasoning": "Cordless drill is Standard (2.1), 10-day loan. 5 March + 10 = 15 March (1.2). 15 March is not a Sunday and not 15 April, so it is an open day (1.1); no move under 1.3."
+    },
+    {
+     "answer": "17 March",
+     "determinate": true,
+     "id": "T02",
+     "reasoning": "Standard, 10 days: 6 March + 10 = 16 March, a Sunday (1.1). Under 1.3 it moves forward once to the next open day, 17 March."
+    },
+    {
+     "answer": "16 April",
+     "determinate": true,
+     "id": "T03",
+     "reasoning": "Tile saw is on the Restricted Register (2.1), 5-day loan: 10 April + 5 = 15 April, the holiday (1.1). Moves once to 16 April, which is not a Sunday."
+    },
+    {
+     "answer": "REFUSED \u2014 the 3-loan cap",
+     "determinate": true,
+     "id": "T04",
+     "reasoning": "2.2 caps loans at 3; Greg already has 3 open, so the fourth checkout breaches that cap. The Restricted cap is untouched: he holds 1 Restricted (chainsaw) and the hand plane is Standard."
+    },
+    {
+     "answer": "REFUSED \u2014 the new-member restriction",
+     "determinate": true,
+     "id": "T05",
+     "reasoning": "2.3 bars Restricted borrowing when registration is fewer than 30 days before checkout. 20 March to 16 April is 27 days on 1.2's counting; a pressure washer is Restricted (2.1). 2.3 also ranks highest under 7.1(a). The Restricted-item cap (2.2) is not in play \u2014 she has no items out."
+    },
+    {
+     "answer": "$0",
+     "determinate": true,
+     "id": "T06",
+     "reasoning": "Overdue day 1 is 15 March, day 2 is 16 March (1.5). The return box is available on closed days and credits the deposit to that date (1.4), so return falls on overdue day 2 \u2014 grace under 6.2, no fee."
+    },
+    {
+     "answer": "$4",
+     "determinate": true,
+     "id": "T07",
+     "reasoning": "Overdue days 15, 16, 17, 18 March = 4 days (1.5, counting closed days). Return on day 4 is past grace, so 6.2 charges every overdue day including 1 and 2: 4 x $1 (6.1) = $4."
+    },
+    {
+     "answer": "$75",
+     "determinate": true,
+     "id": "T08",
+     "reasoning": "Overdue day 1 is 2 April; day 30 is 1 May. The item is still out at the end of day 30, so it is FORFEIT (6.4): accrued late fees are cancelled and replaced by the flat $75, and the 3 May return does not remove it."
+    },
+    {
+     "answer": "Overdue but not forfeit",
+     "determinate": true,
+     "id": "T09",
+     "reasoning": "Overdue day 1 is 23 April (1.5). 21 May is overdue day 29, so 6.4's forfeit trigger (end of day 30, i.e. 22 May) has not yet been reached."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T10",
+     "reasoning": "6 March + 10 = 16 March, a Sunday, so the effective due date is 17 March (1.3). The renewal window is 15-17 March (3.2). The 14 March request is outside it and no Override is available (5.1)."
+    },
+    {
+     "answer": "GRANTED, new effective due date 31 March",
+     "determinate": true,
+     "id": "T11",
+     "reasoning": "Effective due date 20 March (open day). Window 18-20 March includes 19 March (3.2); no bar under 3.3-3.6. The 10-day extension runs from 20 March to 30 March, a Sunday, so 3.1/1.3 move it to 31 March."
+    },
+    {
+     "answer": "It goes to the open shelf, available to anyone",
+     "determinate": true,
+     "id": "T12",
+     "reasoning": "At placement on 4 April his balance was $22, so he was suspended (6.3) and the hold is VOID under 4.2 \u2014 it never enters the queue and does not revive when he pays. With no valid hold, 4.4 sends the item to the open shelf."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T13",
+     "reasoning": "Both events are dated 19 May with no established order, so 7.2's deemed order applies: hold placements precede renewal requests. Member 455's hold is valid (balance $0), so 3.5 denies; Member 120 has no Build Project, so no Override is available."
+    },
+    {
+     "answer": "GRANTED, new effective due date 30 May",
+     "determinate": true,
+     "id": "T14",
+     "reasoning": "The facts establish the order, which governs over 7.2's default: at 08:40 no hold stood, so 3.5 does not bite (judged at the moment of the request, 3.5/7.3). Window 18-20 May includes 19 May. 20 May + 10 = 30 May, an open day."
+    },
+    {
+     "answer": "GRANTED, new effective due date 18 April",
+     "determinate": true,
+     "id": "T15",
+     "reasoning": "Same-date, untimed events are deemed ordered payments before renewal requests (7.2); the payment reduces the balance on the date made (6.5) to $18, below $20, so she is not suspended at the moment of request (6.3). 8 April is in the window (6-8 April) and the loan is not yet overdue (1.5). 8 April + 10 = 18 April, an open day."
+    },
+    {
+     "answer": "Yes \u2014 the collection is in time",
+     "determinate": true,
+     "id": "T16",
+     "reasoning": "4.3 with 1.2: 4 days from 30 April ends 4 May, a Sunday, so the period runs instead to the next open day, 5 May. Collection on 5 May is within the period."
+    },
+    {
+     "answer": "22 March",
+     "determinate": true,
+     "id": "T17",
+     "reasoning": "Shelved 12 March for Member 214; period 13-16 March, last day a Sunday, so it runs to 17 March (4.3). Uncollected, the hold lapses and the item is shelved the following day, 18 March, with a fresh 4-day period counted from that day under 1.2: 19-22 March. 22 March is open, so no extension."
+    },
+    {
+     "answer": "Member 512",
+     "determinate": true,
+     "id": "T18",
+     "reasoning": "Member 96 was suspended at placement ($22, 6.3), so his hold is VOID and never enters the queue (4.2); the same-date tiebreak in 4.1 never reaches him. Member 512's hold is the only valid one, so 4.3 shelves it for her."
+    },
+    {
+     "answer": "No \u2014 the hold lapsed at the end of 9 May",
+     "determinate": true,
+     "id": "T19",
+     "reasoning": "Period is 6-9 May (4.3, 1.2); 9 May is an open day, so no extension. 6.3 expressly keeps collection periods running during suspension, so the hold lapsed before her 10 May payment and visit."
+    },
+    {
+     "answer": "ALLOWED",
+     "determinate": true,
+     "id": "T20",
+     "reasoning": "Same-date untimed events are deemed ordered returns before checkouts (7.2), so at checkout he has 2 loans and 0 Restricted \u2014 neither limb of 2.2 is breached. 2.3 does not apply (registered three years ago) and 9 April is an open day (1.6)."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T21",
+     "reasoning": "14 April + 10 = 24 April, an open day, so the effective due date is 24 April and the window is 22-24 April (3.2). The 21 April request falls outside it and he has no Override."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 March",
+     "determinate": true,
+     "id": "T22",
+     "reasoning": "1.6 expressly allows renewal requests online on closed days, so the Sunday is irrelevant. Effective due date 17 March; window 15-17 March includes 16 March. 17 March + 10 = 27 March, an open day."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T23",
+     "reasoning": "A scaffold tower is Restricted (2.1) and 3.3 caps Restricted loans at one renewal; this would be the second. He is not enrolled in a Build Project, so 5.2 cannot lift 3.3."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 March",
+     "determinate": true,
+     "id": "T24",
+     "reasoning": "The 16 March request is outside the 18-20 March window, but a valid Override overrides 3.2 (5.2, 7.1(d)); nothing under 3.4, 3.6 or 6.3 applies. The Override term is 7 days for every class, counted from the current effective due date 20 March (5.4), giving 27 March, an open day."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T25",
+     "reasoning": "The bench vice was due 19 April and is unreturned, so another item is overdue at the moment of request \u2014 3.4 denies, and 5.3/7.1(c) say the Override does not cure a 3.4 denial."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T26",
+     "reasoning": "On 5 May the heat gun itself is overdue (due 2 May, 1.5), so 3.6 denies; 5.3 and 7.1(c) put 3.6 above the Override."
+    },
+    {
+     "answer": "GRANTED, new effective due date 19 May",
+     "determinate": true,
+     "id": "T27",
+     "reasoning": "Member 620's hold is valid, so 3.5 would deny, but a valid Override beats 3.5 (5.2, 7.1(d)); no 3.4/3.6/6.3 bar exists. 7 days from the current effective due date 12 May (5.4) = 19 May, an open day."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 May",
+     "determinate": true,
+     "id": "T28",
+     "reasoning": "3.3 would deny a second Restricted renewal, but the Override lifts 3.3 (5.2). The 20 May request is in the window anyway. 7 days from 20 May (5.4) = 27 May, an open day (Sundays are 25 May, then 1 June)."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T29",
+     "reasoning": "A balance of exactly $20 is suspension ($20 or more, 6.3), and a suspended member may not renew or invoke the Override; 6.3 outranks the Override (7.1(b), 5.3). Member 700's valid hold would independently deny under 3.5 with no Override available."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T30",
+     "reasoning": "5.1 allows a loan at most one Override invocation, successful or not, and this loan's was used on 10 April; so there is no valid invocation on 17 April to trigger 5.2. Member 480's hold is valid and standing, so 3.5 denies. (3.3 would not have barred it \u2014 a Standard loan allows two renewals and the Override renewal counted as one, 5.4.)"
+    }
+   ]
+  },
+  {
+   "adjudicator": 2,
+   "spec_defects": "None of the 30 cases turns on a genuine gap \u2014 every one is settled by an express rule (1.2/1.3 counting, 7.2's deemed same-date order, 4.2 voiding, 5.3/7.1 on the Override's ceiling, and 6.3's express statement that collection periods keep running). The defects below are real silences in the text that these cases happen to steer around, plus two places where the drafting invites a wrong-but-arguable reading.\n\n1. Shelving on a closed day (4.3). The item is 'shelved on its return date', and 1.4 lets a return be credited to a closed day via the return box. The spec never says whether shelving (or the start of the collection period) moves to the next open day when the return date is closed, even though it does provide for the period's LAST day falling closed. T16/T17/T19 all have open shelving dates, so the gap is untested but live.\n\n2. Lapse-and-reshelve on a closed day (4.3). 'The item is shelved the following day for the next member' has the same hole: if the following day is a Sunday, is that the shelving date, or does it move? In T17 18 March is open, so it does not matter.\n\n3. 'Fewer than n days before' (1.2 / 2.3). 1.2 defines a period running FORWARD from D, and 2.3 asks a backward question about a registration date. The mapping works, but the text never states it directly; a drafter should have written 2.3 as 'checkout date is within 30 days after registration'. T05 has a 3-day margin, so no reading changes the answer.\n\n4. Unnecessary Override invocations (5.1/5.2/5.4). 5.2 defines a 'valid invocation' only by reference to denials it cures. If a member invokes the Override on a request that no rule would deny, it is unclear whether the invocation is 'valid' (and so imposes the 7-day term of 5.4 in place of the class term, and burns the loan's one invocation under 5.1). Not squarely raised here \u2014 in T24, T27 and T28 the Override is genuinely needed.\n\n5. Forfeit and 3.4 (6.4 vs 3.4). After forfeit the item is out, fees are cancelled, and nothing further accrues; the spec never says whether it remains 'OVERDUE' for the purposes of 3.4's 'any OTHER item overdue' bar or 3.6. Untested here (T25's vice is at 6 overdue days).\n\n6. Same-type simultaneity (7.2). The deemed order sorts event TYPES but not two events of the same type on the same untimed date \u2014 e.g. two payments, or two returns. 4.1 supplies a tiebreak for same-date holds (member number), which highlights the absence of a general one.\n\n7. Post-forfeit return and the hold queue (6.4 vs 4.3). If a forfeit item is later returned and a valid hold stands on it, 4.3's 'shelved on its return date' presumably still applies, but 6.4 is silent on the item's shelf status. Untested.\n\n8. Distractor design worth flagging: T24's '23 March' and T28's '26 May' options are only reachable by counting the Override term from the request date, or by using the class term instead of 7 days. 5.4 forecloses both, so the options are wrong rather than arguable \u2014 but they show where a careless reader lands.",
+   "verdicts": [
+    {
+     "answer": "15 March",
+     "determinate": true,
+     "id": "T01",
+     "reasoning": "Cordless drill is Standard (2.1), 10 days from 5 March under 1.2 = 15 March. 15 March is not a Sunday (2, 9, 16, 23, 30) and not 15 April, so it is open; no move under 1.3."
+    },
+    {
+     "answer": "17 March",
+     "determinate": true,
+     "id": "T02",
+     "reasoning": "Standard 10 days from 6 March = 16 March, a Sunday and therefore closed (1.1). Rule 1.3 moves it forward one day to 17 March, which is open."
+    },
+    {
+     "answer": "16 April",
+     "determinate": true,
+     "id": "T03",
+     "reasoning": "Tile saw is on the Restricted Register (2.1), so 5 days from 10 April = 15 April, the holiday. 1.3 moves it to 16 April (13 and 20 April are the neighbouring Sundays, so 16 is open)."
+    },
+    {
+     "answer": "REFUSED \u2014 the 3-loan cap",
+     "determinate": true,
+     "id": "T04",
+     "reasoning": "2.2 caps loans at 3; Greg already has 3 open, so the fourth is refused. The Restricted sub-cap is not breached: the hand plane is Standard and he holds only one Restricted item, so the 3-loan cap is the operative ground."
+    },
+    {
+     "answer": "REFUSED \u2014 the new-member restriction",
+     "determinate": true,
+     "id": "T05",
+     "reasoning": "2.3 bars a Restricted borrow where registration is fewer than 30 days before checkout, measured under 1.2: 30 days from 20 March ends 19 April, and 16 April falls inside that span (27 days). Pressure washer is Restricted (2.1). She has no items out, so 2.2 is not in play, and 2.3 admits no exception."
+    },
+    {
+     "answer": "$0",
+     "determinate": true,
+     "id": "T06",
+     "reasoning": "Effective due 14 March, so overdue day 1 is 15 March and day 2 is 16 March (1.5). The return box works on closed days and credits to that date (1.4), so return falls on overdue day 2 \u2014 grace under 6.2, no fee."
+    },
+    {
+     "answer": "$4",
+     "determinate": true,
+     "id": "T07",
+     "reasoning": "Overdue days 1\u20134 are 15\u201318 March. Return on day 4 is day 3 or later, so 6.2 charges every overdue day including days 1 and 2: 4 days x $1 Standard (6.1) = $4."
+    },
+    {
+     "answer": "$75",
+     "determinate": true,
+     "id": "T08",
+     "reasoning": "Overdue day 1 is 2 April, so overdue day 30 is 1 May. The item was still out at the end of that day, so it is FORFEIT (6.4): accrued late fees are cancelled and replaced by a flat $75, and the 3 May return does not remove it. The $107 option double-counts the cancelled fees."
+    },
+    {
+     "answer": "Overdue but not forfeit",
+     "determinate": true,
+     "id": "T09",
+     "reasoning": "Overdue day 1 is 23 April (1.5), so overdue day 30 ends 22 May. On 21 May the item is on overdue day 29 \u2014 overdue, but forfeit under 6.4 has not yet triggered."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T10",
+     "reasoning": "Loan 6 March + 10 days = 16 March (Sunday), moved by 1.3 to effective due 17 March. The 3.2 window is 15\u201317 March; a 14 March request is outside it, and no Override is available (5.1 requires Build Project enrolment)."
+    },
+    {
+     "answer": "GRANTED, new effective due date 31 March",
+     "determinate": true,
+     "id": "T11",
+     "reasoning": "Due 20 March (open), window 18\u201320 March, so the 19 March request is in time; 3.3\u20133.6 all clear. 3.1 adds 10 days from the effective due date = 30 March, a Sunday, moved by 1.3 to 31 March."
+    },
+    {
+     "answer": "It goes to the open shelf, available to anyone",
+     "determinate": true,
+     "id": "T12",
+     "reasoning": "Member 96's balance was $22 when he placed the hold, so he was suspended (6.3) and the hold is VOID under 4.2 \u2014 it never enters the queue and the later payment does not revive it. With no valid hold, 4.4 sends the heat gun to the open shelf."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T13",
+     "reasoning": "Both events are dated 19 May with no order established, so 7.2's deemed sequence applies: hold placements precede renewal requests. At the moment of the request a valid hold (Member 455, $0 balance, so not void under 4.2) stood on the jigsaw, and 3.5 denies. No Build Project, so no Override to beat 3.5 under 7.1(d)."
+    },
+    {
+     "answer": "GRANTED, new effective due date 30 May",
+     "determinate": true,
+     "id": "T14",
+     "reasoning": "Here the facts establish the order, which governs over 7.2's default: at 08:40 no hold stood, so 3.5 is not engaged (3.4/3.6 and 3.3 also clear, and 19 May is inside the 18\u201320 May window). 3.1 gives 10 days from 20 May = 30 May, an open day (May Sundays are 4, 11, 18, 25)."
+    },
+    {
+     "answer": "GRANTED, new effective due date 18 April",
+     "determinate": true,
+     "id": "T15",
+     "reasoning": "Same-date, untimed events take 7.2's order: the $6 payment precedes the request, dropping the balance to $18, so suspension ceases 'the moment it falls below $20' (6.3) before the request is judged. 8 April is in the 6\u20138 April window; the loan is not yet overdue on its due date (1.5). 10 days from 8 April = 18 April, an open day."
+    },
+    {
+     "answer": "Yes \u2014 the collection is in time",
+     "determinate": true,
+     "id": "T16",
+     "reasoning": "4.3 gives 4 days from 30 April counted under 1.2 = 1\u20134 May, ending 4 May, a Sunday; the express closed-day extension runs the period to the next open day, 5 May. Collection on 5 May is within the period."
+    },
+    {
+     "answer": "22 March",
+     "determinate": true,
+     "id": "T17",
+     "reasoning": "Member 214 ranks first by placement date (4.1). Shelved 12 March, his period runs 13\u201316 March; 16 March is a Sunday so it extends to 17 March. He does not collect, so the hold lapses and the item is shelved the following day, 18 March (open), for Member 87 with a fresh 4-day period counted from that day: 19\u201322 March. 22 March is open, so no extension."
+    },
+    {
+     "answer": "Member 512",
+     "determinate": true,
+     "id": "T18",
+     "reasoning": "Member 96 was suspended ($22 >= $20, 6.3) when he placed his hold, so it is VOID and never queues (4.2). Member 512's hold is the only valid one, so 4.3 shelves the nail gun for him on the 9 April return date."
+    },
+    {
+     "answer": "No \u2014 the hold lapsed at the end of 9 May",
+     "determinate": true,
+     "id": "T19",
+     "reasoning": "Collection period is 6\u20139 May (4 days from 5 May); 9 May is open, so no extension. 6.3 bars a suspended member from collecting but expressly provides that collection periods keep running during suspension, so the hold lapsed at the end of 9 May, before the 10 May payment."
+    },
+    {
+     "answer": "ALLOWED",
+     "determinate": true,
+     "id": "T20",
+     "reasoning": "No order is established for the two 9 April entries, so 7.2 deems the return to precede the checkout. After the return Quinn has 2 loans, none Restricted; the chainsaw makes 3 loans and 1 Restricted, within both limbs of 2.2. 2.3 is satisfied (registered three years ago) and he is not suspended."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T21",
+     "reasoning": "14 April + 10 days = 24 April, an open day, so the effective due date is 24 April and the 3.2 window is 22\u201324 April. The 21 April request falls outside it, and with no Build Project enrolment nothing in 5.2 can rescue it."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 March",
+     "determinate": true,
+     "id": "T22",
+     "reasoning": "1.6 expressly permits renewal requests online on any date, open or closed, so the closed-day objection fails. Due 17 March (7 March + 10 = 17, open), window 15\u201317 March, so 16 March is inside it. 3.1 adds 10 days from 17 March = 27 March, an open day (Sundays 23 and 30)."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T23",
+     "reasoning": "A scaffold tower is on the Restricted Register, so 3.3 permits at most one renewal and this loan has already had it. The request is in the window and otherwise clean, but only a valid Override beats 3.3 (7.1(d)) and Tomas is not enrolled in a Build Project."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 March",
+     "determinate": true,
+     "id": "T24",
+     "reasoning": "The 16 March request is outside the 18\u201320 March window, which 3.2 would deny, but a first, valid invocation by an unsuspended member with no 3.4/3.6 problem cures exactly that (5.2, 7.1(d)). 5.4 fixes the term at 7 days counted from the current effective due date, not the request date: 20 March + 7 = 27 March, an open day. The 23 March option wrongly counts from 16 March."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T25",
+     "reasoning": "The bench vice was due 19 April and is still out, so at the moment of the request Vik has another item overdue and 3.4 applies. 5.3 states the Override does not cure a 3.4 denial, and 7.1 ranks 3.4 above the Override. The invocation is nevertheless spent under 5.1."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T26",
+     "reasoning": "The heat gun was due 2 May and is still out on 5 May, so the loan being renewed is itself overdue and 3.6 bites. 5.3 and 7.1(c) put 3.6 beyond the Override's reach."
+    },
+    {
+     "answer": "GRANTED, new effective due date 19 May",
+     "determinate": true,
+     "id": "T27",
+     "reasoning": "Member 620's hold is valid (placed by an unsuspended member) and 3.5 would deny, but the Override beats 3.5 (5.2, 7.1(d)); Xan is unsuspended, has no other item overdue, the loan is not overdue, and this is the loan's first invocation. 5.4 gives 7 days from 12 May = 19 May, an open day (Sundays 18 and 25)."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 May",
+     "determinate": true,
+     "id": "T28",
+     "reasoning": "A concrete mixer is Restricted and already renewed once, so 3.3 would deny; a first valid Override beats 3.3 (5.2, 7.1(d)) and nothing under 3.4/3.6 or 6.3 applies (the request on the due date is not overdue). 5.4 runs 7 days for every class from 20 May = 27 May, open. The 26 May option wrongly uses the 5-day Restricted term."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T29",
+     "reasoning": "A balance of exactly $20 is 'a $20 or more' balance, so Zeb is suspended (6.3) and may neither renew nor invoke the Override; 5.3 says so expressly and 7.1 ranks 6.3(b) above the Override(d). The valid hold by Member 700 would independently deny under 3.5 with no Override available."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T30",
+     "reasoning": "5.1 allows a loan at most one invocation, successful or not, and this loan's was spent on 10 April, so the 17 April invocation is not a valid one and 5.2 gives nothing. Judged on the ordinary rules, the request is inside the 15\u201317 April window and within 3.3 (this would be the second of two permitted renewals, the Override one counting under 5.4), but Member 480's valid hold of 14 April stands and 3.5 denies."
+    }
+   ]
+  },
+  {
+   "adjudicator": 3,
+   "spec_defects": "All 30 cases are, in my reading, decided by the text; the distractor options track identifiable misreadings (counting D itself, computing from the unmoved due date or the request date, ignoring the closed-day extension, double-counting cancelled fees). The defects below are real gaps in the specification, though none of them is load-bearing for these particular cases \u2014 which is itself worth noting: the suite exercises the well-specified core and leaves the soft edges untested.\n\n1. Shelving on a closed day (4.3 vs 1.4/1.6). 1.4 credits a return-box deposit on a closed day to that date, and 4.3 says a held item is \"shelved on its return date\". So a collection period can start on a closed day, and nothing extends or delays its start \u2014 only its last day is protected. Untested here (all returns in the cases fall on open days), but the rule is silent.\n\n2. 4.3's second and later collection periods. The extension \"if its last day is closed it runs instead to the next open day\" is attached grammatically to the first member's period; the successor's \"fresh 4-day period counted from that day\" does not restate it. Nor does the spec say whether \"the item is shelved the following day\" must be an open day. T17 escapes this only by luck (18 and 22 March are both open). A variant of T17 landing on a Sunday would be genuinely undecidable.\n\n3. Consequence of a second Override invocation (5.1). 5.1 says a loan \"carries at most one invocation, successful or not\", but never says what a second invocation does: whether the accompanying renewal request is void, or simply judged as an ordinary request. T30 is insulated because 3.5 denies on independent grounds; a case with no hold and no other bar would be contestable.\n\n4. Precedence list omits 2.2 and 4.2 (7.1). 2.3 is ranked but the 3-loan/1-Restricted cap in 2.2 is not, and the void-hold rule 4.2 is not placed either. 5.3 patches 2.2 for the Override specifically, but the general order is incomplete.\n\n5. \"Overdue\" after forfeit (3.4/3.6 vs 6.4). Once an item is FORFEIT, fees stop and the status changes, but the spec never says whether it continues to count as an \"OTHER item overdue\" for 3.4 (or as overdue for 3.6 if the forfeited loan is the one being renewed). A member with a forfeited item outstanding is unadjudicable.\n\n6. Holds on a forfeited item (4.3 vs 6.4). If an item with a valid hold queue is forfeited and never returned, nothing says what becomes of the queue, or what happens if it is returned after forfeit \u2014 is it shelved for the first holder, or does the hold survive at all?\n\n7. Where the $75 replacement charge sits for suspension purposes. 6.5 posts it to the balance on the forfeit date, which will normally trigger 6.3 suspension, but 6.4 calls it a \"replacement charge\" rather than a late fee and 6.3 speaks of \"unpaid balance\"; the link is inferable but never stated.\n\n8. 4.1 scope. \"A hold may be placed on an item on loan\" leaves unstated whether a hold may be placed on a hold-shelf item (4.5 says it is not a loan) or an open-shelf item \u2014 so an item that goes to the open shelf under 4.4 has no defined hold mechanics at all.\n\n9. Calendar boundary. 1.3's \"moves forward to the next open day\" and all day-counting assume the March\u2013May window; nothing defines behaviour for a computed date falling past 31 May (e.g. a 7-day Override renewal from a late-May due date).",
+   "verdicts": [
+    {
+     "answer": "15 March",
+     "determinate": true,
+     "id": "T01",
+     "reasoning": "2.1 Standard = 10 days; 1.2: 5 Mar + 10 = 15 Mar. 15 March is not a listed Sunday and not 15 April, so it is open; 1.3 no move."
+    },
+    {
+     "answer": "17 March",
+     "determinate": true,
+     "id": "T02",
+     "reasoning": "6 Mar + 10 = 16 Mar, a listed Sunday, so 1.3 moves it forward once to 17 Mar (open)."
+    },
+    {
+     "answer": "16 April",
+     "determinate": true,
+     "id": "T03",
+     "reasoning": "Tile saw is on the Restricted Register (2.1), 5-day loan: 10 Apr + 5 = 15 Apr, the holiday. 1.3 moves to 16 Apr, which is open (April Sundays are 6,13,20,27)."
+    },
+    {
+     "answer": "REFUSED \u2014 the 3-loan cap",
+     "determinate": true,
+     "id": "T04",
+     "reasoning": "2.2 caps loans at 3; he already has 3 open, so a fourth breaches the loan cap. The hand plane is Standard, so the 1-Restricted cap is not the breached limit."
+    },
+    {
+     "answer": "REFUSED \u2014 the new-member restriction",
+     "determinate": true,
+     "id": "T05",
+     "reasoning": "2.3 with 1.2 counting: 20 Mar to 16 Apr is 27 days, fewer than 30, so she may not borrow a Restricted item (pressure washer is on the Register). 2.3 also ranks highest under 7.1(a). She has no items out, so no cap issue."
+    },
+    {
+     "answer": "$0",
+     "determinate": true,
+     "id": "T06",
+     "reasoning": "1.5: overdue day 1 = 15 Mar, day 2 = 16 Mar. 1.4 credits the return-box drop to 16 Mar, i.e. overdue day 2, so 6.2 grace applies."
+    },
+    {
+     "answer": "$4",
+     "determinate": true,
+     "id": "T07",
+     "reasoning": "Overdue days 15\u201318 Mar = day 4. 6.2: returned on day 3 or later, so all 4 overdue days are charged at $1 (6.1 Standard) = $4."
+    },
+    {
+     "answer": "$75",
+     "determinate": true,
+     "id": "T08",
+     "reasoning": "Overdue day 1 = 2 Apr, so day 30 = 1 May; still out at end of that day, so 6.4 forfeit. Accrued late fees are cancelled and replaced by the flat $75; later return does not remove it. ($107 would double-count the cancelled fees.)"
+    },
+    {
+     "answer": "Overdue but not forfeit",
+     "determinate": true,
+     "id": "T09",
+     "reasoning": "1.5: overdue day 1 = 23 Apr, so day n = 22 Apr + n; 21 May is overdue day 29. Forfeit only at the end of day 30 (22 May) under 6.4."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T10",
+     "reasoning": "6 Mar + 10 = 16 Mar (Sunday) moves to 17 Mar effective due date (1.3). 3.2 window = 15, 16, 17 Mar; the 14 Mar request is outside it and no Override is available."
+    },
+    {
+     "answer": "GRANTED, new effective due date 31 March",
+     "determinate": true,
+     "id": "T11",
+     "reasoning": "Effective due 20 Mar (open); 19 Mar is inside the 3.2 window (18\u201320). 3.1: 20 Mar + 10 = 30 Mar, a Sunday, moved by 1.3 to 31 Mar. No other denial ground applies."
+    },
+    {
+     "answer": "It goes to the open shelf, available to anyone",
+     "determinate": true,
+     "id": "T12",
+     "reasoning": "Balance $22 on 4 Apr means suspended (6.3), so the hold is VOID under 4.2 and never enters the queue; 4.2 expressly denies revival on later payment. With no valid hold, 4.4 sends the item to the open shelf."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T13",
+     "reasoning": "Same date, no times recorded, so 7.2's deemed order applies: hold placements precede renewal requests. A valid hold therefore stood at the moment of the request (3.5), and Member 120 is not enrolled in a Build Project, so no Override."
+    },
+    {
+     "answer": "GRANTED, new effective due date 30 May",
+     "determinate": true,
+     "id": "T14",
+     "reasoning": "7.2: the facts establish the order, so the 08:40 request is judged before the 15:10 hold; no hold stood at that moment. 19 May is inside the window (18\u201320). 20 May + 10 = 30 May, an open day."
+    },
+    {
+     "answer": "GRANTED, new effective due date 18 April",
+     "determinate": true,
+     "id": "T15",
+     "reasoning": "7.2 deems the payment to precede the renewal request, so under 6.5/6.3 the balance is $18 (below $20) when the request is made \u2014 not suspended. 8 Apr is the effective due date, inside the 3.2 window, and the loan is not yet overdue (1.5). 8 Apr + 10 = 18 Apr, open."
+    },
+    {
+     "answer": "Yes \u2014 the collection is in time",
+     "determinate": true,
+     "id": "T16",
+     "reasoning": "4.3 with 1.2: 4 days from 30 Apr runs 1\u20134 May; 4 May is a Sunday, so the period runs instead to the next open day, 5 May. Collection on 5 May is within the period."
+    },
+    {
+     "answer": "22 March",
+     "determinate": true,
+     "id": "T17",
+     "reasoning": "First period 13\u201316 Mar; 16 Mar is a Sunday, so it runs to 17 Mar. The hold lapses and the item is shelved the following day, 18 Mar, with a fresh 4-day period (1.2) running 19\u201322 Mar; 22 Mar is open. (21 March corresponds to counting the shelving day itself, which 1.2 forbids.)"
+    },
+    {
+     "answer": "Member 512",
+     "determinate": true,
+     "id": "T18",
+     "reasoning": "Member 96 was suspended on 4 Apr ($22 \u2265 $20, 6.3), so his hold is void under 4.2 and never enters the queue; the lower-member-number tie-break in 4.1 applies only to valid holds. Member 512's hold is the only valid one."
+    },
+    {
+     "answer": "No \u2014 the hold lapsed at the end of 9 May",
+     "determinate": true,
+     "id": "T19",
+     "reasoning": "4.3: 4 days from 5 May runs 6\u20139 May; 9 May is open, so no extension. 6.3 bars collection while suspended but expressly keeps collection periods running, so the hold lapsed before her 10 May payment."
+    },
+    {
+     "answer": "ALLOWED",
+     "determinate": true,
+     "id": "T20",
+     "reasoning": "7.2 deems returns to precede checkouts where times are unrecorded, so at checkout he holds 2 loans, none Restricted; the chainsaw makes 3 loans with 1 Restricted, within 2.2. Registration is old, so 2.3 is satisfied and balance $0 means no 6.3 bar."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T21",
+     "reasoning": "14 Apr + 10 = 24 Apr (open; 1.2 counts calendar days, so the 15 Apr holiday is irrelevant). Window is 22\u201324 Apr; the 21 Apr request falls outside it (3.2) and no Override is available."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 March",
+     "determinate": true,
+     "id": "T22",
+     "reasoning": "1.6 permits online renewal requests on closed days, so the 16 Mar request is not denied for that. Effective due 17 Mar (7 Mar + 10; 17 Mar is open), window 15\u201317 Mar. 17 Mar + 10 = 27 Mar, open."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T23",
+     "reasoning": "Scaffold tower is Restricted (2.1); 3.3 allows at most one renewal for a Restricted loan and it has already been renewed once. He is not enrolled in a Build Project, so 5.2 cannot cure the 3.3 denial."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 March",
+     "determinate": true,
+     "id": "T24",
+     "reasoning": "The 16 Mar request is outside the 3.2 window (18\u201320 Mar), but 5.2 lets a valid Override cure a 3.2 denial; she is enrolled, unsuspended, no 3.4/3.6 issue, first invocation on this loan. 5.4: 7 days from the current effective due date 20 Mar = 27 Mar, an open day (not from the request date)."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T25",
+     "reasoning": "The bench vice (due 19 Apr, unreturned) is another item overdue on 25 Apr, so 3.4 denies; 5.3 and 7.1(c) confirm the Override does not cure a 3.4 denial."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T26",
+     "reasoning": "The heat gun was due 2 May and is still out on 5 May, so the loan being renewed is itself overdue (1.5, 3.6). 5.3 and 7.1(c): the Override does not cure a 3.6 denial."
+    },
+    {
+     "answer": "GRANTED, new effective due date 19 May",
+     "determinate": true,
+     "id": "T27",
+     "reasoning": "Member 620's hold is valid and would deny under 3.5, but 5.2/7.1(d) let a valid Override beat 3.5; the request date being a Sunday is irrelevant (1.6). 5.4: 7 days from effective due date 12 May = 19 May, an open day."
+    },
+    {
+     "answer": "GRANTED, new effective due date 27 May",
+     "determinate": true,
+     "id": "T28",
+     "reasoning": "The mixer is Restricted and already renewed once, so 3.3 would deny, but 5.2 expressly covers 3.3 and she is enrolled, unsuspended, not overdue, first invocation. 5.4: 20 May + 7 = 27 May, open."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T29",
+     "reasoning": "6.3 suspends at exactly $20 ('$20 or more') and no payment was made, so a suspended member may not renew or invoke the Override (5.3); 7.1(b) puts 6.3 above the Override."
+    },
+    {
+     "answer": "DENIED",
+     "determinate": true,
+     "id": "T30",
+     "reasoning": "5.1 allows at most one invocation per loan and one was already used on 10 April, so no Override is available; Member 480's valid hold placed 14 April stands at the request moment, denying under 3.5. Either way the request fails."
+    }
+   ]
+  }
+ ],
+ "author_self_flagged": "Ranked by how much a single clause is carrying the verdict, most fragile first. All 30 keys were re-derived mechanically (a Python model of Rules 1.1-1.3, 3.1-3.2, 4.3, 5.4, 6.1-6.4 reproduced every date, fee and window; 113/113 checks passed), so the residual risk below is interpretive, not arithmetic.\n\n1. T15 (same-date payment cures suspension). The whole verdict rests on Rule 7.2's deemed ordering putting payments before renewal requests. A reader who treats 7.2 as a tie-break for genuinely conflicting events rather than a general sequencing rule could hold the balance at $24 and answer DENIED. 7.2's trigger (\"the facts do not establish their order\") is on its face general, and the probe says no times were recorded, but this is the probe most dependent on one clause being read broadly. If any probe should be dropped in a sensitivity check, this is it.\n\n2. T19 (suspension does not pause the collection period). Textually explicit \u2014 6.3's last sentence says collection periods keep running during suspension \u2014 but it cuts against a strong fairness intuition, since she was barred from collecting by the very same rule. Readers may resist the text rather than misread it, which shows up as disagreement even though the spec settles it.\n\n3. T30 (second Override invocation). Turns on 5.1's \"successful or not\". A reader might distinguish an invocation that was *spent* on a granted renewal from one that failed, and read the loan as still having an invocation available. 5.1 covers both cases in terms, but the phrase is short and load-bearing.\n\n4. T14 (hold placed later the same day). Relies on 7.3 (\"each request is judged on the facts at its own moment\") to establish that a hold logged at 15:10 does not unwind a grant made at 08:40. 7.3 says it, but it says it only once and in a section a reader may skim as boilerplate.\n\n5. T17 (two-stage hold queue). No interpretive gap I can find \u2014 4.1 confines the member-number tie-break to same-date holds and 4.3 spells out the re-shelving day and the fresh period \u2014 but it chains four computations (queue order, Sunday extension, lapse, fresh period), so it is the probe most likely to produce a wrong answer for reasons unrelated to what it is testing.\n\n6. T09 (overdue day 29 vs forfeit at end of day 30). Robust in text but decided by a one-day margin across a month boundary; failures here will be miscounting rather than genuine indeterminacy, which makes it a noisy item even though it is well determined.\n\nTwo things I deliberately hardened rather than shipped as-is: Rule 1.3's final sentence (\"All later computations... use the effective due date, never the unmoved date\") was added because T10 is undecidable without it, and Rule 4.4 was reworded from \"no valid hold remains\" to \"no valid hold stands on it\" because T12's only hold was void from the outset and \"remains\" presupposes one existed. Rules 5.3 and 7.1 state the Override's scope limits twice over, deliberately, so that T25/T26/T29 do not depend on an unstated precedence.",
+ "per_probe": [
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "15 March",
+    "15 March",
+    "15 March"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T01",
+   "key": "15 March",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "17 March",
+    "17 March",
+    "17 March"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T02",
+   "key": "17 March",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "16 April",
+    "16 April",
+    "16 April"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T03",
+   "key": "16 April",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "REFUSED \u2014 the 3-loan cap",
+    "REFUSED \u2014 the 3-loan cap",
+    "REFUSED \u2014 the 3-loan cap"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T04",
+   "key": "REFUSED \u2014 the 3-loan cap",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "REFUSED \u2014 the new-member restriction",
+    "REFUSED \u2014 the new-member restriction",
+    "REFUSED \u2014 the new-member restriction"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T05",
+   "key": "REFUSED \u2014 the new-member restriction",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "$0",
+    "$0",
+    "$0"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T06",
+   "key": "$0",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "$4",
+    "$4",
+    "$4"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T07",
+   "key": "$4",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "$75",
+    "$75",
+    "$75"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T08",
+   "key": "$75",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "Overdue but not forfeit",
+    "Overdue but not forfeit",
+    "Overdue but not forfeit"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T09",
+   "key": "Overdue but not forfeit",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "DENIED",
+    "DENIED",
+    "DENIED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T10",
+   "key": "DENIED",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "GRANTED, new effective due date 31 March",
+    "GRANTED, new effective due date 31 March",
+    "GRANTED, new effective due date 31 March"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T11",
+   "key": "GRANTED, new effective due date 31 March",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "It goes to the open shelf, available to anyone",
+    "It goes to the open shelf, available to anyone",
+    "It goes to the open shelf, available to anyone"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T12",
+   "key": "It goes to the open shelf, available to anyone",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "DENIED",
+    "DENIED",
+    "DENIED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T13",
+   "key": "DENIED",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "GRANTED, new effective due date 30 May",
+    "GRANTED, new effective due date 30 May",
+    "GRANTED, new effective due date 30 May"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T14",
+   "key": "GRANTED, new effective due date 30 May",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "GRANTED, new effective due date 18 April",
+    "GRANTED, new effective due date 18 April",
+    "GRANTED, new effective due date 18 April"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T15",
+   "key": "GRANTED, new effective due date 18 April",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "Yes \u2014 the collection is in time",
+    "Yes \u2014 the collection is in time",
+    "Yes \u2014 the collection is in time"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T16",
+   "key": "Yes \u2014 the collection is in time",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "22 March",
+    "22 March",
+    "22 March"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T17",
+   "key": "22 March",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "Member 512",
+    "Member 512",
+    "Member 512"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T18",
+   "key": "Member 512",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "No \u2014 the hold lapsed at the end of 9 May",
+    "No \u2014 the hold lapsed at the end of 9 May",
+    "No \u2014 the hold lapsed at the end of 9 May"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T19",
+   "key": "No \u2014 the hold lapsed at the end of 9 May",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "ALLOWED",
+    "ALLOWED",
+    "ALLOWED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T20",
+   "key": "ALLOWED",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "DENIED",
+    "DENIED",
+    "DENIED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T21",
+   "key": "DENIED",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "GRANTED, new effective due date 27 March",
+    "GRANTED, new effective due date 27 March",
+    "GRANTED, new effective due date 27 March"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T22",
+   "key": "GRANTED, new effective due date 27 March",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "DENIED",
+    "DENIED",
+    "DENIED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T23",
+   "key": "DENIED",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "GRANTED, new effective due date 27 March",
+    "GRANTED, new effective due date 27 March",
+    "GRANTED, new effective due date 27 March"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T24",
+   "key": "GRANTED, new effective due date 27 March",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "DENIED",
+    "DENIED",
+    "DENIED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T25",
+   "key": "DENIED",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "DENIED",
+    "DENIED",
+    "DENIED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T26",
+   "key": "DENIED",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "GRANTED, new effective due date 19 May",
+    "GRANTED, new effective due date 19 May",
+    "GRANTED, new effective due date 19 May"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T27",
+   "key": "GRANTED, new effective due date 19 May",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "GRANTED, new effective due date 27 May",
+    "GRANTED, new effective due date 27 May",
+    "GRANTED, new effective due date 27 May"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T28",
+   "key": "GRANTED, new effective due date 27 May",
+   "n_votes": 3,
+   "self_flagged": false,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "DENIED",
+    "DENIED",
+    "DENIED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T29",
+   "key": "DENIED",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  },
+  {
+   "agreeWithKey": 3,
+   "answers": [
+    "DENIED",
+    "DENIED",
+    "DENIED"
+   ],
+   "flaggedIndeterminate": 0,
+   "id": "T30",
+   "key": "DENIED",
+   "n_votes": 3,
+   "self_flagged": true,
+   "unanimous": true
+  }
+ ]
+}

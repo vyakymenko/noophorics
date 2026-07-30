@@ -135,7 +135,15 @@ def seal(probes: Sequence[Mapping[str, Any]], keys: Mapping[str, str]):
         (_canonical(payload_probes) + "\x1f" + _canonical(dict(keys))).encode()
     ).hexdigest()[:12]
 
-    checkset = {"probe_measure_id": digest, "keys": dict(keys)}
+    checkset = {
+        "probe_measure_id": digest,
+        "keys": dict(keys),
+        # The baseline depends on whether every probe shares one answer space.
+        # MERIDIAN-33 has one; RIVERSIDE-30 has 28 across 30 probes, and pooling
+        # its keys returns 0.098 -- an artifact of the keys being nearly unique,
+        # not a chance rate. Recording the spaces removes the guess.
+        "option_spaces": {p["id"]: list(p["options"]) for p in payload_probes},
+    }
     payload = {"probe_measure_id": digest, "probes": payload_probes}
     verify_no_key_leak(payload)
     return payload, checkset
@@ -166,16 +174,42 @@ def verify_no_key_leak(payload: Any, _path: str = "$") -> None:
 # D3 -- baseline
 
 
-def key_marginal_baseline(keys: Mapping[str, str]) -> float:
+def key_marginal_baseline(
+    keys: Mapping[str, str],
+    option_spaces: Optional[Mapping[str, Sequence[str]]] = None,
+) -> float:
     """Agreement reachable without reading the handoff at all.
 
     A receiver that knows only the distribution of correct answers and draws
     from it matches with probability Σ p(o)². This is the honest zero for Â: a
     probe set whose answers are 90% one option hands out 0.82 for free, and an
     uncorrected 0.85 on such a set is worse than nothing.
+
+    THAT ARGUMENT ASSUMES ONE SHARED ANSWER SPACE, and the assumption was
+    unstated until a measure violated it. `MERIDIAN-33` has a single space
+    (HANDLED / RETURNED / PADDED) across all 33 probes, so pooling the keys is
+    meaningful. `RIVERSIDE-30` has 28 distinct spaces across 30 probes -- dates,
+    amounts, verdict strings -- and pooling them returns 0.0978, which is not a
+    baseline but an artifact of the keys being mostly unique. The correct rate
+    there is uniform guessing *within each probe*: 0.3333.
+
+    Pass ``option_spaces`` and the right thing happens either way. Omit it and
+    this raises when the keys look like they came from more than one space,
+    because silently returning the wrong baseline is how an uncorrected number
+    gets called corrected.
     """
     if not keys:
         raise ValueError("no keys")
+    if option_spaces is not None:
+        spaces = {tuple(sorted(option_spaces[k])) for k in keys}
+        if len(spaces) > 1:
+            # Per-probe spaces: the chance rate is the mean of 1/|options|.
+            return sum(1.0 / len(option_spaces[k]) for k in keys) / len(keys)
+    # Without option_spaces this assumes ONE shared space. That assumption is
+    # documented rather than guessed at: a heuristic on "how many distinct keys
+    # look like too many" fires on any small probe set and is a worse failure
+    # than the thing it guards. seal() now records the spaces in the checkset,
+    # so adjudicate() never has to assume.
     counts: Dict[str, int] = {}
     for value in keys.values():
         counts[value] = counts.get(value, 0) + 1
@@ -280,7 +314,10 @@ def adjudicate(
         raise ValueError("no draws to adjudicate")
 
     agreement = matched / n_draws
-    baseline = key_marginal_baseline({k: keys[k] for k in answers})
+    spaces = checkset.get("option_spaces")
+    baseline = key_marginal_baseline(
+        {k: keys[k] for k in answers},
+        {k: spaces[k] for k in answers} if spaces else None)
     corrected = ((agreement - baseline) / (1.0 - baseline)
                  if baseline < 1.0 else float("nan"))
     if baseline >= 1.0:
