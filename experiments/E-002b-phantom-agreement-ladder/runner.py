@@ -97,7 +97,19 @@ class Cache:
             os.replace(tmp, self.path)
 
     def seed_from(self, donor_path: str, conditions: Sequence[str],
-                  probe_ids: Sequence[str]) -> Dict[str, int]:
+                  probe_ids: Sequence[str], n: Optional[int] = None) -> Dict[str, int]:
+        """Import message-independent conditions from another experiment's cache.
+
+        Donor rows longer than ``n`` are truncated to their FIRST ``n`` draws.
+        The draws are independent -- each is a fresh call to a stateless
+        endpoint at temperature > 0 -- so a prefix of a length-30 sample is a
+        valid length-16 sample. Taking a prefix rather than a random subset
+        keeps the operation deterministic and keeps draw order, which the
+        permutation floor depends on.
+
+        Rows SHORTER than n are not padded and not partially imported; that
+        condition is simply recollected.
+        """
         out: Dict[str, int] = {}
         if not os.path.exists(donor_path):
             return out
@@ -105,7 +117,9 @@ class Cache:
             donor = json.load(fh)
         want = set(probe_ids)
         for cond in conditions:
-            rows = {p: v for p, v in donor.get(cond, {}).items() if p in want}
+            rows = {p: (list(v)[:n] if n else list(v))
+                    for p, v in donor.get(cond, {}).items()
+                    if p in want and (n is None or len(v) >= n)}
             if len(rows) == len(want):
                 self._data.setdefault(cond, {}).update(rows)
                 out[cond] = len(rows)
@@ -378,7 +392,8 @@ def run(args) -> Dict[str, Any]:
         os.path.join(REPO, "experiments", "E-002-phantom-agreement",
                      "sample-cache.json"),
         ["sender@%s" % args.model, "PRIOR@%s" % args.model,
-         "CEILING@%s" % args.model], probe_ids) if args.provider == "ollama" else {}
+         "CEILING@%s" % args.model], probe_ids,
+        args.samples) if args.provider == "ollama" else {}
     if imported:
         print("  reused (message-independent):", ", ".join(
             "%s=%d" % (k.split("@")[0], v) for k, v in sorted(imported.items())))
