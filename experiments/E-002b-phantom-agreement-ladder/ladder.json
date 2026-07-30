@@ -1,0 +1,33 @@
+{
+ "e002_reference": {
+  "agreement": 1.0,
+  "budget_words": "180-260",
+  "diverged": 0
+ },
+ "experiment": "E-002b-instrument",
+ "measured_utc": "2026-07-30",
+ "model": "gpt-oss:120b",
+ "n_draws": 8,
+ "note": "Ladder measured before registration. Counts only -- probe identities were not recorded, which is a defect of the throwaway script and is stated in INSTRUMENT.md.",
+ "prior_agreement": 0.5152,
+ "probe_measure": "MERIDIAN-33@256672ea3852",
+ "rungs": {
+  "150": {
+   "agreement": 0.9393939393939394,
+   "brief_words": 193,
+   "diverged": 2
+  },
+  "30": {
+   "agreement": 0.6666666666666666,
+   "brief_words": 35,
+   "diverged": 11
+  },
+  "70": {
+   "agreement": 0.6666666666666666,
+   "brief_words": 84,
+   "diverged": 11
+  }
+ },
+ "temperature": 0.7,
+ "think": "medium"
+}
