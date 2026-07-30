@@ -798,5 +798,54 @@ class ReferenceTest(unittest.TestCase):
                                contested={"p0": {"Z": 1.0}})
 
 
+class ReportingStandardTest(unittest.TestCase):
+    """definitions 7 requires four v0.4 fields. The type must be able to hold them."""
+
+    def _m(self, **kw):
+        base = dict(probe_measure_id="P@abc", samples_per_probe=30,
+                    sender="a", receiver="b", d_prior=0.40, d_post=0.10,
+                    d_floor=0.02, cost_tokens=300.0, cost_unit="tokens",
+                    agreement_observed=0.8)
+        base.update(kw)
+        return Measurement(**base)
+
+    def test_an_undeclared_reference_is_not_reportable(self):
+        missing = self._m().is_reportable()
+        self.assertTrue(any("reference_kind" in x for x in missing))
+        self.assertTrue(any("regime" in x for x in missing))
+
+    def test_an_undeclared_reference_does_not_measure_understanding(self):
+        """Undeclared WAS the sender for three versions; treat it as such."""
+        self.assertFalse(self._m().measures_understanding)
+        self.assertFalse(self._m(reference_kind="sender").measures_understanding)
+        self.assertTrue(self._m(reference_kind="key").measures_understanding)
+
+    def test_a_declared_key_reference_is_reportable(self):
+        m = self._m(reference_kind="key", reference_provenance="set by X, adjudicated",
+                    regime="criterion-bearing",
+                    reference_independence={"usable": True})
+        self.assertEqual(m.is_reportable(), [])
+
+    def test_a_non_sender_reference_must_carry_its_independence_check(self):
+        """The CEILING trap: a reference that resamples the sender."""
+        m = self._m(reference_kind="panel", reference_provenance="three judges",
+                    regime="criterion-bearing")
+        self.assertTrue(any("independence" in x for x in m.is_reportable()))
+
+    def test_a_sender_reference_needs_no_independence_check(self):
+        """It is not independent by construction; asking would be theatre."""
+        m = self._m(reference_kind="sender", reference_provenance="the sender",
+                    regime="criterion-free")
+        self.assertEqual(m.is_reportable(), [])
+        self.assertFalse(m.measures_understanding)
+
+    def test_historical_measurements_stay_constructible(self):
+        """Pre-v0.4 records are real numbers; they are simply not reportable."""
+        m = self._m()
+        self.assertAlmostEqual(m.fidelity,
+                               transfer_fidelity(0.40, 0.10, 0.02))
+        self.assertNotEqual(m.is_reportable(), [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

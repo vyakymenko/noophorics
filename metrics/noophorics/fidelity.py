@@ -5,7 +5,7 @@ Reference implementation of theory/definitions.md sections 4, 5 and 6.
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, NamedTuple, Optional, Sequence
+from typing import Dict, Iterable, List, NamedTuple, Optional, Sequence
 
 from .divergence import jensen_shannon
 
@@ -296,6 +296,15 @@ class Measurement(NamedTuple):
     The fields are exactly the reporting standard in definitions.md section 7.
     A measurement missing any of them is an anecdote; anecdotes belong in
     journal/, not in theory/.
+
+    The four reference fields are v0.4 and default to the sender convention,
+    which is what every pre-v0.4 measurement in this repository actually used.
+    Defaulting rather than requiring is deliberate: a hard break would have
+    invalidated the constructor for historical records that are still correct.
+    ``is_reportable`` is where the standard is enforced, and it refuses the
+    default, so an unmigrated measurement is *constructible* and not
+    *reportable*. That is the honest split -- the old numbers are real, and they
+    are not fidelity-toward-a-criterion.
     """
 
     probe_measure_id: str
@@ -312,6 +321,44 @@ class Measurement(NamedTuple):
     claim_receiver: Optional[float] = None
     condition: str = ""
     notes: str = ""
+    # --- v0.4 reporting standard, definitions.md section 7 -----------------
+    reference_id: Optional[str] = None
+    reference_kind: Optional[str] = None        # "key" | "panel" | "sender"
+    reference_provenance: Optional[str] = None
+    reference_adjudicated: Optional[bool] = None
+    regime: Optional[str] = None                # "criterion-bearing" | "criterion-free"
+    reference_independence: Optional[Dict[str, object]] = None
+
+    @property
+    def measures_understanding(self) -> bool:
+        """Whether this measurement may use the word at all.
+
+        False for a sender reference, and False for an undeclared one -- an
+        undeclared reference WAS the sender for three versions, so treating the
+        two the same is the accurate reading rather than a strict one.
+        """
+        return self.reference_kind not in (None, "sender")
+
+    def is_reportable(self) -> List[str]:
+        """Missing fields of the reporting standard. Empty means reportable.
+
+        Returns the list rather than a bool because "what is missing" is the
+        useful answer and "no" is not.
+        """
+        missing = []
+        if self.reference_kind is None:
+            missing.append("reference_kind (undeclared reference = the sender, "
+                           "silently, which is what v0.4 exists to stop)")
+        if not self.reference_provenance:
+            missing.append("reference_provenance (who set R, from what, and "
+                           "whether it was independently adjudicated)")
+        if self.regime is None:
+            missing.append("regime (criterion-bearing or criterion-free)")
+        if self.reference_kind not in (None, "sender") \
+                and self.reference_independence is None:
+            missing.append("reference_independence (a reference that resamples "
+                           "the sender must fail loudly, not certify itself)")
+        return missing
 
     @property
     def fidelity(self) -> float:
