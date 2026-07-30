@@ -215,6 +215,45 @@ class OllamaAgent(Agent):
         return [bool(json.loads(self._chat(prompt, schema)["_content"])["same_verdict"])
                 for _ in range(n_elicitations)]
 
+    def predict_verdict(
+        self,
+        probe: Probe,
+        framing: str,
+        artifact: Optional[str] = None,
+        n_elicitations: int = 3,
+    ) -> List[str]:
+        """Predict the counterpart's VERDICT. The v0.5 instrument.
+
+        ``claim_per_probe`` asked "will your colleague reach the same verdict?"
+        and E-002 received "yes" on 330 of 330 elicitations. A yes/no about
+        whether communication succeeded has an obvious answer and measures
+        nothing.
+
+        Keysar & Henly's speakers were shown two paraphrases and had to say
+        WHICH one the listener took. There is no "everything is fine" response
+        available: the party must commit to a verdict, and the overconfidence
+        shows up in which verdict it commits to. The agreement rate is computed
+        afterwards by the experimenter, never elicited.
+
+        Returns raw draws in order. The caller compares them against the party's
+        own modal verdict; that comparison, not this call, is where "claimed
+        agreement" comes from.
+        """
+        schema = {
+            "type": "object",
+            "properties": {"verdict": {"type": "string", "enum": list(probe.options)}},
+            "required": ["verdict"],
+        }
+        artifact_block = ("\n\nThis is the note, in full:\n\n%s\n" % artifact
+                          if artifact is not None else "")
+        prompt = self._with_context(
+            "%s%s\n\nHere is the case:\n\n%s\n\nAnswer with exactly one of: "
+            "%s." % (framing, artifact_block, probe.prompt,
+                     ", ".join(probe.options))
+        )
+        return [json.loads(self._chat(prompt, schema)["_content"])["verdict"]
+                for _ in range(n_elicitations)]
+
     def compose(self, prompt: str, seed: int = 0) -> str:
         """Generate an artifact. Fast here, unlike the Codex CLI (>7 min)."""
         text = self._chat(self._with_context(prompt))["_content"].strip()
