@@ -4,7 +4,7 @@
 It nonetheless produced the most important result this programme has: **the
 central quantity, as defined, does not measure what the field's name promises.**
 
-Recomputed from `.sample-cache.json` (sender / PRIOR / NARRATIVE / CONTRASTIVE
+Recomputed from [`sample-cache.json`](sample-cache.json) (sender / PRIOR / NARRATIVE / CONTRASTIVE
 complete at 34 probes × 6 draws; CEILING interrupted at 25/34). Sender and
 receiver both `claude-opus-4-8`.
 
@@ -136,7 +136,14 @@ falsified something more important than its own hypotheses.
 
 This finding came from an adversarial review, not from the authors. It was
 verified independently against the cached draws before being accepted, and
-every number above is reproducible from `.sample-cache.json`, now tracked.
+every number above is reproducible from [`sample-cache.json`](sample-cache.json).
+
+> **Correction, 2026-07-30.** For several days that sentence was false. The file
+> was committed in `0345350` and deleted in `6c59143`, a commit about the v0.3
+> runner, and this document went on asserting reproducibility from inputs the
+> repository did not contain. Restored, and renamed without the leading dot that
+> hid it from `ls` and invited the exclusion in the first place. See
+> [the journal entry](../../journal/2026-07-30-two-audit-holes.md).
 
 ---
 

@@ -1224,7 +1224,7 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <p class="jn">findings · e 001 findings</p>
 <h1>E-001 — Findings</h1>
 <p><strong>Status:</strong> the run was interrupted at the CEILING condition and never completed. It nonetheless produced the most important result this programme has: <strong>the central quantity, as defined, does not measure what the field's name promises.</strong></p>
-<p>Recomputed from <code>.sample-cache.json</code> (sender / PRIOR / NARRATIVE / CONTRASTIVE complete at 34 probes × 6 draws; CEILING interrupted at 25/34). Sender and receiver both <code>claude-opus-4-8</code>.</p>
+<p>Recomputed from <a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/sample-cache.json"><code>sample-cache.json</code></a> (sender / PRIOR / NARRATIVE / CONTRASTIVE complete at 34 probes × 6 draws; CEILING interrupted at 25/34). Sender and receiver both <code>claude-opus-4-8</code>.</p>
 <hr>
 <h2>1. F\* rewards replicating the sender's errors</h2>
 <div class="scroll"><table><thead><tr><th></th><th>accuracy vs key</th></tr></thead><tbody><tr><td>Sender (holds the spec)</td><td>0.882</td></tr><tr><td>PRIOR receiver (no message)</td><td>0.441</td></tr><tr><td>NARRATIVE receiver</td><td><strong>0.971</strong></td></tr><tr><td>CONTRASTIVE receiver</td><td><strong>0.941</strong></td></tr></tbody></table></div>
@@ -1255,7 +1255,8 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <p>Until fidelity separates those three, every number this programme produces is a mixture in unknown proportions.</p>
 <h2>5. Standing</h2>
 <p>E-001 tested nothing about L5 or L6. Both remain <code>conjectured</code>. The run is recorded as <strong>incomplete and non-inferential</strong>; its data is kept because it falsified something more important than its own hypotheses.</p>
-<p>This finding came from an adversarial review, not from the authors. It was verified independently against the cached draws before being accepted, and every number above is reproducible from <code>.sample-cache.json</code>, now tracked.</p>
+<p>This finding came from an adversarial review, not from the authors. It was verified independently against the cached draws before being accepted, and every number above is reproducible from <a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/sample-cache.json"><code>sample-cache.json</code></a>.</p>
+<blockquote><p><strong>Correction, 2026-07-30.</strong> For several days that sentence was false. The file was committed in <code>0345350</code> and deleted in <code>6c59143</code>, a commit about the v0.3 runner, and this document went on asserting reproducibility from inputs the repository did not contain. Restored, and renamed without the leading dot that hid it from <code>ls</code> and invited the exclusion in the first place. See <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-30-two-audit-holes.md">the journal entry</a>.</p></blockquote>
 <hr>
 <p><em>This document is licensed CC BY 4.0.</em></p>
 <p class="back"><a href="/journal/">All journal entries</a> · <a href="/">Noophorics</a> · <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>

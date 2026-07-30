@@ -39,14 +39,23 @@ def main() -> int:
     measure = load_probe_measure(
         os.path.join(REPO, "experiments", "E-001-fluency-cost", "probes.json"))
 
-    try:
-        blob = subprocess.check_output(["git", "show", E001_CACHE_REV],
-                                       cwd=REPO, stderr=subprocess.DEVNULL)
-    except subprocess.CalledProcessError:
-        print("could not recover %s -- history rewritten?" % E001_CACHE_REV,
-              file=sys.stderr)
-        return 2
-    recovered = json.loads(blob)
+    # Prefer the in-tree file. It was missing when this script was written --
+    # see journal/2026-07-30-two-audit-holes.md -- and the git fallback is kept
+    # so the script still reproduces on a checkout predating the restoration.
+    in_tree = os.path.join(REPO, "experiments", "E-001-fluency-cost",
+                           "sample-cache.json")
+    if os.path.exists(in_tree):
+        with open(in_tree, "r", encoding="utf-8") as fh:
+            recovered = json.load(fh)
+    else:
+        try:
+            blob = subprocess.check_output(["git", "show", E001_CACHE_REV],
+                                           cwd=REPO, stderr=subprocess.DEVNULL)
+        except subprocess.CalledProcessError:
+            print("could not recover %s -- history rewritten?" % E001_CACHE_REV,
+                  file=sys.stderr)
+            return 2
+        recovered = json.loads(blob)
     a_key = next(k for k in recovered if k.startswith("sender"))
     a = recovered[a_key]
 
