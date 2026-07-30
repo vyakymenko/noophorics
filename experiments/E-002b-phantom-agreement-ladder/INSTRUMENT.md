@@ -69,6 +69,7 @@ Measured before registration, `gpt-oss:120b` both roles, n=8, MERIDIAN-33:
 | none (`PRIOR`) | 0 words | 0.5152 | — |
 | ~30 words | 35 words | **0.6667** | 11 / 33 |
 | ~70 words | 84 words | **0.6667** | 11 / 33 |
+| ~150 words | 193 words | **0.9394** | 2 / 33 |
 | ~200 words ([E-002](../E-002-phantom-agreement/VOID.md)) | 180–260 words | **1.0000** | 0 / 33 |
 
 Two things follow.
@@ -80,9 +81,10 @@ channel, not the frame. Hardening the probe measure after seeing it was too easy
 would be tuning the frame until the result appears.
 
 **The curve is not smooth.** Going from 35 to 84 words — nearly two and a half
-times the budget — bought **nothing**. Agreement sat at 0.6667 both times. So
-the transition to complete transfer happens somewhere between 84 and ~200 words,
-and a ladder spaced evenly from zero would spend most of its rungs on a plateau.
+times the budget — bought **nothing**. Agreement sat at 0.6667 both times, and
+then rose steeply to 0.9394 by 193 words. The whole transition is compressed
+between 84 and ~193 words, so a ladder spaced evenly from zero would spend most
+of its rungs on the plateau and none where the interesting change happens.
 
 Whether the same eleven probes diverged at both budgets is **not known** — the
 ladder probe recorded counts, not identities. That is a defect in a throwaway
