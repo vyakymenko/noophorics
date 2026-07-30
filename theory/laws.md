@@ -21,6 +21,14 @@ Notation is defined in [definitions.md](definitions.md).
 
 ---
 
+> **v0.4 — every law below is stated in `F*`, and `F*` now takes a reference.**
+>
+> [A2](../PRINCIPIA.md) widened from a stated probe measure `P` to a stated pair
+> `(P, R)`. Read every `F*` in this file as `F*_R`, and note that for most of
+> these laws the choice of `R` is not cosmetic: it changes what the law claims.
+> Where it does, the law says so under its own heading rather than relying on a
+> reader to carry this paragraph down the page.
+
 ## L1 — Law of diminishing noophoric return
 
 > `F*(C)` is concave in message cost and saturates strictly below 1.
@@ -28,6 +36,11 @@ Notation is defined in [definitions.md](definitions.md).
 Longer explanations buy progressively less understanding, and the curve
 flattens at a ceiling that is not 1. The ceiling is the capacity `K`; the
 distance to 1 is the residual `R`.
+
+**Which reference *(v0.4)*.** Any, and the law is unchanged by the choice. L1 is
+about the *shape* of `K(C)` — concave, saturating below 1 — and concavity in
+cost is a property of the curve, not of what it is measured toward. The
+saturation *level* does depend on `R`; the claim that there is one does not.
 
 **Why we expect it.** Early tokens carry the load-bearing structure; later
 tokens elaborate what the receiver has already reconstructed. Beyond some
@@ -70,6 +83,33 @@ of the world. Stated that way it could only ever be confirmed.
 predicted by the direction of **domain** prior, and that prediction beats the
 direction of **general capability** where the two disagree. That is refutable by
 a single pair chosen so the two point opposite ways.
+
+**Which reference, and why it matters here more than anywhere else *(v0.4)*.**
+Under the pre-v0.4 convention `F*(A→B)` scored movement toward **A** and
+`F*(B→A)` scored movement toward **B**. The two directions had *different
+targets*, and the law subtracted one from the other.
+
+That is **not** the defect [L4](#l4) was withdrawn for, and it is worth being
+exact rather than tidy. L4 multiplied fractions of two *different prior gaps*.
+L2 subtracts fractions of the *same* gap — JSD is symmetric, so
+`D(A,B) = D(B,A)` exactly, and both directions normalize by one denominator.
+The comparison is coherent. What differs is the target, not the base.
+
+But there are now **two distinct laws** wearing one statement, and they are not
+the same claim:
+
+- **L2-replication** — `R = the sender of each direction`. Asks: *who copies
+  whom more readily?* This is what the law has meant for three versions.
+- **L2-criterion** — `R` shared and sender-independent, e.g. a key. Asks:
+  *which direction of briefing produces the more correct receiver?* Both
+  directions score against one fixed target.
+
+The **sharper form** — that domain prior beats general capability — is stated
+for **L2-criterion**, because "the weaker model with domain grounding receives
+better" is a claim about ending up *right*, not about ending up *like the
+sender*. Under L2-replication a model that copies its briefer perfectly scores
+1.0 whether or not either party understands the domain, which is the mimicry
+E-001 measured.
 
 **Refuted if:** across pairs where domain prior and general capability point in
 opposite directions, the sign of the asymmetry follows capability, or follows
@@ -140,6 +180,19 @@ approximately linear in hop count; the chain has a half-life measured in hops.
 prohibitions** decays measurably more slowly than content expressed as
 **descriptions**.
 
+**Which reference *(v0.4)*.** Any, and unchanged. L3 relates capacity to prior
+overlap between the two agents; both terms are pairwise and neither is a
+target. Note that this is the law [Problem 2](open-problems.md) says is
+currently a tautology, and v0.4 does not repair that.
+
+**Which reference *(v0.4)*.** L4 already anticipated this. Its whole restatement
+was that every hop must be scored **against the origin, in the origin's frame**,
+sharing one prior gap and one floor — which is a declared reference by another
+name, fixed before the chain runs. In v0.4 vocabulary: `R = the origin`, and it
+is a sender reference, so L4a–L4c are claims about **replication decay**. Whether
+*correctness* decays along a chain at the same rate is a separate law nobody has
+stated.
+
 **Why we expect it.** Constraints are compact, checkable against a case, and
 resist paraphrase; descriptions are none of those. "Never call this endpoint
 with a null tenant" survives ten summarizations. "The tenant model is roughly
@@ -168,7 +221,15 @@ scored against the origin)
 > rises faster than `F*` does.
 
 Eloquence increases the *belief* that understanding transferred more than it
-increases the transfer. At equal cost, a polished narrative and a terse list
+increases the transfer.
+
+**Which reference *(v0.4)*.** `Φ` does not take one — it compares a claimed
+agreement rate against an observed one, and both are between the two parties.
+`F*` does. So L5's "faster than `F*`" clause inherits a reference, and the law
+is stated for a **sender-independent** `R`: the worry is that fluency buys
+confidence without buying correct decisions. Under `R = sender` the law would
+compare rising confidence against rising mimicry, which is a different and less
+alarming claim. At equal cost, a polished narrative and a terse list
 of boundary cases produce different `Φ` and different `F*`, in opposite
 directions.
 
@@ -221,6 +282,15 @@ hypothesis H2
 > fidelity than encoding *"what I understand."*
 
 Do not send the model. Send the boundaries of the model.
+
+**Which reference *(v0.4)*.** L6 is stated for a **sender-independent** `R`.
+"Encoding the cases where we would diverge transfers more fidelity" is a claim
+about the receiver *deciding correctly*, and under `R = sender` it degrades into
+a claim about the receiver *answering like the sender* — which a contrastive
+brief could satisfy by transmitting the sender's errors more efficiently than a
+declarative one. That is not a hypothetical: it is the mechanism
+[E-001](../experiments/E-001-fluency-cost/FINDINGS.md) measured, where 62% of
+the effect sat on probes the sender got wrong.
 
 **Why we expect it.** The receiver already has a prior. A declarative
 description spends cost re-encoding the parts of the sender's model the
