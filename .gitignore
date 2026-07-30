@@ -27,3 +27,10 @@ htmlcov/
 # draws existed on disk, untracked, while arguments that could void the run were
 # being committed. The norm's whole value is that git proves temporal ordering,
 # and it cannot prove it about a file git does not see.
+
+# Local automation: the loop, the watcher and the Telegram notifier run on
+# the maintainer's own machine. They are operational tooling, not part of the
+# science, and the notifier is bound to one person's chat. Kept out of the
+# public tree deliberately; no credential was ever in these files -- the token
+# is read from the environment and is redacted from the module's own errors.
+automation/
