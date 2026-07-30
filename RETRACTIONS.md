@@ -8,7 +8,7 @@ than a clean document that never made the mistake.
 This file exists because the site quotes a *count*, and a count nobody can audit
 is worse than no count.
 
-**Standing tally: 10 claims withdrawn, 3 experiments void, 0 findings
+**Standing tally: 11 claims withdrawn, 3 experiments void, 0 findings
 established.**
 
 ---
@@ -37,6 +37,7 @@ established.**
 |---|---|---|---|
 | 9 | `Φ` is "the part we have not found elsewhere", and is what "everyone had felt, nobody had weighed" | Keysar & Henly (2002), Newton (1990), Chang et al. (2010), Endsley (2020). It was weighed in 1990, and their instruments are in places better than ours. | [PRINCIPIA §1, §5](PRINCIPIA.md) · [prior-art §1](theory/prior-art.md) |
 | 10 | Knowledge distillation "measures success as task accuracy" | Stanton et al. (2021) define fidelity separately from generalization and show accuracy does not imply it — E-001's construct failure, from a NeurIPS abstract, five years early. | [PRINCIPIA §2](PRINCIPIA.md) · [prior-art §3](theory/prior-art.md) |
+| 11 | "Fidelity-versus-correctness was separated in ML **first**" | Cronbach (1955) separated an accuracy score from an assumed-similarity score, each with its own decomposition; Edwards et al. (2006) measured team mental-model similarity and accuracy as two quantities and compared them as predictors. Both predate the ML work. The content survives; the primacy word does not. | [prior-art §3](theory/prior-art.md) |
 
 ---
 
@@ -47,6 +48,25 @@ established.**
 | [E-001](experiments/E-001-fluency-cost/FINDINGS.md) | fluency vs contrastiveness on fidelity and `Φ` | Sender refused to compose. Reopened as a construct critique: the headline quantity rewards mimicry, and 62% of its effect sat on four probes where the sender was wrong. |
 | [E-001b](experiments/E-001b-fluency-factorial/VOID.md) | the same, factorially, with a cost-parity gate | The gate failed on the composed messages: fluent briefs cost 1.5× terse ones under an identical budget instruction. Style and length are entangled in the generator. Also [DEFECT-001](experiments/E-001b-fluency-factorial/DEFECT-001.md) — the analysis path had never been executed and would have crashed after 30 hours. |
 | [E-002](experiments/E-002-phantom-agreement/VOID.md) | `Φ` for the first time, elicited per probe | 330 of 330 elicitations returned "yes, we will agree" — the instrument has a default answer, because it ported Keysar & Henly's granularity and not their forced-choice structure. And the transfer was perfect (0 of 33 probes diverged), so there was nothing for a belief to be wrong about. |
+
+---
+
+## Refused entry
+
+Drafted, checked, and never committed. They are not withdrawals — they never
+reached `theory/` — but they are recorded so that nobody, including their
+author, drafts them again.
+
+| claim | why it was refused |
+|---|---|
+| `WOA` attributed to Yaniv & Kleinberger (2000) | That paper publishes the **complement**, `WOE = \|a−f\|/\|a−i\|`. Every number in it is a WOE; the citation would have inverted all of them. |
+| "Normalized gain is known to correlate with pretest score" | **Contradicted by the paper cited for it.** Hake (1998) reports `r = +0.02` across 62 courses, and that near-zero correlation is his central justification for the measure. |
+| The judge–advisor weighting/accuracy separation as "a fourth independent arrival at the fidelity-versus-correctness split" | The field reports the two quantities separately but does not theorise a split. That reading is ours and may be recorded only as ours. |
+| Edwards et al. (2006) cited for "accuracy predicted performance where similarity did not" | Unsupported by the only text available. The abstract says accuracy was the *stronger* predictor, which presupposes similarity predicted too. |
+
+The second one is the instructive one: it would have imported a criticism of a
+statistic **from the paper that refutes the criticism**, because the criticism
+circulates more widely than the measurement does.
 
 ---
 

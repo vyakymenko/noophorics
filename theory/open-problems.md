@@ -205,6 +205,47 @@ the quantity they intend to measure will exist when they get there.*
 
 ---
 
+## 12. The vanishing denominator
+
+**`F*` is undefined as `D_prior → D_floor`. Nobody has solved this, including
+the field that has had it since the 1990s.**
+
+Fidelity normalizes by the gap available to close. When sender and receiver
+already agree, there is no gap, the denominator collapses, and the quantity is
+undefined rather than large. [§3.3](definitions.md#33-admissibility) handles it
+by refusing to measure — an ε-gate — and [`fidelity.py`](../metrics/noophorics/fidelity.py)
+caps the result at 1 above.
+
+**This is not our problem alone.** The judge–advisor statistic `WOA =
+(final − initial)/(advice − initial)` is the same functional
+([prior-art §7](prior-art.md)), and Gino & Moore (2007) state the identical
+defect in print: WOA "yields undefined values when the advice is equal to the
+judge's initial estimate." Their field's resolution is **exclusion plus
+truncation** — drop the undefined trials, clip the rest into [0, 1].
+
+We arrived at exactly those two workarounds independently, and their meta-analysis
+([Bailey et al. 2022](prior-art.md), N = 17 296) reports that the truncation
+**biases estimates upward**. Our `min(1.0, …)` is the same truncation, so our
+numbers carry the same bias, in the same direction, for the same reason.
+
+Two things are wanted and neither exists:
+
+- an estimator that degrades continuously as the gap shrinks, rather than one
+  that is fine until it is undefined;
+- a principled account of what should be reported when two parties agree before
+  the transfer — which is not "nothing happened", because a message can still
+  move a receiver *away*, and an antinoophor on a zero-gap measure is currently
+  inexpressible.
+
+This is the pre-transfer twin of [Problem 11](#11-post-transfer-admissibility).
+Together they say the quantity is well-behaved only in the middle of its range,
+and the theory currently gates both ends by declining to measure.
+
+*Citing the judge–advisor literature as precedent for a **fix** is forbidden:
+they have the defect, not a solution.*
+
+---
+
 ## Contributing a problem
 
 Open problems are added by pull request with: a precise statement, an argument

@@ -403,9 +403,30 @@ def run(args) -> Dict[str, Any]:
         spec = fh.read()
     sender = make_agent(args.provider, "sender", spec, args.model, 1, 0.94)
 
-    briefs: Dict[str, str] = {}
-    meta: Dict[str, Dict[str, Any]] = {}
-    for rung in RUNGS:
+    # Resume path. Composition is stochastic, so re-composing after an
+    # interruption produces different briefs wearing the same labels and
+    # orphans every draw already collected against them -- the cache is keyed by
+    # brief fingerprint precisely so that mismatch cannot pass silently.
+    # briefs.json is written before the sweep for exactly this case.
+    if args.resume_briefs and os.path.exists(args.briefs_out):
+        with open(args.briefs_out, "r", encoding="utf-8") as fh:
+            saved = json.load(fh)
+        briefs = saved["briefs"]
+        meta = {k: v for k, v in saved["meta"].items()}
+        if sorted(briefs) != sorted("r%03d_%d" % (r, j)
+                                    for r in RUNGS for j in range(args.k)):
+            raise SystemExit("briefs.json does not match the registered ladder; "
+                             "refusing to resume against a different design")
+        print("  resumed %d briefs from %s (not re-composed)"
+              % (len(briefs), args.briefs_out))
+        costs_ok = True
+    else:
+        briefs = {}
+        meta = {}
+        costs_ok = False
+
+    if not briefs:
+     for rung in RUNGS:
         low, high = int(rung * 0.85), int(rung * 1.15)
         for j in range(args.k):
             label = "r%03d_%d" % (rung, j)
@@ -413,12 +434,13 @@ def run(args) -> Dict[str, Any]:
             briefs[label] = text
             meta[label] = {"rung": rung, "words": len(text.split()),
                            "cost": float(sender.cost_of(text))}
-    with open(args.briefs_out, "w", encoding="utf-8") as fh:
+    if not costs_ok:
+     with open(args.briefs_out, "w", encoding="utf-8") as fh:
         json.dump({"probe_measure": measure.qualified_id, "model": args.model,
                    "rungs": list(RUNGS), "briefs": briefs, "meta": meta,
                    "fingerprints": {l: fingerprint(m) for l, m in briefs.items()}},
                   fh, indent=1, sort_keys=True)
-    print("  composed %d briefs -> %s" % (len(briefs), args.briefs_out))
+     print("  composed %d briefs -> %s" % (len(briefs), args.briefs_out))
     for rung in RUNGS:
         w = [meta[l]["words"] for l in meta if meta[l]["rung"] == rung]
         print("    rung %3d -> realised %s words" % (rung, sorted(w)))
@@ -509,6 +531,10 @@ def main() -> int:
     ap.add_argument("--epsilon", type=float, default=EPSILON)
     ap.add_argument("--cache", default=os.path.join(HERE, "sample-cache.json"))
     ap.add_argument("--briefs-out", default=os.path.join(HERE, "briefs.json"))
+    ap.add_argument("--resume-briefs", action="store_true",
+                    help="load briefs.json instead of re-composing. Required "
+                         "after an interruption: re-composing orphans every "
+                         "draw already collected against the old briefs.")
     ap.add_argument("--out", default=os.path.join(HERE, "results"))
     args = ap.parse_args()
 

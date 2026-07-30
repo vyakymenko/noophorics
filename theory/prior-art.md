@@ -84,11 +84,9 @@ The repository has never measured `Φ`.
 |---|---|---|
 | Burns et al., *Weak-to-Strong Generalization*, arXiv:2312.09390; ICML 2024, PMLR 235:4971–5012 | Defines *performance gap recovered*, `PGR = (weak-to-strong − weak) / (strong ceiling − weak)` — the same shape as `F*`, sign reversed because `D` is minimized where performance is maximized. | primary source read |
 
-The form is generic and predates that paper too. **No priority claim is made
-here, and no earlier instance may be cited** until one is verified — several
-plausible ancestors (Cohen's κ, Murphy's skill score, Hake's normalized gain)
-were named by the review and are *not* verified, so they are not written down as
-citations.
+The form is generic and predates that paper. Three earlier instances were
+verified on 2026-07-30 and are recorded in §7. Cohen's κ remains unverified and
+stays uncited.
 
 Two differences must accompany any statement of the parallel: PGR's terms are
 task performance against ground truth while `F*`'s are divergence from the
@@ -97,12 +95,19 @@ PGR — that substitution is ours.
 
 ---
 
-## 3. Fidelity-versus-correctness was separated in ML first
+## 3. ~~Fidelity-versus-correctness was separated in ML first~~ — it is not ours, and it is not ML's
 
 | source | relation | confidence |
 |---|---|---|
 | Stanton, Izmailov, Kirichenko, Alemi & Wilson (2021), *Does Knowledge Distillation Really Work?*, NeurIPS 34, 6906–6919 | Distinguishes **fidelity** (student–teacher agreement; top-1 agreement, predictive KL) from **generalization**, and shows good student accuracy does not imply good fidelity. | primary source read |
 | Burns et al. (above) | High student–supervisor agreement is their *failure* signal — the imitation mode an auxiliary confidence loss exists to suppress. | primary source read |
+
+**Withdrawn 2026-07-30: the primacy word.** Cronbach (1955) separated an
+accuracy score from an assumed-similarity score, each with its own
+decomposition, and Edwards et al. (2006) measured similarity and accuracy of
+team mental models as two quantities and compared them as predictors. Both
+predate the machine-learning work credited above, which is correctly described
+and stays. The section's content survives; "first" does not.
 
 [E-001's central finding](../experiments/E-001-fluency-cost/FINDINGS.md) is an
 independent rediscovery of this split, in a different domain, at the cost of a
@@ -184,6 +189,112 @@ language model.** The fidelity-versus-correctness split is prior art in ML;
 phantom agreement between language models is not. That, and only that, is what
 this repository may still call its own — and it may not call it a result until
 it has one.
+
+---
+
+## 7. `F*` is the judge–advisor statistic under a different distance
+
+| source | what it is | confidence |
+|---|---|---|
+| Gino, F. & Moore, D. A. (2007), *J. Behavioral Decision Making* 20(1), 21–35 | Publishes `WOA = (final estimate − initial estimate) / (advice − initial estimate)` verbatim, and traces it to Hell et al. (1988) and Harvey & Fischer (1997) | primary source read |
+| Bailey, Leon, Ebner, Moustafa & Weidemann (2022), *Current Psychology* 42(28), 24516–24541 | Meta-analysis: pooled **WOA = 0.39**, 95% CI [0.37, 0.42], k = 346 effect sizes, 129 datasets, N = 17 296 | primary source read |
+| Yaniv, I. & Kleinberger, E. (2000), *OBHDP* 83(2), 260–281 | Publishes the **complement**, `WOE = |a − f| / |a − i|`. Study 1 mean WOE 0.71, so WOA ≈ 0.29 | primary source read |
+
+**The correspondence, stated as algebra.** Writing `D_prior = D(R, B | P)` and
+`D_post = D(R, B|m | P)`, WOA is `(D_prior − D_post) / D_prior` with the advisor
+as the reference, the judge's initial estimate as `B`, the judge's final estimate
+as `B|m`, and absolute distance on the line in place of Jensen–Shannon
+divergence. That is `F*` **exactly as defined in
+[§3](definitions.md#3-the-noise-floor)**, and the estimator of §4.1 only where
+`D_floor = 0`.
+
+**It is not a generalisation, and the word must not be used.** WOA's own
+instances — scalar magnitude estimates on a continuous scale — lie *outside*
+`F*`'s domain, because [§1.2](definitions.md) requires probes with finite
+discrete answer spaces. Neither contains the other. They are the same functional
+under different distances. The correspondence is our algebra: no source in this
+literature frames WOA as a special case of anything, none works with
+distributions, and none declares a probe measure.
+
+**What `F*` adds:** distributions on both sides rather than a point per party;
+a declared frame (A2), where in JAS the trial *is* the frame; an explicit
+finite-sample floor and admissibility gate, which exist because agents are
+resampleable and human judges are not; and an unclipped negative range — JAS
+truncates away-from-advice movement to zero, and Bailey et al. state that this
+truncation "biases the results toward finding evidence for advice-taking."
+
+**What `F*` loses, and this is the uncomfortable direction.** JSD is symmetric
+and non-negative, so a receiver that **overshoots** the reference is scored
+identically to one that fell short of it by the same distance. WOA distinguishes
+them: it exceeds 1 on overshoot. On this axis the older statistic is strictly
+more informative than ours.
+
+### Not licensed
+
+- **WOA may not be attributed to Yaniv & Kleinberger (2000).** They publish the
+  complement. Every number in that paper is a WOE, and citing them for WOA
+  inverts all of them. Priority is genuinely unresolved: the field cites Harvey
+  & Fischer (1997), which is paywalled with no repository copy and was *not*
+  read; Gino & Moore trace it further back to Hell et al. (1988) in memory
+  research, also unverified.
+- **The JAS accuracy/weighting separation may not be called "a fourth
+  independent arrival at the fidelity-versus-correctness split."** The field
+  reports the two quantities separately — Yaniv & Kleinberger's "Improving
+  accuracy" subsection sits apart from its "Discounting" subsection — but it
+  does not theorise a split. That reading is ours.
+
+## 8. Murphy: the skill-score form, and the decomposition we reinvented
+
+| source | what it is | confidence |
+|---|---|---|
+| Murphy, A. H. (1988), *Monthly Weather Review* 116, Eq. (2) | `SS = (A_f − A_r)/(A_p − A_r)` with the reference `A_r` as a **named argument of the score**. Murphy calls the form traditional and cites Murphy & Daan (1985) | primary source read |
+| Murphy, A. H. (1973), *J. Applied Meteorology* 12(4), 595–600 | The **reliability / resolution / uncertainty** partition of the Brier score | primary source read |
+
+Murphy (1988) is the precedent for the change this repository is making: in
+forecast verification the reference is declared as an argument, and *which*
+reference you pick changes the score. The anomaly is our current form, which
+fixes the reference to the sender and never declares it.
+
+Murphy (1973) is the decomposition this repository arrived at independently when
+it [corrected falsification criterion 2](../PRINCIPIA.md) — bias and resolution
+are different quantities and a mean difference is only the first.
+
+**Not licensed:** calling it "Murphy's skill score" as an eponym — he presents
+Eq. (2) as already traditional; and attributing the reliability/resolution
+partition to the 1988 paper, where it does not appear.
+
+## 9. Hake's normalized gain, and a criticism that runs backwards
+
+| source | what it is | confidence |
+|---|---|---|
+| Hake, R. R. (1998), *Am. J. Physics* 66(1), 64–74 | `⟨g⟩ = (post − pre)/(100 − pre)`, over **class averages**, not per student | primary source read |
+
+The same normalize-the-headroom move as `F*`, over 62 courses and ~6 000
+students.
+
+**Not licensed, and this one nearly went in backwards:** the sentence
+"normalized gain is known to correlate with pretest score" was drafted for this
+page and is **contradicted by the paper cited for it** — Hake reports
+`r = +0.02` across 62 courses, and that near-zero correlation is his central
+justification for the measure. It also may not be presented as a per-student
+score.
+
+## 10. The vanishing denominator is not our problem alone, and nobody has solved it
+
+`F*` is undefined when `D_prior → D_floor`: there is no gap to close. The
+judge–advisor literature has the identical defect and has had it in print since
+at least 2006 — Gino & Moore state that WOA "yields undefined values when the
+advice is equal to the judge's initial estimate."
+
+Their resolution is **exclusion plus truncation**: drop the undefined trials,
+clip the rest into [0, 1]. Ours is an ε-gate (exclusion) and `min(1.0, …)`
+(truncation). We arrived at the same two workarounds.
+
+Bailey et al.'s meta-analysis states that the truncation **biases estimates
+upward**. Ours is the same truncation.
+
+Recorded as [Problem 12](open-problems.md). **Citing JAS as precedent for a fix
+is forbidden**: they have the defect, not a solution.
 
 ---
 
