@@ -136,6 +136,31 @@ understanding transferred deeply enough to be re-transmitted.
 | `K` | channel capacity | §6.1 |
 | `R` | residual | §6.2 |
 
+
+## Reference disposition `R` *(v0.4)*
+
+The per-probe target distribution a transfer is scored against, declared with
+`P` before data exists and carrying a recorded provenance. Kinds: `key`,
+`panel`, `sender`. See [definitions §4.1.1](theory/definitions.md).
+
+Before v0.4 the target was the sender, silently. It was an assumption wearing a
+parameter's clothes.
+
+## Replication fidelity *(v0.4)*
+
+`F*_{R=sender}` — movement toward the sender specifically. Numerically identical
+to the pre-v0.4 `F*`. A real quantity and often the right one, when what is
+being transferred is a preference, a house style, or a judgment call whose owner
+defines the correct answer. **It may not be reported as understanding.**
+
+## Transfer surplus
+
+`F*_R(m) − F*_R(A)` — how much closer to the reference the receiver ended than
+the sender that briefed it. Positive values were unscoreable before v0.4:
+[E-001](experiments/E-001-fluency-cost/FINDINGS.md) produced them and recorded
+them as partial failure.
+
+
 ---
 
 *This document is licensed CC BY 4.0.*

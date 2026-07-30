@@ -436,6 +436,10 @@ A noophoric measurement is reportable iff it states, at minimum:
 | Field | Why |
 |---|---|
 | Probe measure `P` | A2 — the frame. Include the probe set or a hash of it. |
+| Reference `R` and its kind (`key` / `panel` / `sender`) | A2 — the other half of the frame. *(v0.4)* |
+| `R`'s provenance: who set it, from what, whether independently adjudicated | A reference nobody checked is not a reference. |
+| Regime: criterion-bearing or criterion-free | Decides whether *understanding* is licensed at all. |
+| `independence_of(R, A)` — construction **and** discriminability | A perfect sender makes every reference identical, and that must be visible rather than inferred. |
 | Samples per probe `n` | JSD estimates are biased at small `n`. |
 | `D_prior`, `D_post`, `D_floor` | So `F*` can be recomputed and audited. |
 | `C(m)` and its unit | η is not comparable across units. |

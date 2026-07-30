@@ -121,8 +121,14 @@ We refuse to define understanding as a state, because states are private and
 not comparable across architectures. We define it **operationally, through
 behavior**:
 
-> **B understands what A understands, with respect to a domain, to the extent
-> that B would make the same decisions A would make, over that domain.**
+> ~~**B understands what A understands, with respect to a domain, to the extent
+> that B would make the same decisions A would make, over that domain.**~~
+>
+> **Amended v0.4.** B understands what A understands, with respect to a domain,
+> to the extent that B's decisions over that domain **move toward a stated
+> reference** for that domain. Where the reference is A's own decisions, what is
+> measured is *replication of A* — a different and weaker claim, and the one
+> this sentence had been making without saying so.
 
 **This is insufficient on its own, and E-001 proved it.** Convergence to the
 sender cannot distinguish B reconstructing the domain from B reconstructing the
