@@ -139,6 +139,11 @@ a floor, and the floor is measurable.
 residual is nonzero; L3 says its size is a function of something we can vary
 and measure.
 
+**Which reference *(v0.4)*.** Any, and unchanged. L3 relates capacity to prior
+overlap between the two agents; both terms are pairwise and neither is a
+target. Note that this is the law [Problem 2](open-problems.md) says is
+currently a tautology, and v0.4 does not repair that.
+
 **The hard part** is measuring prior overlap independently of the fidelity it
 is supposed to predict. Circular operationalization is the standing threat to
 this law. See [Problem 2](open-problems.md).
@@ -179,11 +184,6 @@ approximately linear in hop count; the chain has a half-life measured in hops.
 <a id="l4c"></a>**L4c — the invariant core.** Content expressed as **constraints and
 prohibitions** decays measurably more slowly than content expressed as
 **descriptions**.
-
-**Which reference *(v0.4)*.** Any, and unchanged. L3 relates capacity to prior
-overlap between the two agents; both terms are pairwise and neither is a
-target. Note that this is the law [Problem 2](open-problems.md) says is
-currently a tautology, and v0.4 does not repair that.
 
 **Which reference *(v0.4)*.** L4 already anticipated this. Its whole restatement
 was that every hop must be scored **against the origin, in the origin's frame**,
