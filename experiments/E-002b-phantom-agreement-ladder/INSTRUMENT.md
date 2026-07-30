@@ -90,6 +90,46 @@ script and it is stated rather than glossed: identical counts are consistent
 with identical probes and with two disjoint sets of eleven, and those mean
 different things. E-002b records probe identities.
 
+## 4. Word-target compliance degrades with the target, within a prompt
+
+Recorded after composition, before any outcome data. Brief lengths are the
+treatment, not the outcome; they were fixed and committed when the run started.
+
+| source | target | realised mean | overshoot | range |
+|---|---|---|---|---|
+| E-002b | 30 | 30.0 | **+0.0%** | 27–34 |
+| E-002b | 70 | 73.8 | +5.4% | 69–78 |
+| E-002b | 110 | 118.8 | +8.0% | 109–128 |
+| E-002b | 150 | 176.0 | **+17.3%** | 160–198 |
+| [E-001c](../E-001c-fluency-length-controlled/FEASIBILITY.md) | 203 | 214.6 | +5.7% | 183–243 |
+| E-001c | 220 | 238.2 | +8.3% | 207–269 |
+
+Within the single E-002b prompt the overshoot is monotone in the target: the
+model hits a 30-word band exactly and misses a 150-word one by 17%. Short
+instructions are obeyed; long ones drift.
+
+**The pooled trend is not a real quantity, and the temptation to report it
+should be resisted.** Fitting a line through all six rows gives +3.6 percentage
+points of overshoot per 100 words of target, and that number is an artifact:
+E-001c's 203-word target produced *less* overshoot (5.7%) than E-002b's 150-word
+one (17.3%), which is the opposite order. The two used different prompts —
+E-001c's four styled cell prompts against E-002b's single neutral one — and
+compliance is a property of the prompt as much as of the target. Six points
+across two instruments do not make a curve.
+
+What survives is narrower and still useful: **a budget-controlled design must
+measure realised length rather than assume it, and must recalibrate whenever the
+prompt changes.** E-001b was voided for assuming exactly this
+([VOID](../E-001b-fluency-factorial/VOID.md)).
+
+The consequence for E-002b specifically: the top rung asked for 150 words and
+realised 160–198, which lands close to the region where the
+[ladder](ladder.json) showed transfer approaching saturation (193 words →
+0.9394 agreement, 2 of 33 diverged). That rung is therefore at more risk of
+failing the outcome-variation gate than the design intended. The gate drops it
+if so, the ladder survives on three rungs, and this paragraph is here so that
+outcome reads as anticipated rather than as an excuse.
+
 ---
 
 *This document is licensed CC BY 4.0.*

@@ -1,0 +1,128 @@
+{
+ "briefs": {
+  "r030_0": "Check length, format, venue timing, prior acceptance age, pair limits, Track\u202fD endorsements, retraction status, figure count, padding rule, and withdrawal reset; then assign HANDLED, RETURNED or PADDED.",
+  "r030_1": "Apply each rule in order; if any mandatory rule fails, RETURNED. Only when only R9 low\u2011figure failure occurs, output PADDED. Otherwise, when all applicable rules pass, HANDLED.",
+  "r030_2": "\u226522\u202fpages; template or \u22653\u2011year revision history (Track\u202fD: two endorsements). Venue >18\u202fmonths ago, no acceptance <5\u202fyears. \u226445 figures (pad if <8). Paired: both meet length/format; one meets venue. Retracted \u2192 reject.",
+  "r030_3": "Check each manuscript against every rule in order; if any rule disqualifies it (except R9\u2019s padding case), mark RETURNED. Only when all applicable rules pass, output HANDLED or PADDED per R9.",
+  "r070_0": "Read each rule in order; stop at the first one that forces a decision. If R7 applies, verdict is RETURNED regardless of everything else. Otherwise test R1\u2013R6 (and R10 where relevant). For paired submissions treat them as two independent papers for R1\u2011R2, require at least one to meet R3, and apply figure limits per R8\u2011R9. After all applicable rules pass, answer HANDLED; if only the low\u2011figure case applies, answer PADDED.",
+  "r070_1": "Check every manuscript against the list in order. First confirm length (R1) then format or revision history (R2), unless it is a Track\u202fD paper which instead needs exactly two endorsements (R6). Verify venue timing (R3) and prior\u2011round age (R4); withdrawals reset the R3 clock (R10). For paired submissions ensure both meet R1/R2 and at least one meets R3 (R5). Apply figure limits (R8\u2011R9) and reject any with an open retraction (R7). Finally assign HANDLED, PADDED or RETURNED.",
+  "r070_2": "Check each manuscript: verify \u226522 pages (R1) and either use the template or show three\u2011year revision history (R2), unless Track\u202fD, where two endorsements replace R2. Ensure figure count 8\u201345 (up to 70 for paired); pad if below minimum, return if above maximum (R8\u2011R9). Reject any with an open retraction (R7). Require venue presentations >18 months before deadline and prior acceptances \u22655\u202fyears (R3\u2011R4). Paired submissions must meet R1\u2011R2 individually, and at least one satisfies the venue rule.",
+  "r070_3": "Read each rule in order; if any rule declares RETURNED, stop and mark RETURNED. Only when all applicable rules are satisfied do you assign HANDLED. The sole exception is R9: if a submission fails only by having too few figures, label it PADDED instead of RETURNED. Remember that paired submissions must meet both manuscripts\u2019 R1/R2, at least one meets R3, and Track\u202fD replaces R2 with exactly two endorsements.",
+  "r110_0": "Apply the rules sequentially; the first that decides the outcome stops further checks.\n\n1. Open retraction notice \u2192 RETURNED (R7 overrides all).  \n2. Pages\u202f<\u202f22 \u2192 RETURNED (R1).  \n3. Not using official template and lacking \u22653\u202fyears revision history \u2192 RETURNED unless Track\u202fD (R2).  \n4. Track\u202fD submissions must have exactly two endorsements; otherwise RETURNED (R6).  \n5. Tier\u20111 venue presentation \u226418\u202fmonths before deadline \u2192 RETURNED (R3).  \n6. Prior acceptance <5\u202fyears ago \u2192 RETURNED (R4).  \n7. Paired submission: exactly two papers, each passing R1 and R2, and at least one passes R3; otherwise RETURNED (R5).  \n8. Figure count: if below 8, pad to eight and mark PADDED (R9); if above max (45 single,\u202f70 paired) \u2192 RETURNED.\n\nIf none of these apply, verdict is HANDLED.",
+  "r110_1": "Read the rules in this order. First check R7; any open retraction makes the manuscript RETURNED immediately, ignoring every other rule. Next verify length (R1) and format (R2), except when the paper is submitted to Track\u202fD, where R2 is replaced by exactly two endorsements (R6). Apply venue timing (R3), remembering that a withdrawal resets the presentation date (R10). If the manuscript was accepted in a previous round, enforce the five\u2011year gap (R4). For paired submissions confirm both items meet R1 and R2, at least one satisfies R3, and figure limits follow R8; excess figures cause RETURNED, while too few trigger PADDED (R9). Finally, if all applicable rules pass, mark HANDLED.",
+  "r110_2": "Read each submission in this order. First check R7; any open retraction is RETURNED immediately. Then verify length (R1) \u2013 at least 22 pages, exactly 22 counts. Confirm format (R2) unless the paper is submitted to Track\u202fD (R6), where two endorsements replace the template/history requirement. Apply venue timing (R3): a Tier\u20111 presentation must be more than 18 months before 1\u202fMar\u202f2026; if a withdrawal occurred, treat the presentation date as the withdrawal date (R10). Examine prior\u2011round acceptance (R4); fewer than five years disqualifies. For paired submissions enforce R5 and figure limits (R8). If figures are below the minimum, pad (R9) unless they exceed the maximum, which returns.",
+  "r110_3": "To decide a manuscript\u2019s verdict follow these steps. First check R7: an retraction makes it RETURNED. Verify length (R1)\u2014at least 22 pages; otherwise RETURNED. Assess format (R2); if not using the template, three years of revision history are needed unless in Track\u202fD (R6), which requires two endorsements. Check venue overlap (R3): a Tier\u20111 presentation is allowed only if it occurred more than 18 months before the deadline; withdrawals reset this clock (R10). Apply prior\u2011round rule (R4): acceptances within five years are rejected. For paired submissions ensure they satisfy R1,R2, two papers, and at least one satisfies R3 (R5). Count figures (R8); if below eight pad to eight and label PADDED (R9), but any excess above the maximum returns RETURNED. If all applicable rules pass, output HANDLED.",
+  "r150_0": "Apply the checklist in order; stop at the first failure unless a later rule explicitly overrides it.\n\n1. Length \u2013 \u226522 pages (exactly 22 counts).\n2. Format \u2013 official template **or** \u22653\u202fyears documented revision history.\n3. Tier\u20111 venue \u2013 presentation must be >18\u202fmonths before 1\u202fMar\u202f2026; exactly 18 fails.\n4. Prior acceptance \u2013 at least 5\u202fyears since any earlier Meridian acceptance; withdrawals are not acceptances.\n5. Paired submission \u2013 exactly two manuscripts, each meeting rules\u202f1 and\u202f2; at least one must also satisfy rule\u202f3. No larger groups.\n6. Track\u202fD \u2013 skips rule\u202f2 but requires exactly two endorsements; all other rules apply.\n7. Retraction \u2013 any open retraction forces RETURNED, overriding everything.\n8\u20119. Figures \u2013 8\u201345 figures (70 for a pair). If below 8, pad to eight \u2192 PADDED; if above max, RETURNED.\n10. Withdrawals \u2013 reset the venue clock to the withdrawal date.\n\nFinally, output HANDLED, RETURNED, or PADDED as the sole verdict.",
+  "r150_1": "Use this checklist for each submission as of 1\u202fMar\u202f2026.\n\n1. Length \u2013 \u226522 pages (exactly 22 counts).\n2. Format \u2013 either the official template OR at least three years of documented revision history.\n3. Venue overlap \u2013 if presented at a Tier\u20111 venue, the presentation must be >18 months before the deadline; exactly 18 months fails.\n4. Prior round \u2013 an earlier Meridian acceptance is disallowed unless \u22655\u202fyears have passed; withdrawals do not count as acceptances and reset the venue clock to the withdrawal date.\n5. Paired submission \u2013 allowed only for exactly two manuscripts. Each must meet R1 and R2; at least one of them must also satisfy R3. No other numbers are permitted.\n6. Track\u202fD \u2013 replaces R2 with a requirement for exactly two endorsements; all other rules still apply.\n7. Retraction \u2013 any open retraction automatically yields RETURNED, overriding every rule.\n8. Figures \u2013 total must be 8\u201145 inclusive (70 max for a pair).\n\nIf figures are below the minimum, pad to 8 and label PADDED; excess figures cause RETURNED. A submission meeting all applicable checks is HANDLED.",
+  "r150_2": "Follow this ordered checklist.\n\n1. R7 \u2013 If an open retraction notice is present, verdict = RETURNED; stop.  \n2. R1 \u2013 Pages\u202f\u2265\u202f22 (exactly 22 counts). Fail \u2192 RETURNED.  \n3. R2 \u2013 Use official template **or** have \u22653 years revision history. For Track\u2011D papers skip R2 and require exactly two endorsements (R6); any other number \u2192 RETURNED.  \n4. R3 \u2013 Tier\u20111 presentation must be >18\u202fmonths before 1\u202fMar\u202f2026. In a paired set, at least one manuscript must meet this.  \n5. R4 \u2013 If accepted in a prior round <5\u202fyears ago, verdict = RETURNED.  \n6. R5 \u2013 Paired submissions allowed only as exactly two manuscripts; each must satisfy R1 and R2, and only one needs to satisfy R3.  \n7. R8/R9 \u2013 Figure count 8\u201145 (up to 70 for a pair). Below 8 \u2192 pad to eight, verdict = PADDED. Above maximum \u2192 RETURNED.\n\nIf none of the above cause a return or padding, the manuscript is HANDLED.",
+  "r150_3": "Use this checklist in order; stop at the first rule that makes the submission fail.\n\n1. Length\u202f\u2013 manuscript must have \u226522 pages (22 counts).  \n2. Format\u202f\u2013 either use the official template **or** include documented revision history covering at least three years.  \n3. Venue overlap\u202f\u2013 if presented at a Tier\u20111 venue, the presentation date must be >18 months before 1\u202fMar\u202f2026; exactly 18 months fails.  \n4. Prior round\u202f\u2013 an earlier Meridian acceptance is disallowed unless \u22655\u202fyears have passed since that round. Withdrawals do not count as acceptances and reset the venue clock (treat the withdrawal date as the presentation date).  \n5. Paired submission\u202f\u2013 allowed for exactly two manuscripts; each must meet R1 and R2, and at least one of the pair must satisfy R3.  \n6. Track\u202fD\u202f\u2013 exempts only R2; instead supply exactly two endorsements.  \n7. Retraction\u202f\u2013 any open retraction causes automatic RETURN regardless of other rules.  \n8. Figures\u202f\u2013 total must be 8\u201145 inclusive (70 allowed for a pair).  \n9. If figure count is below the minimum, pad to 8 and issue PADDED; excess figures cause RETURN.\n\nResult: HANDLED if no rule fails, otherwise RETURNED or PADDED as specified."
+ },
+ "fingerprints": {
+  "r030_0": "f0773e8184",
+  "r030_1": "38cab83c28",
+  "r030_2": "aa47f1e5f6",
+  "r030_3": "eeebf94cfb",
+  "r070_0": "dcfee9664a",
+  "r070_1": "87b3364f57",
+  "r070_2": "fae7a61d94",
+  "r070_3": "99a9e32608",
+  "r110_0": "70f0463543",
+  "r110_1": "9f6735055f",
+  "r110_2": "9ef54f6b24",
+  "r110_3": "cd661ecb80",
+  "r150_0": "45508b786b",
+  "r150_1": "ca8663c409",
+  "r150_2": "bbfedc9be6",
+  "r150_3": "80e22b44ff"
+ },
+ "meta": {
+  "r030_0": {
+   "cost": 112.0,
+   "rung": 30,
+   "words": 28
+  },
+  "r030_1": {
+   "cost": 108.0,
+   "rung": 30,
+   "words": 27
+  },
+  "r030_2": {
+   "cost": 129.0,
+   "rung": 30,
+   "words": 34
+  },
+  "r030_3": {
+   "cost": 112.0,
+   "rung": 30,
+   "words": 31
+  },
+  "r070_0": {
+   "cost": 170.0,
+   "rung": 70,
+   "words": 70
+  },
+  "r070_1": {
+   "cost": 190.0,
+   "rung": 70,
+   "words": 78
+  },
+  "r070_2": {
+   "cost": 193.0,
+   "rung": 70,
+   "words": 78
+  },
+  "r070_3": {
+   "cost": 159.0,
+   "rung": 70,
+   "words": 69
+  },
+  "r110_0": {
+   "cost": 279.0,
+   "rung": 110,
+   "words": 128
+  },
+  "r110_1": {
+   "cost": 226.0,
+   "rung": 110,
+   "words": 111
+  },
+  "r110_2": {
+   "cost": 231.0,
+   "rung": 110,
+   "words": 109
+  },
+  "r110_3": {
+   "cost": 256.0,
+   "rung": 110,
+   "words": 127
+  },
+  "r150_0": {
+   "cost": 305.0,
+   "rung": 150,
+   "words": 161
+  },
+  "r150_1": {
+   "cost": 314.0,
+   "rung": 150,
+   "words": 185
+  },
+  "r150_2": {
+   "cost": 313.0,
+   "rung": 150,
+   "words": 160
+  },
+  "r150_3": {
+   "cost": 349.0,
+   "rung": 150,
+   "words": 198
+  }
+ },
+ "model": "gpt-oss:120b",
+ "probe_measure": "MERIDIAN-33@256672ea3852",
+ "rungs": [
+  30,
+  70,
+  110,
+  150
+ ]
+}
