@@ -40,9 +40,16 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("e-001c-feasibility",
      "experiments/E-001c-fluency-length-controlled/FEASIBILITY.md", "instrument"),
     ("e-002-void", "experiments/E-002-phantom-agreement/VOID.md", "void"),
+    ("retractions", "RETRACTIONS.md", "audit"),
+    ("prior-art", "theory/prior-art.md", "audit"),
 ]
 
 REPO = "https://github.com/vyakymenko/noophorics/blob/main/"
+
+# Directory a document's relative links resolve against. Set per source before
+# rendering: a link written in RETRACTIONS.md at the repo root and the same
+# link written in journal/ point at different files.
+_LINK_BASE = ["journal"]
 
 
 # --------------------------------------------------------------------------
@@ -71,8 +78,9 @@ def _link(m) -> str:
     elif href.startswith("#"):
         pass
     else:  # relative repo path -> point at the repository
+        base = _LINK_BASE[0]
         href = REPO + os.path.normpath(
-            os.path.join("journal", href)
+            os.path.join(base, href)
         ).replace("\\", "/").lstrip("./")
     return '<a href="%s">%s</a>' % (html.escape(href, quote=True), label)
 
@@ -245,6 +253,7 @@ def build() -> int:
     for slug, path, kind in SOURCES:
         with open(os.path.join(ROOT, path), "r", encoding="utf-8") as fh:
             src = fh.read()
+        _LINK_BASE[0] = os.path.dirname(path) or "."
         title = re.search(r"^#\s+(.*)$", src, re.M).group(1).strip()
         rest = src[src.index("\n", src.index("# ")) :]
         first_para = next(
