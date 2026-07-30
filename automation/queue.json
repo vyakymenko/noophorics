@@ -1,0 +1,13 @@
+{
+  "comment": [
+    "Human-authored. The loop reads this once at start and never writes it.",
+    "Every entry must name a committed pre-registration; the loop refuses an",
+    "entry whose prereg file does not exist. Commands are argv lists, never",
+    "shell strings -- a shell string in a committed queue is an injection",
+    "surface for anyone who can open a pull request.",
+    "'expect' is recorded in the self-transfer ledger BEFORE the run, so that",
+    "what an iteration believed it was doing can be compared afterwards with",
+    "what it produced. The loop never makes that comparison itself."
+  ],
+  "runs": []
+}
