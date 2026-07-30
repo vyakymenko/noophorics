@@ -8,7 +8,7 @@ design is criticizable before it is built.
 ## Purpose
 
 A standard battery of transfer tasks that any sender/receiver pair can be
-scored on, producing comparable `F*`, `η`, and `Φ` numbers across labs,
+scored on, producing comparable `F*_R`, `η`, and `Φ` numbers across labs,
 architectures, and time.
 
 The unit of comparison is a **transfer**, not a task. Existing benchmarks ask
@@ -37,7 +37,9 @@ itself constantly — and the least existing theory. See
 
 A submission reports, per track:
 
-- `F*` — floor-corrected, unclipped
+- `F*_R` — floor-corrected, unclipped, **against a declared reference**.
+  A submission without its `R` and that `R`'s provenance is not scorable: where
+  `R` is the sender the number is *replication*, and the two are not comparable.
 - `η` — fidelity per kilotoken
 - `Φ` — phantom agreement
 - `K̂` — capacity estimate, with its search budget stated

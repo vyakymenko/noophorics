@@ -116,8 +116,8 @@ reference implementation in [`metrics/`](metrics/).
 | `P` | probe measure | The frame of reference. **There is no understanding in general, only understanding relative to a `P`.** |
 | `D` | divergence | How differently two agents decide, over `P`. |
 | `D_floor` | noise floor | Divergence between *perfectly aligned* agents, from their own stochasticity. Not correcting for it is the field's most common error. |
-| `F*` | transfer fidelity | Fraction of the closable gap a message closed. `< 0` = **antinoophor**. **Not reportable alone** — it rewards copying the sender's errors, so it must be decomposed (see below). |
-| `η` | efficiency | `F* / cost`. Understanding per token. What engineering should optimize and almost nothing does. |
+| `F*_R` | transfer fidelity | Fraction of the closable gap **toward a declared reference `R`** that a message closed. `< 0` = **antinoophor**. **Not reportable without its `R`** — where `R` is the sender the quantity is *replication*, and it rewards copying the sender's errors. |
+| `η` | efficiency | `F*/cost`, and **valid only for `F* ≥ 0`**: a ratio with a signed numerator is not an ordering, and it ranked a long antinoophor above a short one for three versions. Use `V_λ = F* − λC` when the sign is unknown. |
 | `Φ` | **phantom agreement** | Claimed agreement minus observed. Both parties believe it landed; probes say otherwise. The field's central pathology. |
 | `K` | channel capacity | Best fidelity any message could achieve. A curve `K(C)`, estimated only on **held-out** probes — against a visible probe measure a lookup table trivially reaches 1. |
 
@@ -223,7 +223,9 @@ collection of confirmations.
 The programme's only completed result so far is negative, and it is about the
 programme itself:
 
-- **`F*` rewards replicating the sender's errors.** On E-001's own data both
+- **`F*` rewards replicating the sender's errors.** *(Repaired in v0.4: the
+  reference is now a declared argument, and a sender reference measures
+  replication by name.)* On E-001's own data both
   receivers out-decided the sender that briefed them, while fidelity ranked
   them the other way; 62% of the headline effect came from the four probes
   where the sender was wrong. `F*` now decomposes into convergence-where-the-

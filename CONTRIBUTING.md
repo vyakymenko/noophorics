@@ -63,6 +63,8 @@ standard from
 | Field | Why |
 |---|---|
 | Probe measure `P` (with content hash) | A2 — the frame |
+| Reference `R`, its kind and its provenance | A2 — the other half of the frame *(v0.4)* |
+| Regime: criterion-bearing or criterion-free | Decides whether *understanding* is licensed at all |
 | Samples per probe `n` | JSD estimates are biased at small `n` |
 | `D_prior`, `D_post`, `D_floor` | so `F*` can be recomputed and audited |
 | `C(m)` and its unit | η is not comparable across units |
@@ -75,6 +77,10 @@ Two hard requirements:
   unfinished, and it systematically understates fidelity.
 - **Never clip `F*` below zero.** Antinoophors are real, informative, and
   invisible in clipped data.
+- **Never report a fidelity without its reference.** *(v0.4)* `F*` takes a
+  declared `R`. Where `R` is the sender the quantity is **replication**, and
+  calling it understanding is the specific error
+  [E-001](experiments/E-001-fluency-cost/FINDINGS.md) cost a live run to find.
 
 Anecdotes are welcome in [`journal/`](journal/). They are not welcome in
 `theory/`.
