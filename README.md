@@ -42,9 +42,14 @@ What we have not found elsewhere is one instrument carrying fidelity, cost,
 document said before 2026-07-29: the believed-versus-actual gap itself has been
 measured in humans since at least 1990, and
 [PRINCIPIA §1](PRINCIPIA.md) carries the retraction and
-[theory/prior-art.md](theory/prior-art.md) the verified ledger. What
-has not been measured by anyone, including us, is that gap where sender and
-receiver are both language models. Noophorics builds it by
+[theory/prior-art.md](theory/prior-art.md) the verified ledger. That gap where sender and
+receiver are both language models had not been measured by anyone, including
+us, until [E-002b](experiments/E-002b-phantom-agreement-ladder/FINDINGS.md) on
+2026-07-31: `Φ = +0.2961`, CI `[+0.2200, +0.3649]`, **one model in both roles**,
+and the number is the parties' near-constant 95.5% claim rate minus their 65.9%
+actual agreement. The level is measured. Whether confidence *responds* to
+transfer is [E-002c](experiments/E-002c-calibration-slope/PREREGISTRATION.md),
+registered and not yet run. Noophorics builds it by
 replacing *symbol recovery* with *behavioral convergence*: **B understood what A
 understood, over a domain, to the extent that B would make the same decisions
 A would make.** That single move makes understanding measurable, comparable
