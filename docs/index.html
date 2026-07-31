@@ -1832,7 +1832,7 @@ th:last-child, td:last-child { padding-right: 0; }
             <td>The best fidelity achievable by <em>any</em> message, at unbounded cost — the noophoric analogue of Shannon capacity and the central theoretical object of the field. Not directly computable; estimated as a lower bound over a stated search budget. We conjecture <span class="q">K &lt; 1</span> always.</td>
           </tr>
           <tr>
-            <td class="t-sym">R</td>
+            <td class="t-sym">U</td>
             <td class="t-name">Residual<span>§6.2</span></td>
             <td><span class="q">1 − K</span>. The untransferable remainder. Axiom A3 asserts it is nonzero in the general case; characterising what lives inside it is <a href="#roadmap">Problem 1</a>.</td>
           </tr>
@@ -1894,7 +1894,7 @@ F*(m)  =  ───────────────────────�
 
     <figure class="figure">
       <div class="plate" tabindex="0" aria-label="Scrollable phantom agreement chart">
-      <svg viewBox="0 0 720 340" role="img" aria-label="Schematic chart. The horizontal axis is message cost; the vertical axis is agreement rate from zero to one. A red curve, claimed agreement, rises steeply and sits high. A dark curve, observed agreement, rises slowly and saturates at a dashed ceiling labelled K, the channel capacity. The shaded area between the two curves is labelled Phi. The band above the ceiling is labelled R, the residual.">
+      <svg viewBox="0 0 720 340" role="img" aria-label="Schematic chart. The horizontal axis is message cost; the vertical axis is agreement rate from zero to one. A red curve, claimed agreement, rises steeply and sits high. A dark curve, observed agreement, rises slowly and saturates at a dashed ceiling labelled K, the channel capacity. The shaded area between the two curves is labelled Phi. The band above the ceiling is labelled U, the residual.">
         <defs>
           <pattern id="hatch" patternUnits="userSpaceOnUse" width="7" height="7" patternTransform="rotate(45)">
             <path class="fig-hatch" d="M 0 0 V 7"></path>
@@ -1916,7 +1916,7 @@ F*(m)  =  ───────────────────────�
         <text class="fig-t" x="66" y="44" text-anchor="end">1.0</text>
         <text class="fig-t" x="66" y="284" text-anchor="end">0</text>
 
-        <text class="fig-t fig-t-ink" x="94" y="62">R — RESIDUAL (1 − K)</text>
+        <text class="fig-t fig-t-ink" x="94" y="62">U — RESIDUAL (1 − K)</text>
         <text class="fig-t fig-t-ink" x="94" y="126">K — CAPACITY</text>
 
         <text class="fig-phi" x="206" y="170">Φ</text>
@@ -1931,7 +1931,7 @@ F*(m)  =  ───────────────────────�
       <figcaption><b>Fig. 2</b> Schematic — <em>not data</em>. Claimed agreement
       outruns observed agreement; the area between them is Φ. Observed agreement
       saturates at the capacity <span class="q">K</span>, leaving the residual
-      <span class="q">R = 1 − K</span>. No curve on this plate has been measured.
+      <span class="q">U = 1 − K</span>. No curve on this plate has been measured.
       It is what axiom A3 and law L5 predict, drawn so that it can be looked at
       and disagreed with.</figcaption>
     </figure>
