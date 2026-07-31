@@ -22,6 +22,16 @@ further from the sender than before it was sent.
 **noophoric act** — the triple `(A, m, B)`. Synonym for noophor; used when the
 components matter.
 
+**criterion-bearing / criterion-free** — the two regimes a probe measure can be
+in (v0.4). *Criterion-bearing*: an answer exists independently of the sender, so
+a key or an adjudicator panel is an admissible reference and the word
+*understanding* is licensed. *Criterion-free*: the sender **is** the criterion by
+construction — a preference, a house style, a judgment call whose owner defines
+the right answer — so `R = sender` is correct rather than tolerated, and there
+is no sender error available to be replicated. Key *absence* does not move a
+measure into the second regime: that is an epistemic fact about the
+experimenter, not an ontological one about the probe.
+
 ---
 
 ## Agents and probes
@@ -56,23 +66,40 @@ about themselves.
 **self-divergence (`D_self`)** — an agent's divergence from itself under
 independent resampling. Agents are stochastic; this is the measure of it.
 
-**noise floor (`D_floor`)** — mean self-divergence of the two agents. The
-irreducible divergence between perfectly aligned parties. Not correcting for it
-is the most common error in noophoric measurement.
+**noise floor (`D_floor`)** — ~~mean self-divergence of the two agents; the
+irreducible divergence between perfectly aligned parties~~. **Retracted in
+v0.3** ([retraction 2](RETRACTIONS.md)): two perfectly aligned stochastic
+agents have identical true distributions, so their true divergence is exactly
+zero and there is nothing irreducible. `D_floor` is **finite-sample estimator
+bias at a stated `n`**, obtained by a permutation null over the pooled draws. It
+is a property of the measurement, not of the agents, and it belongs in the
+estimator rather than in the definition. Not correcting for it is still the most
+common error.
 
-**transfer fidelity (`F*`)** — the fraction of the closable gap that the
-message closed, floor-corrected. `1` = fully closed, `0` = no effect,
-`< 0` = antinoophor.
+**transfer fidelity (`F*_R`)** — the fraction of the closable gap **toward a
+declared reference `R`** that the message closed, floor-corrected. `1` = fully
+closed, `0` = no effect, `< 0` = antinoophor. **Never reportable without its
+`R`** (v0.4). `F*_{R=A}` is identically the pre-v0.4 quantity.
 
 **cost (`C`)** — the price of the artifact, in the receiver's tokens unless
 stated otherwise. The receiver pays to read it.
 
-**noophoric efficiency (`η`)** — `F* / C`. Understanding per unit cost. The
-quantity engineering should optimize and currently does not.
+**noophoric efficiency (`η`)** — `F*/C`, understanding per unit cost, and
+**valid only where `F* ≥ 0`**. ~~The quantity engineering should optimize.~~
+A ratio with a signed numerator is not an ordering
+([retraction 3](RETRACTIONS.md)): at `F* = −1` a 100-token antinoophor scores
+−10.00 and an 800-token one −1.25, ranking the costlier failure higher. Use
+`V_λ` when the sign is unknown.
 
-**channel capacity between minds (`K`)** — `sup_m F*(m)`. The best fidelity any
-message could achieve at unbounded cost. Estimated as a lower bound `K̂` over a
-stated search budget.
+**net value (`V_λ`)** — `F*_R − λ·C`. Monotone in both arguments at every sign,
+so it orders messages the way the field means to. `λ` is the declared exchange
+rate between fidelity and a token; sweeping it traces the frontier, which makes
+`V_λ` and `K_R(C)` the same object seen twice.
+
+**channel capacity between minds (`K_R`)** — `sup_m F*_R(m)`. The best fidelity
+any message could achieve at unbounded cost, toward a declared reference.
+Estimated as a lower bound `K̂` over a stated search budget, by sample-splitting
+— a max-over-search estimate is a winner's curse and overstates.
 
 **residual (`R`)** — `1 − K`. The untransferable remainder. Axiom A3 asserts
 it is nonzero.

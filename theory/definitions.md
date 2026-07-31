@@ -333,10 +333,12 @@ Understanding per unit cost, in fidelity per kilotoken. **Valid only where
 **Use instead, when the sign is not known in advance:**
 
 ```
-V_λ(m) = F*(m) − λ · C(m)
+V_λ(m) = F*_R(m) − λ · C(m)
 ```
 
-`V_λ` is monotone in both arguments at every sign, so it orders messages the
+`V_λ` inherits `F*`'s reference — a net value without its `R` is as
+meaningless as a fidelity without one. It is monotone in both arguments at every
+sign, so it orders messages the
 way the field means to order them: more fidelity is better, more cost is worse,
 always. `λ` is the exchange rate between fidelity and a token and must be
 declared with any reported `V_λ` — it is a policy choice, and pretending a
@@ -384,12 +386,19 @@ are frequently asymmetric, and the asymmetry is data.
 ### 6.1 Channel capacity between minds
 
 ```
-K(A, B | P) = sup_m F*(m)
+K_R(A, B | P) = sup_m F*_R(m)
 ```
 
-The best fidelity achievable by *any* message, at unbounded cost. This is the
-noophoric analogue of Shannon capacity, and the central theoretical object of
-the field.
+The best fidelity achievable by *any* message, at unbounded cost, **toward a
+declared reference `R`** (v0.4). This is the noophoric analogue of Shannon
+capacity, and the central theoretical object of the field.
+
+The subscript is not decoration. Capacity toward a *key* and capacity toward the
+*sender* are different quantities on the same pair: the second is bounded above
+by how good the sender is, and a receiver cannot exceed a reference it is being
+measured against. Under `R = A` the sender sits at `F*_A(A) ≡ 1` by
+construction, so `K_A ≤ 1` says nothing about whether either party understands
+the domain.
 
 `K` is not directly computable — the supremum ranges over all possible
 artifacts.
