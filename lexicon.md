@@ -101,8 +101,11 @@ any message could achieve at unbounded cost, toward a declared reference.
 Estimated as a lower bound `K̂` over a stated search budget, by sample-splitting
 — a max-over-search estimate is a winner's curse and overstates.
 
-**residual (`R`)** — `1 − K`. The untransferable remainder. Axiom A3 asserts
-it is nonzero.
+**residual (`U`)** — `1 − K_R`. The untransferable remainder toward a declared
+reference. Axiom A3 asserts it is nonzero. ~~Written `R` before 2026-07-31~~ —
+renamed because v0.4 gave `R` to the reference disposition without checking the
+symbol was free, and for a day this glossary listed `R` as the residual directly
+above a section defining `R` as the reference.
 
 ---
 
@@ -155,13 +158,15 @@ understanding transferred deeply enough to be re-transmitted.
 | `Â` | observed agreement rate | §2.3 |
 | `D_self` | self-divergence | §3.1 |
 | `D_floor` | noise floor | §3.2 |
-| `F*` | transfer fidelity | §4.1 |
+| `F*_R` | transfer fidelity | §4.1 |
 | `C(m)` | message cost | §4.2 |
 | `η` | noophoric efficiency | §4.3 |
 | `Ĉ` | claimed agreement rate | §5 |
 | `Φ` | phantom agreement | §5 |
-| `K` | channel capacity | §6.1 |
-| `R` | residual | §6.2 |
+| `K_R` | channel capacity | §6.1 |
+| `U` | residual | §6.2 |
+| `R` | reference disposition | §4.1.1 |
+| `V_λ` | net value | §4.3 |
 
 
 ## Reference disposition `R` *(v0.4)*

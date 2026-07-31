@@ -428,13 +428,28 @@ how much the search overfitted.
 ### 6.2 Residual
 
 ```
-R(A, B | P) = 1 − K(A, B | P)
+U(A, B | P) = 1 − K_R(A, B | P)
 ```
 
 The untransferable remainder. Axiom [A3](../PRINCIPIA.md#4-the-four-axioms)
-asserts `R > 0` in the general case. Characterizing what lives inside `R` —
+asserts `U > 0` in the general case. Characterizing what lives inside `U` —
 and predicting its size from properties of the two agents — is
 [Problem 1](open-problems.md).
+
+> **Renamed from `R` on 2026-07-31, and the reason is worth the two lines.**
+> v0.4 introduced `R` for the *reference disposition* without checking the
+> symbol was free — it had meant the residual since v0.1. For a day this
+> document defined `R` twice, and `lexicon.md`'s symbol table said "residual"
+> directly above a section defining `R` as the reference.
+>
+> The reference kept the letter because it is load-bearing across `F*_R`,
+> `K_R`, `V_λ`, every law and the reporting standard; the residual appeared in
+> four places. That is a blast-radius argument and not a principled one, and it
+> is recorded as such.
+>
+> Note also that `U` is now indexed by the reference through `K_R`: the
+> untransferable remainder toward a key and toward the sender are different
+> quantities, and A3's claim is about the former.
 
 ---
 

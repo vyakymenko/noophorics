@@ -8,7 +8,7 @@ hard. Numbering is stable; solved problems are annotated, not renumbered.
 
 ## 1. The residual characterization problem
 
-**What lives inside `R = 1 − K`?**
+**What lives inside `U = 1 − K_R`?**
 
 Axiom A3 asserts the untransferable remainder is nonzero. Characterize it.
 Given two agents and a domain, predict *which* dispositions fall inside the
