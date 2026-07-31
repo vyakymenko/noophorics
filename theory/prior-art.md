@@ -72,9 +72,31 @@ reporting fidelity, cost, and both parties' calibration against a single stated
 probe measure — and no measurement of this gap exists where sender and receiver
 are both language models.
 
-That second half is the programme's distinct object, and as of v0.3 it is
-**unmeasured by us**. E-001 voided; E-001b voided before any `Φ` was examined.
-The repository has never measured `Φ`.
+That second half is the programme's distinct object.
+
+**Updated 2026-07-31 — it is no longer unmeasured.**
+[E-002b](../experiments/E-002b-phantom-agreement-ladder/FINDINGS.md) completed
+and measured `Φ = +0.2961`, 95% CI `[+0.2200, +0.3649]`, between a
+`gpt-oss:120b` sender and a `gpt-oss:120b` receiver over 33 probes, 16 briefs
+and 1056 probe-party elicitations. As far as this repository has been able to
+establish, that is the first such measurement between two language models.
+
+Three things must travel with that sentence or it becomes the kind of claim
+this page exists to prevent:
+
+- **It is the pinning stated as a level.** The parties claimed agreement on
+  95.5% of cells nearly invariantly while actual agreement ranged 0.515–0.970,
+  so `+0.2961` is `0.9552 − 0.6591` exactly. It is a real number about a real
+  gap and it is not evidence that confidence *tracks* transfer.
+- **Both parties are the same model.** "Between two language models" is true of
+  a model and its own copy conditioned differently. A cross-provider measurement
+  is not done, and the phrase should not be allowed to imply one.
+- **The interesting quantity is unregistered until E-002c.** The calibration
+  slope `β = +0.0386` was found post-hoc and is a hypothesis, not a result.
+
+The claim that survives, in full: **the level has been measured once, in the
+easiest available configuration, and what it mostly shows is that the parties
+say yes to nearly everything.**
 
 ---
 

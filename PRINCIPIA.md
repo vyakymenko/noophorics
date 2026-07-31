@@ -242,8 +242,14 @@ We name this **phantom agreement**, Φ.
 > *quantitative* anomaly, not a felt one. And "dominates the system" is a claim
 > about magnitude that we have no measurement to support.
 >
-> What is actually open is the language-model case: no measurement of this gap
-> exists where both parties are models, including ours.
+> What was actually open is the language-model case. **As of 2026-07-31 it is
+> measured**: [E-002b](experiments/E-002b-phantom-agreement-ladder/FINDINGS.md)
+> reports `Φ = +0.2961`, CI `[+0.2200, +0.3649]`, between a `gpt-oss:120b`
+> sender and receiver — one model in both roles, and the number is the parties'
+> near-constant 95.5% claim rate minus their 65.9% actual agreement. The level
+> exists. Whether confidence *responds* to transfer is
+> [E-002c](experiments/E-002c-calibration-slope/PREREGISTRATION.md), registered
+> and not yet run.
 
 Φ is dangerous precisely because it is invisible from inside. Neither party has
 any signal that anything went wrong. The sender has discharged their intent;
