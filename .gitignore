@@ -34,3 +34,8 @@ htmlcov/
 # public tree deliberately; no credential was ever in these files -- the token
 # is read from the environment and is redacted from the module's own errors.
 automation/
+
+# Launch and outreach planning. Private: positioning, drafts, platform
+# accounts and scheduling belong to the maintainer, not to the science. The
+# repository must be readable by someone who has never heard of the campaign.
+launch/
