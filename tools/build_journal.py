@@ -40,6 +40,8 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("e-001c-feasibility",
      "experiments/E-001c-fluency-length-controlled/FEASIBILITY.md", "instrument"),
     ("e-002-void", "experiments/E-002-phantom-agreement/VOID.md", "void"),
+    ("e-002b-findings",
+     "experiments/E-002b-phantom-agreement-ladder/FINDINGS.md", "findings"),
     ("cross-sender-disagreement",
      "journal/2026-07-30-cross-sender-disagreement.md", "observation"),
     ("two-audit-holes", "journal/2026-07-30-two-audit-holes.md", "audit"),

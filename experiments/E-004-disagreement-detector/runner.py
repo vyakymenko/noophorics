@@ -35,6 +35,8 @@ from noophorics import (  # noqa: E402
     ProbeMeasure, bootstrap_ci, holm_adjust, load_probe_measure, to_distribution,
 )
 from noophorics.ollama_agent import OllamaAgent, ollama_available  # noqa: E402
+from noophorics.agents import AnthropicAgent  # noqa: E402
+from noophorics.codex_agent import CodexAgent, codex_available  # noqa: E402
 
 SEED = 20260731
 BOOTSTRAP = 5_000
@@ -280,11 +282,22 @@ def run(args) -> Dict[str, Any]:
     for mname, measure in measures.items():
         modes[mname] = {}
         for i, model in enumerate(models):
-            if args.provider == "ollama":
+            # Provider is chosen per MODEL, not per run, because the design
+            # names three models from two providers and they have to answer the
+            # same probes. The sampling regimes differ and cannot be matched --
+            # Claude does not accept a temperature at all -- so the regime is
+            # recorded as a parameter rather than pretended to be controlled.
+            if args.provider == "dry":
+                agent = None
+            elif model.startswith("codex"):
+                agent = CodexAgent(specs[mname], model=model)
+            elif model.startswith("claude"):
+                agent = AnthropicAgent(model, specs[mname], model=model)
+            else:
                 agent = OllamaAgent(model, specs[mname], model=model,
                                     think=OLLAMA_THINK,
                                     temperature=OLLAMA_TEMPERATURE)
-            else:
+            if agent is None:
                 # Dry run: give each model its own error set so H3 is exercised.
                 ids = [p.id for p in measure]
                 agent = Stub(model, 100 + i, ids[i::len(models)][:3])
@@ -300,6 +313,20 @@ def run(args) -> Dict[str, Any]:
         "measures": {n: m.qualified_id for n, m in measures.items()},
         "models": models, "samples_per_probe": args.samples,
         "detector": "flag probe iff mode X != mode Y; no key, no threshold",
+        "sampling_regime": {
+            "ollama": {"think": OLLAMA_THINK, "temperature": OLLAMA_TEMPERATURE},
+            "anthropic": "no temperature parameter is accepted; the per-probe "
+                         "distribution comes from the model's own "
+                         "nondeterminism",
+            "codex": "low reasoning effort, instructed to answer without "
+                     "analysis",
+            "note": "regimes are NOT matched across providers and cannot be -- "
+                    "the reasoning architectures differ. Recorded as a "
+                    "parameter rather than pretended to be controlled, which "
+                    "matters here more than usual: the detector IS "
+                    "cross-provider disagreement, so any regime difference is a "
+                    "candidate confound and must be visible in the record.",
+        },
         "modal_answers": modes,
     }
     results.update(analyse(modes, measures))
@@ -308,16 +335,25 @@ def run(args) -> Dict[str, Any]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="E-004 disagreement detector")
-    ap.add_argument("--provider", choices=("ollama", "dry"), default="dry")
+    ap.add_argument("--provider", choices=("live", "dry"), default="dry",
+                    help="live dispatches per MODEL: names starting claude-> "
+                         "Anthropic, codex-> the codex CLI, anything else-> "
+                         "ollama. The design names models, not a provider.")
     ap.add_argument("--models", default="gpt-oss:120b,qwen3.5:35b")
     ap.add_argument("--samples", type=int, default=16)
     ap.add_argument("--cache", default=os.path.join(HERE, "sample-cache.json"))
     ap.add_argument("--out", default=os.path.join(HERE, "results"))
     args = ap.parse_args()
 
-    if args.provider == "ollama" and not ollama_available():
-        print("ollama is not reachable", file=sys.stderr)
-        return 2
+    models = [m.strip() for m in args.models.split(",") if m.strip()]
+    if args.provider != "dry":
+        if any(not m.startswith(("claude", "codex")) for m in models) \
+                and not ollama_available():
+            print("ollama is not reachable", file=sys.stderr)
+            return 2
+        if any(m.startswith("codex") for m in models) and not codex_available():
+            print("the codex CLI is not available", file=sys.stderr)
+            return 2
 
     results = run(args)
     os.makedirs(args.out, exist_ok=True)

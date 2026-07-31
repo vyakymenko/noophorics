@@ -28,7 +28,8 @@ sys.path.insert(0, os.path.join(REPO, "metrics"))
 from noophorics import (  # noqa: E402
     ProbeMeasure, agreement_rate, bootstrap_ci, goodman_kruskal_gamma,
     holm_adjust, load_probe_measure, mean_divergence, mean_permutation_floor,
-    permutation_diff, point_biserial, to_distribution, transfer_fidelity,
+    paired_permutation, permutation_diff, point_biserial, to_distribution,
+    transfer_fidelity,
 )
 from noophorics.decomposition import decompose  # noqa: E402
 from noophorics.ollama_agent import OllamaAgent, ollama_available  # noqa: E402
@@ -321,8 +322,15 @@ def analyse(measure: ProbeMeasure, raw: Dict[str, List[List[str]]],
     else:
         effects["H3_conditional_asymmetry"] = {"uncomputable": "one side empty"}
 
-    obs4, p4 = permutation_diff(u("phi_sender"), u("phi_receiver"),
-                                PERMUTATIONS, SEED)
+    # PAIRED. Both parties are measured on the SAME briefs, and the
+    # pre-registration names the brief as the exchangeable unit. The first
+    # version used the unpaired two-sample test here while building the CI from
+    # the paired differences, so one hypothesis got a paired interval and an
+    # unpaired test -- which is why the record carried supported=true beside
+    # significant_at_005=false. Conformance fix, not a change of plan.
+    paired_diffs = [per_brief[b]["phi_sender"] - per_brief[b]["phi_receiver"]
+                    for b in live]
+    obs4, p4 = paired_permutation(paired_diffs, PERMUTATIONS, SEED)
     _, dlo, dhi = bootstrap_ci([per_brief[b]["phi_sender"]
                                 - per_brief[b]["phi_receiver"] for b in live],
                                resamples=BOOTSTRAP, seed=SEED)

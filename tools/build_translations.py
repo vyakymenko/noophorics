@@ -31,6 +31,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import time
 import sys
 from typing import Dict
 
@@ -584,16 +585,39 @@ def build(check_only: bool = False) -> int:
     with open(MANIFEST, "w", encoding="utf-8") as fh:
         json.dump(manifest, fh, indent=2, ensure_ascii=False, sort_keys=True)
 
-    # sitemap covering every language
-    urls = ["https://noophorics.org/"] + [
-        "https://noophorics.org/%s/" % l for l in sorted(T)
-    ]
+    # Sitemap covering EVERY route that exists on disk, not only the languages.
+    #
+    # This function is the single writer. It used to emit languages only, while
+    # the journal routes were added by hand elsewhere -- so every translation
+    # build silently deleted twelve URLs, and the deletion was invisible because
+    # the sitemap was checked right after it was hand-written and never after
+    # the build. Two writers of one file is a race the later writer always wins.
+    #
+    # lastmod comes from the file's own mtime rather than a literal, because a
+    # hard-coded date is a claim about freshness that nothing checks.
+    import datetime
+
+    def _mtime(rel: str) -> str:
+        path = os.path.join(DOCS, rel)
+        ts = os.path.getmtime(path) if os.path.exists(path) else time.time()
+        return datetime.datetime.utcfromtimestamp(ts).strftime("%Y-%m-%d")
+
+    routes = [("", "index.html")]
+    routes += [(l + "/", os.path.join(l, "index.html")) for l in sorted(T)]
+    journal = os.path.join(DOCS, "journal")
+    if os.path.isdir(journal):
+        routes.append(("journal/", os.path.join("journal", "index.html")))
+        routes += [("journal/%s/" % d, os.path.join("journal", d, "index.html"))
+                   for d in sorted(os.listdir(journal))
+                   if os.path.isdir(os.path.join(journal, d))]
     with open(os.path.join(DOCS, "sitemap.xml"), "w", encoding="utf-8") as fh:
         fh.write('<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
-        for u in urls:
-            fh.write("  <url><loc>%s</loc><lastmod>2026-07-29</lastmod></url>\n" % u)
+        for route, src in routes:
+            fh.write("  <url><loc>https://noophorics.org/%s</loc>"
+                     "<lastmod>%s</lastmod></url>\n" % (route, _mtime(src)))
         fh.write("</urlset>\n")
+    print("  sitemap: %d routes" % len(routes))
 
     print("built %d translations against source %s" % (len(T), fingerprint))
     return 0

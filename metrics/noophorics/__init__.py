@@ -53,6 +53,7 @@ from .inference import (
     bootstrap_ci,
     goodman_kruskal_gamma,
     holm_adjust,
+    paired_permutation,
     permutation_diff,
     point_biserial,
 )
@@ -104,6 +105,7 @@ __all__ = [
     "bootstrap_ci",
     "goodman_kruskal_gamma",
     "holm_adjust",
+    "paired_permutation",
     "permutation_diff",
     "point_biserial",
     "Reference",

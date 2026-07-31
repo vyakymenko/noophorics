@@ -19,6 +19,7 @@ from typing import Callable, Dict, List, Sequence, Tuple
 
 __all__ = [
     "holm_adjust",
+    "paired_permutation",
     "bootstrap_ci",
     "permutation_diff",
     "point_biserial",
@@ -89,6 +90,38 @@ def permutation_diff(
         rng.shuffle(pool)
         if abs(statistics.mean(pool[:n_a]) - statistics.mean(pool[n_a:])) \
                 >= abs(observed) - 1e-15:
+            extreme += 1
+    return observed, (extreme + 1) / (permutations + 1)
+
+
+def paired_permutation(
+    differences: Sequence[float],
+    permutations: int = 10000,
+    seed: int = 0,
+) -> Tuple[float, float]:
+    """Sign-flip permutation on paired differences. (observed mean, p).
+
+    Use this whenever both series are measured on the SAME exchangeable units.
+    `permutation_diff` shuffles labels between two groups, which assumes the
+    units are independent across groups -- and when they are not, it discards
+    the pairing and loses most of the power.
+
+    E-002b is the cautionary case: it measured sender and receiver calibration
+    on the same 16 briefs, computed the confidence interval from the paired
+    per-brief differences, and computed the p-value with the unpaired test. The
+    results file therefore reported a CI excluding zero beside p = 0.385, and
+    carried `supported: true` next to `significant_at_005: false`. The paired
+    test on the same data gives p = 0.0033.
+    """
+    d = [float(x) for x in differences]
+    if len(d) < 2:
+        raise ValueError("paired test needs at least two units")
+    observed = statistics.mean(d)
+    rng = random.Random(seed)
+    extreme = 0
+    for _ in range(permutations):
+        flipped = [x if rng.random() < 0.5 else -x for x in d]
+        if abs(statistics.mean(flipped)) >= abs(observed) - 1e-15:
             extreme += 1
     return observed, (extreme + 1) / (permutations + 1)
 
