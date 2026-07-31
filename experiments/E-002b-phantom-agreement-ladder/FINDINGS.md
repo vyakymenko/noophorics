@@ -120,6 +120,20 @@ statistic recomputed:
 calibrated. It carries essentially no information about the quantity H5 exists
 to measure.
 
+The column that *does* carry it is `sd(Φ)`, which scales as `(1 − β)`:
+
+| β | 0.00 | 0.25 | 0.50 | 0.75 | 0.90 | 0.99 | 1.00 |
+|---|---|---|---|---|---|---|---|
+| sd(Φ) | 0.156 | 0.117 | 0.078 | 0.039 | 0.016 | 0.002 | 0.000 |
+
+**Reproduce both tables:** [`metrics/validation/beta_sweep.py`](../../metrics/validation/beta_sweep.py).
+It reads the committed results file, recomputes H5 from the raw record as a
+check (−0.9662, matching), and prints the sweep and the covariance
+decomposition. Until 2026-07-31 these numbers existed only as prose in this
+section — no file produced them — which is
+[the audit hole of two days earlier](../../journal/2026-07-30-two-audit-holes.md)
+repeated in a document about that hole.
+
 Covariance decomposition of the reported effect:
 
 ```
