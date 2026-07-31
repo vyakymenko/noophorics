@@ -169,6 +169,20 @@ disagreement means the probe is repaired or dropped, not argued.
 Probes are the frame of reference (axiom A2). A frame nobody checked is not a
 frame.
 
+## Counts are checked, not typed
+
+Any number this repository states about itself — tests, laws, open problems,
+retractions — is verified by [`tools/check_counts.py`](tools/check_counts.py)
+against the file behind it, and the checker exits non-zero on a mismatch.
+
+It exists because README advertised **46 tests** while the suite defined **86**,
+for days, on the front page of a project whose entire argument is that its
+numbers are auditable. Nobody caught it by reading: a number in prose reads as
+true, and the only thing that finds a stale one is something that recomputes it.
+
+If you add a count, add it to `CLAIMS` in the checker. A count nobody checks is
+a claim, and this repository does not take claims on trust — including its own.
+
 ## Null results
 
 Committed with the same prominence as positive ones, in the same format, in the

@@ -82,6 +82,7 @@ to clear the warning without touching the strings defeats the mechanism.
 
 ```bash
 python3 metrics/tests/test_metrics.py          # must be green
+python3 tools/check_counts.py                  # every stated count vs its source
 python3 tools/build_translations.py --check    # must say "current"
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```

@@ -175,7 +175,7 @@ lexicon.md            canonical terminology
 ```bash
 git clone https://github.com/vyakymenko/noophorics
 cd noophorics
-python3 metrics/tests/test_metrics.py       # 46 tests, no deps
+python3 metrics/tests/test_metrics.py       # 86 tests, no deps
 python3 metrics/validation/synthetic.py    # does the estimator recover a known F*?
 python3 experiments/E-001-fluency-cost/runner.py --dry-run   # pipeline, no API calls
 ```
