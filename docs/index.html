@@ -1636,8 +1636,14 @@ th:last-child, td:last-child { padding-right: 0; }
     behaviour:</p>
 
     <blockquote class="pull">
-      B understands what A understands, with respect to a domain, to the extent
-      that B would make the same decisions A would make, over that domain.
+      <s>B understands what A understands, with respect to a domain, to the extent
+      that B would make the same decisions A would make, over that domain.</s>
+      <span style="display:block;margin-top:.8rem"><strong>Amended v0.4.</strong>
+      B understands what A understands, with respect to a domain, to the extent that
+      B's decisions over that domain <strong>move toward a stated reference</strong>
+      for that domain. Where the reference is A's own decisions, what is measured is
+      <em>replication of A</em> &mdash; a different and weaker claim, and the one
+      this sentence had been making without saying so.</span>
       <cite>Principia Noophorica §3</cite>
     </blockquote>
 
@@ -1690,9 +1696,12 @@ th:last-child, td:last-child { padding-right: 0; }
     recovery, self-report, or surface similarity of text. <strong>A2</strong> —
     every quantity is stated relative to a probe measure; a fidelity number
     without its <span class="q">P</span> is as meaningless as a velocity without
-    a frame. <strong>A3</strong> — between any two systems with non-identical
-    priors there exist dispositions that cannot be transferred at any message
-    length; this is the quantitative form of Quine's indeterminacy of translation.
+    a frame. <strong>A3</strong> — against probes the sender has never seen, and
+    for messages of bounded cost, capacity is strictly less than 1; capacity is a
+    curve <span class="q">K(C)</span>, not a scalar. In <em>that</em> restated form
+    it is the quantitative version of Quine's indeterminacy of translation. The
+    v0.1 form, which forgot both conditions, was <a href="#refuted">refuted by a
+    113-token lookup table</a>.
     <strong>A4</strong> — the parties' confidence that a transfer succeeded is an
     independent observable, not a proxy for whether it did.</p>
 
@@ -1800,7 +1809,7 @@ th:last-child, td:last-child { padding-right: 0; }
           <tr>
             <td class="t-sym">D<sub>floor</sub></td>
             <td class="t-name">Noise floor<span>§3.2</span></td>
-            <td>The mean self-divergence of the two agents: the divergence that two <em>perfectly aligned</em> agents would still show, from their own stochasticity. No transfer can push measured divergence below it. <strong>Not correcting for it is the field's most common error</strong> — an uncorrected fidelity number silently attributes sampling noise to untransferred meaning.</td>
+            <td>Finite-sample <em>estimator bias</em> at a stated <span class="q">n</span>, obtained by a permutation null: pool both agents' draws for a probe, reshuffle into two groups of the original sizes, take the expected divergence. Under the null both groups come from one distribution, so this is what a perfectly aligned pair scores at that <span class="q">n</span> &mdash; a property of the <em>measurement</em>, not of the agents. <s>The irreducible divergence caused by the parties' own stochasticity.</s> <strong>v0.3:</strong> there is no irreducible divergence &mdash; two perfectly aligned stochastic agents have identical true distributions, so their true JSD is exactly zero. The old wording put a sample-size-dependent term inside the <em>definition</em> of <span class="q">F*</span>, and a fidelity that changes when you sample more is not well-posed. <strong>Not correcting for it is the field's most common error</strong> — an uncorrected fidelity number silently attributes sampling noise to untransferred meaning.</td>
           </tr>
           <tr>
             <td class="t-sym">F*<sub>R</sub></td>
@@ -1819,7 +1828,7 @@ th:last-child, td:last-child { padding-right: 0; }
           <tr>
             <td class="t-sym">η</td>
             <td class="t-name">Efficiency<span>§4.3</span></td>
-            <td><span class="q">F* / C</span>, where cost <span class="q">C</span> defaults to tokens measured with the <em>receiver's</em> tokenizer — the receiver is who pays to read it. Understanding per unit cost: the quantity engineering should optimise, and almost nothing currently does.</td>
+            <td><span class="q">F* / C</span>, where cost <span class="q">C</span> defaults to tokens measured with the <em>receiver's</em> tokenizer — the receiver is who pays to read it. Understanding per unit cost, <strong>valid only where <span class="q">F* &ge; 0</span></strong>. <s>The quantity engineering should optimise, and almost nothing currently does.</s> A ratio with a signed numerator is not an ordering: at <span class="q">F* = &minus;1</span> a 100-token antinoophor scores &minus;10.00 and an 800-token one &minus;1.25, ranking the costlier failure <em>higher</em>. Where the sign is unknown, use net value <span class="q">V<sub>&lambda;</sub> = F*<sub>R</sub> &minus; &lambda;C</span>, which is monotone at every sign.</td>
           </tr>
           <tr>
             <td class="t-sym hero-sym">Φ</td>
@@ -1979,8 +1988,9 @@ F*(m)  =  ───────────────────────�
 
     <p class="lead">A law enters the record only with a refutation condition
     attached, and leaves it never — a refuted law is struck through and kept in
-    place, because knowing what is false is the larger part of the record. All
-    six currently hold the same status: <span class="tag">conjectured</span></p>
+    place, because knowing what is false is the larger part of the record. All six
+    are <span class="tag">conjectured</span> &mdash; and three of them, L2, L4 and L6,
+    carry a headline form that has already been struck, shown below in place.</p>
 
     <div class="laws">
       <div class="law">
@@ -1992,7 +2002,7 @@ F*(m)  =  ───────────────────────�
       <div class="law">
         <span class="id">L2</span>
         <span class="txt"><strong>Asymmetry.</strong>
-        <i><span class="q">F*(A→B) ≠ F*(B→A)</span>, with the sign predictable from the asymmetry of the two priors — and we expect domain prior to dominate general capability.</i></span>
+        <i><s><span class="q">F*(A→B) ≠ F*(B→A)</span></s> withdrawn as tautological &mdash; true of any two noisy quantities, so it could only ever be confirmed. <strong>v0.3:</strong> the <em>sign</em> of <span class="q">F*(A→B) − F*(B→A)</span> is predicted by the direction of <strong>domain</strong> prior, and beats direction of general capability where the two disagree.</i></span>
         <span class="tag">E-003</span>
       </div>
       <div class="law">
@@ -2004,7 +2014,7 @@ F*(m)  =  ───────────────────────�
       <div class="law">
         <span class="id">L4</span>
         <span class="txt"><strong>The curse of the summary.</strong>
-        <i>Fidelity is multiplicative along a chain — but an invariant core survives arbitrarily many hops, and we conjecture that core is constraints and prohibitions rather than descriptions.</i></span>
+        <i><s>Fidelity is multiplicative along a chain.</s> withdrawn as ill-typed &mdash; it multiplied fractions of two <em>different</em> prior gaps, and two antinoophors composed to <span class="q">+0.629</span>. <strong>v0.3:</strong> score every hop against the <strong>origin</strong>, in the origin's frame. <b>L4a</b> chain fidelity is non-increasing in hop count; <b>L4b</b> <span class="q">log F*</span> is approximately linear while fidelity stays positive; <b>L4c</b> constraints and prohibitions decay measurably more slowly than descriptions.</i></span>
         <span class="tag">E-004</span>
       </div>
       <div class="law">
@@ -2063,9 +2073,19 @@ F*(m)  =  ───────────────────────�
       <span class="q">F*</span>, which measures gap closure rather than
       information delivered, the contrastive encoding is spending every token on
       the numerator.</p>
-      <p class="note">This is the field's first engineering prescription, and it
+      <p class="note"><s>This is the field's first engineering prescription, and it
       directly contradicts how nearly every handoff, summary, and spec is written
-      today.</p>
+      today.</s> <strong>Refuted 2026-07-29.</strong> Structured-handoff prescriptions
+      with mandated content slots and a receiver-synthesis step have been deployed and
+      outcome-measured since 2014. The I-PASS bundle, across nine pediatric residency
+      programmes and 10&nbsp;740 admissions, was associated with a 23% reduction in
+      medical errors (24.5 &rarr; 18.8 per 100 admissions) and a 30% reduction in
+      preventable adverse events, both P&nbsp;&lt;&nbsp;0.001, without lengthening
+      handoffs (Starmer et al., <cite>NEJM</cite> 371(19), 2014). What L6 still claims
+      is the <em>contrast</em> &mdash; I-PASS was compared against unstandardised usual
+      care, not against declarative prose at equal cost &mdash; and it claims it for
+      machine receivers, about which I-PASS says nothing. Still testable; no longer a
+      primacy claim.</p>
       <p class="kill"><b>Refuted if:</b> contrastive encodings show
       <span class="q">η ≤</span> declarative encodings at equal cost, across
       domains.</p>
@@ -2256,8 +2276,8 @@ F*(m)  =  ───────────────────────�
 
     <ol class="falsifiers">
       <li><span class="n">1</span><span><span class="q">F*</span> is not stable under probe resampling. If independently drawn probe measures over the same nominal domain give uncorrelated fidelity scores, the quantity is noise. <i>— the most dangerous of the four.</i></span></li>
-      <li><span class="n">2</span><span>Φ is consistently ≈ 0. If the parties' confidence tracks measured fidelity, the central pathology does not exist and the field loses its motivating phenomenon.</span></li>
-      <li><span class="n">3</span><span><span class="q">K ≈ 1</span> in practice. If sufficiently long messages reliably close the gap between arbitrary systems, axiom A3 is false and the interesting structure disappears.</span></li>
+      <li><span class="n">2</span><span>Both <b>bias</b> and <b>resolution</b> are consistently ≈ 0. <span class="q">Φ</span> on its own is a bias term, and bias and resolution are independent: a party that claims 0.70 on every probe and averages 0.70 has <span class="q">Φ = 0</span> and no ability whatsoever to say <em>which</em> probes it got wrong. That party is maximally pathological, and the one-term criterion would have scored it as the refutation of the programme. The field falls only if parties are unbiased <i>and</i> discriminating per probe. <i>&mdash; corrected 2026-07-29; the one-term form is <a href="#refuted">withdrawn claim 4</a>.</i></span></li>
+      <li><span class="n">3</span><span><span class="q">K(C) ≈ 1</span> at bounded cost, on held-out probes. If messages of bounded length reliably close the gap between arbitrary systems <em>on probes the sender never saw</em>, the restated A3 is false and the interesting structure disappears. <i>&mdash; corrected v0.3. The old wording estimated <span class="q">K</span> as the best fidelity found over a search; that is the maximum of noisy estimates, biased upward, and would have fired from search size alone.</i></span></li>
       <li><span class="n">4</span><span>No encoding beats any other at equal cost. If η is invariant to message form, there is nothing to engineer and the field is descriptive at best.</span></li>
     </ol>
 

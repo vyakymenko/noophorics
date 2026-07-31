@@ -332,7 +332,9 @@ A science that cannot lose is not a science. Noophorics is wrong if:
    sender never saw*, the restated A3 is false and the interesting structure
    disappears.
 
-   *(v0.3 correction. This criterion previously read "K ≈ 1 in practice", with
+   *(v0.3 correction. This criterion previously read* ~~K ≈ 1 in practice. If
+   sufficiently long messages reliably close the gap between arbitrary systems,
+   axiom A3 is false and the interesting structure disappears.~~ *with
    `K` estimated as the best fidelity found over a search. That estimator is the
    maximum of noisy estimates and is biased upward — measured at 0.85 when the
    truth was 0.60, for a 100-candidate search at the noise level our own
@@ -356,9 +358,11 @@ Noophorics is an experimental science or it is nothing.
 - Every experiment **pre-registers** its hypothesis in a committed file before
   any data exists. The git history is the pre-registration record.
 - Every claim is stated with the probe measure it was measured against.
-- Every fidelity number is corrected for the **noise floor** — the irreducible
-  divergence caused by the parties' own stochasticity. An uncorrected fidelity
-  number is not wrong, it is unfinished.
+- Every fidelity number is corrected for the **noise floor** — ~~the irreducible
+  divergence caused by the parties' own stochasticity~~ **finite-sample estimator
+  bias at a stated `n`, measured by a permutation null** (v0.3; [retraction
+  2](RETRACTIONS.md), [definitions §3](theory/definitions.md)). An uncorrected
+  fidelity number is not wrong, it is unfinished.
 - Null results are committed with the same weight as positive ones. A
   hypothesis that dies in `theory/laws.md` gets struck through, not deleted.
 - Where a bound is claimed, an adversarial attempt to violate it is expected in

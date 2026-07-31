@@ -58,8 +58,12 @@ already supplied.
 
 ## L2 — Law of asymmetry
 
-> `F*(A → B) ≠ F*(B → A)`, and the sign of the difference is predictable from
-> the asymmetry of the two priors.
+> ~~`F*(A → B) ≠ F*(B → A)`, and the sign of the difference is predictable from
+> the asymmetry of the two priors.~~
+>
+> **Withdrawn as tautological (v0.3).** The claim is the *sign* of
+> `F*(A → B) − F*(B → A)`, predicted by the direction of **domain** prior —
+> stated in full below.
 
 Human→model and model→human transfers are not mirror images, and neither are
 transfers between two models of different capability or training.
@@ -74,10 +78,14 @@ which is always.
 dominate direction of general capability, which would mean a weaker model with
 domain grounding receives better than a stronger model without it.
 
-**The headline form is a tautology and is withdrawn as a law.** `F*(A→B) ≠
-F*(B→A)` is almost surely true of any two noisy real quantities, and "refuted if
-equal within noise" makes its truth a function of statistical power rather than
-of the world. Stated that way it could only ever be confirmed.
+**The headline form is a tautology and is withdrawn as a law.**
+
+> ~~`F*(A→B) ≠ F*(B→A)`, with the sign predictable from the asymmetry of the two
+> priors.~~
+
+It is almost surely true of any two noisy real quantities, and "refuted if equal
+within noise" makes its truth a function of statistical power rather than of the
+world. Stated that way it could only ever be confirmed.
 
 **What is actually claimed (L2, v0.3):** the *sign* of `F*(A→B) − F*(B→A)` is
 predicted by the direction of **domain** prior, and that prediction beats the

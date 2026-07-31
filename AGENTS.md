@@ -52,7 +52,14 @@ Not free to change. A change here is a change to a claim:
 ## Rules that are not style preferences
 
 **Never delete a refuted claim.** Strike it through in place and say what killed
-it. A file containing only survivors tells a flattering lie about how the field
+it. Strike it *at the headline*, not only in the body: `theory/laws.md` stated
+L2's withdrawn form in its section blockquote for four versions while the
+paragraph twenty lines below explained why it was withdrawn, and a 25-agent
+audit read the file without seeing it. `tools/check_retracted.py` now indexes
+every `~~span~~` and fails if its wording appears anywhere outside an `<s>` or
+`~~` without the withdrawal acknowledged nearby — which means the check sees
+exactly as much as the striking discipline gives it. A correction written as
+prose instead of a strike is invisible to it. A file containing only survivors tells a flattering lie about how the field
 got here. `RETRACTIONS.md` is the index and its count is quoted on the front
 page; if you retract something, the count moves and so do eleven translations.
 
@@ -83,6 +90,7 @@ to clear the warning without touching the strings defeats the mechanism.
 ```bash
 python3 metrics/tests/test_metrics.py          # must be green
 python3 tools/check_counts.py                  # every stated count vs its source
+python3 tools/check_retracted.py               # no withdrawn claim stated as live
 python3 tools/build_translations.py --check    # must say "current"
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```

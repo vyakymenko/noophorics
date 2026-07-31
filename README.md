@@ -4,8 +4,8 @@
 
 Noophorics is an open research programme developing falsifiable measurements
 for transfers of understanding between people, models, and sessions. It asks
-whether the receiver would make the same decisions after the transfer — not
-merely repeat the same words.
+whether the receiver's decisions after the transfer move toward a stated
+reference — not whether they repeat the same words.
 
 [noophorics.org](https://noophorics.org) · founded 2026 by
 [Valentyn Yakymenko](https://github.com/vyakymenko) ·
@@ -51,9 +51,12 @@ actual agreement. The level is measured. Whether confidence *responds* to
 transfer is [E-002c](experiments/E-002c-calibration-slope/PREREGISTRATION.md),
 registered and not yet run. Noophorics builds it by
 replacing *symbol recovery* with *behavioral convergence*: **B understood what A
-understood, over a domain, to the extent that B would make the same decisions
-A would make.** That single move makes understanding measurable, comparable
-across substrates, and falsifiable.
+understood, over a domain, to the extent that B's decisions moved toward a stated
+reference for that domain.** That single move makes understanding measurable,
+comparable across substrates, and falsifiable. ~~"…to the extent that B would make
+the same decisions A would make"~~ was the v0.1 form; where the reference is A's
+own decisions the quantity is *replication of A*, which is weaker and is not the
+same claim ([amended v0.4](PRINCIPIA.md), [retractions](RETRACTIONS.md)).
 
 ---
 

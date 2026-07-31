@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab journal — Noophorics</title>
-<meta name="description" content="The lab notebook of the noophorics programme: the void run, the near miss, and the retraction of its own diagnosis.">
+<title>The public page was still publishing v0.1 — Noophorics</title>
+<meta name="description" content="twenty findings, all claim-bearing, all verified against source. They">
 <meta name="color-scheme" content="light dark">
-<link rel="canonical" href="https://noophorics.org/journal/">
+<link rel="canonical" href="https://noophorics.org/journal/site-four-versions-behind/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Lab journal — Noophorics">
+<meta property="og:title" content="The public page was still publishing v0.1 — Noophorics">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://noophorics.org/journal/">
+<meta property="og:url" content="https://noophorics.org/journal/site-four-versions-behind/">
 <meta property="og:image" content="https://noophorics.org/og.png">
 <style>
 /* ---------------------------------------------------------------
@@ -1221,50 +1221,33 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <main id="content">
-<p class="jn">Lab notebook</p>
-<h1>The record of being wrong</h1>
-<p>Dated, append-only, and never edited after the fact except for typos. The entries below are the programme's most load-bearing documents: they are where it recorded its own failures while they were still fresh.</p>
+<p class="jn">audit · site four versions behind</p>
+<h1>The public page was still publishing v0.1</h1>
+<p><strong>2026-07-31.</strong> A four-lens consistency audit over the repository returned twenty findings, all claim-bearing, all verified against source. They deduplicate to nine places. Eight of the nine are on <code>docs/index.html</code>, and every one is the same defect: a claim corrected at its source and never re-derived on the page.</p>
+<p>The page was stating, as live and unqualified:</p>
+<div class="scroll"><table><thead><tr><th></th><th>site said</th><th>source says</th></tr></thead><tbody><tr><td><strong>A3</strong></td><td>dispositions untransferable at any message length</td><td>refuted — a 113-token lookup table reaches <code>F* = 1</code>; restated for held-out probes at bounded cost</td></tr><tr><td><strong>D_floor</strong></td><td>the irreducible divergence from the parties' stochasticity</td><td>there is none — it is finite-sample estimator bias at a stated <code>n</code></td></tr><tr><td><strong>η</strong></td><td>the quantity engineering should optimise</td><td>a ratio with a signed numerator is not an ordering</td></tr><tr><td><strong>L2</strong></td><td><code>F*(A→B) ≠ F*(B→A)</code></td><td>withdrawn as tautological</td></tr><tr><td><strong>L4</strong></td><td>fidelity is multiplicative along a chain, an invariant core survives arbitrarily many hops</td><td>withdrawn as ill-typed; the existence claim dropped as unfalsifiable</td></tr><tr><td><strong>L6</strong></td><td>the field's first engineering prescription</td><td>refuted — I-PASS, 2014</td></tr><tr><td><strong>falsifier 2</strong></td><td><code>Φ ≈ 0</code> refutes the programme</td><td>invalid — that scores a maximally pathological party as the refutation</td></tr><tr><td><strong>falsifier 3</strong></td><td><code>K ≈ 1</code> in practice</td><td>would have fired from search size alone</td></tr></tbody></table></div>
+<p>The ninth was in <code>PRINCIPIA.md</code> itself: §3 struck the noise-floor definition, and §8 went on asserting it. Every other correction in that file is struck in place. That one was written in a different section and never revisited.</p>
+<h2>Why nothing caught it</h2>
+<p>The retraction machinery lives in markdown, as <code>~~struck~~</code>. The site is HTML, where the same thing is <code>&lt;s&gt;struck&lt;/s&gt;</code>. A correction to one was invisible to the other, and <code>tools/check_counts.py</code> — which does verify every stated number against its source — checks counts, not claim text.</p>
+<p>So the page passed every check the repository had while contradicting itself across four sections. It said <em>"Axiom A3 was false as first stated"</em> in the refuted-work section and stated A3 in the refuted form 589 lines above. It carried the v0.4 heading <strong>"Understanding is measured by behavioural convergence toward a declared reference"</strong> directly above a pull-quote, cited to <code>Principia Noophorica §3</code>, giving the v0.1 sentence that §3 struck.</p>
+<h2>The check that now exists</h2>
+<p><a href="https://github.com/vyakymenko/noophorics/blob/main/tools/check_retracted.py"><code>tools/check_retracted.py</code></a> indexes every <code>~~span~~</code> in the markdown sources as word shingles, then reads every published page with <code>&lt;s&gt;</code> and <code>~~</code> regions removed — what remains is text asserted as true. A shingle of a withdrawn claim appearing in that remainder is reported with both locations.</p>
+<p>A withdrawn claim may still be legitimately quoted; a findings page has to say what it broke. Rather than an allowlist of files to skip, the check uses the repository's own norm — <em>never delete a refuted claim, never state one without its correction</em> — and passes a restatement when the withdrawal is acknowledged within forty words. An allowlist would have silently started covering newly added text; this cannot.</p>
+<h2>Three things the check found about itself</h2>
+<p><strong>Its first version suppressed two of the defects it was built to catch.</strong> The acknowledgment vocabulary included <code>wrong</code> and treated any <code>refuted</code> as a withdrawal marker. Every law card on the site ends <strong>"Refuted if:"</strong> and the falsifier list opens <strong>"Noophorics is wrong if:"</strong> — conditions for a <em>future</em> refutation, sitting a few words from claims already refuted in the past. The vocabulary had to become perfective, and the conditional forms are now excluded by bigram.</p>
+<p><strong>It saw exactly as much as the striking discipline gave it.</strong> L2's headline and falsifier 3's old wording had been corrected in <em>prose</em> rather than struck, so nothing indexed them and no shingle length would have found them. Both are now struck at source, which is the repository conforming to its own rule rather than a change to the tool.</p>
+<p><strong>One claim was hidden by a spelling.</strong> The site writes <code>optimise</code>, the markdown <code>optimize</code>. That single letter split one claim into two and hid the efficiency retraction at every shingle length above five. Both sides are now folded the same way.</p>
+<h2>What it found that the audit did not</h2>
+<p>With the sources conforming, the check reproduces every site defect the twenty-finding audit reported — and adds two the audit did not.</p>
+<p>The first is the pull-quote above: the operational definition of understanding, the sentence the whole programme rests on, stated in its v0.1 form in the two most-read files in the repository, <code>README.md</code> and the landing page. Both cite the section that struck it.</p>
+<p>The second is in <code>theory/laws.md</code> itself. L2's section blockquote — the headline statement of the law, the first thing under the heading — gave the withdrawn form, while the paragraph twenty lines below explained why it was withdrawn. Twenty-five agents read that file and none reported it. A word comparison did, because it does not get tired at line 60 and satisfied by line 79.</p>
+<p>That is the honest ranking: the audit found what needed reading and judgment, and it missed two things that needed only patience. The two instruments are not substitutes.</p>
+<h2>The uncomfortable part</h2>
+<p>The audit ran against a repository whose founding document says <em>"a claim here is worth what its check is worth"</em>, and whose front page has said since v0.1 that nothing is established and eleven claims are withdrawn. The withdrawals were real, made in public, dated, indexed and linked.</p>
+<p>They were made in the files, and the page kept selling the old version.</p>
+<p>Every one of these corrections had already been paid for — argued, verified, committed. The failure was not of honesty and not of rigour. It was that a correction was treated as finished when the source changed, and the site is where the claim is actually made to a reader.</p>
 <hr>
-<h2><a href="/journal/founding/">2026-07-28 — Founding</a></h2>
-<p>First entry. The lab notebook is for the things that do not belong in…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-founding.md">source</a></p>
-<h2><a href="/journal/first-live-run-void/">2026-07-28 — First live run: void, and the reason is worth keeping</a></h2>
-<p>E-001 ran against the API for the first time and died. Full record in…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-first-live-run-void.md">source</a></p>
-<h2><a href="/journal/e-001-findings/">E-001 — Findings</a></h2>
-<p>It nonetheless produced the most important result this programme has: the…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/FINDINGS.md">source</a></p>
-<h2><a href="/journal/e-001b-void/">E-001b is void — the cost parity gate failed before the sweep ran</a></h2>
-<p>(PREREGISTRATION §4.1(PREREGISTRATION.md))…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/VOID.md">source</a></p>
-<h2><a href="/journal/e-001b-defect/">DEFECT-001 — the analysis path was never executed, and would have crashed</a></h2>
-<p>provider comparison. No effect had been computed. No results file existed.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/e-001c-feasibility/">Can the four registers survive being pinned to a common length?</a></h2>
-<p>may be read off it. It exists to answer whether E-001c is buildable at all,…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/FEASIBILITY.md">source</a></p>
-<h2><a href="/journal/e-002-void/">E-002 is void — the elicitation saturated, and so did the transfer</a></h2>
-<p>degeneracy gate…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002-phantom-agreement/VOID.md">source</a></p>
-<h2><a href="/journal/e-002b-findings/">E-002b — findings</a></h2>
-<p>voided. All gates passed; all four rungs of the ladder produced outcome…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002b-phantom-agreement-ladder/FINDINGS.md">source</a></p>
-<h2><a href="/journal/cross-sender-disagreement/">2026-07-30 — Two models disagree exactly where one is wrong</a></h2>
-<p>another purpose, with a statistic chosen after seeing it. It is written down…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-30-cross-sender-disagreement.md">source</a></p>
-<h2><a href="/journal/two-audit-holes/">2026-07-30 — Two audit holes, found by an agent sent to argue about definitions</a></h2>
-<p>Both were found while an adversarial panel was checking arithmetic for an…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-30-two-audit-holes.md">source</a></p>
-<h2><a href="/journal/site-four-versions-behind/">The public page was still publishing v0.1</a></h2>
-<p>twenty findings, all claim-bearing, all verified against source. They…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-31-the-site-was-four-versions-behind.md">source</a></p>
-<h2><a href="/journal/retractions/">Retractions</a></h2>
-<p>Every claim this programme has made and then withdrawn, with what killed it.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/RETRACTIONS.md">source</a></p>
-<h2><a href="/journal/prior-art/">Prior art</a></h2>
-<p>programme&#x27;s founding novelty claims were false.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/theory/prior-art.md">source</a></p>
-
+<p><em>This document is licensed CC BY 4.0.</em></p>
 <p class="back"><a href="/journal/">All journal entries</a> · <a href="/">Noophorics</a> · <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
 </main>
 </body>
