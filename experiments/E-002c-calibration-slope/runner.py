@@ -626,7 +626,7 @@ def run(args) -> Dict[str, Any]:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="E-002b phantom agreement ladder")
+    ap = argparse.ArgumentParser(description="E-002c calibration slope")
     ap.add_argument("--provider", choices=("ollama", "dry"), default="dry")
     ap.add_argument("--model", default="gpt-oss:120b")
     ap.add_argument("--k", type=int, default=6)

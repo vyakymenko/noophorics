@@ -45,7 +45,14 @@ CLAIMS = [
     ("docs/index.html", r"<dt>Conjectural laws</dt><dd>(\d+)", "laws"),
     ("docs/index.html", r"<dt>Open problems</dt><dd>(\d+)", "open problems"),
     ("docs/index.html", r"<dt>Own claims refuted</dt><dd><a[^>]*>(\d+)", "retractions"),
+    # Added after the launch audit found README and CITATION advertising ten
+    # open problems against twelve in the file. Prose numerals count: "ten" is a
+    # claim exactly as much as "10" is, and greps for digits miss them.
+    ("README.md", r"(twelve|eleven|ten|nine) open problems", "open problems"),
+    ("CITATION.cff", r"(twelve|eleven|ten|nine) open problems", "open problems"),
 ]
+
+WORDS = {"nine": 9, "ten": 10, "eleven": 11, "twelve": 12, "thirteen": 13}
 
 
 def main() -> int:
@@ -62,7 +69,12 @@ def main() -> int:
             print("  %-22s %-16s PATTERN NOT FOUND -- the claim moved or went" % (rel, key))
             bad += 1
             continue
-        stated = int(m.group(1))
+        raw = m.group(1)
+        stated = WORDS.get(raw, None) if not raw.isdigit() else int(raw)
+        if stated is None:
+            print("  %-22s %-16s unrecognised numeral %r" % (rel, key, raw))
+            bad += 1
+            continue
         ok = stated == t[key]
         print("  %-22s %-16s states %-4d actual %-4d %s"
               % (rel, key, stated, t[key], "ok" if ok else "MISMATCH"))

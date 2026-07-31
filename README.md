@@ -246,7 +246,7 @@ programme itself:
 
 **Version 0.4. Nothing is established, and several things are refuted.**
 
-Six conjectural laws (two restated after refutation), ten open problems, zero
+Six conjectural laws (two restated after refutation), twelve open problems, zero
 confirmed positive findings. Every claim in this repository should be read
 as a bet, and its confidence calibrated accordingly.
 
