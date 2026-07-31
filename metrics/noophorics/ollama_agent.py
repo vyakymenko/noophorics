@@ -33,6 +33,9 @@ plan, not added to it.
 from __future__ import annotations
 
 import json
+import socket
+import sys
+import time
 import urllib.error
 import urllib.request
 from typing import Any, Dict, List, Optional, Sequence
@@ -43,6 +46,32 @@ from .probes import Probe, ProbeMeasure
 __all__ = ["OllamaAgent", "ollama_available", "DEFAULT_ENDPOINT"]
 
 DEFAULT_ENDPOINT = "http://localhost:11434"
+
+# Transport failures are retried; everything else is not.
+#
+# E-004 lost twenty-two of its hundred and twenty-six cells to a single
+# `socket.timeout` three and a half hours into collection. The read timeout is
+# already 900 s, so this was not an impatient client -- it was one call to a
+# 30 GB local model that did not come back, and there was no second attempt.
+#
+# What may be retried is narrow on purpose. A retry is only honest when the
+# failure carried no information about the model's disposition:
+#
+#   retried      the socket timed out, the connection was refused or reset, the
+#                server answered 5xx -- in every case no answer was produced and
+#                nothing about the model was learned
+#   NOT retried  4xx (the request is wrong and will stay wrong), a malformed
+#                JSON body, and an empty completion -- that last one is a real
+#                observation about the model, and the module already refuses to
+#                coerce it into a verdict
+#
+# Every retry is written to stderr as it happens. A silent retry is the
+# dangerous version: it lets a probe that systematically needs three attempts
+# look identical in the data to one that succeeded first time, which turns a
+# property of the measurement into invisible noise. Bounded and logged, the
+# same probe shows up in the run log as needing three, every time.
+CHAT_ATTEMPTS = 3
+CHAT_BACKOFF_S = 5.0
 
 
 def ollama_available(endpoint: str = DEFAULT_ENDPOINT) -> bool:
@@ -93,8 +122,7 @@ class OllamaAgent(Agent):
             data=json.dumps(body).encode("utf-8"),
             headers={"Content-Type": "application/json"},
         )
-        with urllib.request.urlopen(request, timeout=self.timeout_s) as response:
-            payload = json.load(response)
+        payload = self._post(request)
         content = (payload.get("message") or {}).get("content", "")
         if not content.strip():
             # Empty content is missing data, not an answer. It is exactly what
@@ -106,6 +134,36 @@ class OllamaAgent(Agent):
             )
         payload["_content"] = content
         return payload
+
+    def _post(self, request: "urllib.request.Request") -> Dict[str, Any]:
+        """One HTTP exchange, retried only where no answer was produced."""
+        last: Optional[BaseException] = None
+        for attempt in range(1, CHAT_ATTEMPTS + 1):
+            try:
+                with urllib.request.urlopen(
+                    request, timeout=self.timeout_s
+                ) as response:
+                    return json.load(response)
+            except urllib.error.HTTPError as exc:
+                if exc.code < 500:
+                    raise            # the request is wrong; trying again is not
+                last = exc
+            except (socket.timeout, urllib.error.URLError, ConnectionError) as exc:
+                last = exc
+            if attempt < CHAT_ATTEMPTS:
+                wait = CHAT_BACKOFF_S * attempt
+                print(
+                    "[ollama_agent] %s: %s on attempt %d/%d, retrying in %.0fs"
+                    % (self.model, type(last).__name__, attempt,
+                       CHAT_ATTEMPTS, wait),
+                    file=sys.stderr, flush=True,
+                )
+                time.sleep(wait)
+        raise RuntimeError(
+            "%s: no response after %d attempts (last: %s: %s). No draw was "
+            "obtained; nothing about the model was observed."
+            % (self.model, CHAT_ATTEMPTS, type(last).__name__, last)
+        ) from last
 
     def _with_context(self, tail: str) -> str:
         if not self.context:

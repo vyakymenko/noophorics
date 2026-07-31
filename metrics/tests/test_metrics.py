@@ -847,5 +847,114 @@ class ReportingStandardTest(unittest.TestCase):
         self.assertNotEqual(m.is_reportable(), [])
 
 
+class TestTransportRetry(unittest.TestCase):
+    """What may be retried, and what must never be.
+
+    E-004 lost 22 of its 126 cells to one `socket.timeout` three and a half
+    hours into collection. The retry added afterwards is only defensible if it
+    is confined to failures that produced no answer -- a retry on a real
+    observation would manufacture persistence the model never showed. These
+    tests are the boundary, stated as behaviour rather than as intention.
+    """
+
+    def _serve(self, script):
+        """A local ollama stand-in that plays `script`, one entry per request."""
+        import json as _json
+        import threading
+        import time as _time
+        from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+        state = {"script": list(script), "seen": []}
+        lock = threading.Lock()
+
+        class Handler(BaseHTTPRequestHandler):
+            protocol_version = "HTTP/1.0"
+
+            def log_message(self, *a):
+                pass
+
+            def do_POST(self):
+                self.rfile.read(int(self.headers.get("Content-Length", 0)))
+                with lock:
+                    mode = state["script"].pop(0) if state["script"] else "ok"
+                    state["seen"].append(mode)
+                if mode == "hang":
+                    _time.sleep(1.5)
+                    return
+                if mode in ("500", "400"):
+                    self.send_error(int(mode))
+                    return
+                content = "" if mode == "empty" else "GREEN"
+                body = _json.dumps({"message": {"content": content}}).encode()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        srv = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.shutdown)
+        return "http://127.0.0.1:%d" % srv.server_address[1], state
+
+    def _call(self, script):
+        import io as _io
+        from contextlib import redirect_stderr
+
+        from noophorics import ollama_agent as oa
+
+        url, state = self._serve(script)
+        old = oa.CHAT_BACKOFF_S
+        oa.CHAT_BACKOFF_S = 0.01
+        self.addCleanup(lambda: setattr(oa, "CHAT_BACKOFF_S", old))
+        agent = oa.OllamaAgent(name="t", endpoint=url, timeout_s=0.5)
+        log = _io.StringIO()
+        try:
+            with redirect_stderr(log):
+                out = agent._chat("hi")["_content"]
+            return out, len(state["seen"]), log.getvalue(), None
+        except Exception as exc:                       # noqa: BLE001
+            return None, len(state["seen"]), log.getvalue(), exc
+
+    def test_timeout_is_retried(self):
+        out, calls, _, exc = self._call(["hang", "ok"])
+        self.assertIsNone(exc)
+        self.assertEqual(out, "GREEN")
+        self.assertEqual(calls, 2)
+
+    def test_server_error_is_retried(self):
+        out, calls, _, exc = self._call(["500", "ok"])
+        self.assertIsNone(exc)
+        self.assertEqual(calls, 2)
+
+    def test_retries_are_bounded_and_then_give_up(self):
+        out, calls, _, exc = self._call(["hang", "hang", "hang"])
+        self.assertIsNotNone(exc)
+        self.assertEqual(calls, 3)
+        # The message must say no draw was obtained -- a caller that reads this
+        # as "the model failed" would record an observation that never happened.
+        self.assertIn("nothing about the model was observed", str(exc))
+
+    def test_client_error_is_not_retried(self):
+        """4xx means the request is wrong and will stay wrong."""
+        out, calls, _, exc = self._call(["400", "ok"])
+        self.assertIsNotNone(exc)
+        self.assertEqual(calls, 1)
+
+    def test_empty_completion_is_not_retried(self):
+        """An empty answer is a real observation, not a transport failure."""
+        out, calls, _, exc = self._call(["empty", "ok"])
+        self.assertIsNotNone(exc)
+        self.assertEqual(calls, 1)
+        self.assertIn("empty response", str(exc))
+
+    def test_every_retry_is_logged(self):
+        """A silent retry hides a probe that systematically needs three."""
+        _, _, log, _ = self._call(["hang", "500", "ok"])
+        self.assertEqual(log.count("[ollama_agent]"), 2)
+        self.assertIn("attempt 1/3", log)
+        self.assertIn("attempt 2/3", log)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

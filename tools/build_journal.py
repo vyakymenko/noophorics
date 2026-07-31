@@ -47,6 +47,8 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("two-audit-holes", "journal/2026-07-30-two-audit-holes.md", "audit"),
     ("site-four-versions-behind",
      "journal/2026-07-31-the-site-was-four-versions-behind.md", "audit"),
+    ("e-004-interrupted",
+     "experiments/E-004-disagreement-detector/INTERRUPTED.md", "instrument"),
     ("retractions", "RETRACTIONS.md", "audit"),
     ("prior-art", "theory/prior-art.md", "audit"),
 ]
