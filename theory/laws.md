@@ -29,7 +29,7 @@ Notation is defined in [definitions.md](definitions.md).
 > Where it does, the law says so under its own heading rather than relying on a
 > reader to carry this paragraph down the page.
 
-## L1 — Law of diminishing noophoric return
+## L1 — Law of diminishing noophoric return <a id="l1"></a>
 
 > `F*(C)` is concave in message cost and saturates strictly below 1.
 
@@ -56,7 +56,7 @@ already supplied.
 
 ---
 
-## L2 — Law of asymmetry
+## L2 — Law of asymmetry <a id="l2"></a>
 
 > ~~`F*(A → B) ≠ F*(B → A)`, and the sign of the difference is predictable from
 > the asymmetry of the two priors.~~
@@ -133,7 +133,7 @@ sender/receiver pairs, both directions)
 
 ---
 
-## L3 — Law of prior overlap
+## L3 — Law of prior overlap <a id="l3"></a>
 
 > `K(A, B | P)` increases monotonically with the overlap of the two agents'
 > priors over the domain of `P`, and there exists a minimum shared basis below

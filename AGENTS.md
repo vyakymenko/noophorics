@@ -73,6 +73,14 @@ rewritten — no force-push, no amend of a pushed commit.
 (v0.4). Where `R` is the sender the quantity is *replication*, and calling it
 understanding is the specific error E-001 cost a live run to find.
 
+**A check needs its own check.** `tools/test_tools.py` exists because the three
+checkers above were, for a while, evidenced only by printing a clean line on a
+repository their author believed to be clean — the exact shape of a gate that
+cannot fail. Each test there asserts the property that matters: red on the
+defect the check exists to find, green on the legitimate case that most
+resembles it. Writing them found two defects in the checkers and none in the
+repository.
+
 **Run the check, do not re-read the diff.** Three defects in this repository
 survived careful reading and died the moment something was executed: a function
 called but never defined, a gate that could not fail, a monitor that grepped
@@ -89,8 +97,10 @@ to clear the warning without touching the strings defeats the mechanism.
 
 ```bash
 python3 metrics/tests/test_metrics.py          # must be green
+python3 tools/test_tools.py                    # the checks below can still fail
 python3 tools/check_counts.py                  # every stated count vs its source
 python3 tools/check_retracted.py               # no withdrawn claim stated as live
+python3 tools/check_links.py                   # every internal pointer resolves
 python3 tools/build_translations.py --check    # must say "current"
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```
