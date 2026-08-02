@@ -102,12 +102,19 @@ python3 tools/check_counts.py                  # every stated count vs its sourc
 python3 tools/check_retracted.py               # no withdrawn claim stated as live
 python3 tools/check_links.py                   # every internal pointer resolves
 python3 tools/build_translations.py --check    # must say "current"
+python3 tools/build_og.py --check              # the social card matches the version
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```
 
 Then check the rendered page, not the source, for anything visual. A version
 string once shipped as `V0.1` on the live site because it was verified by
-re-reading HTML instead of by looking.
+re-reading HTML instead of by looking. The same rule applies to generated
+images: both social cards said `v0.3` at v0.4, and one of them had its headline
+running off the right edge with the bottom fifth blank, because `qlmanage`
+scales an SVG by its viewBox *height* and clips the width. Nothing caught it —
+a number rendered into pixels is invisible to `check_counts.py`. The card is now
+built by `tools/build_og.py` from `CITATION.cff` and the `move` passage, so its
+claims come from the same files everything else's do.
 
 ---
 

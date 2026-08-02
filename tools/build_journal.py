@@ -206,6 +206,10 @@ def page_shell(title: str, body: str, description: str, canonical: str,
 <meta property="og:type" content="article">
 <meta property="og:url" content="%s">
 <meta property="og:image" content="https://noophorics.org/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Noophorics — a dark card reading NOOPHORICS above the line “Understanding is measured by behavioural convergence toward a declared reference”, footed with Φ phantom agreement and the version.">
+<meta name="twitter:image" content="https://noophorics.org/og.png">
 %s
 <style>
 main{max-width:40rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) 1.25rem 5rem}

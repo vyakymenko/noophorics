@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#0f1317"/>
+  <rect x="0" y="285" width="1200" height="630" fill="#0f1317"/>
+  <rect x="40" y="325" width="1120" height="550" fill="none" stroke="#262c32" stroke-width="2"/>
+  <text x="80" y="485" font-family="Iowan Old Style, Palatino Linotype, Palatino, Charter, Bitstream Charter, Book Antiqua, Georgia, Times New Roman, serif" font-size="128" letter-spacing="2" fill="#d7d9d4">NOOPHORICS</text>
+  <line x1="80" y1="525" x2="1120" y2="525" stroke="#262c32" stroke-width="2"/>
+  <text x="80" y="585" font-family="Iowan Old Style, Palatino Linotype, Palatino, Charter, Bitstream Charter, Book Antiqua, Georgia, Times New Roman, serif" font-size="40" fill="#8c9299">Understanding is measured by behavioural</text><text x="80" y="639" font-family="Iowan Old Style, Palatino Linotype, Palatino, Charter, Bitstream Charter, Book Antiqua, Georgia, Times New Roman, serif" font-size="40" fill="#8c9299">convergence toward a declared reference.</text>
+  <text x="80" y="845" font-family="SF Mono, SFMono-Regular, Menlo, DejaVu Sans Mono, Liberation Mono, Consolas, monospace" font-size="26" letter-spacing="3" fill="#e0705f">&#934;</text>
+  <text x="118" y="845" font-family="SF Mono, SFMono-Regular, Menlo, DejaVu Sans Mono, Liberation Mono, Consolas, monospace" font-size="24" letter-spacing="3" fill="#8c9299">PHANTOM AGREEMENT</text>
+  <text x="1120" y="845" text-anchor="end" font-family="SF Mono, SFMono-Regular, Menlo, DejaVu Sans Mono, Liberation Mono, Consolas, monospace" font-size="24" letter-spacing="3" fill="#8c9299">NOOPHORICS.ORG &#183; V0.4</text>
+</svg>

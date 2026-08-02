@@ -182,14 +182,14 @@ PAGE = """<!doctype html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{status}">
-<meta name="twitter:image" content="https://noophorics.org/og-v2.png">
+<meta name="twitter:image" content="https://noophorics.org/og.png">
 <meta property="og:title" content="{title}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://noophorics.org/{lang}/">
-<meta property="og:image" content="https://noophorics.org/og-v2.png">
+<meta property="og:image" content="https://noophorics.org/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Noophorics — Φ">
+<meta property="og:image:alt" content="Noophorics — a dark card reading NOOPHORICS above the line “Understanding is measured by behavioural convergence toward a declared reference”, footed with Φ phantom agreement and the version.">
 <meta property="og:description" content="{status}">
 <style>
 :root{{
