@@ -103,6 +103,7 @@ python3 tools/check_retracted.py               # no withdrawn claim stated as li
 python3 tools/check_links.py                   # every internal pointer resolves
 python3 tools/build_translations.py --check    # must say "current"
 python3 tools/build_og.py --check              # the social card matches the version
+python3 tools/build_wiki.py --check            # /wiki/ matches the sources it maps
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```
 

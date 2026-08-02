@@ -148,6 +148,62 @@ T: Dict[str, Dict[str, str]] = {
         "phi": "유령 합의(Φ): 양측 모두 이해가 전달되었다고 믿지만, 프로브는 그렇지 않다고 말한다. 이 분야의 중심 병리.",
         "status": "버전 0.5. 사전 등록된 결과 한 건이 이제 확립되었고, 우리 자신의 주장 열한 건은 철회되었으며, 실험 두 건은 무효다.",
         "skip": "본문으로 건너뛰기", "canon": "정본은 영어입니다. 이 페이지는 요약입니다."},
+    "it": {"name": "Italiano", "dir": "ltr",
+        "title": "Noophorics — misurare il trasferimento della comprensione",
+        "lede": "A due menti viene dato lo stesso problema. Una lo spiega all'altra. Entrambe concordano che la spiegazione sia arrivata. Nessuno misura ciò che è andato perduto.",
+        "move": "La comprensione si misura come convergenza comportamentale verso un riferimento dichiarato: B ha compreso ciò che A comprende nella misura in cui le decisioni di B si avvicinano a quel riferimento, sempre rispetto a una misura di sonda dichiarata.",
+        "phi": "Accordo fantasma (Φ): entrambe le parti credono che la comprensione sia passata; le sonde dicono il contrario. La patologia centrale del campo.",
+        "status": "Versione 0.5. Un risultato preregistrato è ora stabilito, undici delle nostre stesse affermazioni sono state ritirate e due esperimenti sono nulli.",
+        "skip": "Vai al contenuto", "canon": "Il testo canonico è in inglese. Questa pagina è un riassunto."},
+    "pl": {"name": "Polski", "dir": "ltr",
+        "title": "Noophorics — pomiar transferu rozumienia",
+        "lede": "Dwa umysły dostają ten sam problem. Jeden tłumaczy go drugiemu. Oba zgadzają się, że wyjaśnienie dotarło. Nikt nie mierzy tego, co zginęło po drodze.",
+        "move": "Rozumienie mierzy się zbieżnością zachowań wobec zadeklarowanego odniesienia: B zrozumiał to, co rozumie A, w tym stopniu, w jakim decyzje B zbliżają się do tego odniesienia — zawsze względem zadeklarowanej miary sond.",
+        "phi": "Zgoda pozorna (Φ): obie strony wierzą, że rozumienie zostało przekazane; sondy mówią co innego. Centralna patologia tej dziedziny.",
+        "status": "Wersja 0.5. Jeden wynik zarejestrowany z wyprzedzeniem jest już ustalony, jedenaście naszych własnych twierdzeń wycofano, a dwa eksperymenty są nieważne.",
+        "skip": "Przejdź do treści", "canon": "Tekst kanoniczny jest po angielsku. Ta strona to streszczenie."},
+    "tr": {"name": "Türkçe", "dir": "ltr",
+        "title": "Noophorics — anlayışın aktarımını ölçmek",
+        "lede": "İki zihne aynı problem verilir. Biri diğerine anlatır. İkisi de açıklamanın ulaştığında hemfikirdir. Kaybolanı kimse ölçmez.",
+        "move": "Anlayış, beyan edilmiş bir referansa doğru davranışsal yakınsamayla ölçülür: B'nin kararları o referansa ne kadar yaklaşıyorsa, beyan edilmiş bir sonda ölçüsüne göre, A'nın anladığını o kadar anlamıştır.",
+        "phi": "Hayalet mutabakat (Φ): iki taraf da anlayışın aktarıldığına inanır; sondalar aksini söyler. Alanın merkezî patolojisi.",
+        "status": "Sürüm 0.5. Önceden kaydedilmiş bir sonuç artık yerleşmiş durumda, kendi iddialarımızdan on bir tanesi geri çekildi ve iki deney geçersiz.",
+        "skip": "İçeriğe geç", "canon": "Kanonik metin İngilizcedir. Bu sayfa bir özettir."},
+    "id": {"name": "Bahasa Indonesia", "dir": "ltr",
+        "title": "Noophorics — mengukur perpindahan pemahaman",
+        "lede": "Dua pikiran diberi persoalan yang sama. Yang satu menjelaskannya kepada yang lain. Keduanya sepakat penjelasan itu sampai. Tidak ada yang mengukur apa yang hilang.",
+        "move": "Pemahaman diukur lewat konvergensi perilaku menuju rujukan yang dinyatakan: B memahami apa yang dipahami A sejauh keputusan B mendekati rujukan itu, selalu relatif terhadap ukuran probe yang dinyatakan.",
+        "phi": "Kesepakatan semu (Φ): kedua pihak percaya pemahaman telah berpindah; probe berkata sebaliknya. Patologi inti bidang ini.",
+        "status": "Versi 0.5. Satu hasil yang dipradaftarkan kini tegak, sebelas klaim kami sendiri ditarik, dan dua eksperimen batal.",
+        "skip": "Lewati ke konten", "canon": "Teks kanonik dalam bahasa Inggris. Halaman ini ringkasan."},
+    "vi": {"name": "Tiếng Việt", "dir": "ltr",
+        "title": "Noophorics — đo lường sự truyền đạt hiểu biết",
+        "lede": "Hai trí óc nhận cùng một bài toán. Một bên giải thích cho bên kia. Cả hai đều đồng ý rằng lời giải thích đã đến nơi. Không ai đo phần đã mất.",
+        "move": "Hiểu biết được đo bằng sự hội tụ hành vi hướng tới một tham chiếu đã tuyên bố: B hiểu điều A hiểu tới mức các quyết định của B tiến gần tham chiếu ấy, luôn xét theo một độ đo thăm dò đã tuyên bố.",
+        "phi": "Đồng thuận ảo (Φ): cả hai bên tin rằng hiểu biết đã được truyền; các phép thăm dò nói ngược lại. Bệnh lý trung tâm của lĩnh vực này.",
+        "status": "Phiên bản 0.5. Một kết quả đăng ký trước nay đã được xác lập, mười một tuyên bố của chính chúng tôi đã bị rút lại, và hai thí nghiệm vô hiệu.",
+        "skip": "Tới nội dung", "canon": "Văn bản chuẩn bằng tiếng Anh. Trang này là bản tóm tắt."},
+    "fa": {"name": "فارسی", "dir": "rtl",
+        "title": "Noophorics — سنجش انتقال فهم",
+        "lede": "دو ذهن مسئله‌ای یکسان می‌گیرند. یکی برای دیگری توضیح می‌دهد. هر دو می‌پذیرند که توضیح رسیده است. هیچ‌کس آنچه را از دست رفته نمی‌سنجد.",
+        "move": "فهم با هم‌گرایی رفتاری به سوی یک مرجعِ اعلام‌شده سنجیده می‌شود: B به همان اندازه آنچه را A می‌فهمد فهمیده است که تصمیم‌هایش به آن مرجع نزدیک شود، همواره نسبت به یک سنجهٔ کاوشِ اعلام‌شده.",
+        "phi": "توافق موهوم (Φ): هر دو طرف باور دارند فهم منتقل شده است؛ کاوش‌ها خلاف آن را می‌گویند. آسیب‌شناسی مرکزی این حوزه.",
+        "status": "نسخهٔ ۰٫۵. یک نتیجهٔ از پیش ثبت‌شده اکنون تثبیت شده است، یازده ادعای خودمان پس گرفته شده و دو آزمایش باطل است.",
+        "skip": "پرش به محتوا", "canon": "متن مرجع به انگلیسی است. این صفحه یک خلاصه است."},
+    "bn": {"name": "বাংলা", "dir": "ltr",
+        "title": "Noophorics — বোঝাপড়ার সঞ্চালন মাপা",
+        "lede": "দুটি মনকে একই সমস্যা দেওয়া হয়। একজন অন্যজনকে ব্যাখ্যা করে। দুজনেই মানে যে ব্যাখ্যাটি পৌঁছেছে। কী হারিয়ে গেল, তা কেউ মাপে না।",
+        "move": "বোঝাপড়া মাপা হয় একটি ঘোষিত রেফারেন্সের দিকে আচরণগত অভিসারী হয়ে: ঘোষিত একটি প্রোব-পরিমাপের সাপেক্ষে B-র সিদ্ধান্ত সেই রেফারেন্সের যত কাছে যায়, A যা বোঝে তা B ততটাই বুঝেছে।",
+        "phi": "ছায়া-ঐকমত্য (Φ): দুই পক্ষই বিশ্বাস করে বোঝাপড়া সঞ্চালিত হয়েছে; প্রোব বলে হয়নি। এই ক্ষেত্রের কেন্দ্রীয় ব্যাধি।",
+        "status": "সংস্করণ ০.৫। পূর্ব-নিবন্ধিত একটি ফলাফল এখন প্রতিষ্ঠিত, আমাদের নিজেদের এগারোটি দাবি প্রত্যাহার করা হয়েছে, এবং দুটি পরীক্ষা বাতিল।",
+        "skip": "বিষয়বস্তুতে যান", "canon": "মূল পাঠ্য ইংরেজিতে। এই পাতা একটি সারসংক্ষেপ।"},
+    "nl": {"name": "Nederlands", "dir": "ltr",
+        "title": "Noophorics — de overdracht van begrip meten",
+        "lede": "Twee geesten krijgen hetzelfde probleem. De een legt het de ander uit. Beiden vinden dat de uitleg is aangekomen. Niemand meet wat verloren ging.",
+        "move": "Begrip wordt gemeten als gedragsconvergentie naar een verklaarde referentie: B begreep wat A begrijpt voor zover B's beslissingen die referentie naderen, steeds ten opzichte van een verklaarde probemaat.",
+        "phi": "Spookovereenstemming (Φ): beide partijen geloven dat begrip is overgedragen; de probes zeggen van niet. De centrale pathologie van dit vakgebied.",
+        "status": "Versie 0.5. Eén vooraf geregistreerd resultaat staat nu vast, elf van onze eigen beweringen zijn ingetrokken en twee experimenten zijn ongeldig.",
+        "skip": "Naar de inhoud", "canon": "De canonieke tekst is Engels. Deze pagina is een samenvatting."},
     "uk": {"name": "Українська", "dir": "ltr",
         "title": "Ноофорика — вимірювання передачі розуміння",
         "lede": "Двом розумам дають одну задачу. Один пояснює її другому. Обидва згодні, що пояснення дійшло. Ніхто не вимірює, що загубилося.",
@@ -191,6 +247,7 @@ PAGE = """<!doctype html>
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Noophorics — a dark card reading NOOPHORICS above the line “Understanding is measured by behavioural convergence toward a declared reference”, footed with Φ phantom agreement and the version.">
 <meta property="og:description" content="{status}">
+<script type="application/ld+json">{ld}</script>
 <style>
 :root{{
   color-scheme:light dark;
@@ -535,8 +592,56 @@ h1{{
 """
 
 
+def rewrite_canonical_language_lists() -> None:
+    """The canonical page's hreflang block and language menu, from `T`.
+
+    Both were hand-maintained, and adding eight languages left both listing
+    eleven -- the new pages existed, were in the sitemap, and were invisible to
+    a search engine and to a reader looking for their own language. This is the
+    sitemap lesson again: two writers of one list is a race the later writer
+    always wins, and here the later writer was nobody, so the list simply
+    stopped being true.
+
+    Only the marked regions are touched, so the four watched passages -- and
+    therefore `source_fingerprint()` -- are untouched by construction.
+    """
+    import re
+
+    with open(CANON, "r", encoding="utf-8") as fh:
+        html = fh.read()
+
+    alts = "\n".join(
+        '<link rel="alternate" hreflang="%s" href="https://noophorics.org/%s/">'
+        % (l, l) for l in sorted(T))
+    alts += ('\n<link rel="alternate" hreflang="x-default" '
+             'href="https://noophorics.org/">')
+    links = "\n".join(
+        '              <a href="/%s/" hreflang="%s">%s</a>' % (l, l, T[l]["name"])
+        for l in sorted(T))
+
+    new, n1 = re.subn(
+        r"<!-- i18n:alternates -->.*?<!-- /i18n:alternates -->",
+        "<!-- i18n:alternates -->\n%s\n<!-- /i18n:alternates -->" % alts,
+        html, flags=re.S)
+    new, n2 = re.subn(
+        r"<!-- i18n:menu -->.*?<!-- /i18n:menu -->",
+        "<!-- i18n:menu -->\n%s\n              <!-- /i18n:menu -->" % links,
+        new, flags=re.S)
+    if not (n1 and n2):
+        raise SystemExit(
+            "canonical page is missing the i18n markers (alternates=%d menu=%d). "
+            "Without them these lists go back to being hand-maintained, which "
+            "is how they came to list eleven of nineteen languages." % (n1, n2))
+    if new != html:
+        with open(CANON, "w", encoding="utf-8") as fh:
+            fh.write(new)
+        print("  canonical page: %d hreflang + %d menu links" % (len(T) + 1, len(T)))
+
+
 def build(check_only: bool = False) -> int:
     fingerprint = source_fingerprint()
+    if not check_only:
+        rewrite_canonical_language_lists()
     manifest = {}
     if os.path.exists(MANIFEST):
         with open(MANIFEST, "r", encoding="utf-8") as fh:
@@ -574,10 +679,31 @@ def build(check_only: bool = False) -> int:
         out_dir = os.path.join(DOCS, lang)
         os.makedirs(out_dir, exist_ok=True)
         with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as fh:
+            # Schema.org for a translated summary. It has to say two things a
+            # bare WebPage cannot: which language it is in, and that it is a
+            # translation of the canonical English article rather than a
+            # separate work. Without translationOfWork nineteen pages carrying
+            # the same claims in different words look like nineteen documents
+            # making them independently.
+            ld = json.dumps({
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "@id": "https://noophorics.org/%s/#page" % lang,
+                "url": "https://noophorics.org/%s/" % lang,
+                "name": s["title"],
+                "description": s["status"],
+                "inLanguage": lang,
+                "isPartOf": {"@id": "https://noophorics.org/#website"},
+                "translationOfWork": {"@id": "https://noophorics.org/#programme"},
+                "license": "https://creativecommons.org/licenses/by/4.0/",
+                "publisher": {"@type": "Organization", "name": "Noophorics",
+                              "url": "https://noophorics.org/"},
+                "isAccessibleForFree": True,
+            }, ensure_ascii=False, separators=(",", ":"))
             fh.write(PAGE.format(
                 lang=lang, dir=s["dir"], name=s["name"], title=s["title"], lede=s["lede"],
                 move=s["move"], phi=s["phi"], status=s["status"], canon=s["canon"],
-                hreflang=hreflang, langnav=langnav, stale="",
+                hreflang=hreflang, langnav=langnav, stale="", ld=ld,
                 skip=s.get("skip", "Skip to content"),
             ))
         manifest[lang] = {"source_fingerprint": fingerprint, "name": s["name"]}
@@ -604,6 +730,8 @@ def build(check_only: bool = False) -> int:
 
     routes = [("", "index.html")]
     routes += [(l + "/", os.path.join(l, "index.html")) for l in sorted(T)]
+    if os.path.exists(os.path.join(DOCS, "wiki", "index.html")):
+        routes.append(("wiki/", os.path.join("wiki", "index.html")))
     journal = os.path.join(DOCS, "journal")
     if os.path.isdir(journal):
         routes.append(("journal/", os.path.join("journal", "index.html")))

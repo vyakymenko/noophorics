@@ -3,12 +3,20 @@
     "name": "العربية",
     "source_fingerprint": "5a4459ebc1c9"
   },
+  "bn": {
+    "name": "বাংলা",
+    "source_fingerprint": "5a4459ebc1c9"
+  },
   "de": {
     "name": "Deutsch",
     "source_fingerprint": "5a4459ebc1c9"
   },
   "es": {
     "name": "Español",
+    "source_fingerprint": "5a4459ebc1c9"
+  },
+  "fa": {
+    "name": "فارسی",
     "source_fingerprint": "5a4459ebc1c9"
   },
   "fr": {
@@ -19,12 +27,28 @@
     "name": "हिन्दी",
     "source_fingerprint": "5a4459ebc1c9"
   },
+  "id": {
+    "name": "Bahasa Indonesia",
+    "source_fingerprint": "5a4459ebc1c9"
+  },
+  "it": {
+    "name": "Italiano",
+    "source_fingerprint": "5a4459ebc1c9"
+  },
   "ja": {
     "name": "日本語",
     "source_fingerprint": "5a4459ebc1c9"
   },
   "ko": {
     "name": "한국어",
+    "source_fingerprint": "5a4459ebc1c9"
+  },
+  "nl": {
+    "name": "Nederlands",
+    "source_fingerprint": "5a4459ebc1c9"
+  },
+  "pl": {
+    "name": "Polski",
     "source_fingerprint": "5a4459ebc1c9"
   },
   "pt": {
@@ -35,8 +59,16 @@
     "name": "Русский",
     "source_fingerprint": "5a4459ebc1c9"
   },
+  "tr": {
+    "name": "Türkçe",
+    "source_fingerprint": "5a4459ebc1c9"
+  },
   "uk": {
     "name": "Українська",
+    "source_fingerprint": "5a4459ebc1c9"
+  },
+  "vi": {
+    "name": "Tiếng Việt",
     "source_fingerprint": "5a4459ebc1c9"
   },
   "zh": {

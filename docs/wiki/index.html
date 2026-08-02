@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reference — Noophorics</title>
+<meta name="description" content="Every quantity, law, experiment, withdrawn claim and open problem in the programme, on one page, generated from the files that define them.">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://noophorics.org/wiki/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Reference — Noophorics">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://noophorics.org/wiki/">
+<meta property="og:description" content="Every quantity, law, experiment, withdrawn claim and open problem, generated from source.">
+<meta property="og:image" content="https://noophorics.org/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://noophorics.org/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","@id":"https://noophorics.org/wiki/#termset","name":"Noophorics reference","description":"Every quantity, law, experiment, withdrawn claim and open problem in the programme, generated from the files that define them.","url":"https://noophorics.org/wiki/","inLanguage":"en","isPartOf":{"@id":"https://noophorics.org/#website"},"license":"https://creativecommons.org/licenses/by/4.0/","hasDefinedTerm":[{"@type":"DefinedTerm","name":"π","description":"a probe"},{"@type":"DefinedTerm","name":"P","description":"probe measure"},{"@type":"DefinedTerm","name":"m","description":"the message / artifact"},{"@type":"DefinedTerm","name":"B\\|m","description":"receiver after conditioning on `m`"},{"@type":"DefinedTerm","name":"d(A,B\\|π)","description":"per-probe divergence"},{"@type":"DefinedTerm","name":"D(A,B\\|P)","description":"divergence over `P`"},{"@type":"DefinedTerm","name":"Â","description":"observed agreement rate"},{"@type":"DefinedTerm","name":"D_self","description":"self-divergence"},{"@type":"DefinedTerm","name":"D_floor","description":"noise floor"},{"@type":"DefinedTerm","name":"F*_R","description":"transfer fidelity"},{"@type":"DefinedTerm","name":"C(m)","description":"message cost"},{"@type":"DefinedTerm","name":"η","description":"noophoric efficiency"},{"@type":"DefinedTerm","name":"Ĉ","description":"claimed agreement rate"},{"@type":"DefinedTerm","name":"Φ","description":"phantom agreement"},{"@type":"DefinedTerm","name":"β","description":"calibration slope"},{"@type":"DefinedTerm","name":"K_R","description":"channel capacity"},{"@type":"DefinedTerm","name":"U","description":"residual"},{"@type":"DefinedTerm","name":"R","description":"reference disposition"},{"@type":"DefinedTerm","name":"V_λ","description":"net value"}]}</script>
+<style>
+:root{--plate:#e7e8e3;--ink:#12161a;--soft:#5c6369;--rule:#c5c7c0;--acc:#a3291d;
+  --serif:"Iowan Old Style",Palatino,Charter,Georgia,serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--plate:#0f1317;--ink:#d7d9d4;
+  --soft:#8c9299;--rule:#262c32;--acc:#e0705f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plate);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.6}
+main{max-width:56rem;margin:0 auto;padding:clamp(2rem,6vw,4rem) 1.25rem 5rem}
+a{color:inherit}
+h1{font-size:clamp(1.9rem,1.4rem + 2.2vw,2.7rem);font-weight:400;margin:0 0 .6rem;
+  letter-spacing:-.01em}
+.sub{color:var(--soft);margin:0 0 2.4rem;max-width:40rem}
+h2{font-size:1.3rem;font-weight:400;margin:3rem 0 .4rem;padding-bottom:.4rem;
+  border-bottom:1px solid var(--rule)}
+h2 .n{font-family:var(--mono);font-size:.75rem;color:var(--soft);
+  letter-spacing:.1em;margin-left:.6rem}
+.hint{color:var(--soft);font-size:.9rem;margin:.4rem 0 1.2rem}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.94rem;margin:0 0 1rem}
+th,td{text-align:left;padding:.5rem .7rem;border-bottom:1px solid var(--rule);
+  vertical-align:top}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--soft);font-weight:400;white-space:nowrap}
+code{font-family:var(--mono);font-size:.88em}
+.sym{font-family:var(--mono);white-space:nowrap;color:var(--acc)}
+.tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;
+  text-transform:uppercase;padding:.12rem .45rem;border:1px solid var(--rule);
+  border-radius:2px;white-space:nowrap}
+.tag.void{color:var(--acc);border-color:var(--acc)}
+.tag.ok{color:var(--ink)}
+.tag.pending{color:var(--soft)}
+dl{margin:0}
+dt{font-weight:600;margin:1.1rem 0 .2rem}
+dd{margin:0;color:var(--soft)}
+s{opacity:.65}
+.back{margin-top:3.5rem;font-size:.9rem;color:var(--soft)}
+nav.toc{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;
+  text-transform:uppercase;margin:0 0 2.5rem;line-height:2.1}
+nav.toc a{margin-right:1.1rem;white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<h1>Reference</h1>
+<p class="sub">Every quantity, law, experiment, withdrawn claim and open problem
+in the programme. This page is <strong>generated</strong> from the files that
+define each of them — nothing here is typed twice, so it cannot drift from the
+theory the way a hand-kept index would.</p>
+
+<nav class="toc">
+  <a href="#symbols">Symbols</a><a href="#terms">Terms</a><a href="#laws">Laws</a>
+  <a href="#experiments">Experiments</a><a href="#withdrawn">Withdrawn</a>
+  <a href="#problems">Open problems</a>
+</nav>
+
+<h2 id="symbols">Symbols<span class="n">19</span></h2>
+<p class="hint">From the symbol table in <a href="https://github.com/vyakymenko/noophorics/blob/main/lexicon.md">lexicon.md</a>.</p>
+<div class="wrap"><table>
+<thead><tr><th>Symbol</th><th>Reads as</th><th>Defined in</th></tr></thead>
+<tbody>
+<tr><td class="sym">π</td><td>a probe</td><td>§1.2</td></tr>
+<tr><td class="sym">P</td><td>probe measure</td><td>§1.3</td></tr>
+<tr><td class="sym">m</td><td>the message / artifact</td><td>§1.4</td></tr>
+<tr><td class="sym">B\|m</td><td>receiver after conditioning on <code>m</code></td><td>§1.4</td></tr>
+<tr><td class="sym">d(A,B\|π)</td><td>per-probe divergence</td><td>§2.1</td></tr>
+<tr><td class="sym">D(A,B\|P)</td><td>divergence over <code>P</code></td><td>§2.2</td></tr>
+<tr><td class="sym">Â</td><td>observed agreement rate</td><td>§2.3</td></tr>
+<tr><td class="sym">D_self</td><td>self-divergence</td><td>§3.1</td></tr>
+<tr><td class="sym">D_floor</td><td>noise floor</td><td>§3.2</td></tr>
+<tr><td class="sym">F*_R</td><td>transfer fidelity</td><td>§4.1</td></tr>
+<tr><td class="sym">C(m)</td><td>message cost</td><td>§4.2</td></tr>
+<tr><td class="sym">η</td><td>noophoric efficiency</td><td>§4.3</td></tr>
+<tr><td class="sym">Ĉ</td><td>claimed agreement rate</td><td>§5</td></tr>
+<tr><td class="sym">Φ</td><td>phantom agreement</td><td>§5</td></tr>
+<tr><td class="sym">β</td><td>calibration slope</td><td>§5.1</td></tr>
+<tr><td class="sym">K_R</td><td>channel capacity</td><td>§6.1</td></tr>
+<tr><td class="sym">U</td><td>residual</td><td>§6.2</td></tr>
+<tr><td class="sym">R</td><td>reference disposition</td><td>§4.1.1</td></tr>
+<tr><td class="sym">V_λ</td><td>net value</td><td>§4.3</td></tr>
+</tbody></table></div>
+
+<h2 id="terms">Terms<span class="n">29</span></h2>
+<p class="hint">Struck text is a withdrawn claim kept in place, never deleted.</p>
+<dl>
+<dt>noophorics</dt><dd>the quantitative science of transferring understanding across systems with non-identical priors. From νόος (mind) + φορά (carrying).</dd>
+<dt>noophor</dt><dd>a single act of transfer: sender, artifact, receiver.</dd>
+<dt>antinoophor</dt><dd>a noophor with <code>F* &lt; 0</code>. A message that leaves the receiver further from the sender than before it was sent.</dd>
+<dt>noophoric act</dt><dd>the triple <code>(A, m, B)</code>. Synonym for noophor; used when the components matter.</dd>
+<dt>criterion-bearing / criterion-free</dt><dd>the two regimes a probe measure can be in (v0.4). *Criterion-bearing*: an answer exists independently of the sender, so a key or an adjudicator panel is an admissible reference and the word *understanding* is licensed. *Criterion-free*: the sender <strong>is</strong> the criterion by construction — a preference, a house style, a judgment call whose owner defines the right answer — so <code>R = sender</code> is correct rather than tolerated, and there is no sender error available to be replicated. Key *absence* does not move a measure into the second regime: that is an epistemic fact about the experimenter, not an ontological one about the probe.</dd>
+<dt>agent</dt><dd>any system that maps a probe to a distribution over answers. Defined entirely by its answer distributions; internals are irrelevant.</dd>
+<dt>sender / receiver</dt><dd>the two roles in a noophor. Roles, not properties: the same system is routinely both.</dd>
+<dt>probe</dt><dd>a decidable decision whose answer depends on the understanding being transferred. *Decidable* means the answer space is finite and discrete.</dd>
+<dt>probe measure (<code>P</code>)</dt><dd>a distribution over probes. The noophoric frame of reference. No quantity is defined without one.</dd>
+<dt>admissible probe measure</dt><dd>one on which the parties actually disagree before transfer. Measuring fidelity where agreement already exists measures nothing.</dd>
+<dt>divergence (<code>D</code>)</dt><dd>expected Jensen–Shannon divergence between the agents&#x27; answer distributions over <code>P</code>, in bits. Bounded <code>[0, 1]</code>.</dd>
+<dt>agreement rate (<code>Â</code>)</dt><dd>fraction of probes on which the agents&#x27; modal answers match. Coarser than <code>D</code>, but the quantity parties can actually estimate about themselves.</dd>
+<dt>self-divergence (<code>D_self</code>)</dt><dd>an agent&#x27;s divergence from itself under independent resampling. Agents are stochastic; this is the measure of it.</dd>
+<dt>noise floor (<code>D_floor</code>)</dt><dd><s>mean self-divergence of the two agents; the irreducible divergence between perfectly aligned parties</s>. <strong>Retracted in v0.3</strong> (retraction 2): two perfectly aligned stochastic agents have identical true distributions, so their true divergence is exactly zero and there is nothing irreducible. <code>D_floor</code> is <strong>finite-sample estimator bias at a stated <code>n</code></strong>, obtained by a permutation null over the pooled draws. It is a property of the measurement, not of the agents, and it belongs in the estimator rather than in the definition. Not correcting for it is still the most common error.</dd>
+<dt>transfer fidelity (<code>F*_R</code>)</dt><dd>the fraction of the closable gap <strong>toward a declared reference <code>R</code></strong> that the message closed, floor-corrected. <code>1</code> = fully closed, <code>0</code> = no effect, <code>&lt; 0</code> = antinoophor. <strong>Never reportable without its <code>R</code></strong> (v0.4). <code>F*_{R=A}</code> is identically the pre-v0.4 quantity.</dd>
+<dt>cost (<code>C</code>)</dt><dd>the price of the artifact, in the receiver&#x27;s tokens unless stated otherwise. The receiver pays to read it.</dd>
+<dt>noophoric efficiency (<code>η</code>)</dt><dd><code>F*/C</code>, understanding per unit cost, and <strong>valid only where <code>F* ≥ 0</code></strong>. <s>The quantity engineering should optimize.</s> A ratio with a signed numerator is not an ordering (retraction 3): at <code>F* = −1</code> a 100-token antinoophor scores −10.00 and an 800-token one −1.25, ranking the costlier failure higher. Use <code>V_λ</code> when the sign is unknown.</dd>
+<dt>net value (<code>V_λ</code>)</dt><dd><code>F*_R − λ·C</code>. Monotone in both arguments at every sign, so it orders messages the way the field means to. <code>λ</code> is the declared exchange rate between fidelity and a token; sweeping it traces the frontier, which makes <code>V_λ</code> and <code>K_R(C)</code> the same object seen twice.</dd>
+<dt>channel capacity between minds (<code>K_R</code>)</dt><dd><code>sup_m F*_R(m)</code>. The best fidelity any message could achieve at unbounded cost, toward a declared reference. Estimated as a lower bound <code>K̂</code> over a stated search budget, by sample-splitting — a max-over-search estimate is a winner&#x27;s curse and overstates.</dd>
+<dt>residual (<code>U</code>)</dt><dd><code>1 − K_R</code>. The untransferable remainder toward a declared reference. Axiom A3 asserts it is nonzero. <s>Written <code>R</code> before 2026-07-31</s> — renamed because v0.4 gave <code>R</code> to the reference disposition without checking the symbol was free, and for a day this glossary listed <code>R</code> as the residual directly above a section defining <code>R</code> as the reference.</dd>
+<dt>phantom agreement (<code>Φ</code>)</dt><dd>claimed agreement rate minus observed agreement rate. <code>Φ &gt; 0</code> is a shared illusion of successful transfer: both parties believe it landed, probes say otherwise. The field&#x27;s central pathology.</dd>
+<dt>calibration slope (<code>β</code>)</dt><dd><code>d(claimed)/d(observed)</code>: how far a party&#x27;s claim moves when the outcome moves. <code>1</code> is calibrated in the responsive sense, <code>0</code> is inert, below <code>0</code> is anti-calibrated. Independent of [[phantom agreement]]: a party claiming the long-run mean every time scores <code>Φ = 0</code> and <code>β = 0</code>, and is maximally uninformative. Reporting <code>Φ</code> without <code>β</code> is the same error as reporting bias without resolution. Report it <strong>per party</strong> and report the attenuation-corrected value beside the raw one, never instead of it. Pre-registered and measured in E-002c: sender <code>−0.02</code>, receiver <code>+0.28</code>.</dd>
+<dt>invariant core</dt><dd>the part of an understanding that survives arbitrarily many chained transfers without loss. Conjectured (L4) to be constraints and prohibitions rather than descriptions.</dd>
+<dt>contrastive encoding</dt><dd>a message specifying where the parties would diverge: boundaries, exclusions, edge cases, what *not* to do.</dd>
+<dt>declarative encoding</dt><dd>a message describing what the sender understands. The default form of nearly every handoff written today.</dd>
+<dt>pre-registration</dt><dd>committing an experiment&#x27;s hypothesis and analysis plan before any data exists. The git history is the record.</dd>
+<dt>probe test</dt><dd>running a probe measure after a transfer to measure what landed. The noophoric analogue of replication.</dd>
+<dt>ablation ladder</dt><dd>truncating a message to successive cost levels and measuring the resulting <code>F*(C)</code> curve.</dd>
+<dt>reconstructive test</dt><dd>asking whether the receiver can generate a message that achieves comparable fidelity with a *third* party. Tests whether understanding transferred deeply enough to be re-transmitted.</dd>
+</dl>
+
+<h2 id="laws">Conjectural laws<span class="n">6</span></h2>
+<p class="hint">A law enters the record only with a refutation condition
+attached, and leaves it never. From <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/laws.md">theory/laws.md</a>.</p>
+<div class="wrap"><table>
+<thead><tr><th></th><th>Law</th><th>Status</th><th>Refuted if</th></tr></thead>
+<tbody>
+<tr><td class="sym">L1</td><td>Law of diminishing noophoric return</td><td><code>conjectured</code></td><td><code>F*(C)</code> is linear over a substantial range, or reaches 1.0 (floor-corrected) for arbitrary sender/receiver pairs.</td></tr>
+<tr><td class="sym">L2</td><td>Law of asymmetry</td><td><code>conjectured</code> · *headline form withdrawn as tautological*</td><td>across pairs where domain prior and general capability point in opposite directions, the sign of the asymmetry follows capability, or follows neither at better than chance.</td></tr>
+<tr><td class="sym">L3</td><td>Law of prior overlap</td><td><code>conjectured</code> · *operationalization incomplete*</td><td>a non-circular overlap measure exists and fails to predict <code>K</code>.</td></tr>
+<tr><td class="sym">L4</td><td>The curse of the summary</td><td><code>conjectured</code> · *restated after the original was found ill-typed*</td><td>chain fidelity is not monotone (L4a); <code>log F*</code> is not approximately linear over the positive range (L4b); or constraint-form and description-form content show decay slopes that are statistically indistinguishable (L4c).</td></tr>
+<tr><td class="sym">L5</td><td>Fluency inflates phantom agreement</td><td><code>conjectured</code></td><td>at equal cost, narrative and contrastive encodings produce statistically indistinguishable <code>Φ</code>, or narrative produces *lower* <code>Φ</code>.</td></tr>
+<tr><td class="sym">L6</td><td>Optimal encoding is contrastive, not declarative</td><td><code>conjectured</code></td><td>contrastive encodings show <code>η ≤</code> declarative encodings at equal cost, across domains.</td></tr>
+</tbody></table></div>
+
+<h2 id="experiments">Experiments<span class="n">7</span></h2>
+<p class="hint">Status is read from which files exist in each directory — a
+<code>VOID.md</code>, a <code>FINDINGS.md</code>, a
+<code>PREREGISTRATION.md</code> — not from a label anybody maintains.</p>
+<div class="wrap"><table>
+<thead><tr><th>Id</th><th>Status</th><th>Results</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td class="sym">E-001-fluency-cost</td><td><span class="tag ok">findings</span></td><td>1</td><td>—</td></tr>
+<tr><td class="sym">E-001b-fluency-factorial</td><td><span class="tag void">void</span></td><td>—</td><td>defect recorded</td></tr>
+<tr><td class="sym">E-001c-fluency-length-controlled</td><td><span class="tag pending">no registration</span></td><td>—</td><td>—</td></tr>
+<tr><td class="sym">E-002-phantom-agreement</td><td><span class="tag void">void</span></td><td>1</td><td>—</td></tr>
+<tr><td class="sym">E-002b-phantom-agreement-ladder</td><td><span class="tag ok">findings</span></td><td>1</td><td>—</td></tr>
+<tr><td class="sym">E-002c-calibration-slope</td><td><span class="tag ok">findings</span></td><td>2</td><td>—</td></tr>
+<tr><td class="sym">E-004-disagreement-detector</td><td><span class="tag pending">registered, not run</span></td><td>—</td><td>interrupted, an arm is blocked</td></tr>
+</tbody></table></div>
+
+<h2 id="withdrawn">Withdrawn claims<span class="n">11</span></h2>
+<p class="hint">Ours, with what killed each one. Full index at
+<a href="/journal/retractions/">retractions</a>.</p>
+<div class="wrap"><table>
+<thead><tr><th>#</th><th>Claim</th><th>Killed by</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><s><strong>A3</strong> — no bounded message closes an arbitrary prior gap</s></td><td>A 113-token lookup table reaching <code>F* = 1</code>. Restated for held-out probes under bounded cost.</td></tr>
+<tr><td>2</td><td><s><code>D_floor</code> is &quot;the irreducible divergence caused by the parties&#x27; own stochasticity&quot;, and belongs inside the *definition* of <code>F*</code></s></td><td>Two perfectly aligned stochastic agents have identical true distributions, so their true JSD is exactly zero. The floor is <strong>estimator bias</strong>, and a fidelity that changes when you sample more is not well-posed.</td></tr>
+<tr><td>3</td><td><s><code>η = F*/C</code> is &quot;the quantity engineering should optimize&quot;</s></td><td>A ratio with a signed numerator is not an ordering. At <code>F* = −1</code>, a 100-token antinoophor scores −10.00 and an 800-token one −1.25, so the message that spends eight times as much to do the same damage ranks higher. Replaced by <code>V_λ = F* − λC</code>.</td></tr>
+<tr><td>4</td><td><s>Falsification criterion 2 — &quot;<code>Φ ≈ 0</code> means the pathology does not exist&quot;</s></td><td>Bias and resolution are independent. A party predicting 0.70 on every probe and averaging 0.70 has <code>Φ = 0</code> and no ability to say which probes it got wrong; it is maximally pathological and the criterion scored it as our refutation.</td></tr>
+<tr><td>5</td><td><s><strong>L2</strong> headline form</s></td><td>Tautological as stated.</td></tr>
+<tr><td>6</td><td><s><strong>L4</strong> — fidelity is multiplicative along a chain</s></td><td>Ill-typed: it multiplied fractions of different prior gaps, and two antinoophors composed to a positive product. Measured: hops of −0.629 and −1.000 multiply to +0.629. Restated as L4a/L4b/L4c.</td></tr>
+<tr><td>7</td><td><s><strong>L6</strong> is &quot;the field&#x27;s first engineering prescription&quot;</s></td><td>I-PASS, deployed and outcome-measured since 2014 across nine programmes and 10 740 admissions.</td></tr>
+<tr><td>8</td><td><s><strong>L5</strong> is &quot;our sharpest conjecture&quot;</s></td><td>The human half is Carpenter et al. (2013) and Deslauriers et al. (2019). Status stays <code>conjectured</code> — a prior is not a test — but the framing was ours to lose.</td></tr>
+<tr><td>9</td><td><s><code>Φ</code> is &quot;the part we have not found elsewhere&quot;, and is what &quot;everyone had felt, nobody had weighed&quot;</s></td><td>Keysar &amp; Henly (2002), Newton (1990), Chang et al. (2010), Endsley (2020). It was weighed in 1990, and their instruments are in places better than ours.</td></tr>
+<tr><td>10</td><td><s>Knowledge distillation &quot;measures success as task accuracy&quot;</s></td><td>Stanton et al. (2021) define fidelity separately from generalization and show accuracy does not imply it — E-001&#x27;s construct failure, from a NeurIPS abstract, five years early.</td></tr>
+<tr><td>11</td><td><s>&quot;Fidelity-versus-correctness was separated in ML <strong>first</strong>&quot;</s></td><td>Cronbach (1955) separated an accuracy score from an assumed-similarity score, each with its own decomposition; Edwards et al. (2006) measured team mental-model similarity and accuracy as two quantities and compared them as predictors. Both predate the ML work. The content survives; the primacy word does not.</td></tr>
+</tbody></table></div>
+
+<h2 id="problems">Open problems<span class="n">12</span></h2>
+<div class="wrap"><table>
+<thead><tr><th>#</th><th>Problem</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>The residual characterization problem</td></tr>
+<tr><td>2</td><td>Non-circular prior overlap</td></tr>
+<tr><td>3</td><td>The capacity theorem</td></tr>
+<tr><td>4</td><td>Optimal encoding search</td></tr>
+<tr><td>5</td><td>The asymmetry law</td></tr>
+<tr><td>6</td><td>Probe measure generalization</td></tr>
+<tr><td>7</td><td>Phantom agreement mechanics</td></tr>
+<tr><td>8</td><td>The invariant core</td></tr>
+<tr><td>9</td><td>Self-transfer</td></tr>
+<tr><td>10</td><td>The multi-party problem</td></tr>
+<tr><td>11</td><td>Post-transfer admissibility</td></tr>
+<tr><td>12</td><td>The vanishing denominator</td></tr>
+</tbody></table></div>
+
+<p class="back"><a href="/">Noophorics</a> · <a href="/journal/">Lab journal</a> ·
+<a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
+</main>
+</body>
+</html>

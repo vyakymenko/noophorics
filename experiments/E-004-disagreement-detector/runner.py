@@ -309,7 +309,13 @@ def run(args) -> Dict[str, Any]:
     results: Dict[str, Any] = {
         "experiment": "E-004", "core_version": "0.4",
         "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "dry_run": bool(args.provider != "ollama"),
+        # Was `args.provider != "ollama"`, and --provider only ever takes
+        # "live" or "dry", so this was True for every run this file can
+        # perform. A live collection would have stamped its own results file
+        # as synthetic -- the one field whose job is to say whether the numbers
+        # are real. Nothing shipped with it because E-004 has not yet reached
+        # analysis, but the resume would have been the first.
+        "dry_run": args.provider == "dry",
         "measures": {n: m.qualified_id for n, m in measures.items()},
         "models": models, "samples_per_probe": args.samples,
         "detector": "flag probe iff mode X != mode Y; no key, no threshold",
