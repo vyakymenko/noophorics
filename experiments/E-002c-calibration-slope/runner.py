@@ -469,11 +469,63 @@ def analyse(measure: ProbeMeasure, raw: Dict[str, List[List[str]]],
         effects[name]["p_value_holm"] = p_adj
         effects[name]["significant_at_005"] = bool(p_adj < 0.05)
 
+    # H3's verdict has to be written down. The paired test ran and the CI was
+    # built, and then nothing recorded whether the hypothesis held -- the
+    # results file carried `supported: null` for a registered hypothesis. A
+    # value with no verdict is the half of E-002b's H4 defect that survived:
+    # there, a record and a report disagreed; here there was no record to
+    # disagree with.
+    #
+    # The rule is the registered one (section 5.5 and section 8): a paired
+    # sign-flip permutation, Holm-corrected, and directional -- the hypothesis
+    # names which party is less responsive, so a significant difference the
+    # other way refutes it rather than supporting it.
+    if "H3_sender_less_responsive" in effects:
+        h3 = effects["H3_sender_less_responsive"]
+        h3["supported"] = bool(h3.get("significant_at_005")
+                               and h3["value"] > 0.0)
+        h3["decision_rule"] = ("paired sign-flip permutation, Holm-corrected, "
+                               "one-sided by design: beta_receiver > beta_sender")
+
     out["effects"] = effects
     out.update(results_extra)
-    out["multiplicity"] = {"correction": "holm",
-                           "family": sorted(k for k in effects if "p_value" in effects[k])}
+    # The declared family is the REGISTERED one. Built as "everything carrying a
+    # p_value", it swept in the three recorded_* quantities that the block above
+    # had just renamed out of the hypothesis family on purpose -- so the results
+    # file declared a five-member family while Holm had correctly divided alpha
+    # among the registered four. A multiplicity declaration that contradicts the
+    # correction actually applied is worse than none: it is checkable, and it
+    # would have been checked.
+    corrected = [k for k in FAMILY
+                 if k in effects and effects[k].get("p_value") is not None]
+    out["multiplicity"] = {
+        "correction": "holm",
+        "family": list(FAMILY),
+        "corrected": corrected,
+        "uncorrected_by_design": [k for k in FAMILY if k not in corrected],
+        "note": ("H1-H4 are one family (preregistration section 8). H1 and H2 "
+                 "are interval decisions with no p-value, so Holm divides alpha "
+                 "among the members that use one. The recorded_* quantities are "
+                 "not hypotheses and are not in the family."),
+    }
     return out
+
+
+def _shows_supported(effect: Dict[str, Any]) -> bool:
+    """Whether the summary table marks an effect as supported.
+
+    The previous condition required `significant_at_005`, which H1 and H2 can
+    never have: they are interval decisions by design, deliberately given no
+    p-value, so the *primary* hypothesis of this experiment could not print as
+    supported however the data came out. The record was right and the report
+    was silent -- which is the shape of the E-002b H4 defect, and the terminal
+    summary is what a person reads at the end of a forty-five hour run.
+    """
+    if not effect.get("supported"):
+        return False
+    if effect.get("p_value") is None:
+        return True                     # interval decision; nothing to correct
+    return bool(effect.get("significant_at_005"))
 
 
 def run(args) -> Dict[str, Any]:
@@ -668,17 +720,35 @@ def main() -> int:
             if e:
                 print("   %-9s %+7.4f   CI [%+.4f, %+.4f]"
                       % (who, e["value"], e["ci95"][0], e["ci95"][1]))
-        print("\n  hypothesis                           value   p(holm)  CI95")
+        print("\n  hypothesis                           value   p(holm)  CI95"
+              "\n  (~ = raw p, recorded not hypothesised, deliberately "
+              "uncorrected; 'interval' = decided by the CI, no p by design)")
         for name, e in sorted(results["effects"].items()):
             if "value" not in e:
                 print("  %-36s uncomputable" % name)
                 continue
             ci = e.get("ci95", [float("nan")] * 2)
-            print("  %-36s %+7.4f %7.4f  [%+.4f, %+.4f]%s"
-                  % (name, e["value"], e.get("p_value_holm", float("nan")),
-                     ci[0], ci[1],
-                     "  SUPPORTED" if e.get("supported")
-                     and e.get("significant_at_005") else ""))
+            # "nan" in a p-value column reads as a broken statistic, and a
+            # line that reads as broken gets discounted. These two have no
+            # p-value by design; say so rather than printing a float that
+            # cannot exist.
+            # Three states, and collapsing any two of them misdescribes a
+            # number. A Holm-corrected p, a raw p that was deliberately left
+            # uncorrected because the quantity is recorded rather than
+            # hypothesised, and no p at all because the decision is an interval
+            # one. The first draft printed "interval" for all of the last two
+            # and so told the reader that the recorded quantities had no
+            # p-value, which is not true of any of them.
+            ph, praw = e.get("p_value_holm"), e.get("p_value")
+            if ph is not None:
+                pcol = "%8.4f" % ph
+            elif praw is not None:
+                pcol = "%7.4f~" % praw
+            else:
+                pcol = " interval"
+            print("  %-36s %+7.4f %s  [%+.4f, %+.4f]%s"
+                  % (name, e["value"], pcol, ci[0], ci[1],
+                     "  SUPPORTED" if _shows_supported(e) else ""))
         failed = [g for g, v in results["gates"].items() if not v["passed"]]
         print("\n  gates failed: %s" % (", ".join(failed) if failed else "none"))
     print("\nwrote %s" % path)
