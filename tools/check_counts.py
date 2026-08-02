@@ -23,6 +23,20 @@ def _read(rel: str) -> str:
         return fh.read()
 
 
+def _count_voids() -> int:
+    """Experiments carrying a VOID.md. Zero, not a crash, when there are none.
+
+    A counter that raises instead of reporting has turned an audit into an
+    outage -- the same failure the link checker had when a path straddled a
+    symlink. os.listdir on a missing directory is the easy way to get there.
+    """
+    base = os.path.join(ROOT, "experiments")
+    if not os.path.isdir(base):
+        return 0
+    return len([d for d in os.listdir(base)
+                if os.path.exists(os.path.join(base, d, "VOID.md"))])
+
+
 def truth() -> dict:
     docs = os.path.join(ROOT, "docs")
     journal = os.path.join(docs, "journal")
@@ -34,6 +48,12 @@ def truth() -> dict:
                           if len(d) == 2 and os.path.isdir(os.path.join(docs, d))]),
         "axioms": len(re.findall(r"^\*\*A\d", _read("PRINCIPIA.md"), re.M)),
         "retractions": len(re.findall(r"^\| \d+ \|", _read("RETRACTIONS.md"), re.M)),
+        # A void is an experiment with a VOID.md, not a run that was thrown
+        # away. The site said "three experiments are void" while two directories
+        # carried the file -- the third was E-001's first live run, which was
+        # voided and then re-run to completion. A voided run is not a voided
+        # experiment and the sentence conflated them.
+        "voids": _count_voids(),
         "journal entries": len([d for d in os.listdir(journal)
                                 if os.path.isdir(os.path.join(journal, d))]),
     }
@@ -50,9 +70,16 @@ CLAIMS = [
     # claim exactly as much as "10" is, and greps for digits miss them.
     ("README.md", r"(twelve|eleven|ten|nine) open problems", "open problems"),
     ("CITATION.cff", r"(twelve|eleven|ten|nine) open problems", "open problems"),
+    # The site says the count twice: once in the stat card above, once in prose
+    # in the standing section. Only the card was checked, and the prose sat at
+    # "ten open problems" against twelve in the file for as long as anyone had
+    # been reading it. A number is a claim wherever it appears.
+    ("docs/index.html", r"(twelve|eleven|ten|nine) open problems", "open problems"),
+    ("docs/index.html", r"(two|three|four) experiments are void", "voids"),
 ]
 
-WORDS = {"nine": 9, "ten": 10, "eleven": 11, "twelve": 12, "thirteen": 13}
+WORDS = {"two": 2, "three": 3, "four": 4, "nine": 9, "ten": 10,
+         "eleven": 11, "twelve": 12, "thirteen": 13}
 
 
 def main() -> int:

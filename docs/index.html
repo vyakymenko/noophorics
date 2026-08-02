@@ -1264,7 +1264,7 @@ th:last-child, td:last-child { padding-right: 0; }
   <div class="band">
     <a class="mark" href="#top">Noophorics.org</a>
     <div class="mast-actions">
-      <span class="mast-secondary">v0.4</span>
+      <span class="mast-secondary">v0.5</span>
       <a class="mast-secondary" href="#instrument">Φ in 60 sec</a>
       <details class="site-menu">
         <summary>Navigate</summary>
@@ -1327,12 +1327,12 @@ th:last-child, td:last-child { padding-right: 0; }
 <div class="band front" id="top">
   <div class="rail hero-rail">
     <b>Open research programme</b>
-    Version 0.4
+    Version 0.5
     <span class="sym" aria-hidden="true">Φ</span>
     <span class="gloss">An instrument for measuring what a receiver can still decide after a transfer.</span>
   </div>
   <div class="col">
-    <p class="eyebrow">Open research programme &nbsp;·&nbsp; v0.4</p>
+    <p class="eyebrow">Open research programme &nbsp;·&nbsp; v0.5</p>
     <h1 class="wordmark">Noophorics</h1>
     <p class="etym">νόος <span style="opacity:.55">nous, mind</span> &nbsp;+&nbsp; φορά <span style="opacity:.55">phora, carrying</span></p>
 
@@ -1836,6 +1836,11 @@ th:last-child, td:last-child { padding-right: 0; }
             <td>Claimed agreement minus observed: <span class="q">Φ = Ĉ − Â</span>, where <span class="q">Ĉ</span> is the mean of the sender's prediction and the receiver's self-report. Both parties believe understanding transferred; probes say otherwise. The field's central pathology.</td>
           </tr>
           <tr>
+            <td class="t-sym">&beta;</td>
+            <td class="t-name">Calibration slope<span>§5.1 &middot; new in v0.5</span></td>
+            <td><span class="q">d(claimed) / d(observed)</span> &mdash; how far a party's claim moves when the outcome moves. <span class="q">1</span> is calibrated, <span class="q">0</span> is inert, below zero is anti-calibrated. <strong>Independent of <span class="q">&Phi;</span>, and reporting one without the other is the same error as reporting bias without resolution</strong>: a party that claims the long-run mean every time scores <span class="q">&Phi; = 0</span> and <span class="q">&beta; = 0</span>, and knows nothing. Measured in <a href="/journal/e-002c-findings/">E-002c</a>: sender <span class="q">&minus;0.02</span>, receiver <span class="q">+0.28</span>, against <span class="q">1</span> for calibration.</td>
+          </tr>
+          <tr>
             <td class="t-sym">K</td>
             <td class="t-name">Channel capacity<span>§6.1</span></td>
             <td>The best fidelity achievable by <em>any</em> message, at unbounded cost — the noophoric analogue of Shannon capacity and the central theoretical object of the field. Not directly computable; estimated as a lower bound over a stated search budget. We conjecture <span class="q">K &lt; 1</span> always.</td>
@@ -2263,13 +2268,15 @@ F*(m)  =  ───────────────────────�
     <span class="gloss">Principia Noophorica §7 and §10 — what would falsify the programme.</span>
   </div>
   <div class="col">
-    <h2 data-i18n-src="status">Version 0.4. Nothing is established, eleven of our own claims are withdrawn, and three experiments are void.</h2>
+    <h2 data-i18n-src="status">Version 0.5. One pre-registered result is now established. Eleven of our own claims are withdrawn and two experiments are void.</h2>
 
       <p style="margin-top:1rem"><a href="/journal/retractions/">Every one of them, with what killed it &rarr;</a> &nbsp;A count nobody can audit is worse than no count.</p>
 
-    <p class="lead">One pre-registered experiment that has not produced data, six
-    conjectural laws, ten open problems, zero confirmed findings. Every claim in
-    this programme should be read as a bet, and its confidence calibrated
+    <p class="lead">Six conjectural laws, twelve open problems, three completed
+    runs &mdash; and one pre-registered finding. Two of the three runs produced
+    only corrections to our own instrument; the third is
+    <a href="/journal/e-002c-findings/">E-002c</a>. Every other claim in this
+    programme should be read as a bet, and its confidence calibrated
     accordingly.</p>
 
     <p>A science that cannot lose is not a science. Noophorics is wrong if:</p>
@@ -2292,6 +2299,24 @@ F*(m)  =  ───────────────────────�
     programme is mystical. Everything in it is supposed to have a number attached,
     or be deleted.</p>
 
+    <h3 id="stands" style="margin-top:2.8rem;padding-bottom:.6rem;border-bottom:1px solid var(--rule);font-size:1.15rem">What stands</h3>
+    <p class="note" style="margin-top:1rem">One item. It is here because the
+    sentence above it used to read &ldquo;nothing is established&rdquo;, and that
+    stopped being true on 2026-08-02.</p>
+    <ul style="list-style:none;padding:0;margin:1.2rem 0 0">
+      <li><b>Confidence responds to transfer at about an eighth of the rate
+        calibration requires &mdash; and the sender&rsquo;s does not respond at
+        all.</b>
+        <span class="q">&beta;</span> pooled <span class="q">+0.13</span>,
+        interval <span class="q">[+0.05, +0.22]</span>; sender
+        <span class="q">&minus;0.02</span> spanning zero, receiver
+        <span class="q">+0.28</span> clear of it. Four hypotheses registered
+        before the data existed, six gates passed, 24 briefs, 28&nbsp;512 model
+        calls. One model in both roles, one probe measure, one domain &mdash;
+        which is exactly as far as it generalises.
+        <a href="/journal/e-002c-findings/">FINDINGS</a></li>
+    </ul>
+
     <h3 id="refuted" style="margin-top:2.8rem;padding-bottom:.6rem;border-bottom:1px solid var(--rule);font-size:1.15rem">What we have refuted, in our own work</h3>
     <p class="note" style="margin-top:1rem">The programme's only completed results
     are negative and about itself. Each is recorded where it was made, with the
@@ -2307,6 +2332,11 @@ F*(m)  =  ───────────────────────�
         Found by validating the estimator against a known ground truth — a check
         that did not exist until it was needed.
         <a href="https://github.com/vyakymenko/noophorics/blob/main/metrics/validation/synthetic.py">validation</a></li>
+      <li style="margin-bottom:1rem"><b>&ldquo;Confidence is very nearly
+        unresponsive&rdquo; was too strong.</b> Our own post-hoc reading of
+        E-002b, superseded by the pre-registered run above: the effect is real
+        but small, not absent, and it is the <em>sender</em> that is inert.
+        <a href="/journal/e-002b-findings/">E-002b &sect;6</a></li>
       <li style="margin-bottom:1rem"><b>L2 was a tautology and L4 was ill-typed.</b>
         Two antinoophors composed to a positive fidelity.
         <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/laws.md">laws</a></li>
@@ -2353,7 +2383,7 @@ F*(m)  =  ───────────────────────�
     </div>
 
     <p class="cite">Yakymenko, V. (2026). Noophorics: a quantitative science of
-    transferring understanding across heterogeneous minds. Version 0.4.
+    transferring understanding across heterogeneous minds. Version 0.5.
     <a href="https://noophorics.org">noophorics.org</a></p>
   </div>
 </footer>

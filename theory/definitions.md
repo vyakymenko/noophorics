@@ -379,6 +379,52 @@ meaningful.
 Report the sender's and receiver's claims separately as well as the mean. They
 are frequently asymmetric, and the asymmetry is data.
 
+### 5.1 Calibration slope (`β`) *(v0.5)*
+
+`Φ` is a **level**. It says how far belief sits from outcome and nothing about
+whether belief *moves* when outcome moves. Those are different failures and a
+single mean difference cannot separate them.
+
+```
+β = d(claimed) / d(observed)
+```
+
+estimated as the slope of per-brief claimed agreement on per-brief observed
+agreement, over a set of transfers that vary in how much actually landed.
+
+- `β = 1` — **calibrated in the responsive sense.** A ten-point drop in what
+  transferred produces a ten-point drop in what the party claims.
+- `β = 0` — **inert.** The party says the same thing whatever happened. It can
+  still have `Φ = 0` by claiming the long-run mean every time, and it is then
+  maximally uninformative while scoring perfectly on `Φ`.
+- `β < 0` — **anti-calibrated.** Confidence rises as transfer falls.
+
+`Φ` and `β` are independent, and reporting one without the other is the same
+error as reporting bias without resolution — the error
+[PRINCIPIA §7.2](../PRINCIPIA.md) already names one level up, and which
+[falsification criterion 2](../PRINCIPIA.md) was corrected for.
+
+**Attenuation is not optional.** `β` is a slope on a noisily estimated
+regressor: per-brief claim means carry sampling error, which biases the slope
+toward zero. Report the raw `β` *and* the reliability-corrected `β = β̂ /
+reliability`, with the reliability computed from the within-brief and
+between-brief variance. Report both; correct neither silently. Measured in
+[E-002c](../experiments/E-002c-calibration-slope/FINDINGS.md): reliability
+0.7153, raw `β = +0.1299`, corrected `+0.1816`.
+
+**Report per party.** The pooled slope hides the finding. In E-002c the sender's
+`β` was `−0.0200` with an interval spanning zero while the receiver's was
+`+0.2797` with an interval clear of it — one party inert, the other partially
+responsive, and the pooled number describing neither.
+
+**Provenance.** Identified post-hoc in
+[E-002b §6](../experiments/E-002b-phantom-agreement-ladder/FINDINGS.md), which
+refused to report it as a finding and recorded the theory change as a debt.
+Pre-registered and measured in
+[E-002c](../experiments/E-002c-calibration-slope/PREREGISTRATION.md). This
+section is that debt discharged, and it is dated so the order stays visible: the
+quantity was named before the data that supports it existed.
+
 ---
 
 ## 6. Capacity and residual
@@ -469,6 +515,7 @@ A noophoric measurement is reportable iff it states, at minimum:
 | `C(m)` and its unit | η is not comparable across units. |
 | Sender and receiver identity | Model IDs, versions, decoding parameters. |
 | `Ĉ` sender and receiver, separately | The asymmetry is data. |
+| `β` per party, raw **and** attenuation-corrected, where the design varies transfer | `Φ` is a level and cannot see whether belief moves. Required only where the design produces variation in what transferred — a single transfer has no slope, and demanding one would make the standard unmeetable rather than strict. *(v0.5)* |
 
 A number reported without these is an anecdote. We accept anecdotes in
 `journal/`; we do not accept them in `theory/`.

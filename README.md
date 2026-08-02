@@ -247,7 +247,7 @@ programme itself:
 
 ## Status
 
-**Version 0.4. Nothing is established, and several things are refuted.**
+**Version 0.5. One pre-registered result stands, and several things are refuted.**
 
 Six conjectural laws (two restated after refutation), twelve open problems, zero
 confirmed positive findings. Every claim in this repository should be read
@@ -291,5 +291,5 @@ Contributor roles, and the disclosure of AI contribution, are in
 [AUTHORS.md](AUTHORS.md). See [CITATION.cff](CITATION.cff), or:
 
 > Yakymenko, V. (2026). *Noophorics: a quantitative science of transferring
-> understanding across heterogeneous minds.* Version 0.4.
+> understanding across heterogeneous minds.* Version 0.5.
 > https://noophorics.org

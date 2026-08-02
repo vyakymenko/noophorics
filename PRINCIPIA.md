@@ -3,7 +3,7 @@
 *The founding document of noophorics — the quantitative science of transferring
 understanding across minds that do not share a substrate.*
 
-Document version 0.1 — 2026-07-28 · *the programme is at v0.4; this number
+Document version 0.1 — 2026-07-28 · *the programme is at v0.5; this number
 versions the founding text, which is amended in place and never rewritten*
 
 ---

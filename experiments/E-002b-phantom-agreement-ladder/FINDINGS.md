@@ -168,12 +168,24 @@ Nothing in the design forced this. On the worst brief, `r070_1`, observed
 agreement was **0.5152** — calibration required a claim near 0.52, the entire
 interval below was available, and the parties said **0.9646**.
 
-> **The parties' confidence is very nearly unresponsive to how much actually
-> transferred.**
+> ~~**The parties' confidence is very nearly unresponsive to how much actually
+> transferred.**~~
 
-That sentence is what this run supports. It is stronger than what was
-pre-registered and it was not pre-registered, and both halves of that have to be
-said together.
+That sentence is what this run supported, and it was stronger than what was
+pre-registered. Both halves of that had to be said together, which is why the
+successor was registered rather than the sentence promoted.
+
+**Superseded 2026-08-02 by [E-002c](../E-002c-calibration-slope/FINDINGS.md).**
+This interval contained zero, so "very nearly unresponsive" was the most this
+data could say. A pre-registered run on 24 briefs puts the pooled slope at
+`+0.1299`, interval `[+0.047, +0.223]` — clear of zero. Confidence *does*
+respond, at about an eighth of the rate calibration requires. The unresponsive
+party is the **sender** alone: `β_sender = −0.0200` with an interval spanning
+zero, against `β_receiver = +0.2797` with an interval clear of it.
+
+The direction here replicated. The magnitude did not, and reporting the stronger
+sentence as a finding would have been wrong in a way this run could not have
+detected.
 
 ## 7. Against the human literature, we discriminate worse, not better
 
@@ -204,6 +216,13 @@ theory change that belongs in its own commit with its own review — not smuggle
 in as an interpretation of this run.
 
 Recorded as a task, not performed here.
+
+**Discharged 2026-08-02.** `β` is defined in
+[definitions §5.1](../../theory/definitions.md) and
+[lexicon](../../lexicon.md), pre-registered in
+[E-002c](../E-002c-calibration-slope/PREREGISTRATION.md) before its data
+existed, and measured there. The order is the point and it is dated: the
+quantity was named first.
 
 ## 9. What must not be claimed
 

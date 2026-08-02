@@ -115,6 +115,17 @@ above a section defining `R` as the reference.
 rate. `Φ > 0` is a shared illusion of successful transfer: both parties
 believe it landed, probes say otherwise. The field's central pathology.
 
+**calibration slope (`β`)** — `d(claimed)/d(observed)`: how far a party's claim
+moves when the outcome moves. `1` is calibrated in the responsive sense, `0` is
+inert, below `0` is anti-calibrated. Independent of [[phantom agreement]]: a
+party claiming the long-run mean every time scores `Φ = 0` and `β = 0`, and is
+maximally uninformative. Reporting `Φ` without `β` is the same error as
+reporting bias without resolution. Report it **per party** and report the
+attenuation-corrected value beside the raw one, never instead of it.
+Pre-registered and measured in
+[E-002c](experiments/E-002c-calibration-slope/FINDINGS.md): sender `−0.02`,
+receiver `+0.28`.
+
 **invariant core** — the part of an understanding that survives arbitrarily
 many chained transfers without loss. Conjectured (L4) to be constraints and
 prohibitions rather than descriptions.
@@ -163,6 +174,7 @@ understanding transferred deeply enough to be re-transmitted.
 | `η` | noophoric efficiency | §4.3 |
 | `Ĉ` | claimed agreement rate | §5 |
 | `Φ` | phantom agreement | §5 |
+| `β` | calibration slope | §5.1 |
 | `K_R` | channel capacity | §6.1 |
 | `U` | residual | §6.2 |
 | `R` | reference disposition | §4.1.1 |

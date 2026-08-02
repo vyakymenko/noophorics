@@ -220,9 +220,16 @@ class TestCheckCounts(ToolTest):
             "CITATION.cff": "nine open problems\n",
             "docs/index.html": ("<dt>Conjectural laws</dt><dd>2</dd>"
                                 "<dt>Open problems</dt><dd>9</dd>"
-                                "<dt>Own claims refuted</dt><dd><a href=x>1</a></dd>"),
+                                "<dt>Own claims refuted</dt><dd><a href=x>1</a></dd>"
+                                "<p>nine open problems, and two experiments "
+                                "are void.</p>"),
             "docs/journal/one/index.html": "x",
             "docs/en/index.html": "x",
+            # Two voided experiments and one that merely has a directory: the
+            # count is files named VOID.md, not experiments that exist.
+            "experiments/E-1/VOID.md": "void",
+            "experiments/E-2/VOID.md": "void",
+            "experiments/E-3/PREREGISTRATION.md": "alive",
         }
 
     def run_check(self, files: dict):
@@ -253,6 +260,29 @@ class TestCheckCounts(ToolTest):
         self.assertEqual(code, 1)
         self.assertIn("MISMATCH", out)
 
+
+    def test_a_voided_run_is_not_a_voided_experiment(self):
+        """The count is VOID.md files, and the site got this wrong.
+
+        It said "three experiments are void" while two directories carried the
+        file. The third was E-001's first live run, thrown away and then re-run
+        to completion -- a voided run, not a voided experiment.
+        """
+        files = self.base(tests_n=7, readme_states=7)
+        files["experiments/E-4/VOID.md"] = "void"          # now three
+        code, out = self.run_check(files)
+        self.assertEqual(code, 1)
+        self.assertIn("MISMATCH", out)
+
+    def test_the_void_count_survives_a_repository_with_no_experiments(self):
+        """A counter that raises instead of reporting is an outage, not an audit."""
+        files = {k: v for k, v in self.base(tests_n=7, readme_states=7).items()
+                 if not k.startswith("experiments/")}
+        files["docs/index.html"] = files["docs/index.html"].replace(
+            "two experiments are void", "four experiments are void")
+        code, out = self.run_check(files)          # must not raise
+        self.assertEqual(code, 1)
+        self.assertIn("voids", out)
 
     def test_a_claim_that_moved_is_a_failure_not_a_pass(self):
         """A pattern that stops matching means the claim was edited or removed.

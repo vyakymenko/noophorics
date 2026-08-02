@@ -2,7 +2,7 @@ cff-version: 1.2.0
 title: "Noophorics: a quantitative science of transferring understanding across heterogeneous minds"
 message: "If you use this work, please cite it as below."
 type: software
-version: 0.4.0
+version: 0.5.0
 date-released: 2026-07-30
 # Founded 2026-07-28 by Valentyn Yakymenko.
 license: Apache-2.0
