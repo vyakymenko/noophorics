@@ -3,7 +3,11 @@ title: "Noophorics: a quantitative science of transferring understanding across 
 message: "If you use this work, please cite it as below."
 type: software
 version: 0.5.0
-date-released: 2026-07-30
+date-released: 2026-08-03
+# Must move with `version:` above. It said 2026-07-30 at v0.5.0 -- the
+# version bumped three times and the release date stayed put, which is the
+# same class of defect as a stated count that disagrees with its source,
+# in the one file a citation manager reads.
 # Founded 2026-07-28 by Valentyn Yakymenko.
 license: Apache-2.0
 url: "https://noophorics.org"
@@ -19,7 +23,10 @@ abstract: >-
   occurred and the evidence that it did. The repository contains the axiomatic
   foundation, six falsifiable conjectural laws, twelve open problems, a
   dependency-free reference implementation of the metrics, and pre-registered
-  experiments.
+  experiments. As of v0.5 one pre-registered result stands: the calibration
+  slope `beta` -- how far a party's stated confidence moves when the outcome
+  moves -- measured at 0.13 pooled against 1.0 for calibration, with the
+  sender's slope indistinguishable from zero.
 keywords:
   - noophorics
   - transfer fidelity
@@ -29,10 +36,17 @@ keywords:
   - context compaction
   - multi-agent systems
   - indeterminacy of translation
+  - calibration slope
+  - pre-registration
 authors:
   - family-names: "Yakymenko"
     given-names: "Valentyn"
     website: "https://github.com/vyakymenko"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    # ^ uncomment with a real one. An ORCID is free and takes two minutes, and
+    # without it no indexer can tell this author from anyone else with the same
+    # name -- which is the first thing that has to be true before any citation
+    # of this work can be counted.
     # Founder and principal investigator. See AUTHORS.md for contributor roles
     # under the CRediT taxonomy, and for disclosure of AI contribution --
     # substantial, and not admissible as authorship under prevailing norms.

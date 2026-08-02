@@ -1,0 +1,19 @@
+{
+  "title": "Noophorics: a quantitative science of transferring understanding across heterogeneous minds",
+  "upload_type": "software",
+  "license": "Apache-2.0",
+  "access_right": "open",
+  "creators": [
+    { "name": "Yakymenko, Valentyn" }
+  ],
+  "keywords": [
+    "noophorics", "transfer fidelity", "phantom agreement", "calibration slope",
+    "probe measure", "agent handoff", "context compaction", "multi-agent systems",
+    "pre-registration", "indeterminacy of translation"
+  ],
+  "related_identifiers": [
+    { "identifier": "https://noophorics.org", "relation": "isDocumentedBy", "scheme": "url" },
+    { "identifier": "https://github.com/vyakymenko/noophorics", "relation": "isSupplementTo", "scheme": "url" }
+  ],
+  "description": "<p>An open research programme measuring the transfer of understanding between systems with non-identical priors. It replaces symbol recovery with behavioural convergence toward a <em>declared reference</em> over a <em>declared probe measure</em>, which yields measurable quantities: transfer fidelity, noophoric efficiency, channel capacity, phantom agreement (the gap between the parties' confidence that understanding occurred and the evidence that it did), and the calibration slope.</p><p>The repository contains the axiomatic foundation, six falsifiable conjectural laws, twelve open problems, a dependency-free reference implementation, pre-registered experiments with their raw draws, and a public record of every claim the programme has withdrawn.</p>"
+}
