@@ -286,6 +286,41 @@ theory work: it is a statement about what makes a measurement report internally
 coherent, and this programme has no such statement.
 
 
+## 14. When is a modal answer over `n` draws a stable observable?
+
+Every experiment in this programme reduces a probe to one answer by taking the
+mode of `n` draws, and then treats that answer as the thing measured. Nothing
+states when that reduction is licensed.
+
+[E-004](../experiments/E-004-disagreement-detector/VOID.md) shows the failure
+concretely. Of eleven errors, eight were unanimous or nearly so — on two of them
+the correct answer was never drawn in sixteen attempts. The other three were
+near-ties: on `T21` the wrong answer took the modal slot **six votes to five**.
+Those three probes are in the error set because of one draw. A different sixteen
+would have given a different error set, a different flag set, and a different
+p-value, and nothing in the design would have shown it.
+
+The reduction is doing two incompatible jobs. Where the distribution is
+concentrated it recovers a disposition. Where it is flat it manufactures one,
+and the manufactured answer then enters the analysis indistinguishable from the
+recovered ones.
+
+**The problem.** State the condition under which a modal answer is a measurement
+rather than a coin-flip, in a form an experiment can gate on before analysis.
+Candidates, none obviously right: a minimum margin between first and second
+place; a minimum concentration of the whole distribution; abstention where
+neither holds, with abstained probes reported rather than dropped. Each changes
+what "the agent's answer" means, which is why this is theory rather than a
+threshold to pick.
+
+**Why it is not solved by more draws.** More draws sharpen the estimate of a
+distribution that may genuinely be near-uniform. If an agent is truly split
+between two readings of a rule, no `n` makes the mode meaningful — and that
+agent is arguably the most interesting case, since a split reading is exactly
+what a probe measure ought to detect. Reporting it as one answer discards the
+finding.
+
+
 ---
 
 *This document is licensed CC BY 4.0.*
