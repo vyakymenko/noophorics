@@ -16,7 +16,7 @@ saying.
 |---|---|---|---|---|
 | **H1** `β < 0.5` | +0.1299 | [+0.0474, +0.2234] | interval decision | supported |
 | **H2** `β` indistinguishable from 0 | +0.1299 | [+0.0474, +0.2234] | interval decision | **not supported** |
-| **H3** sender less responsive than receiver | +0.2997 | [+0.1509, +0.4713] | 0.0002 | supported |
+| **H3** sender less responsive than receiver | +0.2997 | [+0.1509, +0.4713] | 0.0009 | supported |
 | **H4** resolution survives the finer grid | +0.3074 | [+0.2156, +0.4035] | 0.0002 | supported |
 
 H1 and H2 carry no p-value by design: the claim is about a magnitude, and a
@@ -91,10 +91,9 @@ claimed receiver 0.8843  0.0740   0.731 – 0.983     4.6 : 1
 
 The sender sits at 0.975 and barely moves while the outcome moves across half
 its range. The receiver moves twice as much and its slope clears zero. H3 puts a
-number on the gap: **+0.2997**, `[+0.151, +0.471]`, Holm-corrected p = 0.0002,
-tested paired from the start — which is the defect
-[E-002b's H4](../E-002b-phantom-agreement-ladder/FINDINGS.md#4-h4-was-reported-as-not-supported-that-was-our-defect-not-the-datas)
-was reported under and this design fixed before collecting.
+number on the gap: **+0.2997**, `[+0.151, +0.471]`, Holm-corrected p = 0.0009,
+by a paired sign-flip on the per-brief `β` contributions. That p-value is not
+the one this document first reported — see §6.
 
 Per rung, the asymmetry is visible without any statistics:
 
@@ -132,7 +131,58 @@ The pinning is still the dominant feature — four cells in five are at 1.0 — 
 it is weaker than E-002b's 91.2%, and the sender/receiver split above shows
 where the remaining pinning lives.
 
-## 6. What this settles in the theory
+## 6. H3 was tested on the wrong quantity, and it is the same shape as last time
+
+Found by re-reading this run's own code after the findings were written, not by
+a check. The conclusion does not move. What was published for two days was a
+p-value belonging to a different quantity.
+
+H3's **value** and **interval** are a difference of *slopes*:
+`β_receiver − β_sender = +0.2997`, bootstrapped over briefs. Both correct, both
+what the hypothesis claims.
+
+Its **p-value** came from a paired sign-flip on the per-brief *claim levels* —
+`C_receiver − C_sender` — which is a difference of *means*. It was numerically
+identical to `recorded_sender_worse_than_receiver`, sign-flipped: `−0.0909`
+against `+0.0909`, p `0.0001` against `0.0001`. So a registered hypothesis was
+being significance-tested by a statistic the analysis plan explicitly excludes
+from the hypothesis family, and Holm was dividing alpha over it.
+
+The [plan](PREREGISTRATION.md#5-analysis-plan) says H3 is tested "by a **paired**
+sign-flip permutation on the per-brief `β`-contributions". An OLS slope is a sum
+of per-brief terms, so the difference decomposes exactly:
+
+```
+d_i = (O_i − Ō)·[(C_r,i − C̄_r) − (C_s,i − C̄_s)] / Σ(O − Ō)²      Σ d_i = β_r − β_s
+```
+
+Checked against the reported effect before use: the contributions sum to
+`+0.299731`, the reported value is `+0.299731`. Sign-flipping them, 10 000
+draws, same seed:
+
+```
+as registered   p = 0.0009   (Holm 0.0009)   19 of 24 contributions positive
+as computed     p = 0.0001   — the level gap, a different quantity
+```
+
+**H3 still holds.** One number moved in the results file and nothing else: raw
+draws, gates, every other value, interval and p are byte-identical across the
+correction.
+
+The part worth keeping is not the repair. It is that this is
+[E-002b's H4](../E-002b-phantom-agreement-ladder/FINDINGS.md#4-h4-was-reported-as-not-supported-that-was-our-defect-not-the-datas)
+again — an interval on one quantity and a test on another — in the experiment
+registered to avoid exactly that, in a function whose comment three lines above
+the defect *cites that defect by name*. Knowing the failure mode, writing it
+down, and citing it in the code did not prevent committing it a second time.
+
+What would have caught it is not vigilance. It is a check that asserts the
+statistic a hypothesis reports and the statistic it tests are computed from the
+same numbers — and no such check exists. Recorded as a task, not performed here,
+because inventing it while correcting an instance of it is how a fix gets
+fitted to one case.
+
+## 7. What this settles in the theory
 
 [E-002b §8](../E-002b-phantom-agreement-ladder/FINDINGS.md) recorded a debt:
 
@@ -153,7 +203,7 @@ maximally uninformative while scoring perfectly on the older quantity. That is
 the same argument [PRINCIPIA §7.2](../../PRINCIPIA.md) makes for bias versus
 resolution, one level up.
 
-## 7. What must not be claimed
+## 8. What must not be claimed
 
 - **Not** that confidence is unresponsive. It responds; the interval excludes
   zero. The unresponsive party is the **sender**, and that is a narrower claim
@@ -173,11 +223,15 @@ resolution, one level up.
   the briefs were composed per rung; fidelity rising with cost is L1's
   territory, and L1 is not what this run registered.
 
-## 8. Provenance
+## 9. Provenance
 
 Collection ran 2026-07-31 19:06 to 2026-08-02 16:58 local, 28 512 model calls,
 zero retries used. The
 [results file](results/E-002c-20260802T135817Z.json) is what that run wrote.
+
+A [third file](results/E-002c-20260803T121500Z.json) is the current record: the
+same analysis with H3 tested on the quantity §6 describes. One p-value differs
+from the second file; the draws and every other field are identical.
 
 A [second file](results/E-002c-20260802T204415Z.json) carries the same analysis
 re-run from the completed cache after three **reporting** defects were fixed in

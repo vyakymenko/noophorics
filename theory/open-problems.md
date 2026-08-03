@@ -252,6 +252,40 @@ Open problems are added by pull request with: a precise statement, an argument
 for why it is hard, and what a solution would look like. Problems that turn out
 to be easy get demoted to experiments, which is a compliment.
 
+## 13. A hypothesis's reported statistic and its tested statistic are not checked against each other
+
+Three times now a claim in this repository has carried an interval computed from
+one quantity and a p-value computed from another.
+
+- [E-002b's H4](../experiments/E-002b-phantom-agreement-ladder/FINDINGS.md): a
+  paired interval and an unpaired test, which reported a supported hypothesis as
+  unsupported.
+- [E-002c's H3](../experiments/E-002c-calibration-slope/FINDINGS.md): a slope
+  difference with its bootstrap interval, and a p-value from a difference of
+  *levels* — a quantity the same analysis plan excludes from the hypothesis
+  family.
+- The same file's H1 could not print as supported at all, because the summary
+  gated the verdict on a p-value the hypothesis is registered not to have.
+
+The third was caught by executing the analysis path; the first two were caught
+by reading, after publication, by the person who wrote them. Vigilance did not
+work: E-002c's defect sits three lines below a comment naming E-002b's defect.
+
+**The problem.** State a machine-checkable relation between a reported effect
+and the test that licenses it, strong enough to catch these and weak enough not
+to forbid legitimate designs — an interval decision with no p-value is
+legitimate and registered here, so "every effect must have a p-value" is the
+wrong rule. A candidate: require every effect to name the array its statistic
+was computed from, and fail when the effect's value and its p-value do not
+derive from the same array. Whether that is expressible without rewriting every
+runner is the open part.
+
+**Why it is not a tooling ticket.** The three instances differ in mechanism and
+agree in shape, which is what a defect *class* looks like. Naming the class is
+theory work: it is a statement about what makes a measurement report internally
+coherent, and this programme has no such statement.
+
+
 ---
 
 *This document is licensed CC BY 4.0.*

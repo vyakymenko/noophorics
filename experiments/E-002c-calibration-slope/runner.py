@@ -423,8 +423,33 @@ def analyse(measure: ProbeMeasure, raw: Dict[str, List[List[str]]],
     # H3 -- PAIRED from the start. E-002b reported the level version of this
     # under an unpaired test and called it unsupported at p = 0.385; the paired
     # test on the same data gave 0.0033.
+    # The registered test is a paired sign-flip on the per-brief **β
+    # contributions**, and this computed one on the per-brief **claim levels**
+    # instead. Those are different quantities: the value and CI reported for H3
+    # are a difference of slopes, while the p-value was a difference of means.
+    # It was numerically identical to `recorded_sender_worse_than_receiver`,
+    # sign-flipped -- a p-value from a quantity the plan explicitly excludes
+    # from the hypothesis family, standing in for one inside it.
+    #
+    # This is the shape of E-002b's H4 defect, in the run designed to avoid it:
+    # an interval on one quantity and a test on another. That it recurred here,
+    # in a runner whose comment three lines up cites that very defect, is the
+    # part worth keeping.
+    #
+    # An OLS slope is a sum of per-brief terms, so the difference of slopes
+    # decomposes exactly:
+    #     d_i = (O_i − Ō)·[(Cr_i − C̄r) − (Cs_i − C̄s)] / Σ(O − Ō)²
+    # and Σ d_i = β_receiver − β_sender, verified against the reported value.
+    # Sign-flipping d_i is what the plan asks for.
+    o_bar = statistics.mean(obs_b)
+    cs_bar, cr_bar = statistics.mean(cs_b), statistics.mean(cr_b)
+    den3 = sum((o - o_bar) ** 2 for o in obs_b)
+    beta_contrib = [(o - o_bar) * ((cr - cr_bar) - (cs - cs_bar)) / den3
+                    for o, cs, cr in zip(obs_b, cs_b, cr_b)]
+    obs3b, p3b = paired_permutation(beta_contrib, PERMUTATIONS, SEED)
+    # Kept and named, because it is real and it is what the old p-value tested.
     per_brief_gap = [c - s2 for c, s2 in zip(cr_b, cs_b)]
-    obs3b, p3b = paired_permutation(per_brief_gap, PERMUTATIONS, SEED)
+    level_obs, level_p = paired_permutation(per_brief_gap, PERMUTATIONS, SEED)
     # A CI on the slope DIFFERENCE, resampling briefs jointly so the pairing
     # survives the bootstrap. "No point estimate without a CI" applies here too.
     rng3 = random.Random(SEED + 3)
@@ -439,8 +464,15 @@ def analyse(measure: ProbeMeasure, raw: Dict[str, List[List[str]]],
     effects["H3_sender_less_responsive"] = {
         "value": _slope(obs_b, cr_b) - _slope(obs_b, cs_b),
         "ci95": [diffs[int(0.025 * len(diffs))], diffs[int(0.975 * len(diffs))]],
-        "claim_gap_receiver_minus_sender": obs3b,
         "p_value": p3b,
+        "test": "paired sign-flip on per-brief beta contributions, as registered",
+        "sum_of_contributions": obs3b,
+        "claim_level_gap_receiver_minus_sender": level_obs,
+        "claim_level_gap_p_value": level_p,
+        "note": ("the level gap is reported here because it is what the "
+                 "p-value used to be computed from; it is the same statistic "
+                 "as recorded_sender_worse_than_receiver, sign-flipped, and "
+                 "is not what H3 claims"),
     }
     effects["H4_resolution_survives_finer_grid"] = effects.pop(
         "H2_resolution_above_chance")
