@@ -136,6 +136,19 @@ def main() -> int:
                 m = style_markers(text)
                 m["cost_tokens"] = float(agent.cost_of(text))
                 m["in_band"] = bool(low <= m["words"] <= high)
+                # Keep the message, not only its measurements.
+                #
+                # This script's own conclusion is that the structural markers
+                # are "proxies, not a validity check", and that establishing
+                # the intended style distinction survived "needs independent
+                # blind rating ... a precondition of E-001c's registration".
+                # It then discarded every message it had composed, so that
+                # precondition could not be met from its own output: nothing
+                # remained to rate. Measuring an artifact and throwing the
+                # artifact away is a strange thing for an instrument check to
+                # do, and it cost a recomposition to notice.
+                m["text"] = text
+                m["seed"] = i
                 cells[cell].append(m)
                 print("  %s%d  %4d words  %4.0f tok  %s"
                       % (cell, i, m["words"], m["cost_tokens"],
