@@ -131,11 +131,26 @@ def experiments():
             status, cls = "registered, not run", "pending"
         else:
             status, cls = "no registration", "pending"
+        # A note about a past event must not read as a present one. E-004's
+        # blocked arm ran on 2026-08-03 and the note stayed on disk, as it must
+        # -- nothing here is deleted -- so the row went on saying "an arm is
+        # blocked" about an experiment that had finished collecting. A file's
+        # existence is the wrong tense; whether it declares itself closed is
+        # the right one.
+        def closed(name):
+            try:
+                return "## Closed" in (d / name).read_text(encoding="utf-8")
+            except OSError:
+                return False
+
         notes = []
         if "INTERRUPTED.md" in has:
-            notes.append("interrupted")
+            notes.append("interrupted, resumed" if closed("INTERRUPTED.md")
+                         or "Outcome" in (d / "INTERRUPTED.md").read_text(encoding="utf-8")
+                         else "interrupted")
         if "BLOCKED-NOTE.md" in has:
-            notes.append("an arm is blocked")
+            notes.append("an arm was blocked" if closed("BLOCKED-NOTE.md")
+                         else "an arm is blocked")
         if "DEFECT-001.md" in has:
             notes.append("defect recorded")
         results = sorted((d / "results").glob("*.json")) if (d / "results").is_dir() else []

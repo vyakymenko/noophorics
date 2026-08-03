@@ -2288,13 +2288,14 @@ F*(m)  =  ───────────────────────�
     <span class="gloss">Principia Noophorica §7 and §10 — what would falsify the programme.</span>
   </div>
   <div class="col">
-    <h2 data-i18n-src="status">Version 0.5. One pre-registered result is now established. Eleven of our own claims are withdrawn and two experiments are void.</h2>
+    <h2 data-i18n-src="status">Version 0.5. One pre-registered result is now established. Eleven of our own claims are withdrawn and three experiments are void.</h2>
 
       <p style="margin-top:1rem"><a href="/journal/retractions/">Every one of them, with what killed it &rarr;</a> &nbsp;A count nobody can audit is worse than no count.</p>
 
-    <p class="lead">Six conjectural laws, thirteen open problems, three completed
-    runs &mdash; and one pre-registered finding. Two of the three runs produced
-    only corrections to our own instrument; the third is
+    <p class="lead">Six conjectural laws, thirteen open problems, four completed
+    runs &mdash; and one pre-registered finding. Two produced only corrections to
+    our own instrument, one was <a href="/journal/e-004-void/">voided by its own
+    gate after it had collected everything</a>, and the finding is
     <a href="/journal/e-002c-findings/">E-002c</a>. Every other claim in this
     programme should be read as a bet, and its confidence calibrated
     accordingly.</p>
@@ -2352,6 +2353,15 @@ F*(m)  =  ───────────────────────�
         Found by validating the estimator against a known ground truth — a check
         that did not exist until it was needed.
         <a href="https://github.com/vyakymenko/noophorics/blob/main/metrics/validation/synthetic.py">validation</a></li>
+      <li style="margin-bottom:1rem"><b>Our own repair for a one-sided result
+        failed the same way.</b> E-004 was registered to fix an observation made
+        unusable because one model never erred. It ran three models over two
+        domains and voided on the same gate: this time
+        <span class="q">qwen3.5:35b</span> answered all 63 probes correctly and
+        <span class="q">gpt-oss:120b</span> missed one. The detector scored
+        perfect recall and perfect precision on every pair &mdash; what a design
+        looks like when the thing detected and the thing detecting are the same
+        event. <a href="/journal/e-004-void/">VOID</a></li>
       <li style="margin-bottom:1rem"><b>&ldquo;Confidence is very nearly
         unresponsive&rdquo; was too strong.</b> Our own post-hoc reading of
         E-002b, superseded by the pre-registered run above: the effect is real

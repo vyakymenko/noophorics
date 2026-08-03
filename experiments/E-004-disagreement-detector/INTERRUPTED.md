@@ -138,4 +138,16 @@ dated, in the repository.
 
 ---
 
+## Outcome
+
+Collection completed 2026-08-03: 189 of 189 cells across three models, every one
+at `n = 16`. The run is **[void](VOID.md)** on gate G2 — two of the three models
+made fewer than two errors anywhere — which is unrelated to the interruption
+this document records.
+
+The retry count remains unknown for the reason given above, and the fix that
+prevents the next one from being lost is in place.
+
+---
+
 *This document is licensed CC BY 4.0.*

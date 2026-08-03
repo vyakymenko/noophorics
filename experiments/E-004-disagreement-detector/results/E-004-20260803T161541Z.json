@@ -1,0 +1,534 @@
+{
+ "accuracy": {
+  "MERIDIAN-33": {
+   "claude-opus-4-8": 0.9090909090909091,
+   "gpt-oss:120b": 1.0,
+   "qwen3.5:35b": 1.0
+  },
+  "RIVERSIDE-30": {
+   "claude-opus-4-8": 0.7333333333333334,
+   "gpt-oss:120b": 0.9666666666666667,
+   "qwen3.5:35b": 1.0
+  }
+ },
+ "cells": [
+  {
+   "errors_a": [
+    "M14",
+    "M19",
+    "M26"
+   ],
+   "errors_b": [],
+   "flagged_ids": [
+    "M14",
+    "M19",
+    "M26"
+   ],
+   "h3_applicable": false,
+   "h3_symmetric": null,
+   "hits": 3,
+   "measure": "MERIDIAN-33",
+   "n_errors": 3,
+   "n_flagged": 3,
+   "n_probes": 33,
+   "p_hypergeom": 0.00018328445747800586,
+   "pair": [
+    "claude-opus-4-8",
+    "gpt-oss:120b"
+   ],
+   "precision": 1.0,
+   "recall": 1.0,
+   "unflagged_errors": []
+  },
+  {
+   "errors_a": [
+    "M14",
+    "M19",
+    "M26"
+   ],
+   "errors_b": [],
+   "flagged_ids": [
+    "M14",
+    "M19",
+    "M26"
+   ],
+   "h3_applicable": false,
+   "h3_symmetric": null,
+   "hits": 3,
+   "measure": "MERIDIAN-33",
+   "n_errors": 3,
+   "n_flagged": 3,
+   "n_probes": 33,
+   "p_hypergeom": 0.00018328445747800586,
+   "pair": [
+    "claude-opus-4-8",
+    "qwen3.5:35b"
+   ],
+   "precision": 1.0,
+   "recall": 1.0,
+   "unflagged_errors": []
+  },
+  {
+   "errors_a": [],
+   "errors_b": [],
+   "flagged_ids": [],
+   "h3_applicable": false,
+   "h3_symmetric": null,
+   "hits": 0,
+   "measure": "MERIDIAN-33",
+   "n_errors": 0,
+   "n_flagged": 0,
+   "n_probes": 33,
+   "p_hypergeom": 1.0,
+   "pair": [
+    "gpt-oss:120b",
+    "qwen3.5:35b"
+   ],
+   "precision": null,
+   "recall": null,
+   "unflagged_errors": []
+  },
+  {
+   "errors_a": [
+    "T01",
+    "T06",
+    "T09",
+    "T10",
+    "T14",
+    "T15",
+    "T16",
+    "T21"
+   ],
+   "errors_b": [
+    "T30"
+   ],
+   "flagged_ids": [
+    "T01",
+    "T06",
+    "T09",
+    "T10",
+    "T14",
+    "T15",
+    "T16",
+    "T21",
+    "T30"
+   ],
+   "h3_applicable": true,
+   "h3_symmetric": true,
+   "hits": 9,
+   "measure": "RIVERSIDE-30",
+   "n_errors": 9,
+   "n_flagged": 9,
+   "n_probes": 30,
+   "p_hypergeom": 6.989512236888549e-08,
+   "pair": [
+    "claude-opus-4-8",
+    "gpt-oss:120b"
+   ],
+   "precision": 1.0,
+   "recall": 1.0,
+   "unflagged_errors": []
+  },
+  {
+   "errors_a": [
+    "T01",
+    "T06",
+    "T09",
+    "T10",
+    "T14",
+    "T15",
+    "T16",
+    "T21"
+   ],
+   "errors_b": [],
+   "flagged_ids": [
+    "T01",
+    "T06",
+    "T09",
+    "T10",
+    "T14",
+    "T15",
+    "T16",
+    "T21"
+   ],
+   "h3_applicable": false,
+   "h3_symmetric": null,
+   "hits": 8,
+   "measure": "RIVERSIDE-30",
+   "n_errors": 8,
+   "n_flagged": 8,
+   "n_probes": 30,
+   "p_hypergeom": 1.7085474356838674e-07,
+   "pair": [
+    "claude-opus-4-8",
+    "qwen3.5:35b"
+   ],
+   "precision": 1.0,
+   "recall": 1.0,
+   "unflagged_errors": []
+  },
+  {
+   "errors_a": [
+    "T30"
+   ],
+   "errors_b": [],
+   "flagged_ids": [
+    "T30"
+   ],
+   "h3_applicable": false,
+   "h3_symmetric": null,
+   "hits": 1,
+   "measure": "RIVERSIDE-30",
+   "n_errors": 1,
+   "n_flagged": 1,
+   "n_probes": 30,
+   "p_hypergeom": 0.03333333333333333,
+   "pair": [
+    "gpt-oss:120b",
+    "qwen3.5:35b"
+   ],
+   "precision": 1.0,
+   "recall": 1.0,
+   "unflagged_errors": []
+  }
+ ],
+ "core_version": "0.4",
+ "detector": "flag probe iff mode X != mode Y; no key, no threshold",
+ "dry_run": false,
+ "effects": {
+  "H1_detector_beats_chance": {
+   "fisher_chi2": 105.33772369046045,
+   "n_cells": 5,
+   "note": "value is mean recall; the test is Fisher over per-cell hypergeometric p-values",
+   "p_value": 4.632429947207647e-18,
+   "p_value_holm": 4.632429947207647e-18,
+   "significant_at_005": true,
+   "value": 1.0
+  },
+  "H2_precision_above_base_rate": {
+   "ci95": [
+    1.0,
+    1.0
+   ],
+   "p_value": null,
+   "supported": true,
+   "value": 1.0
+  },
+  "H3_symmetry": {
+   "applicable_cells": 1,
+   "excluded_cells": [
+    [
+     "claude-opus-4-8",
+     "gpt-oss:120b",
+     "MERIDIAN-33"
+    ],
+    [
+     "claude-opus-4-8",
+     "qwen3.5:35b",
+     "MERIDIAN-33"
+    ],
+    [
+     "claude-opus-4-8",
+     "qwen3.5:35b",
+     "RIVERSIDE-30"
+    ],
+    [
+     "gpt-oss:120b",
+     "qwen3.5:35b",
+     "RIVERSIDE-30"
+    ]
+   ],
+   "note": "cells where one model made no errors are EXCLUDED, not counted as passes",
+   "supported": true,
+   "symmetric_cells": 1
+  }
+ },
+ "errors": {
+  "MERIDIAN-33": {
+   "claude-opus-4-8": [
+    "M14",
+    "M19",
+    "M26"
+   ],
+   "gpt-oss:120b": [],
+   "qwen3.5:35b": []
+  },
+  "RIVERSIDE-30": {
+   "claude-opus-4-8": [
+    "T01",
+    "T06",
+    "T09",
+    "T10",
+    "T14",
+    "T15",
+    "T16",
+    "T21"
+   ],
+   "gpt-oss:120b": [
+    "T30"
+   ],
+   "qwen3.5:35b": []
+  }
+ },
+ "experiment": "E-004",
+ "gates": {
+  "accuracy": {
+   "passed": true,
+   "per_model": {
+    "MERIDIAN-33": {
+     "claude-opus-4-8": 0.9090909090909091,
+     "gpt-oss:120b": 1.0,
+     "qwen3.5:35b": 1.0
+    },
+    "RIVERSIDE-30": {
+     "claude-opus-4-8": 0.7333333333333334,
+     "gpt-oss:120b": 0.9666666666666667,
+     "qwen3.5:35b": 1.0
+    }
+   }
+  },
+  "each_model_wrong_twice": {
+   "passed": false,
+   "per_model": {
+    "claude-opus-4-8": 8,
+    "gpt-oss:120b": 1,
+    "qwen3.5:35b": 0
+   },
+   "threshold": 2
+  },
+  "total_errors": {
+   "passed": true,
+   "threshold": 12,
+   "value": 12
+  }
+ },
+ "measures": {
+  "MERIDIAN-33": "MERIDIAN-33@256672ea3852",
+  "RIVERSIDE-30": "RIVERSIDE-30@2e6afe2f3c92"
+ },
+ "modal_answers": {
+  "MERIDIAN-33": {
+   "claude-opus-4-8": {
+    "M01": "HANDLED",
+    "M02": "RETURNED",
+    "M03": "HANDLED",
+    "M04": "RETURNED",
+    "M05": "HANDLED",
+    "M06": "RETURNED",
+    "M07": "RETURNED",
+    "M08": "HANDLED",
+    "M09": "RETURNED",
+    "M10": "RETURNED",
+    "M11": "HANDLED",
+    "M12": "RETURNED",
+    "M13": "HANDLED",
+    "M14": "RETURNED",
+    "M15": "RETURNED",
+    "M16": "RETURNED",
+    "M17": "RETURNED",
+    "M18": "PADDED",
+    "M19": "RETURNED",
+    "M20": "RETURNED",
+    "M21": "RETURNED",
+    "M22": "RETURNED",
+    "M23": "RETURNED",
+    "M24": "HANDLED",
+    "M25": "RETURNED",
+    "M26": "RETURNED",
+    "M27": "HANDLED",
+    "M28": "HANDLED",
+    "M29": "RETURNED",
+    "M30": "RETURNED",
+    "M31": "HANDLED",
+    "M32": "PADDED",
+    "M34": "RETURNED"
+   },
+   "gpt-oss:120b": {
+    "M01": "HANDLED",
+    "M02": "RETURNED",
+    "M03": "HANDLED",
+    "M04": "RETURNED",
+    "M05": "HANDLED",
+    "M06": "RETURNED",
+    "M07": "RETURNED",
+    "M08": "HANDLED",
+    "M09": "RETURNED",
+    "M10": "RETURNED",
+    "M11": "HANDLED",
+    "M12": "RETURNED",
+    "M13": "HANDLED",
+    "M14": "HANDLED",
+    "M15": "RETURNED",
+    "M16": "RETURNED",
+    "M17": "RETURNED",
+    "M18": "PADDED",
+    "M19": "PADDED",
+    "M20": "RETURNED",
+    "M21": "RETURNED",
+    "M22": "RETURNED",
+    "M23": "RETURNED",
+    "M24": "HANDLED",
+    "M25": "RETURNED",
+    "M26": "HANDLED",
+    "M27": "HANDLED",
+    "M28": "HANDLED",
+    "M29": "RETURNED",
+    "M30": "RETURNED",
+    "M31": "HANDLED",
+    "M32": "PADDED",
+    "M34": "RETURNED"
+   },
+   "qwen3.5:35b": {
+    "M01": "HANDLED",
+    "M02": "RETURNED",
+    "M03": "HANDLED",
+    "M04": "RETURNED",
+    "M05": "HANDLED",
+    "M06": "RETURNED",
+    "M07": "RETURNED",
+    "M08": "HANDLED",
+    "M09": "RETURNED",
+    "M10": "RETURNED",
+    "M11": "HANDLED",
+    "M12": "RETURNED",
+    "M13": "HANDLED",
+    "M14": "HANDLED",
+    "M15": "RETURNED",
+    "M16": "RETURNED",
+    "M17": "RETURNED",
+    "M18": "PADDED",
+    "M19": "PADDED",
+    "M20": "RETURNED",
+    "M21": "RETURNED",
+    "M22": "RETURNED",
+    "M23": "RETURNED",
+    "M24": "HANDLED",
+    "M25": "RETURNED",
+    "M26": "HANDLED",
+    "M27": "HANDLED",
+    "M28": "HANDLED",
+    "M29": "RETURNED",
+    "M30": "RETURNED",
+    "M31": "HANDLED",
+    "M32": "PADDED",
+    "M34": "RETURNED"
+   }
+  },
+  "RIVERSIDE-30": {
+   "claude-opus-4-8": {
+    "T01": "16 March",
+    "T02": "17 March",
+    "T03": "16 April",
+    "T04": "REFUSED \u2014 the 3-loan cap",
+    "T05": "REFUSED \u2014 the new-member restriction",
+    "T06": "$2",
+    "T07": "$4",
+    "T08": "$75",
+    "T09": "Forfeit",
+    "T10": "GRANTED, new effective due date 27 March",
+    "T11": "GRANTED, new effective due date 31 March",
+    "T12": "It goes to the open shelf, available to anyone",
+    "T13": "DENIED",
+    "T14": "GRANTED, new effective due date 31 May",
+    "T15": "DENIED",
+    "T16": "No \u2014 the hold lapsed at the end of 4 May",
+    "T17": "22 March",
+    "T18": "Member 512",
+    "T19": "No \u2014 the hold lapsed at the end of 9 May",
+    "T20": "ALLOWED",
+    "T21": "GRANTED, new effective due date 5 May",
+    "T22": "GRANTED, new effective due date 27 March",
+    "T23": "DENIED",
+    "T24": "GRANTED, new effective due date 27 March",
+    "T25": "DENIED",
+    "T26": "DENIED",
+    "T27": "GRANTED, new effective due date 19 May",
+    "T28": "GRANTED, new effective due date 27 May",
+    "T29": "DENIED",
+    "T30": "DENIED"
+   },
+   "gpt-oss:120b": {
+    "T01": "15 March",
+    "T02": "17 March",
+    "T03": "16 April",
+    "T04": "REFUSED \u2014 the 3-loan cap",
+    "T05": "REFUSED \u2014 the new-member restriction",
+    "T06": "$0",
+    "T07": "$4",
+    "T08": "$75",
+    "T09": "Overdue but not forfeit",
+    "T10": "DENIED",
+    "T11": "GRANTED, new effective due date 31 March",
+    "T12": "It goes to the open shelf, available to anyone",
+    "T13": "DENIED",
+    "T14": "GRANTED, new effective due date 30 May",
+    "T15": "GRANTED, new effective due date 18 April",
+    "T16": "Yes \u2014 the collection is in time",
+    "T17": "22 March",
+    "T18": "Member 512",
+    "T19": "No \u2014 the hold lapsed at the end of 9 May",
+    "T20": "ALLOWED",
+    "T21": "DENIED",
+    "T22": "GRANTED, new effective due date 27 March",
+    "T23": "DENIED",
+    "T24": "GRANTED, new effective due date 27 March",
+    "T25": "DENIED",
+    "T26": "DENIED",
+    "T27": "GRANTED, new effective due date 19 May",
+    "T28": "GRANTED, new effective due date 27 May",
+    "T29": "DENIED",
+    "T30": "GRANTED, new effective due date 24 April"
+   },
+   "qwen3.5:35b": {
+    "T01": "15 March",
+    "T02": "17 March",
+    "T03": "16 April",
+    "T04": "REFUSED \u2014 the 3-loan cap",
+    "T05": "REFUSED \u2014 the new-member restriction",
+    "T06": "$0",
+    "T07": "$4",
+    "T08": "$75",
+    "T09": "Overdue but not forfeit",
+    "T10": "DENIED",
+    "T11": "GRANTED, new effective due date 31 March",
+    "T12": "It goes to the open shelf, available to anyone",
+    "T13": "DENIED",
+    "T14": "GRANTED, new effective due date 30 May",
+    "T15": "GRANTED, new effective due date 18 April",
+    "T16": "Yes \u2014 the collection is in time",
+    "T17": "22 March",
+    "T18": "Member 512",
+    "T19": "No \u2014 the hold lapsed at the end of 9 May",
+    "T20": "ALLOWED",
+    "T21": "DENIED",
+    "T22": "GRANTED, new effective due date 27 March",
+    "T23": "DENIED",
+    "T24": "GRANTED, new effective due date 27 March",
+    "T25": "DENIED",
+    "T26": "DENIED",
+    "T27": "GRANTED, new effective due date 19 May",
+    "T28": "GRANTED, new effective due date 27 May",
+    "T29": "DENIED",
+    "T30": "DENIED"
+   }
+  }
+ },
+ "models": [
+  "gpt-oss:120b",
+  "qwen3.5:35b",
+  "claude-opus-4-8"
+ ],
+ "samples_per_probe": 16,
+ "sampling_regime": {
+  "anthropic": "no temperature parameter is accepted; the per-probe distribution comes from the model's own nondeterminism",
+  "codex": "low reasoning effort, instructed to answer without analysis",
+  "note": "regimes are NOT matched across providers and cannot be -- the reasoning architectures differ. Recorded as a parameter rather than pretended to be controlled, which matters here more than usual: the detector IS cross-provider disagreement, so any regime difference is a candidate confound and must be visible in the record.",
+  "ollama": {
+   "temperature": 0.7,
+   "think": "medium"
+  }
+ },
+ "timestamp_utc": "2026-08-03T16:15:41Z",
+ "void": true,
+ "void_reason": "a model made fewer than 2 errors anywhere: {'claude-opus-4-8': 8, 'gpt-oss:120b': 1, 'qwen3.5:35b': 0}. A design in which one model is never wrong reproduces the one-sidedness that makes the motivating observation unusable, and reporting it would be reporting the defect as the result."
+}

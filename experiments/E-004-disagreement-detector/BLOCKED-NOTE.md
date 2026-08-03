@@ -82,4 +82,20 @@ So the decision is made at 38%, with nothing to gain from it either way.
 
 ---
 
+## Closed 2026-08-03
+
+The third arm ran. Credit was added on 2026-08-03, verified by one minimal call
+before the loop was given the entry, and `claude-opus-4-8` answered all 63
+probes across both measures at a cost of about $1.50.
+
+**The decision recorded above never had to be taken.** E-004 is void, but not
+for the reason this note prepared for — gate G2 fired because two of the three
+models were never wrong. See [VOID.md](VOID.md).
+
+Writing this note at 38% of collection still did what it was for. It meant that
+when the run ended there was no argument about what a two-model result would
+have been worth, and the attention went to the gate that actually fired instead.
+
+---
+
 *This document is licensed CC BY 4.0.*
