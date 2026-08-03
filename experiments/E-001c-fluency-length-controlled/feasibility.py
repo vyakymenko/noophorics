@@ -150,9 +150,15 @@ def main() -> int:
                 m["text"] = text
                 m["seed"] = i
                 cells[cell].append(m)
+                # flush=True, because a redirected run is otherwise silent
+                # until it exits. Sixteen compositions at about a minute each
+                # produced no output for a quarter of an hour, and the only way
+                # to tell working from wedged was to watch the model's CPU time
+                # from outside. A progress line nobody can read during the run
+                # is not progress reporting.
                 print("  %s%d  %4d words  %4.0f tok  %s"
                       % (cell, i, m["words"], m["cost_tokens"],
-                         "in band" if m["in_band"] else "OUT"))
+                         "in band" if m["in_band"] else "OUT"), flush=True)
 
         costs = [x["cost_tokens"] for v in cells.values() for x in v]
         means = [statistics.mean([x["cost_tokens"] for x in v]) for v in cells.values()]

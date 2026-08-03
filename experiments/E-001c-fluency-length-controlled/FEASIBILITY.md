@@ -132,6 +132,135 @@ on 220. That prediction is being measured at k=4 before it is relied on, because
 predicting a calibration and assuming it are different things, and this
 experiment has already spent a day on the difference.
 
+## Result 5 — the blind rating: the terse arm survives, the fluent arm does not
+
+**The precondition this document set for E-001c's registration is now answered,
+and the answer is "partly".** Instrument: [blind_rating.py](blind_rating.py).
+Raters were `codex` (ChatGPT subscription) and `claude-opus-4-8` (Anthropic
+API) — two providers, two authentication paths, neither of them the composer.
+
+### The forced choice says everything is fine, and it cannot say otherwise
+
+Every fluent message paired against every terse one, 64 pairs, order randomised
+per pair:
+
+```
+codex             64/64 = 1.000   cluster CI [1.000, 1.000]   chose-first 0.42
+claude-opus-4-8   64/64 = 1.000   cluster CI [1.000, 1.000]   chose-first 0.42
+agreement                64/64
+```
+
+No position bias — both raters chose the first passage 42% of the time, matching
+the 42% rate at which the fluent message was shown first.
+
+That result is worth nothing, and the reason is the reason it was worth building
+the second arm. A forced choice makes the rater name one of two passages even
+when **neither** is the thing described, and it will name the wordier one, which
+tracks the label perfectly. A score of 64/64 establishes that the two registers
+are distinguishable — which the structural markers above already said.
+
+This is the shape of [E-002b's H5](../E-002b-phantom-agreement-ladder/FINDINGS.md):
+an estimator that could not fail, built here by the same hand that wrote that
+section up.
+
+### Judged one at a time, three of eight fluent messages are lists
+
+Each message classified on its own against the fluent instruction's own words,
+with "a list" available as an honest answer:
+
+```
+                  called CONNECTED PROSE
+codex             fluent 5/8    terse 0/8
+claude-opus-4-8   fluent 5/8    terse 0/8
+```
+
+The two raters agree **message by message, 8 of 8**, and fail the same three:
+`A0`, `A1`, `B2`. Independent providers converging on the same three texts is
+not rater noise; it is a property of those texts.
+
+```
+fluent prose rate  5/8 = 0.625   exact CI [0.245, 0.915]
+terse  prose rate  0/8 = 0.000   exact CI [0.000, 0.369]
+```
+
+**The terse instruction works completely.** Every terse message is a list, which
+is what it asked for.
+
+**The fluent instruction works about five times in eight**, with an interval so
+wide it spans a quarter to nine tenths. Reading the messages shows why: both
+registers produce a labelled list of ten rules, and the fluent one writes each
+item as a complete sentence rather than relating the items to one another. Its
+instruction asks for *"the relationships between points spelled out in the
+words"*, and on three of eight compositions nothing of the kind appears.
+
+### What this costs the registration
+
+E-001c **cannot be registered as it stands**. Its fluent cells would be roughly
+62% pure, and the impurity is invisible to any check that works by telling the
+two registers apart — which is every check this document had before today.
+
+The remedy is rejection sampling on the **absolute** judgment: compose, have two
+raters from different providers classify the message alone, keep it only if both
+say connected prose. At the observed rate that is about 1.6 compositions per
+accepted fluent message, on top of the 2 per accepted message that the word band
+already costs. Roughly three compositions per usable fluent message.
+
+That remedy has to be *registered*, with the raters named, because a filter
+applied after seeing the outcome is not a filter. Whether the wide interval on
+5/8 justifies more messages before registering is a judgment for the
+registration; the honest reading is that eight messages establish the terse arm
+and leave the fluent rate barely bounded.
+
+---
+
+## Result 4 — replicated at k = 4, and the fluent register has a length of its own
+
+Re-run 2026-08-03 at target 203, `k = 4`, to produce messages for the blind
+rating. The earlier run at this target discarded its messages, which is why it
+had to be repeated; see [blind_rating.py](blind_rating.py).
+
+```
+                    2026-07-29 (k=4)    2026-08-03 (k=4)
+compliance                  56%                 44%
+parity across messages     1.290               1.303   fails 1.30
+parity across cell means   1.108               1.054   passes
+mean sentence words     f 19.75 / t 11.52   f 20.00 / t 11.35
+connectives per 100w     f 1.77 / t 0.70     f 1.88 / t 0.81
+```
+
+The style separation replicates closely. The parity readings do not, and they
+fail in the direction Result 1c predicted: the across-messages statistic
+crossed 1.30 on a design whose cell means sit at 1.054. That is the
+non-scale-free behaviour argued there, observed rather than simulated, and it is
+the second time the same design has been judged differently by the two readings.
+The cell-means reading governs, as the pre-registration will say.
+
+**The new observation is the spread, not the mean.**
+
+```
+              n   mean words   sd     range
+fluent (A,B)  8      226.4     1.5    225 - 230
+terse  (C,D)  8      200.9    14.5    184 - 225
+band for target 203: 182 - 223
+```
+
+Every fluent message overshot the band, and they overshot it to *the same place*:
+a standard deviation of 1.5 words across eight compositions, against 14.5 for
+terse. The fluent instruction is not loosely overshooting a target, it is
+imposing a length of its own and ignoring the one asked for.
+
+Two consequences for the registration, both stated here and neither resolved:
+
+- **A single word target cannot land both registers in one band.** The offset
+  correction in Result 1b assumed a common overshoot; there are two, and they
+  differ in spread by an order of magnitude. Per-cell targets would fix the
+  band and confound register with instruction, which is worse.
+- **A tight distribution is not obedience.** `sd = 1.5` on a missed target reads
+  as a strong prior about how long connected prose should be, not as a model
+  trying and failing to comply. Whether that is a property of this register
+  instruction, this model, or prose in general is not something this check can
+  say.
+
 Compliance at 50% also sets the price of rejection sampling on *words*: roughly
 two compositions per accepted message. Affordable — and worth contrasting with
 rejection sampling on *cost*, which the [voided

@@ -1,0 +1,67 @@
+{
+ "composer": "gpt-oss:120b",
+ "question": "You are shown two short passages, PASSAGE 1 and PASSAGE 2. They describe the same subject and are about the same length.\n\nOne of them was written as connected prose: complete sentences that follow from one another, with the relationships between the points spelled out in words.\n\nThe other was written as bare declarative statements, with no bridging or linking phrases between them.\n\nWhich is the connected prose?\n\nPASSAGE 1\n---------\n%s\n\nPASSAGE 2\n---------\n%s\n\nAnswer with exactly one word: either \"1\" or \"2\".",
+ "raters": {
+  "claude-opus-4-8": {
+   "absolute": {
+    "called_prose": {
+     "fluent": 5,
+     "terse": 0
+    },
+    "verdicts": {
+     "fluent": [
+      "B",
+      "B",
+      "A",
+      "A",
+      "A",
+      "A",
+      "B",
+      "A"
+     ],
+     "terse": [
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B"
+     ]
+    }
+   }
+  },
+  "codex": {
+   "absolute": {
+    "called_prose": {
+     "fluent": 5,
+     "terse": 0
+    },
+    "verdicts": {
+     "fluent": [
+      "B",
+      "B",
+      "A",
+      "A",
+      "A",
+      "A",
+      "B",
+      "A"
+     ],
+     "terse": [
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B",
+      "B"
+     ]
+    }
+   }
+  }
+ },
+ "seed": 20260803
+}

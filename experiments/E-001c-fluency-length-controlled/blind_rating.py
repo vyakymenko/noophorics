@@ -112,6 +112,35 @@ PASSAGE 2
 Answer with exactly one word: either "1" or "2"."""
 
 
+# The absolute question, asked of one passage at a time.
+#
+# The forced choice below cannot answer the question this check exists for. It
+# asks which of two passages is the connected prose, so a rater must name one
+# even when neither is -- and it will name the wordier one, which correlates
+# perfectly with the label. A perfect score therefore establishes only that the
+# two registers are distinguishable, which the structural markers already said.
+#
+# Reading the messages is what showed it. Both registers produced a labelled
+# list of ten rules; the fluent one writes each item as a complete sentence and
+# the terse one abbreviates. Neither spells out the relationships *between*
+# items, which is what the fluent instruction actually asked for.
+#
+# So each passage is also judged on its own, against the instruction's own
+# words, with an option that lets the honest answer be "neither".
+ABSOLUTE = """Read the passage below and classify how it is written.
+
+A. CONNECTED PROSE -- complete sentences that follow from one another, where the
+   relationships between the points are spelled out in words.
+B. A LIST -- separate items stated one after another, with no wording that
+   relates them to each other, whether or not the items are full sentences.
+
+PASSAGE
+-------
+%s
+
+Answer with exactly one letter: either "A" or "B"."""
+
+
 def load_messages(path: str):
     """(fluent, terse) message texts, from a feasibility run that kept them."""
     with open(path, "r", encoding="utf-8") as fh:
@@ -171,6 +200,12 @@ def ask(agent, pair) -> str:
     probe = Probe(id=pair["id"], prompt=QUESTION % (pair["p1"], pair["p2"]),
                   options=("1", "2"))
     return agent.answer_samples(probe, 1)[0]
+
+
+def ask_absolute(agent, text: str) -> str:
+    from noophorics.probes import Probe
+    return agent.answer_samples(
+        Probe(id="abs", prompt=ABSOLUTE % text, options=("A", "B")), 1)[0]
 
 
 def cluster_ci(answers, fluent_n, terse_n, resamples: int = 20000):
@@ -236,6 +271,10 @@ def main() -> int:
     ap.add_argument("--limit", type=int, default=0,
                     help="rate only the first N pairs; 0 = all")
     ap.add_argument("--out", default=os.path.join(HERE, "blind-rating.json"))
+    ap.add_argument("--absolute-only", action="store_true",
+                    help="skip the forced choice and run only the per-passage "
+                         "judgment, which is the arm that can say the "
+                         "manipulation failed")
     args = ap.parse_args()
 
     fluent, terse = load_messages(args.messages)
@@ -243,7 +282,8 @@ def main() -> int:
     print("  %d fluent x %d terse -> %d pairs rated" % (len(fluent), len(terse), len(pairs)))
 
     results: Dict[str, Any] = {}
-    for name in [r.strip() for r in args.raters.split(",") if r.strip()]:
+    for name in ([] if args.absolute_only
+                 else [r.strip() for r in args.raters.split(",") if r.strip()]):
         agent = make_rater(name)
         answers, correct, chose_first = [], 0, 0
         for n, pair in enumerate(pairs, 1):
@@ -277,7 +317,29 @@ def main() -> int:
               % (name, correct, len(pairs), results[name]["accuracy"],
                  clo, chi, lo, hi, results[name]["chose_first_rate"]))
 
-    names = list(results)
+    # The absolute pass: every message judged on its own, 16 calls per rater.
+    # This is the one that can say the manipulation failed.
+    for name in [r.strip() for r in args.raters.split(",") if r.strip()]:
+        agent = make_rater(name)
+        verdicts = {}
+        for label, group in (("fluent", fluent), ("terse", terse)):
+            got = []
+            for n_i, m in enumerate(group, 1):
+                try:
+                    got.append(ask_absolute(agent, m["text"]).strip())
+                except Exception as exc:                   # noqa: BLE001
+                    got.append("ERROR:%s" % type(exc).__name__)
+                sys.stderr.write("\r  %-16s absolute %s %d/%d" % (name, label, n_i, len(group)))
+                sys.stderr.flush()
+            verdicts[label] = got
+        sys.stderr.write("\n")
+        prose = {k: sum(1 for x in v if x == "A") for k, v in verdicts.items()}
+        results.setdefault(name, {})["absolute"] = {"verdicts": verdicts,
+                                                    "called_prose": prose}
+        print("  %-16s called CONNECTED PROSE: fluent %d/%d, terse %d/%d"
+              % (name, prose["fluent"], len(fluent), prose["terse"], len(terse)))
+
+    names = [k for k in results if not k.startswith("_") and "answers" in results[k]]
     if len(names) >= 2:
         a, b = results[names[0]]["answers"], results[names[1]]["answers"]
         agree = sum(1 for x, y in zip(a, b) if x["answer"] == y["answer"])

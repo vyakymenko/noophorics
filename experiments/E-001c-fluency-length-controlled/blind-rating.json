@@ -1,0 +1,823 @@
+{
+ "composer": "gpt-oss:120b",
+ "question": "You are shown two short passages, PASSAGE 1 and PASSAGE 2. They describe the same subject and are about the same length.\n\nOne of them was written as connected prose: complete sentences that follow from one another, with the relationships between the points spelled out in words.\n\nThe other was written as bare declarative statements, with no bridging or linking phrases between them.\n\nWhich is the connected prose?\n\nPASSAGE 1\n---------\n%s\n\nPASSAGE 2\n---------\n%s\n\nAnswer with exactly one word: either \"1\" or \"2\".",
+ "raters": {
+  "_agreement": {
+   "agree": 64,
+   "n": 64,
+   "pair": [
+    "codex",
+    "claude-opus-4-8"
+   ]
+  },
+  "claude-opus-4-8": {
+   "accuracy": 1.0,
+   "answers": [
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T0"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T3"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F5-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T1"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F5-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T6"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T5"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F2-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T2"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F7-T2"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T6"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F0-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T7"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F0-T1"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T3"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T1"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F3-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T5"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T0"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T0"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F4-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F7-T1"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F6-T1"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F1-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F5-T4"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F4-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F6-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F2-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T7"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F3-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F6-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T1"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T4"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F4-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F1-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T1"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F7-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T2"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T7"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F0-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T1"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T6"
+    }
+   ],
+   "chose_first_rate": 0.421875,
+   "ci95_binomial_anticonservative": [
+    0.9439909106133635,
+    1.0
+   ],
+   "ci95_cluster_bootstrap": [
+    1.0,
+    1.0
+   ],
+   "correct": 64,
+   "independent_units": {
+    "fluent": 8,
+    "terse": 8
+   },
+   "n": 64
+  },
+  "codex": {
+   "accuracy": 1.0,
+   "answers": [
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T0"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T3"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F5-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T1"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F5-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T6"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T5"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F2-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T2"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F7-T2"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T6"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F0-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F3-T7"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F0-T1"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T3"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T1"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F3-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T5"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T0"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T0"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F4-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F7-T1"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F6-T1"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F1-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F5-T4"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F4-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F6-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F2-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F2-T7"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F3-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T5"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F6-T0"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T1"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T4"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F4-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F1-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T1"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F7-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T6"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F4-T2"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T7"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F6-T3"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F0-T4"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F0-T7"
+    },
+    {
+     "answer": "2",
+     "correct": true,
+     "first_is_fluent": false,
+     "pair": "F1-T1"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F5-T2"
+    },
+    {
+     "answer": "1",
+     "correct": true,
+     "first_is_fluent": true,
+     "pair": "F7-T6"
+    }
+   ],
+   "chose_first_rate": 0.421875,
+   "ci95_binomial_anticonservative": [
+    0.9439909106133635,
+    1.0
+   ],
+   "ci95_cluster_bootstrap": [
+    1.0,
+    1.0
+   ],
+   "correct": 64,
+   "independent_units": {
+    "fluent": 8,
+    "terse": 8
+   },
+   "n": 64
+  }
+ },
+ "seed": 20260803
+}
