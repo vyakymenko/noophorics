@@ -68,18 +68,23 @@ CLAIMS = [
     # Added after the launch audit found README and CITATION advertising ten
     # open problems against twelve in the file. Prose numerals count: "ten" is a
     # claim exactly as much as "10" is, and greps for digits miss them.
-    ("README.md", r"(twelve|eleven|ten|nine) open problems", "open problems"),
-    ("CITATION.cff", r"(twelve|eleven|ten|nine) open problems", "open problems"),
+    ("README.md", r"(fifteen|fourteen|thirteen|twelve|eleven|ten|nine) open problems", "open problems"),
+    ("CITATION.cff", r"(fifteen|fourteen|thirteen|twelve|eleven|ten|nine) open problems", "open problems"),
     # The site says the count twice: once in the stat card above, once in prose
     # in the standing section. Only the card was checked, and the prose sat at
     # "ten open problems" against twelve in the file for as long as anyone had
     # been reading it. A number is a claim wherever it appears.
-    ("docs/index.html", r"(twelve|eleven|ten|nine) open problems", "open problems"),
+    ("docs/index.html", r"(fifteen|fourteen|thirteen|twelve|eleven|ten|nine) open problems", "open problems"),
     ("docs/index.html", r"(two|three|four) experiments are void", "voids"),
 ]
 
+# The alternation in CLAIMS above must list every word in here, or a
+# correct new count reads as PATTERN NOT FOUND. That is the check
+# behaving properly -- a claim it can no longer find is a claim it can no
+# longer guard -- but the two lists have to be extended together.
 WORDS = {"two": 2, "three": 3, "four": 4, "nine": 9, "ten": 10,
-         "eleven": 11, "twelve": 12, "thirteen": 13}
+         "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
+         "fifteen": 15}
 
 
 def main() -> int:

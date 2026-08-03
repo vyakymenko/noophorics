@@ -98,6 +98,32 @@ That last line is a check, not a hope. **When the resume finishes, count the
 `[ollama_agent]` lines in its log and report the number here — including if it
 is zero.** A declaration that is never checked is decoration.
 
+### The check could not be performed
+
+**2026-08-03.** The resume completed at 09:12 UTC: 126 of 126 cells, every one
+at exactly `n = 16`, exit 0. The retry count is **unknown and unrecoverable**.
+
+The loop reads the child process's `stderr` only in its failure branch, so a run
+that exits 0 discards it. The retry lines this file asked to be counted were
+printed to `stderr` by a run that succeeded, and nothing wrote them down.
+
+So the declaration above stands unverified. What can still be said is narrower
+and worth separating from what cannot:
+
+- **Zero retries were used in the first 104 cells.** That is established: there
+  was one timeout in that run's log and it was fatal, not retried.
+- **At most two retries fired on any single call in the last 22**, since a third
+  failure raises and the run exited 0.
+- **How many fired in total is not knowable from what was kept.** It could be
+  zero. Reporting it as zero because zero is likely would be inventing a
+  measurement, which is the thing this file exists to avoid.
+
+The loop now persists both streams of every run under
+`automation/state/runs/`, on success as well as failure. That does not recover
+this number; it prevents the next one from being lost. Recorded here rather than
+quietly dropped, because a declaration that turns out to be uncheckable is a
+finding about the instrument.
+
 ## What this does not change
 
 The third arm is still blocked, and
