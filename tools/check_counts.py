@@ -84,6 +84,13 @@ CLAIMS = [
     # FINDINGS.md and no VOID.md is not the same thing as an established
     # result, and a counter that got that wrong would be worse than none.
     ("RETRACTIONS.md", r"(two|three|four) experiments void", "voids"),
+    # The retraction count is on the front page twice: as a stat card, which was
+    # checked, and in the status sentence, which was not. The void count had the
+    # same shape and the same fix. A number is a claim wherever it appears, and
+    # this sentence is the one carried into nineteen translations -- so an
+    # unchecked numeral here goes wrong in twenty places at once.
+    ("docs/index.html", r"(Twelve|Eleven|Ten|Nine) of our own claims are withdrawn",
+     "retractions"),
 ]
 
 # The alternation in CLAIMS above must list every word in here, or a
@@ -110,7 +117,10 @@ def main() -> int:
             bad += 1
             continue
         raw = m.group(1)
-        stated = WORDS.get(raw, None) if not raw.isdigit() else int(raw)
+        # Lowercased before lookup: a prose numeral that opens a sentence is
+        # capitalised, and "Eleven" against a lowercase table read as an
+        # unrecognised numeral rather than as the count it plainly is.
+        stated = WORDS.get(raw.lower(), None) if not raw.isdigit() else int(raw)
         if stated is None:
             print("  %-22s %-16s unrecognised numeral %r" % (rel, key, raw))
             bad += 1

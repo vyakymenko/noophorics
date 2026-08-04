@@ -235,18 +235,22 @@ class TestCheckCounts(ToolTest):
                 "".join("## %d. p\n" % i for i in range(1, 10)),
             "PRINCIPIA.md": "**A1 — x.**\n**A2 — y.**\n",
             # The tally line is part of the fixture because check_counts now
-            # reads it. Two, to match the two VOID.md files below.
-            "RETRACTIONS.md": ("**Standing tally: 1 claim withdrawn, two "
+            # reads it. Two, to match the two VOID.md files below. Nine rows
+            # rather than one because the retraction count is now also claimed
+            # in prose, and prose numerals start at "nine" in the vocabulary.
+            "RETRACTIONS.md": ("**Standing tally: nine claims withdrawn, two "
                                "experiments void.**\n"
-                               "| # | Claim |\n|---|---|\n| 1 | a |\n"),
+                               "| # | Claim |\n|---|---|\n"
+                               + "".join("| %d | a |\n" % i for i in range(1, 10))),
             "README.md": ("python3 metrics/tests/test_metrics.py       # %d tests\n"
                           "nine open problems\n" % readme_states),
             "CITATION.cff": "nine open problems\n",
             "docs/index.html": ("<dt>Conjectural laws</dt><dd>2</dd>"
                                 "<dt>Open problems</dt><dd>9</dd>"
-                                "<dt>Own claims refuted</dt><dd><a href=x>1</a></dd>"
+                                "<dt>Own claims refuted</dt><dd><a href=x>9</a></dd>"
                                 "<p>nine open problems, and two experiments "
-                                "are void.</p>"),
+                                "are void. Nine of our own claims are "
+                                "withdrawn.</p>"),
             "docs/journal/one/index.html": "x",
             "docs/en/index.html": "x",
             # Two voided experiments and one that merely has a directory: the
@@ -294,6 +298,20 @@ class TestCheckCounts(ToolTest):
         """
         files = self.base(tests_n=7, readme_states=7)
         files["experiments/E-4/VOID.md"] = "void"          # now three
+        code, out = self.run_check(files)
+        self.assertEqual(code, 1)
+        self.assertIn("MISMATCH", out)
+
+    def test_the_retraction_count_in_prose_is_a_claim(self):
+        """The stat card was checked and the sentence beside it was not.
+
+        That sentence is the one carried into nineteen translations, so an
+        unchecked numeral in it is wrong in twenty places at once. The card is
+        left correct here, so only the prose can produce the mismatch.
+        """
+        files = self.base(tests_n=7, readme_states=7)
+        files["docs/index.html"] = files["docs/index.html"].replace(
+            "Nine of our own claims", "Twelve of our own claims")
         code, out = self.run_check(files)
         self.assertEqual(code, 1)
         self.assertIn("MISMATCH", out)

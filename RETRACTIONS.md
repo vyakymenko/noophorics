@@ -8,7 +8,7 @@ than a clean document that never made the mistake.
 This file exists because the site quotes a *count*, and a count nobody can audit
 is worse than no count.
 
-**Standing tally: 11 claims withdrawn, four experiments void, 1 finding
+**Standing tally: 12 claims withdrawn, four experiments void, 1 finding
 established.**
 
 The last two numbers were both stale until 2026-08-04, and in opposite
@@ -48,6 +48,19 @@ an established result — so it stays a judgement, and it stays visible here.
 | 9 | `Φ` is "the part we have not found elsewhere", and is what "everyone had felt, nobody had weighed" | Keysar & Henly (2002), Newton (1990), Chang et al. (2010), Endsley (2020). It was weighed in 1990, and their instruments are in places better than ours. | [PRINCIPIA §1, §5](PRINCIPIA.md) · [prior-art §1](theory/prior-art.md) |
 | 10 | Knowledge distillation "measures success as task accuracy" | Stanton et al. (2021) define fidelity separately from generalization and show accuracy does not imply it — E-001's construct failure, from a NeurIPS abstract, five years early. | [PRINCIPIA §2](PRINCIPIA.md) · [prior-art §3](theory/prior-art.md) |
 | 11 | "Fidelity-versus-correctness was separated in ML **first**" | Cronbach (1955) separated an accuracy score from an assumed-similarity score, each with its own decomposition; Edwards et al. (2006) measured team mental-model similarity and accuracy as two quantities and compared them as predictors. Both predate the ML work. The content survives; the primacy word does not. | [prior-art §3](theory/prior-art.md) |
+
+## Findings
+
+A section that should have existed since 2026-08-02. The three above are claims
+about the theory and its novelty; this one is a claim about *a measurement*, made
+in a findings document and withdrawn by the experiment that succeeded it. It was
+struck correctly at its origin and indexed nowhere, so the standing count was one
+short for two days and no check could see it — `check_retracted.py` did not read
+experiment documents at all until 2026-08-04.
+
+| # | Claim | Killed by | Where |
+|---|---|---|---|
+| 12 | "The parties' confidence is very nearly unresponsive to how much actually transferred" — E-002b's headline pull-quote, labelled post-hoc when made | E-002c committed the quantity before collecting and measured `β = +0.1299`, CI `[+0.047, +0.223]`, which clears zero. Confidence **does** respond, at about an eighth of the rate calibration requires. The direction replicated and the magnitude did not. The unresponsive party is the **sender alone**, `β = −0.02` with its interval spanning zero — a narrower claim than the one withdrawn, and a sharper one. | [E-002b §6](experiments/E-002b-phantom-agreement-ladder/FINDINGS.md) · [E-002c §3](experiments/E-002c-calibration-slope/FINDINGS.md) |
 
 ---
 
