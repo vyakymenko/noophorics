@@ -47,6 +47,13 @@ the band 5 times in 24 against the terse registers' 23 in 24
 length by 7 words and nothing else. The constraint is not tight, it is
 unsatisfiable: the register's floor lies above the band's ceiling.
 
+Underneath that sits a second obstacle we found only by measuring the outcome
+variable where no run had ever reached. At 221--233 words the probe measure is
+saturated in both registers --- observed agreement 0.951 fluent against 0.941
+terse, a difference of one third of one probe in 34. A repaired design would
+therefore compose successfully and measure nothing. The successor this line needs
+is a harder probe measure, not a better prompt.
+
 We report both, and the four void experiments behind them, under a discipline in
 which hypotheses are committed before data, gates void runs before outcomes are
 examined, pre-registrations are never edited, and the version-control history is
@@ -347,6 +354,55 @@ contrastiveness instruction is not. In cell A the two are not merely correlated:
 the register's floor lies above the band's ceiling, so no message in that cell
 can satisfy both constraints --- not improbably, but in 0 of 12 and 0 of 40
 draws.
+
+\subsection{And the outcome variable is saturated out there anyway}
+\label{sec:saturation}
+
+The floor explains why the experiment could not be built. It does not say what
+would have happened if it had been. Because all three experiments in this line
+voided during composition, the sweep had never once run, and the outcome variable
+had never been measured at the lengths the manipulation requires.
+
+We measured it, on messages that already existed on disk. Three fluent messages
+that passed both blind register raters and failed only the band, and three terse
+ones --- 221--233 words, so the contrast is length-matched --- answered
+\texttt{MERIDIAN-34} at $n = 10$ draws:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llrl}
+\toprule
+register & words & $\hat{A}$ & diverged probes of 34 \\
+\midrule
+fluent & 232, 233, 233 & \textbf{0.951} & 1, 3, 1 \\
+terse  & 232, 224, 221 & \textbf{0.941} & 1, 2, 3 \\
+\bottomrule
+\end{tabular}
+\caption{Observed sender--receiver agreement at the fluent register's operating
+length. The entire between-register difference is 0.0098 --- one third of one
+probe.}
+\label{tab:saturation}
+\end{table}
+
+This is not a modal-reduction artifact. The sender's 34 probes are unanimous at
+10/10, minimum margin 10, and 90\% of all receiver probe-columns are unanimous.
+And four of the six messages fall below the outcome-variation gate of a sister
+experiment in the same programme, which requires at least three diverged probes:
+the design does not merely lose power out here, the gate built to catch this
+would void the run.
+
+So the probe measure is answered correctly from any competent 230-word brief in
+either register. Whatever the length floor did to the design, a repaired design
+on this measure would compose successfully and then measure nothing.
+
+\paragraph{What this is not.} A length-matched register contrast in which fluent
+and terse transfer within a third of a probe of each other looks like direct
+support for the predicted null --- fluency does not buy understanding. It is not.
+At saturation everything looks identical, and nothing here separates \emph{fluency
+does not help} from \emph{the instrument cannot tell}. The six messages were also
+selected after their lengths were known. We report it as instrument data and
+draw no hypothesis from it, and we flag the temptation because it is exactly the
+kind of reading this programme has had to withdraw before.
 
 \subsection{What this means for anyone running the same manipulation}
 

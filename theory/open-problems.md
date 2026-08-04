@@ -377,6 +377,48 @@ designed to detect a fluency effect on `Φ` at lengths where `Φ` is collapsing,
 and none of them noticed, because all three voided during composition and the
 sweep in that line has never run.
 
+### Measured, 2026-08-04: the ceiling is where the extrapolation put it
+
+The paragraphs above were an extrapolation from a ladder that stopped at 182
+words. [`headroom_check.py`](../experiments/E-001c-fluency-length-controlled/headroom_check.py)
+ran the draws out at the operating point, on six messages that already existed
+on disk — three fluent and three terse, 221–233 words, so the contrast is
+**length-matched** — against `MERIDIAN-34`, `n = 10`:
+
+| register | words | `Â` | diverged probes of 34 |
+|---|---|---|---|
+| fluent | 232, 233, 233 | **0.951** | 1, 3, 1 |
+| terse | 232, 224, 221 | **0.941** | 1, 2, 3 |
+
+The whole between-register difference is `0.0098` — **one third of one probe.**
+
+It is not an artifact of the modal reduction, which [Problem 14](#14-when-is-a-modal-answer-over-n-draws-a-stable-observable)
+would otherwise put in doubt: the sender's 34 probes are unanimous at 10/10 with
+a minimum margin of 10, and 90% of all receiver probe-columns are unanimous too.
+These are concentrated dispositions, not coin-flips.
+
+**Four of the six messages fall below E-002c's own outcome-variation gate**,
+which wants at least 3 diverged probes. So the successor design does not merely
+lose power out here — the gate that exists to catch exactly this would void the
+run.
+
+Two things follow, and the second is the one that costs.
+
+**The probe measure is saturated at the length the fluent register requires.**
+`MERIDIAN-34` is answered correctly from any competent 230-word brief in either
+register. The E-001 line's successor is therefore **a different probe measure,
+not a different prompt** — which contradicts what
+[E-001c's VOID](../experiments/E-001c-fluency-length-controlled/VOID.md) says its
+own §8 named, and that document should be read with this beside it.
+
+**And this measurement cannot be read as evidence for L5's predicted null.** It
+is tempting: a length-matched register contrast showing fluent and terse
+transferring within a third of a probe of each other looks like "fluency does not
+buy understanding," which is L5's H4. It is not. At saturation everything looks
+identical, and nothing here can separate *fluency does not help* from *the
+instrument cannot tell*. The six messages were also chosen after their lengths
+were known. This is instrument data and it stays instrument data.
+
 **What a solution would look like.** Any one of these, and none is obviously
 right:
 

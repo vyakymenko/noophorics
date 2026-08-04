@@ -66,6 +66,7 @@ void1 = load("experiments/E-001c-fluency-length-controlled/results/"
 void2 = load("experiments/E-001c-fluency-length-controlled/results/"
              "E-001c-20260804T094831Z.json")
 floor = load("experiments/E-001c-fluency-length-controlled/floor-by-register.json")
+head = load("experiments/E-001c-fluency-length-controlled/headroom.json")
 LOW, HIGH = floor["band"]
 
 
@@ -131,6 +132,16 @@ ROWS = [
     ("terse in band", float(inband(fl("C") + fl("D"))),
      r"terse cells put (\d+) of 24"),
     ("band ceiling", float(HIGH), r"inside a 182--(\d+) word band"),
+    # The saturation table. head["parties"] holds one entry per message plus the
+    # sender; the register means are recomputed here rather than read from prose.
+    ("A_hat fluent", statistics.mean(
+        v["agreement_observed"] for v in head["parties"].values()
+        if isinstance(v, dict) and v.get("register") == "fluent"),
+     r"fluent & 232, 233, 233 & \\textbf\{(0\.\d+)\}"),
+    ("A_hat terse", statistics.mean(
+        v["agreement_observed"] for v in head["parties"].values()
+        if isinstance(v, dict) and v.get("register") == "terse"),
+     r"terse\s+& 232, 224, 221 & \\textbf\{(0\.\d+)\}"),
 ]
 
 

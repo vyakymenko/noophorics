@@ -139,6 +139,26 @@ after measuring which band works is the acceptance criterion picked to fit the
 data — the failure [E-001b's VOID](../E-001b-fluency-factorial/VOID.md) exists
 to record. It requires a new registration under a new id.
 
+## Amended 2026-08-04: §8's successor is the wrong successor
+
+This document said above, following [§8](PREREGISTRATION.md), that the successor
+is a different prompt. Measured afterwards, that is wrong, and the correction
+belongs here rather than in a document nobody reading this void would find.
+
+[`headroom_check.py`](headroom_check.py) took three of the fluent messages this
+run rejected — they passed both blind register raters and failed only the band —
+and three terse ones, all 221–233 words, and ran the draws this experiment never
+reached. Observed agreement is **0.951 fluent against 0.941 terse**: a difference
+of one third of one probe in 34, with 1 to 3 probes diverging per message where
+E-002c's outcome-variation gate wants at least 3.
+
+`MERIDIAN-34` is saturated at the length the fluent register requires. A
+successor with a better prompt and this measure would compose successfully and
+then measure nothing. See [Problem 15](../../theory/open-problems.md).
+
+The correction is recorded and §8 is not edited, because a pre-registration
+stands as written.
+
 ## The programme cost so far
 
 E-001 confounded style with length. E-001b tried to fix it with a shared token
