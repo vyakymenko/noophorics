@@ -8,8 +8,18 @@ than a clean document that never made the mistake.
 This file exists because the site quotes a *count*, and a count nobody can audit
 is worse than no count.
 
-**Standing tally: 11 claims withdrawn, 3 experiments void, 0 findings
+**Standing tally: 11 claims withdrawn, four experiments void, 1 finding
 established.**
+
+The last two numbers were both stale until 2026-08-04, and in opposite
+directions. The void count missed [E-001c](experiments/E-001c-fluency-length-controlled/VOID.md);
+the findings count still said zero after [E-002c](experiments/E-002c-calibration-slope/FINDINGS.md)
+landed, so this file went on advertising a cleaner failure record than the
+programme had earned. A file whose whole purpose is that a count can be audited
+had two counts nobody was auditing. `check_counts.py` now reads the void number
+here as well as on the site; the findings number is not mechanically derivable
+— an experiment with a `FINDINGS.md` and no `VOID.md` is not the same thing as
+an established result — so it stays a judgement, and it stays visible here.
 
 ---
 

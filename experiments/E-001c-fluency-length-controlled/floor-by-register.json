@@ -1,0 +1,29 @@
+{
+ "band": [
+  182,
+  231
+ ],
+ "cells": {
+  "A": [
+   {
+    "cost_tokens": 386,
+    "in_band": false,
+    "text": "The Meridian Review process checks each manuscript against ten rules and then issues one of three verdicts: HANDLED, RETURNED, or PADDED. Rule\u202f1 demands a minimum length of 22 pages; exactly 22 satisfies it. Rule\u202f2 requires either the official template or at least three years of documented revision history. Rule\u202f3 excludes papers presented at a Tier\u20111 venue unless the presentation occurred more than 18 months before the 1\u202fMarch\u202f2026 deadline; exactly 18 months does not qualify. Rule\u202f4 rejects papers accepted in an earlier Meridian round if fewer than five years have passed since that acceptance; exactly five years is acceptable. Rule\u202f5 allows a paired submission for exactly two manuscripts, each meeting Rules\u202f1 and\u202f2, and requires at least one of the pair to also meet Rule\u202f3. Rule\u202f6 applies to Track\u202fD: it waives Rule\u202f2 but mandates precisely two endorsements; one endorsement is insufficient. Rule\u202f7 states that any manuscript with an open retraction notice is automatically RETURNED, overriding all other rules including Rule\u202f9. Rule\u202f8 limits figures to between 8 and 45 inclusive, raising the upper bound to 70 for paired submissions while keeping the minimum of 8. Rule\u202f9 pads a submission that falls short only on the figure minimum up to 8 and assigns PADDED; excess figures cause RETURNED. Rule\u202f10 notes that a prior\u2011round withdrawal does not count as an acceptance for Rule\u202f4, but it resets the venue clock for Rule\u202f3 to the withdrawal date.",
+    "words": 250
+   },
+   {
+    "cost_tokens": 395,
+    "in_band": false,
+    "text": "The Meridian Review system checks each submission against ten rules and then gives a single verdict: HANDLED, RETURNED, or PADDED. Rule\u202f1: at least twenty\u2011two pages; exactly twenty\u2011two is sufficient. Rule\u202f2: either the official template or documented revision history of at least three years. Rule\u202f3: a Tier\u20111 venue presentation is rejected unless it occurred more than eighteen months before the 1\u202fMarch\u202f2026 deadline; an exact eighteen\u2011month gap does not count. Rule\u202f4: a manuscript accepted in a prior Meridian round is rejected if fewer than five years have passed since that round; exactly five years is acceptable. Rule\u202f5: only exactly two manuscripts may be paired; three or more are prohibited. Both must satisfy Rules\u202f1 and\u202f2, and at least one of the pair must meet Rule\u202f3. Rule\u202f6 (Track\u202fD): waives Rule\u202f2 but requires exactly two endorsements; one endorsement is insufficient, and no other rule is waived. Rule\u202f7: any manuscript with an open retraction notice is NOT handled, overriding every other rule including Rule\u202f9. Rule\u202f8: figure count must be between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures while keeping the same minimum. Rule\u202f9: if a paper falls short of the minimum figure count it is padded and receives PADDED; exceeding the maximum yields RETURNED. Rule\u202f10: a prior\u2011round withdrawal does not count as an acceptance for Rule\u202f4 and resets the Rule\u202f3 clock so the presentation date is treated as the withdrawal date.",
+    "words": 251
+   }
+  ]
+ },
+ "experiment": "E-001c-instrument",
+ "instruction": "Write between 182 and 231 words. Not fewer, not more -- a note outside that range is unusable to your colleague regardless of its quality. Output the note and nothing else: no preamble, no account of what you decided to include, no sign-off.",
+ "model": "gpt-oss:120b",
+ "n_per_cell": 12,
+ "not_experimental_data": true,
+ "purpose": "the realised length floor of each of the four registers, under the calibrated instruction at the registered band",
+ "timestamp_utc": "2026-08-04T12:25:06Z"
+}

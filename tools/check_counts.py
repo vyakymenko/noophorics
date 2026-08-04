@@ -76,6 +76,14 @@ CLAIMS = [
     # been reading it. A number is a claim wherever it appears.
     ("docs/index.html", r"(fifteen|fourteen|thirteen|twelve|eleven|ten|nine) open problems", "open problems"),
     ("docs/index.html", r"(two|three|four) experiments are void", "voids"),
+    # RETRACTIONS.md opens by saying "a count nobody can audit is worse than no
+    # count" and then carried an unaudited one: its standing tally still said
+    # three experiments void after E-001c's VOID.md landed, and still said zero
+    # findings established months after E-002c. The void half is checkable and
+    # is checked here. The findings half is not -- an experiment with a
+    # FINDINGS.md and no VOID.md is not the same thing as an established
+    # result, and a counter that got that wrong would be worse than none.
+    ("RETRACTIONS.md", r"(two|three|four) experiments void", "voids"),
 ]
 
 # The alternation in CLAIMS above must list every word in here, or a

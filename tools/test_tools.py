@@ -214,7 +214,11 @@ class TestCheckCounts(ToolTest):
             "theory/open-problems.md":
                 "".join("## %d. p\n" % i for i in range(1, 10)),
             "PRINCIPIA.md": "**A1 — x.**\n**A2 — y.**\n",
-            "RETRACTIONS.md": "| # | Claim |\n|---|---|\n| 1 | a |\n",
+            # The tally line is part of the fixture because check_counts now
+            # reads it. Two, to match the two VOID.md files below.
+            "RETRACTIONS.md": ("**Standing tally: 1 claim withdrawn, two "
+                               "experiments void.**\n"
+                               "| # | Claim |\n|---|---|\n| 1 | a |\n"),
             "README.md": ("python3 metrics/tests/test_metrics.py       # %d tests\n"
                           "nine open problems\n" % readme_states),
             "CITATION.cff": "nine open problems\n",
@@ -273,6 +277,27 @@ class TestCheckCounts(ToolTest):
         code, out = self.run_check(files)
         self.assertEqual(code, 1)
         self.assertIn("MISMATCH", out)
+
+    def test_a_stale_tally_in_the_retractions_file_is_caught(self):
+        """The file that exists so a count can be audited had an unaudited one.
+
+        Its standing tally said three experiments void while two directories
+        carried VOID.md, and went on saying zero findings established after one
+        was. The void half is now read here as well as on the site; this is the
+        test that it is actually read, on the defect it exists to find.
+        """
+        files = self.base(tests_n=7, readme_states=7)
+        files["RETRACTIONS.md"] = files["RETRACTIONS.md"].replace(
+            "two experiments void", "three experiments void")
+        code, out = self.run_check(files)
+        self.assertEqual(code, 1)
+        self.assertIn("MISMATCH", out)
+
+    def test_a_correct_tally_in_the_retractions_file_passes(self):
+        """The legitimate case that most resembles the defect above."""
+        code, out = self.run_check(self.base(tests_n=7, readme_states=7))
+        self.assertEqual(code, 0)
+        self.assertNotIn("MISMATCH", out)
 
     def test_the_void_count_survives_a_repository_with_no_experiments(self):
         """A counter that raises instead of reporting is an outage, not an audit."""
