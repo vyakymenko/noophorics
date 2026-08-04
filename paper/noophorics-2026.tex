@@ -38,10 +38,14 @@ across half its range.
 Our negative result is that a question we set out to answer --- whether fluency
 buys understanding, or only the belief in it --- is not answerable in this model
 by the obvious design. Three successive preregistered attempts to separate
-register from length all failed, the third for a reason the first two make
-legible: the fluent register has a \emph{length floor} of 229 words, and the
-messages short enough to enter any band that also admits the terse register are
-no longer judged to be connected prose by blind raters.
+register from length all failed, and a direct measurement says why: the fluency
+instruction is partly a length instruction. Asked for fluent declarative prose
+inside a 182--231 word band, the model's \emph{shortest} output over twelve
+draws is 232 words and over forty is 229. Pooled, fluent registers land inside
+the band 5 times in 24 against the terse registers' 23 in 24
+($p = 1.2\times10^{-7}$), while the orthogonal contrastiveness manipulation moves
+length by 7 words and nothing else. The constraint is not tight, it is
+unsatisfiable: the register's floor lies above the band's ceiling.
 
 We report both, and the four void experiments behind them, under a discipline in
 which hypotheses are committed before data, gates void runs before outcomes are
@@ -86,10 +90,11 @@ measurement, which is most of what Section~\ref{sec:negative} is about.
     language-model sender/receiver pair, decomposed by role, with an asymmetry
     large enough that the two roles should not be modelled as one instrument
     (Section~\ref{sec:beta}).
-  \item A characterised obstacle: in this model, register and message length are
-    not independently controllable, which makes the standard
-    fluency-versus-content manipulation unavailable
-    (Section~\ref{sec:negative}).
+  \item A characterised obstacle, localised to one axis of a $2\times2$: the
+    fluency manipulation carries length with it and the contrastiveness
+    manipulation does not, so a design that pins length and varies register is
+    unsatisfiable rather than merely underpowered
+    (Section~\ref{sec:negative}, Table~\ref{tab:floor}).
   \item Three instrument failures reported in full, including two estimators
     that could not have failed and one calibration that did not transfer to the
     run it calibrated (Section~\ref{sec:instrument}).
@@ -306,8 +311,42 @@ The effect binds one register and not the other. At the same stated ceiling of
 ($p = 0.0345$). The terse instruction produces messages below the ceiling, so
 moving the ceiling does not move them.
 
-% FLOOR-TABLE: filled from experiments/E-001c-fluency-length-controlled/
-% floor-by-register.json once the 12-per-cell measurement completes.
+\subsection{The floor belongs to the fluency axis}
+
+To locate the obstacle rather than infer it, we measured the realised length of
+each of the four registers directly, 12 compositions per cell, under the
+calibrated instruction at the registered band.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llrrrr}
+\toprule
+cell & register & floor & median & max & in band \\
+\midrule
+A & fluent, declarative     & \textbf{232} & 238 & 308 & \textbf{0/12} \\
+B & fluent, contrastive     & 223 & 232 & 237 & 5/12 \\
+C & terse, declarative      & 184 & 210 & 232 & 11/12 \\
+D & terse, contrastive      & 189 & 212 & 225 & 12/12 \\
+\bottomrule
+\end{tabular}
+\caption{Realised word counts, $n = 12$ per cell, band 182--231. Cell A's
+\emph{shortest} message of twelve is 232 words --- one word above the band's
+ceiling.}
+\label{tab:floor}
+\end{table}
+
+Pooled along the two axes, the asymmetry is total. Fluent cells put 5 of 24
+messages inside the band; terse cells put 23 of 24 (Fisher exact
+$p = 1.2 \times 10^{-7}$). Along the other axis, declarative 11 of 24 against
+contrastive 17 of 24, $p = 0.14$. The fluency manipulation moves the median
+length by 24 words; the contrastiveness manipulation moves it by 7.
+
+So the obstacle is not that the design pins length too tightly. It is that
+\emph{the fluency instruction is partly a length instruction}, and the
+contrastiveness instruction is not. In cell A the two are not merely correlated:
+the register's floor lies above the band's ceiling, so no message in that cell
+can satisfy both constraints --- not improbably, but in 0 of 12 and 0 of 40
+draws.
 
 \subsection{What this means for anyone running the same manipulation}
 

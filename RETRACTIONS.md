@@ -58,6 +58,15 @@ an established result — so it stays a judgement, and it stays visible here.
 | [E-001](experiments/E-001-fluency-cost/FINDINGS.md) | fluency vs contrastiveness on fidelity and `Φ` | Sender refused to compose. Reopened as a construct critique: the headline quantity rewards mimicry, and 62% of its effect sat on four probes where the sender was wrong. |
 | [E-001b](experiments/E-001b-fluency-factorial/VOID.md) | the same, factorially, with a cost-parity gate | The gate failed on the composed messages: fluent briefs cost 1.5× terse ones under an identical budget instruction. Style and length are entangled in the generator. Also [DEFECT-001](experiments/E-001b-fluency-factorial/DEFECT-001.md) — the analysis path had never been executed and would have crashed after 30 hours. |
 | [E-002](experiments/E-002-phantom-agreement/VOID.md) | `Φ` for the first time, elicited per probe | 330 of 330 elicitations returned "yes, we will agree" — the instrument has a default answer, because it ported Keysar & Henly's granularity and not their forced-choice structure. And the transfer was perfect (0 of 33 probes diverged), so there was nothing for a belief to be wrong about. |
+| [E-004](experiments/E-004-disagreement-detector/VOID.md) | whether a model can predict where another model will disagree | Two of the three registered models were never wrong: 1 error and 0 errors across the whole design. A detector of disagreement needs disagreement to detect, and reporting the run would have reported the defect as the result. |
+| [E-001c](experiments/E-001c-fluency-length-controlled/VOID.md) | the E-001 question again, with length pinned by a two-sided word band | The fluent register's length floor sits **above** the band's ceiling — 232 words against 231, at 0 of 12 and 0 of 40. Fluent cells land in the band 5 times in 24 against terse cells' 23 in 24. The fluency instruction is partly a length instruction, so the manipulation is unsatisfiable rather than underpowered. Also [DEFECT-001](experiments/E-001c-fluency-length-controlled/DEFECT-001.md) — the first of the two runs voided on a copied instruction the band was never calibrated on, and establishes nothing. |
+
+**This table was two rows stale until 2026-08-04.** E-004 voided on 2026-08-03
+and E-001c on 2026-08-04, and neither was indexed here. The count on the front
+page did not notice, because it counts `VOID.md` files rather than rows in this
+table — so the number was right while the list a reader actually reads was
+wrong. `check_counts.py` compares numbers to their sources and has nothing to
+say about an index that omits an entry.
 
 ---
 

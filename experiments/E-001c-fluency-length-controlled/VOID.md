@@ -79,11 +79,29 @@ verdicts, the per-cell rejection counts.
 `β`, any effect. The sweep never began in either run. No `messages.json` was
 written, because composition never completed. No hypothesis was computed.
 
-Cells B, C and D were never reached: cell A is composed first and voids the run
-on exhaustion. So this document says nothing about whether the contrastive
-cells or the terse cells would have filled — except what
-[CALIBRATION-001](CALIBRATION-001.md) measured off-run, where the terse cell
-complied 5 times in 6 against the fluent cell's 2 in 11.
+Cells B, C and D were never reached by either run: cell A is composed first and
+voids the run on exhaustion. They were measured **off-run**, after the void, by
+[`floor_by_register.py`](floor_by_register.py) — instrument data that cannot
+revive E-001c and exists so a successor knows what it is designing around:
+
+| cell | register | floor | median | max | in band 182–231 |
+|---|---|---|---|---|---|
+| A | fluent · declarative | **232** | 238 | 308 | **0 / 12** |
+| B | fluent · contrastive | 223 | 232 | 237 | 5 / 12 |
+| C | terse · declarative | 184 | 210 | 232 | 11 / 12 |
+| D | terse · contrastive | 189 | 212 | 225 | 12 / 12 |
+
+**The floor belongs to the fluency axis.** Fluent cells put 5 of 24 messages
+inside the band; terse cells put 23 of 24, Fisher exact `p = 1.2e-07`. Along the
+other axis — declarative 11 of 24 against contrastive 17 of 24 — `p = 0.14`. The
+fluency instruction moves the median length 24 words; the contrastiveness
+instruction moves it 7.
+
+So the 2×2 did not fail as a design. **Half of it did.** The terse row composes
+inside the registered band without difficulty, and would have filled its cells.
+The fluent row cannot, and cell A cannot even in principle: its floor of 232 sits
+one word above the band's ceiling of 231, measured at 0 of 12 here and 0 of 40 in
+the run.
 
 ## What survives for the successor
 
@@ -106,9 +124,14 @@ discarding what the two voids paid for.
 What the successor must change is the instruction set, as §8 says — and it now
 has a specific target rather than a general one. A design that pins length and
 varies register cannot use a band whose ceiling sits at the fluent register's
-floor. Either the band moves to where fluent prose actually lives, and the terse
-arm is asked to pad up to it rather than the fluent arm asked to cut down, or
-the manipulation stops being register-at-fixed-length.
+floor. The measurement above says where the band would have to go: **the fluent
+row's floor is 223 and its median 234**, so a band centred near 240 admits both
+fluent cells, and the terse row — floor 184, median 210, and demonstrably able to
+hit a target — would be the arm asked to **pad up** rather than the fluent arm
+asked to cut down. Which direction the padding runs is not cosmetic: asking a
+terse register to reach a length is asking it to add content, and that
+reintroduces the confound from the other side. A successor has to say what it
+does about that before it collects.
 
 **Neither choice is available to E-001c.** §7 forbids moving the band, the
 amendment cap is spent on [AMENDMENT-001](AMENDMENT-001.md), and a band chosen

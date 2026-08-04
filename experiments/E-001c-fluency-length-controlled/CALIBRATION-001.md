@@ -150,11 +150,23 @@ This file exists so that when that void arrives it is read correctly: the
 instruction set fails, and the specific way it fails is that this model
 negotiates with a number rather than obeying it.
 
+## Superseded on one point, by a better measurement
+
+The limitation below said the contrastive cells were unmeasured and the effect
+was therefore claimed on the fluency axis without the axis having been tested.
+[`floor_by_register.py`](floor_by_register.py) then measured all four at `n = 12`
+and the axis claim holds: fluent 5 of 24 inside the band against terse 23 of 24
+(`p = 1.2e-07`), declarative 11 of 24 against contrastive 17 of 24 (`p = 0.14`).
+The table is in [VOID.md](VOID.md). This file's numbers stand as the smaller,
+earlier sample that pointed at it.
+
 ## Limitations
 
-- **Two of four cells.** A (fluent × declarative) and C (terse × declarative).
+- ~~**Two of four cells.** A (fluent × declarative) and C (terse × declarative).
   The contrastive cells B and D are not measured; the effect is claimed on the
-  fluency axis, where it was found, and not on the contrastiveness one.
+  fluency axis, where it was found, and not on the contrastiveness one.~~
+  **Withdrawn 2026-08-04:** all four cells are now measured at `n = 12`, and the
+  fluency axis carries the effect while the contrastiveness axis does not.
 - **n = 6 to 11 per arm**, unrandomised and unblinded, composed in blocks rather
   than interleaved. The arms ran on the same local model on consecutive days.
 - The cell C arm is `n = 6`. `5/6` is not a precise compliance rate and the
