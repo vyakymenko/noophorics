@@ -52,7 +52,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 # Sources of retracted claims: markdown carrying ~~...~~ spans.
-SOURCES = [
+#
+# The experiment documents are globbed rather than listed. They were missing
+# entirely until 2026-08-04, and three withdrawn claims were living in them
+# unguarded -- among them E-002b's headline pull-quote, "the parties' confidence
+# is very nearly unresponsive to how much actually transferred", struck by
+# E-002c and indexed nowhere. A findings document is exactly where a claim gets
+# made and later corrected, so leaving the class out meant the check covered the
+# theory and not the evidence.
+#
+# A glob rather than a list because the omission was not that someone chose the
+# wrong seven files: it was that a new experiment produces a new file and
+# nothing made anyone add it. A list that must be extended by hand fails the
+# same way twice.
+_FIXED_SOURCES = [
     "PRINCIPIA.md",
     "lexicon.md",
     "RETRACTIONS.md",
@@ -61,6 +74,17 @@ SOURCES = [
     "theory/open-problems.md",
     "theory/prior-art.md",
 ]
+SOURCE_GLOBS = ["experiments/*/FINDINGS.md", "experiments/*/VOID.md"]
+
+
+def _sources() -> list:
+    found = []
+    for pattern in SOURCE_GLOBS:
+        found += [str(p.relative_to(ROOT)) for p in sorted(ROOT.glob(pattern))]
+    return _FIXED_SOURCES + found
+
+
+SOURCES = _sources()
 
 # Where a live restatement would be published. docs/journal/** is generated
 # from the same markdown and renders ~~x~~ as <s>x</s>, so it is covered by

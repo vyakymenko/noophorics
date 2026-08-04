@@ -164,6 +164,26 @@ class TestCheckRetracted(ToolTest):
         self.assertEqual(code, 1)
         self.assertIn("stated as live", out)
 
+    def test_experiment_documents_are_discovered_as_sources(self):
+        """The glob, not the seven names. A new experiment must not need an edit.
+
+        Three withdrawn claims were living in findings and void documents with
+        nothing indexing them, because SOURCES was a hand-maintained list and a
+        new experiment produces a new file that nobody remembers to add.
+        """
+        root = self.tree({
+            "PRINCIPIA.md": "x\n",
+            "experiments/E-9/FINDINGS.md": "y\n",
+            "experiments/E-9/VOID.md": "z\n",
+            "experiments/E-9/PREREGISTRATION.md": "not a source\n",
+        })
+        old, check_retracted.ROOT = check_retracted.ROOT, root
+        self.addCleanup(lambda: setattr(check_retracted, "ROOT", old))
+        found = check_retracted._sources()
+        self.assertIn("experiments/E-9/FINDINGS.md", found)
+        self.assertIn("experiments/E-9/VOID.md", found)
+        self.assertNotIn("experiments/E-9/PREREGISTRATION.md", found)
+
     def test_the_same_claim_quoted_with_its_withdrawal_passes(self):
         """A findings page has to be able to say what it broke."""
         code, out = self.run_check({
