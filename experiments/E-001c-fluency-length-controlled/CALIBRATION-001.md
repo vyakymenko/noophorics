@@ -82,6 +82,34 @@ budget of **40**.
 So the run in flight is expected to exhaust cell A. This projection is recorded
 before its outcome is known, so that it can be wrong where anyone can see it.
 
+### It was right about the outcome and wrong about the reason
+
+The run exhausted cell A at 09:48:32Z on 2026-08-04 — 40 attempts, 0 of 8
+accepted, 80.4 minutes. The projection above called that. Two of its three
+components were wrong anyway, and the way they were wrong is the finding:
+
+| quantity | projected | measured over 40 attempts |
+|---|---|---|
+| band compliance, cell A | 18% (from `n = 11`) | **5%** (2/40) |
+| register acceptance | 42.5% | 40% (16/40) |
+| joint | 7.7%, assuming independence | **0%** (0/40) |
+
+Band compliance was overestimated more than threefold: `2/11` from a small
+sample against `2/40` measured. And the joint rate is not the product, because
+the two filters are not independent — **of the two messages that landed inside
+the band, neither was judged fluent prose.**
+
+The realised range makes the mechanism plain. Cell A over 40 attempts:
+**229–318 words, mean 242.1, minimum 229.** The band's ceiling is 231. The
+fluent-declarative register has a floor two words inside the band, so the only
+way into the band is the very bottom of what the register produces — and at that
+length it stops reading as connected prose to both raters.
+
+That is not a length failure and not a register failure. It is the statement
+that, for this model and this instruction set, **fluent prose and this length
+are not simultaneously available.** Which is a claim about the confound E-001c
+exists to break, arrived at from the wrong end.
+
 ## Where that leaves §3
 
 [PREREGISTRATION §3](PREREGISTRATION.md) fixed the band this way:

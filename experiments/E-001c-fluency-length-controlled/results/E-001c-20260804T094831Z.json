@@ -1,0 +1,410 @@
+{
+  "composed": [],
+  "experiment": "E-001c",
+  "rejected": {
+    "A": [
+      {
+        "in_band": true,
+        "seed": 0,
+        "text": "The Meridian Review decides submissions by ten rules on the 1\u202fMarch\u202f2026 deadline. R1: a manuscript must be at least twenty\u2011two pages. R2: it must use official template or include at least three years of documented revision history. R3: a Tier\u20111 venue presentation is allowed only if it occurred more than eighteen months before the deadline; eighteen months does not qualify. R4: an earlier Meridian acceptance blocks handling unless five years have passed; five years is acceptable. R5: a paired submission may contain two manuscripts; each must meet R1 and R2, and at least one must satisfy R3. R6: Track\u202fD papers are exempt from R2 but must carry two endorsements; one endorsement is insufficient and does not affect any other rule. R7: any manuscript with an open retraction notice is automatically rejected, overriding all other rules including R9. R8: figure count must be between eight and forty\u2011five inclusive; paired submissions may have up to seventy figures. R9: if a paper fails R8 only by having too few figures, it is padded to the minimum and receives PADDED; exceeding maximum causes RETURNED. R10: a prior\u2011round withdrawal does not count as an acceptance for R4 but resets the R3 venue clock to withdrawal date. Verdicts are HANDLED (all rules satisfied), RETURNED (rule failed) or PADDED (R9 case when only the minimum shortfall occurs and no other rule is broken).",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 229
+      },
+      {
+        "in_band": true,
+        "seed": 1,
+        "text": "Meridian Review judges each submission against ten numbered rules and issues a single verdict: HANDLED if all applicable rules are met, RETURNED if any fail, or PADDED in the unique R9 case.  \n\nR1 requires at least 22 pages; exactly 22 suffices.  \n\nR2 demands either the official template or documented revision history of three years or more.  \n\nR3 rejects papers presented at a Tier\u20111 venue less than 18 months before the 1\u202fMarch\u202f2026 deadline; exactly 18 months does not qualify; older presentations do.  \n\nR4 blocks handling of papers accepted in a previous Meridian round unless five full years have passed (five years ok).  \n\nR5 permits a paired submission for exactly two manuscripts; both must satisfy R1 and R2, and at least one must also meet R3.  \n\nR6 applies to Track\u202fD: it waives R2 but requires exactly two endorsements\u2014one is insufficient.  \n\nR7 states any manuscript with an open retraction notice is automatically RETURNED, overriding all rules including R9.  \n\nR8 sets figure counts between 8 and 45 inclusive for single papers and raises the upper bound to 70 for paired submissions; minimum stays 8.  \n\nR9 yields PADDED when a submission fails R8 solely by having fewer than the minimum figures; exceeding the maximum causes RETURN.  \n\nR10 clarifies that a prior\u2011round withdrawal does not count as an acceptance for R4 and resets the R3 clock, treating the presentation date as the withdrawal date.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 231
+      },
+      {
+        "in_band": false,
+        "seed": 2,
+        "text": "The Meridian Review judges each manuscript by ten numbered rules and issues a verdict: HANDLED, RETURNED, or PADDED.\n\nR1 requires at least twenty\u2011two pages; twenty\u2011two satisfies. R2 demands use of the official template or at least three documented years of revision history. R3 disallows a Tier\u20111 venue presentation unless it occurred more than eighteen months before the 1\u202fMarch\u202f2026 deadline; exactly eighteen months does not count. R4 blocks handling of manuscripts accepted in a prior Meridian round if fewer than five years have passed; five years is acceptable. R5 permits paired submissions only for two manuscripts, each meeting R1 and R2; at least one must also satisfy R3. R6 exempts Track\u202fD papers from R2 provided they carry two endorsements\u2014one is insufficient\u2014and no other exemption. R7 states any manuscript with an open retraction notice is RETURNED, overriding all other rules including R9. R8 limits figures to eight\u2011to\u2011forty\u2011five inclusive; a paired submission may have up to seventy keeping the same minimum. R9 pads a submission that fails R8 by having fewer than eight figures up to eight and assigns PADDED; exceeding the maximum yields RETURNED. R10 states a prior\u2011round withdrawal does not count as an acceptance for R4 but resets the R3 clock so the presentation date is treated as the withdrawal date.\n\nHANDLED only when all applicable rules are satisfied; RETURNED whenever any applicable rule fails, except padding; PADDED solely for R9 under\u2011figure case.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 235
+      },
+      {
+        "in_band": false,
+        "seed": 3,
+        "text": "The Meridian Review system assigns each manuscript one of three verdicts on\u202f1\u202fMarch\u202f2026: HANDLED, RETURNED, or PADDED. A paper is HANDLED only if it satisfies every applicable rule; violation yields RETURNED, except when the sole violation is an insufficient figure count (R9), yielding PADDED.\n\nR1: at least 22 pages; exactly\u202f22 meets requirement. R2: must use the official template or have documented revision history of three years or more. R3: a Tier\u20111 venue presentation counts only if it occurred more than 18\u202fmonths before the deadline; exactly\u202f18\u202fmonths does not qualify. R4: an earlier Meridian acceptance is disallowed if fewer than five years have passed; exactly five years is acceptable. R5: paired submissions are allowed for exactly two manuscripts; each must meet R1 and R2, and at least one must also satisfy R3. R6: Track\u202fD waives R2 but demands exactly two endorsements (one is insufficient) and affects no other rule.\n\nR7: any manuscript with an open retraction notice is RETURNED, overriding all rules including R9. R8: figure count must be 8\u201145 inclusive; for paired submissions the maximum rises to 70 while the minimum stays\u202f8. R9: if a paper fails R8 only by being below the minimum, it is padded to eight figures and receives PADDED; excess yields RETURNED. R10: a prior\u2011round withdrawal does not count as an acceptance for R4 and resets the R3 venue clock, treating presentation date as withdrawal date.",
+        "verdicts": [
+          "A",
+          "B"
+        ],
+        "words": 237
+      },
+      {
+        "in_band": false,
+        "seed": 4,
+        "text": "The Meridian Review system assigns each manuscript submitted by the 1\u202fMarch\u202f2026 deadline one of three verdicts: HANDLED, RETURNED, or PADDED. Length (R1) requires at least twenty\u2011two pages; exactly twenty\u2011two satisfies this rule. Format (R2) demands either the official template or documented revision history covering three years or more. Venue overlap (R3) disallows papers presented at a Tier\u20111 venue unless that presentation occurred more than eighteen months before the deadline; exactly eighteen months does not qualify. Prior rounds (R4) forbid acceptance if fewer than five years have passed since an earlier Meridian round; exactly five years is acceptable.\n\nPaired submissions (R5) are allowed for precisely two manuscripts, no more; each must meet R1 and R2, and at least one of the pair must satisfy R3. Track\u202fD (R6) exempts a paper from R2 but requires exactly two endorsements, not one, and the exemption applies only to R2.\n\nA manuscript with an open retraction notice is automatically RETURNED, overriding every other rule including R9 (R7).\n\nFigures (R8) must number between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures while keeping the same minimum. If a paper falls short of the minimum, it is padded to eight figures and receives PADDED; exceeding the maximum yields RETURNED (R9). Withdrawals reset the venue clock for R3 to the withdrawal date but do not count as an acceptance for R4 (R10).",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 232
+      },
+      {
+        "in_band": false,
+        "seed": 5,
+        "text": "The Meridian Review evaluates each manuscript against ten numbered rules and then issues exactly one verdict: HANDLED, RETURNED, or PADDED. Rule\u202f1 demands at least twenty\u2011two pages; exactly twenty\u2011two satisfies it. Rule\u202f2 requires either the official template or documented revision history of three or more years. Rule\u202f3 excludes a Tier\u20111 venue presentation unless it occurred more than eighteen months before the 1\u202fMarch\u202f2026 deadline; exactly eighteen months does not count. Rule\u202f4 blocks reuse of a manuscript accepted in a previous Meridian round unless five full years have passed; exactly five years is acceptable. Rule\u202f5 allows paired submissions for precisely two manuscripts, each meeting Rules\u202f1 and\u202f2; at least one member must also meet Rule\u202f3, though both need not. Rule\u202f6 applies to Track\u202fD: it waives Rule\u202f2 if the submission carries exactly two endorsements\u2014one endorsement is insufficient\u2014and exempts only from Rule\u202f2. Rule\u202f7 states that any manuscript with an open retraction notice is automatically RETURNED, overriding all other rules including Rule\u202f9. Rule\u202f8 sets figure counts between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures while keeping the same minimum. Rule\u202f9 says that if a manuscript fails Rule\u202f8 solely by having fewer than the minimum, it is padded up and receives PADDED; excess figures cause RETURNED. Rule\u202f10 notes that a prior\u2011round withdrawal does not count as an acceptance for Rule\u202f4 and resets the venue clock for Rule\u202f3 to the withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 251
+      },
+      {
+        "in_band": false,
+        "seed": 6,
+        "text": "The Meridian Review handling system checks each submission against ten rules as they stand on 1\u202fMarch\u202f2026 and issues a single verdict: HANDLED, RETURNED or PADDED.  \n\nRule\u202f1: manuscript has at least twenty\u2011two pages; twenty\u2011two pages satisfy it. Rule\u202f2: official template is used or revision history of three or more years is provided. Rule\u202f3: papers presented at Tier\u20111 venues are excluded unless the presentation occurred more than eighteen months before the deadline; exactly eighteen months earlier does not qualify.  \n\nRule\u202f4: paper accepted in a Meridian round is excluded if fewer than five years have passed since acceptance; exactly five years is acceptable. Rule\u202f5 governs paired submissions: exactly two manuscripts may be submitted together, each must meet Rules\u202f1 and\u202f2, and at least one must satisfy Rule\u202f3.  \n\nRule\u202f6 applies to Track\u202fD papers, waiving Rule\u202f2 but requiring exactly two endorsements; one is insufficient. Rule\u202f7 overrides all other rules: any manuscript with an open retraction notice is automatically RETURNED.  \n\nRule\u202f8 limits figures to a minimum of eight and a maximum of forty\u2011five; for paired submissions the upper bound is seventy while lower bound remains eight. Rule\u202f9 states that if a submission fails Rule\u202f8 only by having fewer than the minimum, it is padded to eight figures and receives PADDED; excess figures return it.  \n\nRule\u202f10 clarifies that a prior\u2011round withdrawal does not count as an acceptance for Rule\u202f4 and resets venue clock for Rule\u202f3 to the withdrawal date.",
+        "verdicts": [
+          "A",
+          "B"
+        ],
+        "words": 251
+      },
+      {
+        "in_band": false,
+        "seed": 7,
+        "text": "The Meridian Review system evaluates each submission as of 1\u202fMarch\u202f2026 against ten rules and then issues a verdict: HANDLED, RETURNED or PADDED.\n\nR1: at least twenty\u2011two pages. R2: either the official template or documented revision history of three+ years. R3: rejects any manuscript presented at a Tier\u20111 venue less than eighteen months before the deadline; eighteen months does not qualify, older presentations do. R4: blocks submissions accepted in a prior Meridian round unless five full years have passed. R5: permits a paired submission of two manuscripts; each must meet R1 and R2, and at least one member must satisfy R3.\n\nR6 applies to Track\u202fD: it waives R2 but requires two endorsements; one endorsement is insufficient. R7 overrides all other rules: any manuscript with an open retraction notice is automatically RETURNED. R8 limits figures to a minimum of eight and a maximum of forty\u2011five; for paired submissions the upper bound rises to seventy while lower bound stays eight.\n\nR9: if a submission fails R8 only by falling short of the minimum, it is padded to eight figures receiving PADDED; any excess beyond the maximum causes RETURNED. R10: a withdrawal in a prior round does not count as an acceptance for R4 and resets the R3 clock, treating the presentation date as the withdrawal date.\n\nHANDLED applies only when all applicable rules are met; otherwise RETURNED except the PADDED case in R9.",
+        "verdicts": [
+          "B",
+          "A"
+        ],
+        "words": 233
+      },
+      {
+        "in_band": false,
+        "seed": 8,
+        "text": "The Meridian Review evaluates each manuscript on 1\u202fMarch\u202f2026 by applying ten rules. Rule\u202f1: the paper must be at least twenty\u2011two pages; that length satisfies it. Rule\u202f2: the submission must use the official template or show at least three years of documented revision history. Rule\u202f3: a Tier\u20111 venue presentation is allowed only if it occurred more than eighteen months before deadline; an exact eighteen\u2011month gap does not qualify. Rule\u202f4: a manuscript accepted in a prior Meridian round is excluded unless five years have passed since that round; five years is acceptable. Rule\u202f5: paired submissions are permitted for two papers; each must meet Rules\u202f1 and\u202f2, and at least one of the pair must satisfy Rule\u202f3 (both need not). Rule\u202f6: Track\u202fD papers are exempt from Rule\u202f2 but must carry exactly two endorsements\u2014one endorsement is insufficient\u2014and no other exemption applies. Rule\u202f7: any paper with an open retraction notice is rejected, overriding all other rules including Rule\u202f9. Rule\u202f8: figure count must be between eight and forty\u2011five; for paired submissions the maximum rises to seventy while the minimum stays eight. Rule\u202f9: if a submission fails Rule\u202f8 only by having fewer than eight figures, it is padded up to eight and receives the verdict PADDED; any excess beyond the maximum yields RETURNED. Rule\u202f10: a withdrawal in a prior round does not count as an acceptance for Rule\u202f4, but it resets the venue clock for Rule\u202f3 to that date.",
+        "verdicts": [
+          "B",
+          "A"
+        ],
+        "words": 252
+      },
+      {
+        "in_band": false,
+        "seed": 9,
+        "text": "The Meridian Review evaluates each manuscript against ten numbered rules and issues one of three verdicts: HANDLED, RETURNED, or PADDED. R1 requires at least twenty\u2011two pages; exactly twenty\u2011two satisfies it. R2 demands either template or documented revision history covering at least three years. R3 covers venue overlap: a Tier\u20111 presentation is ignored unless it occurred more than eighteen months before 1\u202fMarch\u202f2026 deadline; eighteen months does not count. R4 blocks manuscripts accepted in an earlier Meridian round if fewer than five years have passed since that round; five years is acceptable. R5 permits a paired submission of exactly two manuscripts; both must meet R1 and R2, and at least one of the pair must satisfy R3 (the other need not). R6 applies to Track\u202fD: it waives R2 but requires two endorsements; one endorsement is insufficient, and no other rule is waived. R7 states manuscript with an open retraction notice is RETURNED, overriding other rules including R9. R8 limits figure count to between eight and forty\u2011five inclusive, but a paired submission may have up to seventy figures while keeping same minimum. R9 says that if a submission fails R8 only by being below the minimum, it is padded to eight figures and receives PADDED; exceeding the maximum leads to RETURNED. R10 clarifies that a withdrawal in prior round does not count as acceptance for R4 and resets R3 venue clock to withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 234
+      },
+      {
+        "in_band": false,
+        "seed": 10,
+        "text": "The Meridian Review system checks manuscripts against ten rules and assigns one of three verdicts: HANDLED, RETURNED, PADDED.\n\nR1: at least 22 pages; exactly\u202f22 counts.  \nR2: use the official template **or** provide revision history covering \u22653 years.  \nR3: Tier\u20111 venue presentation is rejected unless it occurred >18 months before the 1\u202fMarch\u202f2026 deadline; exactly\u202f18\u202fmonths does not qualify.  \nR4: papers accepted in an earlier Meridian round are rejected if <5\u202fyears have passed since that acceptance; exactly\u202f5\u202fyears is fine.  \nR5: a paired submission consists of exactly two manuscripts; both must meet R1 and R2, and at least one must satisfy R3.  \nR6: Track\u202fD papers are exempt from R2 but need exactly two endorsements; one endorsement is insufficient and no other rule is waived.  \nR7: any manuscript with an open retraction notice is automatically unhandled, overriding all other rules including R9.  \nR8: figure count must be 8\u201345 inclusive for single submissions and up to\u202f70 for a paired submission; the minimum remains\u202f8.  \nR9: if a paper fails R8 by having fewer than the minimum figures, it is padded to meet the minimum and receives PADDED; exceeding the maximum causes RETURNED.  \nR10: a prior-round withdrawal does not count as an acceptance for R4 but resets the R3 clock, treating the presentation date as the withdrawal date.\n\nIf all applicable rules are satisfied, the verdict is HANDLED; if any fails (except PADDED case), it is RETURNED; otherwise PADDED.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 242
+      },
+      {
+        "in_band": false,
+        "seed": 11,
+        "text": "The Meridian Review round evaluates each submission by ten numbered rules and assigns a verdict: HANDLED, RETURNED, or PADDED. Rule\u202f1 requires at least twenty\u2011two pages; exactly twenty\u2011two suffices. Rule\u202f2 demands either the official template or documented revision history of three years. Rule\u202f3 disqualifies papers presented at a Tier\u20111 venue unless that presentation occurred more than eighteen months before the 1\u202fMarch\u202f2026 deadline; exactly eighteen months does not qualify. Rule\u202f4 rejects manuscripts accepted in an earlier Meridian round if fewer than five years have passed since that acceptance; exactly five years is acceptable. Rule\u202f5 allows a paired submission of precisely two manuscripts\u2014three or more are prohibited. Both must meet Rules\u202f1 and\u202f2, and at least one must also satisfy Rule\u202f3; the other need not. Rule\u202f6 applies to Track\u202fD: it waives Rule\u202f2 but requires exactly two endorsements (one is insufficient) while all other rules remain in force. Rule\u202f7 states that any manuscript with an open retraction notice is automatically rejected, overriding every other rule including Rule\u202f9. Rule\u202f8 sets figure counts between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures while keeping the same minimum. Rule\u202f9 pads submissions short of the minimum to meet it and yields a PADDED verdict; exceeding the maximum returns the paper. Rule\u202f10 clarifies that a prior\u2011round withdrawal does not count as an acceptance for Rule\u202f4 and resets the venue clock for Rule\u202f3 to the withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 251
+      },
+      {
+        "in_band": false,
+        "seed": 12,
+        "text": "The system evaluates each manuscript against ten rules and then assigns one of three verdicts: HANDLED, RETURNED, or PADDED (only for the R9 case).\n\nR1: at least 22 pages; 22 satisfies.  \nR2: must use the official template **or** provide revision history covering \u22653 years.  \nR3: a Tier\u20111 venue presentation is disallowed unless it occurred >18 months before the 1\u202fMar\u202f2026 deadline; an exact 18\u2011month gap does not qualify.  \nR4: acceptance in a prior Meridian round blocks handling if <5 years have passed since that round; 5 years is acceptable.  \nR5: paired submissions are allowed only for two manuscripts, each meeting R1 and R2, one satisfying R3.  \nR6: Track\u202fD papers are exempt from R2 but must carry exactly two endorsements; one endorsement is insufficient, and no other rule is waived.  \nR7: Manuscript with an open retraction notice is not handled, overriding other rules.  \nR8: figure count must be 8\u201345 inclusive; paired submissions may have up to 70 figures while keeping same minimum.  \nR9: if a paper fails R8 solely by having <8 figures it is padded to eight and receives PADDED; exceeding the maximum yields RETURNED.  \nR10: a prior\u2011round withdrawal does not count as an acceptance for R4 and resets the R3 clock, treating the presentation date as the withdrawal date.\n\nIf all applicable rules are satisfied the verdict is HANDLED; otherwise it is RETURNED, except for the PADDED situation in R9.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 233
+      },
+      {
+        "in_band": false,
+        "seed": 13,
+        "text": "The Meridian Review checks submissions against ten numbered rules and then assigns a verdict: HANDLED, RETURNED or PADDED.\n\nR1 \u2013 Length: manuscript must be at least\u202f22 pages; exactly\u202f22 satisfies rule.\n\nR2 \u2013 Format: manuscript must use the official template **or** have \u22653\u202fyears documented revision history.\n\nR3 \u2013 Venue overlap: a Tier\u20111 venue presentation is disqualified unless it occurred >18\u202fmonths before deadline; exactly\u202f18\u202fmonths does not qualify.\n\nR4 \u2013 Prior rounds: an acceptance in a previous Meridian round is disqualified if <5\u202fyears have passed since that round; exactly\u202f5\u202fyears is acceptable.\n\nR5 \u2013 Paired submissions: allowed for exactly two manuscripts, no more. Each must meet R1 and R2. At least one of the pair must satisfy R3.\n\nR6 \u2013 Track\u202fD: exemption from R2 applies, but the manuscript must carry exactly\u202f2 endorsements (one insufficient). The exemption covers only R2.\n\nR7 \u2013 Retraction: any manuscript with an open retraction notice is automatically RETURNED, overriding all other rules including R9.\n\nR8 \u2013 Figures: count must be 8\u201345 inclusive; for a paired submission upper limit is\u202f70 while lower bound stays\u202f8.\n\nR9 \u2013 Figure adjustment: if a submission fails R8 only by being below the minimum, it is padded to eight figures and receives PADDED; any excess over the maximum causes RETURNED.\n\nR10 \u2013 Withdrawals: a prior\u2011round withdrawal does not count as an acceptance for R4 and resets R3 clock, treating presentation date as withdrawal date.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 241
+      },
+      {
+        "in_band": false,
+        "seed": 14,
+        "text": "The Meridian Review evaluates each submission against ten numbered rules (R1\u2011R10) and then assigns one of three verdicts: **HANDLED**, **RETURNED**, or **PADDED**.\n\nR1 requires a manuscript to contain at least\u202f22 pages; exactly\u202f22 satisfies the rule.  \nR2 demands either use of the official template **or** documented revision history covering at least\u202f3\u202fyears.  \nR3 concerns Tier\u20111 venue overlap: a presentation must have occurred more than\u202f18\u202fmonths before the 1\u202fMarch\u202f2026 deadline; an exact\u202f18\u2011month gap does not qualify.  \nR4 bars handling of manuscripts accepted in a prior Meridian round unless five or more years have elapsed since that round; exactly\u202f5\u202fyears is acceptable.  \nR5 permits a paired submission only when there are exactly two manuscripts; three or more are disallowed. Both members must meet R1 and R2, and at least one of them must satisfy R3 (the other need not).  \nR6 applies to Track\u202fD: it waives R2 but imposes the requirement of exactly\u202f2 endorsements; one endorsement is insufficient, and no other rule is waived.  \nR7 states that any manuscript with an open retraction notice is not handled, overriding every other rule, including R9.  \nR8 limits figure count to 8\u201145 inclusive; a paired submission may have up to\u202f70 figures while retaining the same minimum.  \nR9 provides that if a manuscript fails R8 only by falling short of the minimum, it is padded up to 8 figures and receives the verdict **PADDED**; exceeding the maximum causes an immediate **RETURNED**.  \nR10 clarifies that a withdrawal in a prior round does not count as an acceptance for R4, but it resets the R3 clock so the presentation date is treated as the withdrawal date.\n\nThe final verdicts are: **HANDLED** when all applicable rules are satisfied; **RETURNED** when any applicable rule fails; **PADDED** only for the specific R9 short\u2011figure case that would otherwise be handled, and it becomes **RETURNED** if any other rule is also violated.",
+        "verdicts": [
+          "A",
+          "B"
+        ],
+        "words": 318
+      },
+      {
+        "in_band": false,
+        "seed": 15,
+        "text": "The Meridian Review handling system evaluates each submission against ten numbered rules on 1\u202fMarch\u202f2026 and issues one verdict: HANDLED, RETURNED or PADDED.\n\nRule\u202f1: manuscript must be at least twenty\u2011two pages; exactly twenty\u2011two satisfies it. Rule\u202f2: must use official template **or** contain documented revision history of three or more years. Rule\u202f3: a Tier\u20111 venue presentation is disallowed unless it occurred more than eighteen months before the deadline; exactly eighteen months does not qualify.\n\nRule\u202f4: an acceptance in a prior Meridian round blocks handling if fewer than five years have elapsed; exactly five years is acceptable. Rule\u202f5 (paired submissions): exactly two manuscripts may be submitted together, each must meet R1 and R2, and at least one of the pair must satisfy R3.\n\nRule\u202f6: Track\u202fD papers are exempt from R2 but require two endorsements\u2014one endorsement is insufficient\u2014and exemption applies only to R2. Rule\u202f7: a manuscript with an open retraction notice is RETURNED, overriding all other rules including R9.\n\nRule\u202f8: figure count must be between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures but needs at least eight. Rule\u202f9: if a paper fails R8 solely by having fewer than the minimum, it is padded to eight and receives PADDED; excess figures cause RETURNED.\n\nRule\u202f10: a prior\u2011round withdrawal does not count as an acceptance for R4 and resets R3 clock so presentation date is treated as withdrawal date.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 241
+      },
+      {
+        "in_band": false,
+        "seed": 16,
+        "text": "The Meridian Review judges each manuscript by ten rules effective 1\u202fMarch\u202f2026. R1 requires at least twenty\u2011two pages; twenty\u2011two satisfies it. R2 demands either the official template or documented revision history of three or more years. R3 excludes papers presented at a Tier\u20111 venue unless the presentation occurred more than eighteen months before the deadline; an eighteen\u2011month interval does not qualify. R4 bars manuscripts accepted in a prior Meridian round if fewer than five years have passed since that acceptance; five years is acceptable. R5 permits a paired submission for exactly two manuscripts; each must meet R1 and R2, and at least one of the pair must satisfy R3, though both need not. R6 applies to Track\u202fD submissions: they are exempt from R2 but must carry two endorsements\u2014one endorsement is insufficient\u2014and no other rule is waived. R7 states that any manuscript with an open retraction notice is automatically rejected, overriding every other rule including R9. R8 limits figure count to a minimum of eight and a maximum of forty\u2011five; paired submissions may have up to seventy figures while keeping the lower bound. R9 yields PADDED when a submission fails R8 by having fewer than eight figures\u2014the paper is padded to meet the minimum; any excess beyond allowed maximum triggers RETURNED. R10 clarifies that a withdrawal in a prior round does not count as an acceptance for R4, and it resets R3 clock so the presentation date is treated as the withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 244
+      },
+      {
+        "in_band": false,
+        "seed": 17,
+        "text": "The Meridian Review system evaluates each submission on the 1\u202fMarch\u202f2026 deadline against ten numbered rules; the result is HANDLED, RETURNED or PADDED.\n\nR1: manuscript must be at least twenty\u2011two pages.  \nR2: must use the official template **or** provide documented revision history covering three years.  \nR3: a Tier\u20111 venue presentation is disallowed unless it occurred more than eighteen months before the deadline; eighteen months does not qualify.  \nR4: acceptance in a prior Meridian round blocks handling if fewer than five years have passed since that round; five years is acceptable.\n\nR5: a paired submission may contain exactly two manuscripts\u2014three or more are prohibited. Each must meet R1 and R2, and at least one must satisfy R3.  \nR6: for Track\u202fD papers, R2 is waived but the paper must carry two endorsements; one endorsement is insufficient.\n\nR7: any manuscript with an open retraction notice is RETURNED, overriding all other rules including R9.  \nR8: figure count must be between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures but still needs eight.  \nR9: if a paper fails R8 only by having fewer than the minimum, it is padded to meet the minimum and receives PADDED; any excess beyond the maximum yields RETURNED.\n\nR10: a withdrawal in a prior round does not count as an acceptance for R4, and it resets the R3 clock, treating the presentation date as the withdrawal date.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 234
+      },
+      {
+        "in_band": false,
+        "seed": 18,
+        "text": "The Meridian Review handling system checks each manuscript against ten rules and assigns one verdict: HANDLED, RETURNED or PADDED. Rule\u202f1 sets a minimum length of twenty\u2011two pages; twenty\u2011two meets it. Rule\u202f2 requires either the official template or at least three documented years of revision history. Rule\u202f3 rejects manuscripts presented at a Tier\u20111 venue unless the presentation occurred more than eighteen months before the 1\u202fMarch\u202f2026 deadline; exactly eighteen months does not qualify. Rule\u202f4 blocks manuscripts accepted in a prior Meridian round if fewer than five years have passed since that round; exactly five years is acceptable. Rule\u202f5 limits paired submissions to two manuscripts; each must satisfy Rules\u202f1 and\u202f2, and at least one member must meet Rule\u202f3. Rule\u202f6 applies to Track\u202fD papers, exempting them from Rule\u202f2 but demanding exactly two endorsements instead; one endorsement is insufficient and no other exemption follows. Rule\u202f7 states any manuscript with an open retraction notice is RETURNED, overriding all other rules including Rule\u202f9. Rule\u202f8 restricts figure count to eight\u2011to\u2011forty\u2011five inclusive; a paired submission may have up to seventy figures but still needs at least eight. Rule\u202f9 pads submissions that fall short of the minimum figure count up to eight and marks them PADDED; exceeding the maximum causes RETURNED. Rule\u202f10 notes that a prior\u2011round withdrawal does not count as an acceptance for Rule\u202f4 and resets the venue clock for Rule\u202f3 by treating the presentation date as the withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 251
+      },
+      {
+        "in_band": false,
+        "seed": 19,
+        "text": "The Meridian Review processes submissions by ten rules evaluated as of the 1\u202fMarch\u202f2026 deadline. Rule\u202f1: a manuscript must be at least twenty\u2011two pages; twenty\u2011two satisfies it. Rule\u202f2: use the official template or provide documented revision history covering three years. Rule\u202f3: a Tier\u20111 venue presentation is disallowed unless it occurred more than eighteen months before the deadline; an eighteen\u2011month interval does not qualify. Rule\u202f4: a manuscript accepted in a previous Meridian round is blocked if fewer than five years have elapsed since that round; five years is acceptable. Rule\u202f5: a paired submission may contain exactly two manuscripts, each meeting Rules\u202f1 and\u202f2, and at least one of the pair must satisfy Rule\u202f3; both need not satisfy it. Rule\u202f6: Track\u202fD submissions are exempt from Rule\u202f2 but must carry exactly two endorsements\u2014one endorsement is insufficient\u2014and no other rule is waived. Rule\u202f7: any manuscript with an open retraction notice is automatically not handled, overriding every other rule including Rule\u202f9. Rule\u202f8: figure count must be between eight and forty\u2011five inclusive; paired submissions may have up to seventy figures while keeping the same lower bound. Rule\u202f9: if a paper fails only by having fewer than the minimum figures it is padded to meet the minimum and receives verdict PADDED; excess figures cause RETURNED. Rule\u202f10: a withdrawal in a prior round does not count as an acceptance for Rule\u202f4, but resets venue clock for Rule\u202f3 to the withdrawal date.",
+        "verdicts": [
+          "B",
+          "A"
+        ],
+        "words": 251
+      },
+      {
+        "in_band": false,
+        "seed": 20,
+        "text": "The system evaluates each submission against ten rules and then assigns one of three verdicts: HANDLED, RETURNED, or PADDED.\n\nR1: manuscript \u2265\u202f22 pages (exactly\u202f22 counts). R2: either official template **or** \u2265\u202f3\u2011year documented revision history. R3: Tier\u20111 venue papers are excluded unless presentation >\u202f18\u202fmonths before 1\u202fMar\u202f2026; exactly\u202f18\u202fmonths does not qualify. R4: prior Meridian acceptance is disallowed if <\u202f5\u202fyears have passed; exactly\u202f5\u202fyears is allowed. R5: a paired submission must be exactly two manuscripts (three or more prohibited); each must meet R1 and R2, and at least one must also satisfy R3. R6: Track\u202fD papers are exempt from R2 but require exactly two endorsements; one endorsement is insufficient, exemption applies only to R2. R7: any manuscript with an open retraction notice is not handled, overriding all other rules including R9. R8: figure count 8\u201345 inclusive; paired submissions may have up to 70 figures while keeping the same minimum of 8. R9: if a paper fails R8 only by having <\u202fminimum, it is padded to the minimum and receives PADDED; exceeding maximum yields RETURNED. R10: a prior\u2011round withdrawal does not count as acceptance for R4 and resets the R3 clock so the presentation date is treated as the withdrawal date.\n\nIf all applicable rules are satisfied \u2192 HANDLED; any rule failure \u2192 RETURNED; only the R9 padding case produces PADDED, otherwise failures override.",
+        "verdicts": [
+          "A",
+          "B"
+        ],
+        "words": 234
+      },
+      {
+        "in_band": false,
+        "seed": 21,
+        "text": "The Meridian Review system determines one verdict\u2014HANDLED, RETURNED, or PADDED\u2014for each manuscript submitted by the 1\u202fMarch\u202f2026 deadline. A manuscript must be at least twenty\u2011two pages; twenty\u2011two satisfies the length rule (R1). It must either use the official template or include documented revision history of three years or more (R2). If presented at a Tier\u20111 venue, it is acceptable only when the presentation occurred more than eighteen months before the deadline; an eighteen\u2011month gap does not qualify (R3). An acceptance in any earlier Meridian round disqualifies the paper unless at least five years have passed since that round; exactly five years is sufficient (R4). A paired submission may contain two manuscripts; each must meet R1 and R2, and at least one of the pair must satisfy R3, though both need not (R5). Submissions to Track\u202fD are exempt from R2 but must carry exactly two endorsements; one endorsement is insufficient (R6). Any manuscript with an open retraction notice is RETURNED, overriding other rules including R9 (R7). Figures must number between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures while keeping the same minimum (R8). If a paper falls short of the minimum figure count it is PADDED to reach eight; exceeding the maximum causes RETURNED (R9). A prior\u2011round withdrawal does not count as an acceptance for R4 and resets venue clock for R3 to withdrawal date (R10).",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 233
+      },
+      {
+        "in_band": false,
+        "seed": 22,
+        "text": "The Meridian Review applies ten numbered rules to every manuscript and then returns one of three verdicts: HANDLED, RETURNED, or PADDED.\n\nR1: minimum length twenty\u2011two pages; twenty\u2011two satisfies.  \nR2: must use official template or have at least three years documented revision history.  \nR3: a Tier\u20111 venue presentation is disallowed unless it occurred more than eighteen months before 1\u202fMarch\u202f2026; eighteen months fails.  \nR4: acceptance in a previous Meridian round is rejected if fewer than five years have passed; five years passes.  \nR5: paired submissions are allowed only for two manuscripts; three or more prohibited. Each must meet R1 and R2; at least one must meet R3.  \nR6: Track\u202fD papers are exempt from R2 but require exactly two endorsements; one endorsement is insufficient.  \nR7: Manuscript with an open retraction notice is excluded, overriding all other rules including R9.  \nR8: figure count must be 8\u201345 inclusive; a paired submission may have up to 70 figures while keeping minimum.  \nR9: if a paper fails R8 only by having fewer than the minimum, it is padded to meet the minimum, receiving PADDED; exceeding the maximum yields RETURNED.  \nR10: a prior\u2011round withdrawal does not count as an acceptance for R4 and resets the R3 clock so the withdrawal date replaces the original presentation date.\n\nIf all applicable rules are satisfied the verdict is HANDLED; if failure is low\u2011figure case the verdict is PADDED; otherwise it is RETURNED.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 234
+      },
+      {
+        "in_band": false,
+        "seed": 23,
+        "text": "Submissions are evaluated against ten rules (R1\u2011R10) and receive one of three verdicts: HANDLED, RETURNED, or PADDED. R1: a manuscript must have at least twenty\u2011two pages; twenty\u2011two satisfies the rule. R2: it must either use the official template or provide documented revision history of at least three years. R3: a Tier\u20111 venue presentation is acceptable only if it occurred more than eighteen months before the 1\u202fMarch\u202f2026 deadline; exactly eighteen months does not qualify. R4: an acceptance in a previous Meridian round disqualifies the manuscript unless at least five years have elapsed since that round; precisely five years is sufficient. R5: a paired submission may contain exactly two manuscripts; each must meet R1 and R2, and at least one of the pair must satisfy R3 (the other need not). R6: Track\u202fD submissions are exempt from R2 but must carry exactly two endorsements; one endorsement is insufficient. R7: any manuscript with an open retraction notice is excluded, overriding every other rule including R9. R8: figure count must be between eight and forty\u2011five inclusive; paired submissions may have up to seventy figures while keeping same minimum. R9: if a submission fails R8 only by falling below the minimum, it is padded to eight figures and receives PADDED; exceeding the maximum causes RETURNED. R10: a prior\u2011round withdrawal does not count as an acceptance for R4 but resets the R3 venue clock to the withdrawal date.",
+        "verdicts": [
+          "B",
+          "A"
+        ],
+        "words": 234
+      },
+      {
+        "in_band": false,
+        "seed": 24,
+        "text": "The Meridian Review handling system checks every submission against ten rules as of the 1\u202fMarch\u202f2026 deadline and returns a single verdict: HANDLED, RETURNED or PADDED.\n\nR1: manuscript must have at least twenty\u2011two pages; exactly twenty\u2011two satisfies. R2: must use the official template or provide documented revision history of three years or more. R3: a Tier\u20111 venue presentation is excluded unless it occurred more than eighteen months before the deadline; exactly eighteen months does not qualify. R4: acceptance in an earlier Meridian round blocks handling if fewer than five years have passed; exactly five years is acceptable. R5: a paired submission may contain exactly two manuscripts\u2014three or more are disallowed. Both must meet R1 and R2, and at least one must satisfy R3.\n\nR6: applies only to Track\u202fD; it waives R2 but requires exactly two endorsements (one is insufficient) and does not waive any other rule. R7: any manuscript with an open retraction notice is automatically RETURNED, overriding all other rules including R9. R8: figure count must be between eight and forty\u2011five inclusive; for paired submissions the maximum rises to seventy while the minimum stays eight.\n\nR9: if a paper falls short of the minimum it is padded up to eight figures and receives PADDED; exceeding the applicable maximum results in RETURNED. R10: a prior\u2011round withdrawal does not count as an acceptance for R4, but resets the R3 clock by treating the presentation date as the withdrawal date.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 240
+      },
+      {
+        "in_band": false,
+        "seed": 25,
+        "text": "The Meridian Review handling system decides a manuscript\u2019s fate using numbered rules evaluated as of the 1\u202fMarch\u202f2026 deadline. Rule\u202f1 requires at least twenty\u2011two pages; exactly twenty-two satisfies it. Rule\u202f2 demands either official template or documented revision history of three years or more. Rule\u202f3 excludes papers presented at a Tier\u20111 venue unless that presentation occurred more than eighteen months before the deadline; exactly eighteen months does not qualify. Rule\u202f4 bars papers accepted in an earlier Meridian round if fewer than five years have passed since that round; exactly five years is acceptable. Rule\u202f5 permits a paired submission of two manuscripts\u2014three or more are disallowed. Both must meet Rules\u202f1 and\u202f2, and at least one must satisfy Rule\u202f3 (the other need not). Rule\u202f6 applies to Track\u202fD submissions: it waives Rule\u202f2 but requires exactly two endorsements; one endorsement is insufficient, and no other rule is waived. Rule\u202f7 states any manuscript with an open retraction notice is RETURNED, overriding all other rules including Rule\u202f9. Rule\u202f8 sets figure count between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures while keeping same minimum. Rule\u202f9 says if a paper fails Rule\u202f8 solely by falling below the minimum, it is PADDED up to eight figures; excess figures cause RETURNED. Rule\u202f10 clarifies that a withdrawal in a prior round does not count as an acceptance for Rule\u202f4 and resets R3 clock to withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 249
+      },
+      {
+        "in_band": false,
+        "seed": 26,
+        "text": "The Meridian Review system checks each submission against ten rules and assigns a verdict: HANDLED, RETURNED or PADDED. R1 requires at least 22 pages; 22 pages satisfy it. R2 demands either template or at least three years of documented revision history. R3 excludes manuscripts presented at a Tier\u20111 venue unless that presentation occurred more than 18 months before 1\u202fMarch\u202f2026 deadline; 18 months does not count. R4 blocks handling of papers accepted in an earlier Meridian round unless five full years have elapsed; five years is acceptable.\n\nR5 permits a submission only for two manuscripts; three or more are disallowed. Both must meet R1 and R2; at least one satisfies R3. R6 exempts Track\u202fD papers from R2 but requires two endorsements; one endorsement is insufficient and no other rule is waived.\n\nR7 states manuscript with an open retraction notice is excluded, overriding other rules including R9. R8 sets figure count between 8 and 45 inclusive; a paired submission may have up to 70 figures but needs eight. R9 says if a paper fails R8 only by having fewer than the minimum, it is padded to eight and receives PADDED; exceeding maximum causes RETURNED.\n\nR10 notes withdrawals in prior rounds do not count as acceptances for R4 and reset R3 venue clock to withdrawal date. HANDLED means rules are met, RETURNED rule fails, and PADDED only in short\u2011figure case that would otherwise be handled.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 235
+      },
+      {
+        "in_band": false,
+        "seed": 27,
+        "text": "The Meridian Review rules assign one verdict\u2014HANDLED, RETURNED, or PADDED\u2014to each submission evaluated on 1\u202fMarch\u202f2026. A manuscript must be at least twenty\u2011two pages; exactly twenty-two satisfies R1. Under R2 it must either use the template or contain revision history of three or more years. R3 excludes papers presented at a Tier\u20111 venue unless the presentation occurred more than eighteen months before the deadline; exactly eighteen months does not qualify. R4 forbids handling of papers accepted in an earlier Meridian round if fewer than five years have passed since that round; exactly five years is acceptable. A paired submission, permitted by R5, consists of exactly two manuscripts; each must meet R1 and R2, and at least one of the pair must satisfy R3. Track\u202fD submissions are exempt from R2 but, per R6, must carry exactly two endorsements\u2014one is insufficient\u2014and subject to other rules. R7 states that any manuscript with an open retraction notice is RETURNED, overriding every other rule. Figure counts obey R8: between eight and forty\u2011five inclusive for single papers, up to seventy for a pair, with same minimum. R9 pads a submission only when it fails R8 by falling short of the minimum, giving a PADDED verdict; exceeding the maximum causes RETURNED. R10 clarifies that a withdrawal in a prior round does not count as an acceptance for R4 and resets the R3 venue clock to the withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 233
+      },
+      {
+        "in_band": false,
+        "seed": 28,
+        "text": "The Meridian Review system gives each submission, one verdict\u2014HANDLED, RETURNED or PADDED. R1: a manuscript must have at least twenty\u2011two pages; twenty-two satisfies the rule. R2: it must either use the official template or provide documented revision history covering three years or more. R3: if presented at a Tier\u20111 venue, the presentation must be more than eighteen months before the deadline; an eighteen\u2011month gap does not qualify. R4: acceptance in a prior Meridian round disqualifies the paper unless at least five years have passed since that round; five years is acceptable.\n\nR5 allows a paired submission of exactly two manuscripts; three or more are prohibited. Both must meet R1 and R2; at least one must satisfy R3. R6 exempts Track\u202fD papers from R2 but requires exactly two endorsements; one endorsement is insufficient, and no other rule is waived.\n\nR7: an open retraction notice forces RETURNED regardless. R8: figure count must be between eight and forty\u2011five inclusive; for paired submissions the upper limit rises to seventy while the lower remains eight. R9: a paper below the minimum is padded up to eight figures and receives PADDED; exceeding the maximum yields RETURNED. R10: withdrawals do not count as prior acceptances for R4, but they reset the R3 venue clock to withdrawal date.\n\nAny failure of a rule other than R9 results in RETURNED; only a short\u2011figure case that otherwise passes becomes PADDED; otherwise the verdict is HANDLED.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 236
+      },
+      {
+        "in_band": false,
+        "seed": 29,
+        "text": "The Meridian Review 2026 round decides processing after the 1\u202fMarch\u202f2026 deadline; all rules apply as of that date. R1: at least 22 pages (exactly 22 satisfies). R2: must use official template or have \u22653\u202fyears documented revision history. R3: a Tier\u20111 venue presentation disqualifies unless it occurred >18\u202fmonths before the deadline; exactly 18\u202fmonths does not qualify. R4: a manuscript accepted in a prior Meridian round is excluded if <5\u202fyears have passed since that round; exactly 5\u202fyears is acceptable. R5: paired submission allowed for exactly two manuscripts; each must meet R1 and R2, and at least one of the pair must satisfy R3. R6: Track\u202fD waives R2 but requires exactly two endorsements\u2014one is insufficient\u2014and exempts only from R2. R7: any manuscript with an open retraction notice is not handled, overriding other rules, including R9. R8: figure count must be 8\u201145 inclusive; a paired submission may have up to 70 figures while keeping same minimum. R9: if a submission fails R8 only by being below the minimum, it is padded to eight figures and receives verdict PADDED; exceeding the maximum yields RETURNED outright. R10: a prior\u2011round withdrawal does not count as an acceptance for R4 but resets the R3 clock so the presentation date is treated as the withdrawal date. Verdicts: HANDLED if all applicable rules pass; RETURNED if any fail; PADDED only for the specific R9 case where no other rule is violated.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 239
+      },
+      {
+        "in_band": false,
+        "seed": 30,
+        "text": "The Meridian Review round evaluates each manuscript against numbered rules and then issues one of three verdicts. R1 requires at least twenty\u2011two pages; twenty-two satisfies it. R2 demands either the template or at least three years of revision history. R3 rejects papers presented at a Tier\u20111 venue unless the presentation occurred more than eighteen months before the 1\u202fMarch\u202f2026 deadline; eighteen months does not qualify. R4 blocks papers accepted in a Meridian round if fewer than five years have passed since that acceptance; five years qualifies. R5 permits a paired submission for two manuscripts; must meet R1 and R2, and at least one must satisfy R3. R6 applies to Track\u202fD papers: they are exempt from R2 but must carry two endorsements, not one. R7 states that a manuscript with an open retraction notice is rejected, overriding every other rule including R9. R8 limits figure count to between eight and forty\u2011five inclusive; for paired submissions the upper bound rises to seventy while the lower stays at eight. R9 says a submission that fails R8 only by having too few figures is padded up to the minimum and receives PADDED; excess figures cause RETURNED. R10 notes that a prior\u2011round withdrawal does not count as an acceptance for R4 but resets the R3 clock to withdrawal date.\n\nIf all applicable rules are met, verdict is HANDLED; RETURNED, except R9 pads a submission, which yields PADDED.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 234
+      },
+      {
+        "in_band": false,
+        "seed": 31,
+        "text": "The Meridian Review system assigns three possible verdicts\u2014HANDLED, RETURNED or PADDED\u2014using the ten rules as of 1\u202fMarch\u202f2026.  \n\nR1\u20112: manuscript \u226522 pages and either uses the official template or has \u22653 years documented revision history.  \nR3: a Tier\u20111 venue presentation disqualifies the manuscript unless it occurred >18 months before the deadline; exactly 18 months does not qualify.  \nR4: acceptance in a prior Meridian round blocks handling if <5 years have passed; exactly 5 years is acceptable.  \nR5: paired submissions may contain two manuscripts; each must satisfy R1\u20112, and at least one of the pair must meet R3; the other need not.  \nR6: Track\u202fD papers are exempt from R2 but require exactly two endorsements; one endorsement is insufficient and does not waive any other rule.  \nR7: any manuscript with an open retraction notice is RETURNED, overriding every other rule including R9.  \nR8: figure count 8\u201345; for paired submissions max\u202f70, min\u202f8.  \nR9: if a submission fails R8 only by having <8 figures, it is padded to 8 and classified PADDED; excess beyond the maximum is RETURNED.  \nR10: a withdrawal in a prior round does not count as an acceptance for R4, but it resets the R3 clock so the presentation date is treated as the withdrawal date.  \n\nThe final verdict is HANDLED when applicable rules are met; RETURNED if any applicable rule is violated, except the PADDED case; PADDED only for the R9 case.",
+        "verdicts": [
+          "A",
+          "B"
+        ],
+        "words": 236
+      },
+      {
+        "in_band": false,
+        "seed": 32,
+        "text": "Meridian Review evaluates each manuscript with Rules\u202f1\u201310 and issues one verdict: HANDLED if all applicable rules are met, RETURNED if any fail, or PADDED only when Rule\u202f9 pads a short\u2011figure submission that would otherwise be handled.\n\nRule\u202f1 (Length): at least twenty\u2011two pages; exactly twenty\u2011two suffices.  \nRule\u202f2 (Format): must use the official template or have documented revision history of three years or more.  \nRule\u202f3 (Venue overlap): a Tier\u20111 presentation is disallowed unless it occurred more than eighteen months before the 1\u202fMarch\u202f2026 deadline; exactly eighteen months does not count.  \nRule\u202f4 (Prior rounds): an earlier Meridian acceptance is rejected if fewer than five years have passed; exactly five years is acceptable.  \nRule\u202f5 (Paired submissions): at most two linked manuscripts; each must satisfy Rules\u202f1 and\u202f2, and at least one of the pair must satisfy Rule\u202f3.  \nRule\u202f6 (Track\u202fD): waives Rule\u202f2 but requires exactly two endorsements; no other rule is waived.  \nRule\u202f7 (Retraction): any manuscript with an open retraction notice is automatically RETURNED, overriding all other rules including Rule\u202f9.  \nRule\u202f8 (Figures): figure count must be between eight and forty\u2011five inclusive; for paired submissions the maximum is seventy while the minimum stays eight.  \nRule\u202f9 (Figure adjustment): if a submission falls short only on the minimum figure count it is padded to eight and receives PADDED; any excess over the maximum yields RETURNED.  \nRule\u202f10 (Withdrawals): a prior\u2011round withdrawal resets the venue clock for Rule\u202f3 to the withdrawal date and does not count as an acceptance for Rule\u202f4.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 261
+      },
+      {
+        "in_band": false,
+        "seed": 33,
+        "text": "The Meridian Review decides submissions by ten rules evaluated on the deadline of 1\u202fMarch\u202f2026. Rule\u202f1: a manuscript must contain at least twenty\u2011two pages; exactly twenty\u2011two satisfies it. Rule\u202f2: the manuscript must either use the official template or have documented revision history covering three or more years. Rule\u202f3: a paper presented at a Tier\u20111 venue is excluded unless the presentation occurred more than eighteen months before the deadline; an exact eighteen\u2011month interval does not qualify. Rule\u202f4: a paper accepted in a previous Meridian round is excluded if fewer than five years have passed since that acceptance; exactly five years is acceptable. Rule\u202f5 permits a paired submission of precisely two manuscripts; three or more are disallowed. Both must meet Rules\u202f1 and\u202f2, and at least one must satisfy Rule\u202f3, though both need not. Rule\u202f6 applies to Track\u202fD: the manuscript is exempt from Rule\u202f2 but must carry exactly two endorsements; one endorsement is insufficient. Rule\u202f7 states any paper with an open retraction notice is automatically not handled, overriding every other rule including Rule\u202f9. Rule\u202f8 requires figure counts between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures while keeping the same minimum. Rule\u202f9 pads submissions that fall short of the minimum figure count up to eight and labels them PADDED; any excess beyond the maximum causes immediate RETURNED. All other passes receive HANDLED verdict overall. Rule\u202f10 clarifies that a prior\u2011round withdrawal does not count as an acceptance for Rule\u202f4 and resets the venue clock for Rule\u202f3 to the withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 270
+      },
+      {
+        "in_band": false,
+        "seed": 34,
+        "text": "Meridian Review system decides a manuscript\u2019s fate by applying ten rules as of 1\u202fMar\u202f2026 deadline and then issuing one verdict: HANDLED, RETURNED, or PADDED. Rule\u202f1: length \u2265\u202f22 pages; 22 meets it. Rule\u202f2: must use official template or have \u2265\u202f3\u2011year revision history. Rule\u202f3: a Tier\u20111 presentation is permitted if it occurred >\u202f18 months before deadline; 18 months does not qualify. Rule\u202f4: a manuscript accepted in a prior Meridian round is rejected unless \u2265\u202f5 years have passed since that round; 5 years is acceptable. Rule\u202f5: paired submissions may contain two manuscripts satisfying Rules\u202f1 and\u202f2, and at least one must satisfy Rule\u202f3. Rule\u202f6: Track\u202fD submissions are exempt from Rule\u202f2 but require exactly two endorsements; one endorsement is insufficient and waives no other rule. Rule\u202f7: any manuscript with an open retraction notice is rejected, overriding all other rules including Rule\u202f9. Rule\u202f8: figure count must be 8\u201345 inclusive; paired submissions may have up to 70 figures. Rule\u202f9: if a submission falls short of the minimum it is padded to eight and receives PADDED; exceeding the maximum yields RETURNED. Rule\u202f10: a prior\u2011round withdrawal does not count as acceptance for Rule\u202f4 and resets the clock, treating presentation date as the withdrawal date. If all applicable rules are met the verdict is HANDLED; otherwise RETURNED unless sole violation is under\u2011figure case of Rule\u202f9, which yields PADDED.",
+        "verdicts": [
+          "A",
+          "B"
+        ],
+        "words": 242
+      },
+      {
+        "in_band": false,
+        "seed": 35,
+        "text": "The Meridian Review decides a manuscript\u2019s fate as HANDLED, RETURNED or PADDED, evaluated against the 1\u202fMarch\u202f2026 deadline.\n\nR1: at least twenty\u2011two pages; exactly twenty\u2011two satisfies.  \nR2: must use the official template **or** have documented revision history of three years or more.  \nR3: a Tier\u20111 venue presentation is disallowed unless it occurred more than eighteen months before the deadline; exactly eighteen months does not qualify.  \nR4: an earlier Meridian acceptance blocks handling if fewer than five years have passed since that round; exactly five years is acceptable.  \nR5: paired submissions are allowed only for exactly two manuscripts; each must meet R1 and R2, and at least one of the pair must satisfy R3.  \nR6: Track\u202fD exempts a manuscript from R2 but requires exactly two endorsements; one endorsement is insufficient. No other rule is waived.  \nR7: any manuscript with an open retraction notice is automatically RETURNED, overriding all other rules including R9.  \nR8: figure count must be between eight and forty\u2011five inclusive; for paired submissions the upper limit rises to seventy while the lower bound stays at eight.  \nR9: if a submission fails R8 solely by having fewer than eight figures it is PADDED up to eight; any excess beyond the maximum results in RETURN.  \nR10: a withdrawal in a prior round does not count as an acceptance for R4 and resets the R3 clock, treating the presentation date as the withdrawal date.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 234
+      },
+      {
+        "in_band": false,
+        "seed": 36,
+        "text": "The Meridian Review system judges each submission on deadline against ten rules and yields three possible verdicts\u2014HANDLED, RETURNED, PADDED.\n\nRule\u202f1: a manuscript must have at least twenty\u2011two pages; twenty\u2011two satisfies it. Rule\u202f2: it must either use template or include documented revision history covering three or more years. Rule\u202f3: a paper presented at a Tier\u20111 venue is excluded unless presentation occurred more than eighteen months before deadline; eighteen months does not qualify.\n\nRule\u202f4: a manuscript accepted in an earlier Meridian round is excluded if fewer than five years have passed since that acceptance; five years is acceptable. Rule\u202f5: paired submissions are allowed for two manuscripts; each must meet R1 and R2, and at least one of the pair must satisfy R3.\n\nRule\u202f6: Track\u202fD papers are exempt from R2 but must carry two endorsements; one endorsement is insufficient. Rule\u202f7: any manuscript with an open retraction notice is RETURNED, overriding all other rules including R9.\n\nRule\u202f8: figure count must be between eight and forty\u2011five inclusive; for paired submissions the upper bound rises to seventy while the lower bound remains eight. Rule\u202f9: if a submission fails R8 by having fewer than eight figures, it is padded up to eight and judged PADDED; exceeding maximum causes RETURN.\n\nRule\u202f10: a withdrawal in a round does not count as an acceptance for R4, but it resets the R3 venue clock so effective presentation date becomes the withdrawal date.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 242
+      },
+      {
+        "in_band": false,
+        "seed": 37,
+        "text": "The Meridian Review system checks each manuscript against ten rules and then gives one of three verdicts: HANDLED, RETURNED, or PADDED.\n\nR1: minimum length twenty\u2011two pages; twenty\u2011two satisfies. R2: must use official template or have at least three years documented revision history. R3: a Tier\u20111 venue presentation disqualifies unless it occurred more than eighteen months before 1\u202fMarch\u202f2026; eighteen months does not qualify. R4: an acceptance in a prior Meridian round blocks handling if fewer than five years have passed; five years is acceptable. R5: paired submissions may contain no more than two manuscripts; must meet R1 and R2, and at least one member must satisfy R3. R6: for Track\u202fD the template requirement (R2) is waived, but submission must carry exactly two endorsements\u2014one endorsement is insufficient\u2014and no other rule waived. R7: manuscript with an open retraction notice is RETURNED, overriding all other rules including R9. R8: figure count must be between eight and forty\u2011five inclusive; for a paired submission the upper bound rises to seventy; lower bound remains eight. R9: if a paper fails R8 only by being below the minimum, it is padded up to eight and receives PADDED; exceeding the maximum causes RETURN. R10: a withdrawal in a prior round does not count as an acceptance for R4, but resets R3 clock so date is treated as withdrawal date.\n\nIf PADDED applies but rule fails, result is RETURNED; otherwise HANDLED.",
+        "verdicts": [
+          "B",
+          "B"
+        ],
+        "words": 234
+      },
+      {
+        "in_band": false,
+        "seed": 38,
+        "text": "The Meridian Review system decides each manuscript\u2019s fate for the 2026 round, 1\u202fMarch\u202f2026. R1 requires at least twenty\u2011two pages; twenty\u2011two meets the rule. R2 demands either use of the official template or at least three years of documented revision history. R3 says a Tier\u20111 venue presentation disqualifies a manuscript unless it occurred more than eighteen months before the deadline; eighteen months does not qualify. R4 excludes manuscripts accepted in an earlier Meridian round unless five or more years have passed since that round; five years passes.\n\nR5 permits paired submissions of two manuscripts; three or more are forbidden. Both members must satisfy R1 and R2, and at least one member must also meet R3, though both need not. Track\u202fD receives an exemption in R6: it ignores R2 but requires two endorsements; one endorsement is insufficient.\n\nR7 states that any manuscript with an open retraction notice is RETURNED, overriding all other rules including R9. R8 sets figure limits: a single submission must have between eight and forty\u2011five figures inclusive, while a paired submission may have up to seventy but needs at least eight. R9 specifies that if a manuscript fails R8 only by having fewer than the minimum, it is PADDED up to eight; exceeding the maximum causes RETURN.\n\nR10 notes that a prior\u2011round withdrawal does not count as an acceptance for R4 and resets the R3 clock, treating the presentation date as the withdrawal date.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 238
+      },
+      {
+        "in_band": false,
+        "seed": 39,
+        "text": "Meridian Review round evaluates each manuscript against ten rules and issues one of three verdicts: HANDLED, RETURNED, or PADDED. A paper must be at least twenty\u2011two pages; twenty\u2011two satisfies length rule (R1). It must either use official template or provide documented revision history covering three years or more (R2). If presented at a Tier\u20111 venue, presentation must have occurred more than eighteen months before 1\u202fMarch\u202f2026 deadline; an eighteen\u2011month gap does not qualify (R3). Acceptance in a previous Meridian round disqualifies a manuscript unless five years have elapsed; five years is acceptable (R4).\n\nPaired submissions may contain two manuscripts; three or more are prohibited. Each member must meet R1 and R2; at least one must satisfy R3 (R5). Track\u202fD submissions are exempt from R2 but require two endorsements; one endorsement is insufficient and no other rule is waived (R6).\n\nAny manuscript with an open retraction notice is RETURNED, overriding other rules including R9 (R7). Figure count must be between eight and forty\u2011five inclusive; a paired submission may have up to seventy figures keeping minimum (R8). If a work fails R8 by having fewer than eight figures, it is padded to eight and receives PADDED; exceeding maximum triggers RETURN (R9).\n\nA prior\u2011round withdrawal does not count as an acceptance for R4 and resets clock for R3, treating presentation date as withdrawal date (R10). Rules are applied in this order and manuscripts satisfying condition receive HANDLED.",
+        "verdicts": [
+          "A",
+          "A"
+        ],
+        "words": 236
+      }
+    ]
+  },
+  "void": true,
+  "void_reason": "register budget exhausted in cell A: 40 attempts produced 0 of 8 accepted messages. A register the model cannot reliably produce at a fixed length is a finding, not an obstacle to route around."
+}
