@@ -21,20 +21,29 @@ It does not, and the reason is more interesting than the defect was.
 
 ## What was measured
 
-Cell A (fluent × declarative), `gpt-oss:120b`, `think=medium`,
-`temperature=0.7`, one composition per draw, realised word counts:
+`gpt-oss:120b`, `think=medium`, `temperature=0.7`, one composition per draw,
+realised word counts. Cell A is fluent × declarative; cell C is terse ×
+declarative.
 
-| instruction | stated ceiling | n | mean | range | inside 182–231 |
-|---|---|---|---|---|---|
-| calibrated wording | **223** | 8 | 222.5 | 197–230 | **8 / 8** |
-| calibrated wording | **231** | 8 | 248.8 | 208–326 | **1 / 8** |
-| runner's, pre-repair | 231 | 40 | 287.8 | 199–361 | 3 / 40 |
-| runner's + "nothing else" restored | 231 | 5 | 290.4 | 243–338 | 0 / 5 |
+| cell | instruction | stated ceiling | n | mean | range | inside 182–231 |
+|---|---|---|---|---|---|---|
+| A | calibrated wording | **223** | 8 | 222.5 | 197–230 | **8 / 8** |
+| A | calibrated wording | **231** | 11 | 244.3 | 208–326 | **2 / 11** |
+| **C** | calibrated wording | **231** | 6 | 220.7 | 207–232 | **5 / 6** |
+| A | runner's, pre-repair | 231 | 40 | 287.8 | 199–361 | 3 / 40 |
+| A | runner's + "nothing else" restored | 231 | 5 | 290.4 | 243–338 | 0 / 5 |
 
-Row 1 pools the four cell-A messages in
-[`feasibility.json`](feasibility.json) with four composed on 2026-08-04. Row 3
-is the void run's own rejection record. Fisher exact on rows 1 and 2:
-**p = 0.0014**.
+Row 1 pools the four cell-A messages in [`feasibility.json`](feasibility.json)
+with four composed on 2026-08-04. Row 4 is the void run's own rejection record.
+
+Fisher exact, rows 1 and 2 — **p = 0.00071**. Rows 2 and 3 — **p = 0.0345**.
+
+**Revision.** The first version of this file reported row 2 as `n = 8, 1/8`. A
+background job's output was buffered and read as though it had died after three
+draws; it had not, and its remaining draws are now included. The direction and
+the conclusion are unchanged and the sample is larger. The number is corrected
+here rather than left standing, and the correction is recorded rather than made
+silently.
 
 ## What it says
 
@@ -45,7 +54,33 @@ twenty-six words, in the same direction and past the new number.
 
 That is why the registered band cannot be hit by stating it. 182–231 is the
 **acceptance** band. The runner also uses it as the **instruction**, and an
-instruction of 231 produces messages around 249.
+instruction of 231 produces cell-A messages around 244.
+
+**And it binds one register and not the other.** At the same stated ceiling of
+231, the terse cell complied 5 times in 6 while the fluent cell complied 2 in 11
+(p = 0.0345). The terse instruction produces messages that sit *below* the
+ceiling, so moving the ceiling does not move them; the fluent instruction
+produces messages that sit *at* it, so it does. The pre-registration declared
+this in advance as a limitation and did not draw the consequence:
+
+> **The fluent register imposes a length of its own.** Feasibility Result 4:
+> fluent messages land at 226 words with `sd = 1.5` against `sd = 14.5` for
+> terse. The band admits both, but the fluent arm is not complying with the
+> target so much as coinciding with it. If a future calibration moves the
+> target, that coincidence may not survive.
+
+The target moved by eight words between the calibration and the registration,
+and the coincidence did not survive. §6.2 called it.
+
+## What this predicts for the run of 2026-08-04
+
+Cell A at 18% band compliance and 42.5% register acceptance — the latter
+measured live, 17 of 40, on the void run — gives a joint acceptance of about
+**7.7%**. Eight accepted messages would need roughly **104 attempts** against a
+budget of **40**.
+
+So the run in flight is expected to exhaust cell A. This projection is recorded
+before its outcome is known, so that it can be wrong where anyone can see it.
 
 ## Where that leaves §3
 
@@ -89,10 +124,14 @@ negotiates with a number rather than obeying it.
 
 ## Limitations
 
-- **Cell A only.** The terse cells are not measured here; feasibility put them
-  at 184–204, well below the ceiling, so the effect may not bind there at all.
-- **n = 8 per arm**, unrandomised and unblinded, composed in blocks rather than
-  interleaved. The two arms ran on the same local model on consecutive days.
+- **Two of four cells.** A (fluent × declarative) and C (terse × declarative).
+  The contrastive cells B and D are not measured; the effect is claimed on the
+  fluency axis, where it was found, and not on the contrastiveness one.
+- **n = 6 to 11 per arm**, unrandomised and unblinded, composed in blocks rather
+  than interleaved. The arms ran on the same local model on consecutive days.
+- The cell C arm is `n = 6`. `5/6` is not a precise compliance rate and the
+  interval around it is wide; it establishes that the terse register behaves
+  differently from the fluent one, not by how much.
 - The second arm's later draws competed with the live run for the GPU. That
   changes latency, not text.
 - One model. Nothing here generalises past `gpt-oss:120b` at `think=medium`.
