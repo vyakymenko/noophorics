@@ -1,0 +1,477 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+
+\title{Stated agreement barely responds to actual agreement,\\
+and register cannot be separated from length:\\
+\large a preregistered programme, one result and four voids}
+
+\author{Valentyn Yakymenko\\
+\small Noophorics \quad \url{https://noophorics.org}}
+
+\date{2026-08-04}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We report preregistered measurements of the gap between what a party believes
+was communicated and what was, using a 116B open-weights model
+(\texttt{gpt-oss:120b}) in both the sender and the receiver role.
+
+Our positive result concerns the \emph{calibration slope} $\beta$, the rate at
+which a party's claimed agreement moves when its actual agreement moves. Over 24
+briefs spanning observed agreement from 0.485 to 0.970, $\beta = +0.130$, 95\%
+CI $[+0.047, +0.223]$ --- about an eighth of the rate calibration requires.
+Decomposed by role, the asymmetry is sharper than the pooled figure: the
+receiver tracks at $\beta = +0.280$ $[+0.139, +0.439]$ while the sender does not
+track at all, $\beta = -0.020$ $[-0.090, +0.049]$. The sender's claimed
+agreement sits at $0.975 \pm 0.036$ and does not move while the outcome moves
+across half its range.
+
+Our negative result is that a question we set out to answer --- whether fluency
+buys understanding, or only the belief in it --- is not answerable in this model
+by the obvious design. Three successive preregistered attempts to separate
+register from length all failed, the third for a reason the first two make
+legible: the fluent register has a \emph{length floor} of 229 words, and the
+messages short enough to enter any band that also admits the terse register are
+no longer judged to be connected prose by blind raters.
+
+We report both, and the four void experiments behind them, under a discipline in
+which hypotheses are committed before data, gates void runs before outcomes are
+examined, pre-registrations are never edited, and the version-control history is
+the registration record. Eleven of our own claims have been withdrawn. We argue
+that publishing the instrument failures is not a confession but the load-bearing
+part: two of the three defects reported here were invisible to careful reading
+and died only when something was executed.
+\end{abstract}
+
+\section{Introduction}
+
+When two systems with non-identical priors exchange a message, two things can be
+measured separately: how much the receiver's dispositions moved toward a stated
+reference, and how confident both parties are that they now agree. These come
+apart. The gap between them is the object of this programme.
+
+The gap is not new as an observation, and we want to be exact about that, because
+an earlier version of this programme claimed it was and was wrong. It has been
+measured in humans, with numbers, since at least 1990.
+Newton~\cite{newton1990} found tappers estimating that listeners would identify
+about half of tapped tunes while listeners identified 3 of 120.
+Keysar and Henly~\cite{keysar2002} elicited the judgment per trial from 40
+speaker--listener pairs. Chang et al.~\cite{chang2010} found the item a clinician
+considered most important was not successfully communicated about 60\% of the
+time while handoff quality ratings stayed high. Endsley~\cite{endsley2020}
+reviews 37 studies in which objective and subjective situation awareness diverge.
+
+What is missing is a measurement of the gap where the sender and receiver are
+both language models, on quantities defined precisely enough to fail. That is
+this programme's object, and Section~\ref{sec:beta} is the first of it we have.
+
+This paper reports what we have and what we do not. We have one preregistered
+result, on whether confidence responds to transfer at all. We do not have an
+answer to the question we started with --- whether fluency inflates confidence
+faster than it raises transfer --- and the reason we do not is itself a
+measurement, which is most of what Section~\ref{sec:negative} is about.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+  \item A preregistered estimate of the calibration slope $\beta$ in a
+    language-model sender/receiver pair, decomposed by role, with an asymmetry
+    large enough that the two roles should not be modelled as one instrument
+    (Section~\ref{sec:beta}).
+  \item A characterised obstacle: in this model, register and message length are
+    not independently controllable, which makes the standard
+    fluency-versus-content manipulation unavailable
+    (Section~\ref{sec:negative}).
+  \item Three instrument failures reported in full, including two estimators
+    that could not have failed and one calibration that did not transfer to the
+    run it calibrated (Section~\ref{sec:instrument}).
+\end{enumerate}
+
+\section{Setting and quantities}
+
+A \emph{probe measure} is a set of held-out questions with a key. A party
+answers each probe $n$ times; its distribution over answers is its disposition.
+
+\paragraph{Transfer fidelity, $F^*_R$.} The movement of the receiver's
+dispositions toward a \emph{declared reference} $R$, normalised by the prior gap.
+The declaration is not decoration. Where $R$ is the sender, the quantity measures
+\emph{replication}; only where $R$ is criterion-bearing and sender-independent
+does it measure understanding. Conflating the two cost us a live experiment, and
+$F^*$ without a stated reference is not reported here or anywhere in the
+programme after v0.4.
+
+We arrived at that separation independently and it was established first
+elsewhere. Stanton et al.~\cite{stanton2021} distinguish \emph{fidelity} ---
+student--teacher prediction agreement --- from generalisation, and show good
+student accuracy does not imply good fidelity. Burns et al.~\cite{burns2024}
+define performance gap recovered, a gap-closure quantity normalised against a
+ceiling model, which is the same shape as $F^*$ with the sign reversed. Neither
+is claimed as an endorsement: their setting is one-directional, requires a shared
+task, and does not ask what an optimal transfer would have looked like.
+
+\paragraph{Phantom agreement, $\Phi$.} Claimed agreement minus observed
+agreement. E-002b measures $\Phi = +0.296$, CI $[+0.220, +0.365]$, between a
+\texttt{gpt-oss:120b} sender and receiver: a near-constant 95.5\% claim rate
+against 65.9\% actual agreement.
+
+\paragraph{Calibration slope, $\beta$.} The derivative of claimed agreement with
+respect to observed agreement, across briefs. Perfect calibration is $\beta = 1$;
+total unresponsiveness is $\beta = 0$. $\Phi$ is a \emph{level} and cannot see
+whether belief moves; $\beta$ is why this paper's main result exists.
+
+\paragraph{Net value, $V_\lambda = F^*_R - \lambda C$.} Replaces an earlier ratio
+$\eta = F^*/C$, which we withdrew: a ratio with a signed numerator is not an
+ordering, and it ranked a cheap failure above an expensive one.
+
+\section{Method: what ``void'' means here}
+\label{sec:method}
+
+Each experiment carries a pre-registration committed before any datum exists,
+stating hypotheses, the analysis plan, and a table of \emph{gates} --- conditions
+that void the run. A pre-registration is never edited. If results contradict it,
+the finding is added and the document stands; that contradiction is the most
+valuable artifact an experiment produces. The version-control history is
+therefore the registration record, and it is never rewritten.
+
+Three properties of this arrangement matter for reading what follows.
+
+\textbf{Gates fire before outcomes are examined.} E-001b was voided by its
+cost-parity gate after composition and before any probe outcome had been looked
+at. Its void document records precisely what had and had not been seen at the
+moment of the decision, because a decision made after seeing outcome data is not
+the same decision.
+
+\textbf{A void is published, not absorbed.} Four experiments are void. Each
+carries a document saying what failed and what survives for a successor. The
+alternative --- a directory of survivors --- tells a flattering lie about how the
+work went.
+
+\textbf{Checks are mechanical and are themselves tested.} Stated counts are
+checked against their sources; withdrawn claims are checked not to reappear as
+live; internal links are checked to resolve. Each checker has tests that must go
+red on the defect the check exists to find and green on the legitimate case that
+most resembles it. Writing those tests found two defects in the checkers and none
+in the repository, which is the expected ratio and the reason they exist.
+
+\section{Result: claimed agreement is nearly unresponsive to actual agreement}
+\label{sec:beta}
+
+\subsection{Design}
+
+A sender receives a source specification; a ladder of four rungs supplies
+receivers with briefs of increasing informativeness (30, 70, 110, 150 tokens),
+six briefs per rung, 24 in total. Both parties answer the probe measure
+\texttt{MERIDIAN-33} at $n = 16$ draws, and both are asked, in nine independent
+elicitations, how much they believe they agree. Model: \texttt{gpt-oss:120b} in
+every role, \texttt{think=medium}, temperature 0.7.
+
+The design is a successor to E-002b and holds everything constant except three
+things it exists to fix: the primary quantity, the elicitation granularity
+($n_c$ from 3 to 9, admitting ten claim values rather than four), and the number
+of briefs. Holding the rest fixed is deliberate, so that a difference between
+the two runs is attributable to the changes rather than to a redesign.
+
+\subsection{Findings}
+
+All six gates passed and all four registered hypotheses resolved.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\toprule
+ & value & 95\% CI & outcome \\
+\midrule
+H1 \quad $\beta < 0.5$ & $+0.130$ & $[+0.047, +0.223]$ & supported \\
+H2 \quad $\beta$ indistinguishable from 0 & $+0.130$ & $[+0.047, +0.223]$ & \textbf{not supported} \\
+H3 \quad sender less responsive than receiver & $+0.300$ & $[+0.151, +0.471]$ & supported ($p_{\text{Holm}} = 0.0009$) \\
+H4 \quad resolution survives a finer grid & $+0.307$ & $[+0.216, +0.404]$ & supported ($p_{\text{Holm}} = 0.0002$) \\
+\bottomrule
+\end{tabular}
+\caption{Registered outcomes. H1 and H2 carry no $p$-value by design: the claim
+is about a magnitude, and a $p$-value against a nil null answers a question
+nobody asked.}
+\end{table}
+
+\paragraph{The roles are not one instrument.}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lllll}
+\toprule
+ & mean & sd & range & $\beta$ \\
+\midrule
+observed agreement & 0.748 & 0.159 & 0.485--0.970 & --- \\
+claimed, sender    & 0.975 & 0.036 & 0.845--1.000 & $-0.020$ \quad $[-0.090, +0.049]$ \\
+claimed, receiver  & 0.884 & 0.074 & 0.731--0.983 & $+0.280$ \quad $[+0.139, +0.439]$ \\
+\bottomrule
+\end{tabular}
+\caption{The sender's claim varies with roughly one twentieth of the outcome's
+variance and its slope's interval spans zero.}
+\end{table}
+
+Across the ladder, observed agreement climbs 0.26 and fidelity climbs 0.62, while
+the sender's claim never leaves the band 0.957--0.994 and is \emph{lower} at rung
+110 than at rung 70. Corrected for attenuation (reliability 0.715), the pooled
+slope is $+0.182$; the correction does not change the conclusion.
+
+\subsection{This corrects a claim we had made}
+
+E-002b had reported, post-hoc, $\beta = +0.039$ with CI $[-0.173, +0.127]$, and
+concluded in a pull-quote that ``the parties' confidence is very nearly
+unresponsive to how much actually transferred.'' That sentence is now withdrawn
+as too strong. The direction replicates; the magnitude does not. With a
+better-powered instrument the interval clears zero, and the correct statement is
+narrower and more useful:
+
+\begin{quote}
+The receiver's confidence tracks transfer at a bit over a quarter of the rate
+calibration requires. The sender's does not track it at all.
+\end{quote}
+
+\section{Negative result: register and length are not separable}
+\label{sec:negative}
+
+\subsection{Why the obvious design does not work}
+
+The motivating law states that fluency inflates $\Phi$ faster than it raises
+$F^*$. It has a strong prior in the human literature: Carpenter et
+al.~\cite{carpenter2013} held a 65-second script constant and varied only the
+delivery, and found judgments of learning up by $d = 1.03$ and self-rated
+learning by $d = 1.78$ with no detectable difference in free recall; Deslauriers
+et al.~\cite{deslauriers2019} report tested learning $+0.46$ SD against felt
+learning $-0.56$ SD in a randomised crossover.
+
+The law is untestable while a more fluent message is also a longer one --- and in
+our first experiment it was longer by 76\%, in the second by 54\%. A longer
+message transfers more by containing more, so any fidelity difference between a
+polished narrative and a terse list is unattributable.
+
+It is worth noticing how Carpenter et al.\ avoided this. They held the
+\emph{script} fixed and varied delivery --- fluency of speech, not of text. In a
+text channel there is no delivery to vary independently of the words, so the
+manipulation has to be carried by the writing itself, and the writing carries
+length with it. This is not a defect of our design so much as a structural
+difference between the two media, and we did not see it until three designs had
+failed.
+
+Three designs attacked this and all three voided.
+
+\textbf{E-001} confounded style with cost and is reported as such.
+
+\textbf{E-001b} imposed a shared token budget of 350 on all four cells of a
+$2\times2$ (fluent/terse $\times$ declarative/contrastive) and added a
+cost-parity gate at $\max/\min \le 1.30$. Instructed identically, the model
+produced fluent messages at roughly $1.5\times$ the cost of terse ones: cell
+means 620, 609, 407, 393 tokens. The gate fired at 1.579 across cell means and
+1.962 across messages. Both readings fail, which is the only reason that void can
+be trusted --- the ambiguity between them was noticed while its resolution was
+already known.
+
+\textbf{E-001c} replaced the ceiling with a two-sided word band, 182--231 words,
+stated identically in all four cells, and admitted a message to a cell only if
+\emph{both} of two blind raters, on different providers, judged it to be in the
+cell's register. It voided during composition: cell A (fluent, declarative)
+exhausted its budget of 40 attempts with 0 of 8 messages accepted.
+
+\subsection{The floor}
+
+Over those 40 attempts the realised word counts were 229--318, mean 242.1,
+\textbf{minimum 229}. The band's ceiling is 231. Two messages landed inside the
+band, and \emph{neither} was judged fluent prose by either rater.
+
+So the two filters are not independent, and not merely non-independent but
+opposed. Entering the band requires the very bottom of what the register
+produces, and at that length it stops reading as connected prose. A projection
+that multiplied the two marginals --- 18\% band compliance, 42.5\% register
+acceptance --- predicted a joint rate of 7.7\%. The measured rate is 0\%.
+
+\subsection{The model writes to the ceiling it is told}
+
+A separate instrument measurement explains why the band could not simply be
+widened. Told a ceiling of 223 words, the model produced cell-A messages of
+197--230 words, 8 of 8 inside 182--231. Told 231, it produced 208--326, 2 of 11
+inside (Fisher exact $p = 0.00071$). The stated ceiling is not a limit the model
+respects; it is a target it approaches and overshoots.
+
+The effect binds one register and not the other. At the same stated ceiling of
+231, the terse cell complied 5 times in 6 against the fluent cell's 2 in 11
+($p = 0.0345$). The terse instruction produces messages below the ceiling, so
+moving the ceiling does not move them.
+
+% FLOOR-TABLE: filled from experiments/E-001c-fluency-length-controlled/
+% floor-by-register.json once the 12-per-cell measurement completes.
+
+\subsection{What this means for anyone running the same manipulation}
+
+A design that pins length and varies register cannot use a band whose ceiling
+sits at the fluent register's floor. The available repairs are to move the band
+to where fluent prose actually lives and ask the \emph{terse} arm to pad up to
+it, or to abandon register-at-fixed-length as the manipulation. Neither was
+available to E-001c, whose pre-registration forbids moving the band and whose
+single permitted amendment was already spent --- and a band chosen after
+measuring which band works is an acceptance criterion picked to fit the data.
+
+We state the cumulative cost plainly. Three designs have now attacked one
+confound and none has answered whether fluency buys understanding. Each voided
+from a different angle on the same underlying fact: this model's registers are
+not separable from their lengths.
+
+\section{Three instrument failures}
+\label{sec:instrument}
+
+\subsection{An estimator that could not fail}
+
+E-002b's primary statistic was $\mathrm{corr}(\text{fidelity}, \Phi) = -0.966$ at
+$p = 0.0005$. Recomputed against synthetic counterfactual parties tracking the
+outcome at slope $\beta$, it returns $-0.977$ at $\beta = 0, 0.25, 0.50, 0.90,
+0.95$ and $0.99$ alike, breaking only at exactly $1.0$. It would have read the
+same against 99\%-calibrated parties. A statistic that cannot distinguish the
+hypothesis from its negation is not evidence for either, however small its
+$p$-value. This is what motivated $\beta$.
+
+\subsection{A rater that could not fail}
+
+E-001c's register filter was first specified as a forced choice between one
+fluent and one terse passage. It scored 64/64 on feasibility messages of which
+three in eight were, on inspection, bulleted lists. A forced choice cannot fail:
+the rater must name one passage even when neither is connected prose, and it
+names the wordier one, which tracks the label perfectly. Replacing it with an
+\emph{absolute} judgment --- one passage, no comparison, no context --- put the
+fluent instruction's success rate at 5 in 8, CI $[0.245, 0.915]$. The replacement
+rejected 24 of 40 messages in the run reported above. An estimator's ability to
+return the wrong answer is a prerequisite for its returning a right one.
+
+\subsection{A calibration that did not transfer}
+
+E-001c's band was calibrated on messages composed by a feasibility script, and
+enforced by a runner that held its own copy of the length instruction. The two
+copies had diverged. The runner's omitted a clause giving the constraint a
+reason, and under it 37 of 40 attempts overshot the band, mean 288 words against
+the calibrated instruction's 218.
+
+The first run therefore voided for a reason that could not be what it recorded,
+and had we accepted it we would have entered a defect into the record as a
+finding about the model. The repair is to import the instruction rather than copy
+it. The same file already stated the principle three hundred lines above the
+defect, for a different object: \emph{an import is the only form of ``unchanged''
+that cannot drift}. The cells were imported. The band instruction was pasted.
+
+\subsection{The same shape, three times}
+
+All three failures, plus a fourth in which a hypothesis was reported with the
+interval of one quantity and the $p$-value of another, are instances of one
+class: a document and a computation asserting different things with nothing
+between them to notice. Our checkers verify counts, claims and links. None of
+them knows that a prompt named in prose must match the prompt a runner sends.
+We record this as an open problem rather than a solved one.
+
+\section{Limitations}
+
+\textbf{One model, one domain, one probe measure per experiment.} Nothing here
+generalises beyond \texttt{gpt-oss:120b} at \texttt{think=medium}. The length
+floor in particular is a property of a model--prompt--domain triple, not of
+language models.
+
+\textbf{The same model occupies both roles.} Sender and receiver are the same
+weights with different contexts. The role asymmetry in Section~\ref{sec:beta} is
+therefore an asymmetry of \emph{position}, not of architecture, which makes it
+more surprising rather than less --- but it does not license claims about
+heterogeneous pairs.
+
+\textbf{Style descriptions are ours.} Only the prompts implementing them were
+written blind.
+
+\textbf{The negative result rests on composition statistics.} E-001c produced no
+probe outcomes at all; its sweep never began. The claim in
+Section~\ref{sec:negative} is about what the model will write, not about what
+transfers.
+
+\textbf{Small instrument samples.} The ceiling-effect arms are $n = 6$ to $11$,
+unrandomised and composed in blocks rather than interleaved.
+
+\textbf{Agent exposure.} Parts of this repository are written with assistance
+from models that are also its measurement subjects. Exposures are logged, and an
+experiment naming an exposed model must exclude it or declare it.
+
+\section{Availability}
+
+All pre-registrations, runners, results files, void documents and checkers are
+public, including the ones reporting failures, at
+\url{https://github.com/vyakymenko/noophorics}. The metrics library is
+dependency-free. Every number in this paper is traceable to a committed results
+file, and the commit preceding each result is its registration.
+
+\section*{On the prior-art claims in this paper}
+
+The repository maintains a ledger (\texttt{theory/prior-art.md}) recording, for
+each source, whether the primary text or only the abstract was read, and what may
+therefore be claimed from it. Two constraints from that ledger apply here.
+Endsley~\cite{endsley2020} is cited from its abstract and supports only that the
+two measures diverge; \textbf{no pooled effect size is quoted}.
+Newton~\cite{newton1990} is an unpublished doctoral dissertation with no journal,
+volume or pages.
+
+We also record what the human literature does \emph{not} license. None of these
+studies elicited a rate comparable to our $\Phi$ from both parties against a
+shared probe measure, and none involves language models in either role. The
+resemblance is of shape, not of quantity.
+
+\begin{thebibliography}{9}
+
+\bibitem{carpenter2013}
+S.~K. Carpenter, M.~M. Wilford, N.~Kornell and K.~M. Mullaney.
+\newblock Appearances can be deceiving: instructor fluency increases perceptions
+of learning without increasing actual learning.
+\newblock \emph{Psychonomic Bulletin \& Review}, 20(6):1350--1356, 2013.
+
+\bibitem{chang2010}
+V.~Y. Chang, V.~M. Arora, S.~Lev-Ari, M.~D'Arcy and B.~Keysar.
+\newblock Interns overestimate the effectiveness of their hand-off
+communication.
+\newblock \emph{Pediatrics}, 125(3):491--496, 2010.
+
+\bibitem{deslauriers2019}
+L.~Deslauriers, L.~S. McCarty, K.~Miller, K.~Callaghan and G.~Kestin.
+\newblock Measuring actual learning versus feeling of learning in response to
+being actively engaged in the classroom.
+\newblock \emph{PNAS}, 116(39):19251--19257, 2019.
+
+\bibitem{endsley2020}
+M.~R. Endsley.
+\newblock The divergence of objective and subjective situation awareness: a
+meta-analysis.
+\newblock \emph{Journal of Cognitive Engineering and Decision Making},
+14(1):34--53, 2020.
+
+\bibitem{keysar2002}
+B.~Keysar and A.~S. Henly.
+\newblock Speakers' overestimation of their effectiveness.
+\newblock \emph{Psychological Science}, 13(3):207--212, 2002.
+
+\bibitem{newton1990}
+E.~L. Newton.
+\newblock \emph{The Rocky Road from Actions to Intentions}.
+\newblock Doctoral dissertation, Stanford University, 1990.
+
+\bibitem{stanton2021}
+S.~Stanton, P.~Izmailov, P.~Kirichenko, A.~A. Alemi and A.~G. Wilson.
+\newblock Does knowledge distillation really work?
+\newblock \emph{NeurIPS}, 34:6906--6919, 2021.
+
+\bibitem{burns2024}
+C.~Burns et al.
+\newblock Weak-to-strong generalization: eliciting strong capabilities with weak
+supervision.
+\newblock \emph{ICML}, PMLR 235:4971--5012, 2024. arXiv:2312.09390.
+
+\end{thebibliography}
+
+\end{document}
