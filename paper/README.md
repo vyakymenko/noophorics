@@ -22,6 +22,24 @@ pdflatex noophorics-2026.tex && pdflatex noophorics-2026.tex
 arXiv compiles LaTeX source on upload, so the `.tex` is the deliverable either
 way. Compile it once before trusting it.
 
+## Checking it
+
+```bash
+python3 paper/check_numbers.py
+```
+
+The paper says every figure in it is traceable to a committed results file. That
+is a claim, so it is checked rather than asserted: 24 figures read from the
+results JSON on one side and from the LaTeX on the other, failing when **either**
+moves. A checker that only read the paper would pass on a paper that quietly
+disagreed with its own data.
+
+It has already earned its place twice. It caught a sign dropped from
+`β_sender`, and it reported the observed-agreement sd as wrong — where the paper
+was right and the checker had reached for the sample sd against a source that
+reports the population one. A check that can only ever accuse the document is
+not much of a check.
+
 ## What is still open in it
 
 - **The floor-by-register table.** Marked `% FLOOR-TABLE:` in the source. It is
