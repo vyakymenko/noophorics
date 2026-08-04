@@ -21,7 +21,7 @@ abstract: >-
   measure *and a stated reference disposition*, noophoric efficiency, channel capacity between minds, and phantom
   agreement — the gap between the parties' confidence that understanding
   occurred and the evidence that it did. The repository contains the axiomatic
-  foundation, six falsifiable conjectural laws, fourteen open problems, a
+  foundation, six falsifiable conjectural laws, fifteen open problems, a
   dependency-free reference implementation of the metrics, and pre-registered
   experiments. As of v0.5 one pre-registered result stands: the calibration
   slope `beta` -- how far a party's stated confidence moves when the outcome

@@ -27,6 +27,7 @@ which; it only makes the choice visible.
 |---|---|---|---|
 | 2026-08-03 – 2026-08-04 | `claude-opus-5` | AGENTS.md; E-001c `PREREGISTRATION.md` in full, including H1–H4, the gate table and the analysis plan; `PARAMETERS.md`; `AMENDMENT-001.md`; `runner.py`; `feasibility.py`; E-001b `prompts.py`, which is **the four cell prompts themselves**; E-001b `DEFECT-001.md` | E-001c and any successor, as composer, rater or subject. Knows the fluency × contrastiveness manipulation, the register the filter looks for, and that H4 is a predicted null. |
 | 2026-08-04 (extended, same session) | `claude-opus-5` | E-002c `PREREGISTRATION.md` §1–3 and `FINDINGS.md` §1–6, including β and the sender/receiver split; `PRINCIPIA.md` §4–5 and the falsification criteria; `theory/laws.md` L5 and L6 in full; `theory/prior-art.md`; `RETRACTIONS.md` | The E-002 line as well as the E-001 line, and **L5/L6 as a subject**: it has read the laws it would be measured against. Also knows E-002b's withdrawn pull-quote and why it was too strong. |
+| 2026-08-04 (extended again) | `claude-opus-5` | `theory/open-problems.md` 12–14, and **authored Problem 15** | The open-problem set. It knows which defects the programme considers unsolved, including the one it raised — so it cannot serve as an independent judge of whether Problem 15 is real. Twelve further subagents of the same model read the same material designing E-001c's successor; their designs are **not** committed, and none was adopted. |
 
 ### Notes on the 2026-08-04 entry
 
@@ -42,7 +43,7 @@ hypotheses. Those messages are instrument data
 ([CALIBRATION-001](experiments/E-001c-fluency-length-controlled/CALIBRATION-001.md))
 and none entered an experiment.
 
-**Still not read:** `theory/open-problems.md` beyond its count, `lexicon.md`, and
+**Still not read:** `lexicon.md`, and
 **no probe file** — neither `MERIDIAN-34`'s nor `MERIDIAN-33`'s items were ever
 loaded into this agent's context. Exposure to the **probe measures** is therefore
 nil, and a future experiment may still use `claude-opus-5` against MERIDIAN as a

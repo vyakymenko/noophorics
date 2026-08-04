@@ -320,6 +320,85 @@ agent is arguably the most interesting case, since a split reading is exactly
 what a probe measure ought to detect. Reporting it as one answer discards the
 finding.
 
+---
+
+## 15. `Φ` has no belief component where the manipulation has to live
+
+**Raised 2026-08-04, from files already committed, at no measurement cost.**
+
+`Φ` is defined as claimed agreement minus observed agreement, and is read as a
+belief quantity — the gap between what the parties think transferred and what
+did. On the instrument this programme actually uses, it is not one.
+
+Recomputed from
+[E-002c's results](../experiments/E-002c-calibration-slope/results/E-002c-20260803T121500Z.json),
+24 briefs, `gpt-oss:120b` in both roles:
+
+```
+claimed agreement, sender    mean 0.9752   sd 0.0357
+observed agreement           mean 0.7475   sd 0.1591
+corr(Φ_sender, −observed)          +0.977
+var(claimed) / var(Φ_sender)        0.046
+```
+
+**Under five per cent of `Φ`'s variance is belief.** The claim sits against its
+ceiling and barely moves, so `Φ` is the observed agreement rate with a minus
+sign. This is the same pinning [E-002c §4](../experiments/E-002c-calibration-slope/FINDINGS.md)
+reports as an asymmetry between the parties; what is new here is the
+consequence for anything stated *on the level of* `Φ`.
+
+And the observed rate is itself a function of message length:
+
+| rung | brief words | observed | `Φ` sender |
+|---|---|---|---|
+| 30 | 29–35 | 0.631 | 0.326 |
+| 70 | 64–84 | 0.692 | 0.290 |
+| 110 | 118–166 | 0.778 | 0.217 |
+| 150 | 162–182 | 0.889 | **0.078** |
+
+`Φ` falls 0.192 per 100 words and observed agreement rises 0.203 per 100 words,
+monotonically across every rung. By 182 words — the longest brief this programme
+has ever measured — `Φ` is 0.078 and the probe measure is nearly saturated.
+
+**Why this is a problem and not a parameter.** [L5](laws.md#l5) says fluency
+raises `Φ` faster than it raises `F*`. Its prediction is *"`Φ` up, transfer
+flat."* But if the claim is pinned, `Φ` can only rise when observed agreement
+**falls** — so on this instrument the one outcome L5 names as its confirmation
+is close to arithmetically unavailable, and the only route to a positive `ΔΦ`
+is fluency *reducing* transfer, which refutes L5's sharp half rather than
+supporting it.
+
+The fluency line cannot step around this by choosing shorter messages.
+[E-001c](../experiments/E-001c-fluency-length-controlled/VOID.md) measured the
+fluent register's floor at 229–232 words in this generator — **47 words past the
+longest brief on which any of this was ever measured**, in the direction where
+observed agreement is climbing into its ceiling. Three experiments have now been
+designed to detect a fluency effect on `Φ` at lengths where `Φ` is collapsing,
+and none of them noticed, because all three voided during composition and the
+sweep in that line has never run.
+
+**What a solution would look like.** Any one of these, and none is obviously
+right:
+
+- a probe measure that stays unsaturated at 230+ words, so the outcome variable
+  has range where the manipulation lives. This is the concrete, boring version
+  and it is probably the right one — but "make the probes harder" has to be done
+  without making them ambiguous, and [Problem 14](#14-when-is-a-modal-answer-over-n-draws-a-stable-observable)
+  is what stands in the way;
+- a belief quantity that does not subtract the outcome. Claimed agreement
+  reported against observed rather than differenced from it, with the
+  pinning stated rather than absorbed. `β` ([E-002c](../experiments/E-002c-calibration-slope/FINDINGS.md))
+  is a step in this direction and is why that experiment exists;
+- a restatement of L5 whose confirmation is reachable on a saturating measure.
+  Note that this cannot be chosen *after* seeing which form is satisfiable —
+  that is the same error as picking a band because it was measured to work.
+
+**This is the pre-registration twin of [Problem 12](#12-the-vanishing-denominator).**
+Problem 12 says `F*` is undefined when there is no gap to close before the
+transfer. This says `Φ` is uninformative when there is no gap left after it.
+Together they bound the operating range of both of this programme's headline
+quantities, from opposite ends, and neither bound has ever been stated as a
+precondition an experiment must check before it registers.
 
 ---
 
