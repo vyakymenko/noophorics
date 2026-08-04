@@ -52,6 +52,12 @@ sys.path.insert(0, os.path.join(REPO, "experiments", "E-001b-fluency-factorial")
 sys.path.insert(0, HERE)   # blind_rating.ABSOLUTE, the register question
 from prompts import CELL_AXES, CELLS, _OUTPUT  # noqa: E402
 
+# The band instruction is imported from the feasibility script for the same
+# reason the cells are imported from E-001b: the pre-registration calibrates
+# the band on the messages FEASIBILITY composed, and that calibration only
+# transfers if the instruction is the same one. It was not -- see DEFECT-001.
+from feasibility import two_sided_output  # noqa: E402
+
 # E-001c constants. Every one of these is fixed by the pre-registration and
 # none may be changed after composition begins.
 WORD_TARGET = 207                 # PREREGISTRATION section 3
@@ -356,16 +362,6 @@ def bootstrap_effect_ci(
 
 # --------------------------------------------------------------------------
 # cache
-
-
-def two_sided_output(low: int, high: int) -> str:
-    """The band instruction, in words. Identical in all four cells.
-
-    Words rather than tokens because a model cannot observe its own tokenizer,
-    and E-001b is direct evidence that it does not honour a token limit.
-    """
-    return ("Write between %d and %d words. Not fewer than %d, not more than "
-            "%d." % (low, high, low, high))
 
 
 def make_rater(name: str):
@@ -687,6 +683,17 @@ def run(args) -> Dict[str, Any]:
     # is not deterministic (temperature > 0), so re-composing does not recover
     # them -- it produces different messages wearing the same labels.
     if args.messages_out:
+        # A synthetic run must never land on the live path. --messages-out
+        # defaults to the real messages.json, so a dry run used to overwrite
+        # the one artifact that cannot be regenerated: composition is not
+        # deterministic, and E-001b's DEFECT-001 records that thirty hours of
+        # draws with no record of which text produced them is not a damaged
+        # dataset but no dataset. The results file already carries this
+        # marker; the messages file now carries it too.
+        stamp = "-dryrun" if args.dry_run else ("-SMOKE" if args.smoke else "")
+        if stamp:
+            root, ext = os.path.splitext(args.messages_out)
+            args.messages_out = root + stamp + ext
         with open(args.messages_out, "w", encoding="utf-8") as fh:
             json.dump({"probe_measure": measure.qualified_id,
                        "model": args.model, "provider": args.provider,
