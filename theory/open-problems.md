@@ -419,14 +419,71 @@ identical, and nothing here can separate *fluency does not help* from *the
 instrument cannot tell*. The six messages were also chosen after their lengths
 were known. This is instrument data and it stays instrument data.
 
+### What survives saturation, and what that specifies
+
+Not every probe dies at 230 words. Six of the 34 still diverged on at least one
+of the six messages, and they are not a random six.
+
+**Every one of them is tagged `interaction`.**
+
+| | still diverges at 230 words |
+|---|---|
+| `interaction`-tagged | **6 of 9** |
+| everything else | **0 of 25** |
+
+Fisher exact `p = 6.25e-05`. Across 150 probe-message pairs on non-interaction
+probes there were **zero** divergences. The surviving probes are `M25`, `M33`,
+`M19`, `M26`, `M34`, `M14`; `boundary` contributes 0 of 10 and `override` 0 of 3.
+
+It replicates on an independent instrument. On [E-002c's](../experiments/E-002c-calibration-slope/FINDINGS.md)
+brief ladder — a different measure (`MERIDIAN-33`), different messages, a
+different experiment — the probes still diverging on the longest briefs are led
+by `M25` (5 of 7) and `M14` (4 of 7), and the three probes common to both
+datasets are `M14`, `M25`, `M26`. All three are `interaction`.
+
+**And the tag is not a synonym for "cites two rules."** All nine interaction
+probes cite two or more rules, but so do seven probes that are not tagged
+interaction — and **none of those seven diverges**. Rule count alone gives
+`p = 0.006` against the tag's `6.25e-05`. What distinguishes them is that the
+answer depends on the rules *combining*, not on both being mentioned. That is a
+harder thing to write, and it is also the thing the probe authors' hand-applied
+tag turns out to have captured — which is a small independent validation of the
+tag.
+
+**The specification this yields.** Interaction probes diverge at **0.204 per
+probe per message** at these lengths; everything else at 0.000. So:
+
+| measure | expected diverged per message | expected `Â` |
+|---|---|---|
+| `MERIDIAN-34` as it stands (9 of 34 interaction) | 1.8 | 0.946 |
+| 15 interaction-class probes | 3.1 | — |
+| 34 interaction-class probes | 6.9 | **≈ 0.80** |
+
+E-002c's outcome-variation gate wants at least 3 diverged probes. **Fifteen
+interaction-class probes clear it; the current measure does not.** Twenty-eight
+of `MERIDIAN-34`'s probes never diverged on any of the six messages, so at this
+operating point they contribute nothing but ceiling.
+
+**What this extrapolation assumes, and it may not hold.** That new interaction
+probes would behave like the nine that exist, which is exactly the kind of
+assumption a saturated measure has already falsified once. That probe
+divergences are independent, when they plainly cluster on shared rules — `M25`
+and `M26` both cite `R10, R3`. That one domain and one model generalise, which
+this programme's own limitation sections deny every time. The rate rests on
+**11 divergence events**. Treat the table as a target to design against and
+measure, not as a prediction.
+
 **What a solution would look like.** Any one of these, and none is obviously
 right:
 
-- a probe measure that stays unsaturated at 230+ words, so the outcome variable
-  has range where the manipulation lives. This is the concrete, boring version
-  and it is probably the right one — but "make the probes harder" has to be done
-  without making them ambiguous, and [Problem 14](#14-when-is-a-modal-answer-over-n-draws-a-stable-observable)
-  is what stands in the way;
+- a probe measure built predominantly of interaction-class probes, per the
+  specification above. This is the concrete, boring version and it is probably
+  the right one — but writing probes whose answers depend on rules *combining*,
+  without making them ambiguous, is the hard part, and
+  [Problem 14](#14-when-is-a-modal-answer-over-n-draws-a-stable-observable) is
+  what stands in the way: an interaction probe that is merely confusing produces
+  a flat distribution, and a flat distribution's modal answer is a coin-flip
+  that the analysis cannot distinguish from a disposition;
 - a belief quantity that does not subtract the outcome. Claimed agreement
   reported against observed rather than differenced from it, with the
   pinning stated rather than absorbed. `β` ([E-002c](../experiments/E-002c-calibration-slope/FINDINGS.md))
