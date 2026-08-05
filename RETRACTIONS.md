@@ -8,7 +8,7 @@ than a clean document that never made the mistake.
 This file exists because the site quotes a *count*, and a count nobody can audit
 is worse than no count.
 
-**Standing tally: 12 claims withdrawn, four experiments void, 1 finding
+**Standing tally: 13 claims withdrawn, four experiments void, 1 finding
 established.**
 
 The last two numbers were both stale until 2026-08-04, and in opposite
@@ -51,16 +51,23 @@ an established result — so it stays a judgement, and it stays visible here.
 
 ## Findings
 
-A section that should have existed since 2026-08-02. The three above are claims
-about the theory and its novelty; this one is a claim about *a measurement*, made
-in a findings document and withdrawn by the experiment that succeeded it. It was
-struck correctly at its origin and indexed nowhere, so the standing count was one
-short for two days and no check could see it — `check_retracted.py` did not read
-experiment documents at all until 2026-08-04.
+A section that should have existed since 2026-08-02. The eleven above are claims
+about the theory and its novelty; these are claims about *a measurement*, killed
+by a better measurement. The first of them was struck correctly at its origin and
+indexed nowhere, so the standing count was one short for two days and no check
+could see it — `check_retracted.py` did not read experiment documents at all
+until 2026-08-04.
+
+The second is here on the same rule and not because it is comparable in weight.
+It stood for one day, in an instrument note, and was killed by widening the very
+measurement that produced it. A file that records only the expensive mistakes
+would be a curated list rather than a ledger, and the cheap ones are the more
+common failure.
 
 | # | Claim | Killed by | Where |
 |---|---|---|---|
 | 12 | "The parties' confidence is very nearly unresponsive to how much actually transferred" — E-002b's headline pull-quote, labelled post-hoc when made | E-002c committed the quantity before collecting and measured `β = +0.1299`, CI `[+0.047, +0.223]`, which clears zero. Confidence **does** respond, at about an eighth of the rate calibration requires. The direction replicated and the magnitude did not. The unresponsive party is the **sender alone**, `β = −0.02` with its interval spanning zero — a narrower claim than the one withdrawn, and a sharper one. | [E-002b §6](experiments/E-002b-phantom-agreement-ladder/FINDINGS.md) · [E-002c §3](experiments/E-002c-calibration-slope/FINDINGS.md) |
+| 13 | "Zero of the 25 non-`interaction` probes diverge at 230 words" — stated in Problem 15 from six messages, and read as the property that only interaction probes survive saturation | Widening the same measurement to twelve messages across all four cells found three: `M02`, `M12`, `M29`. A small-sample zero, killed within a day by the instrument that produced it. What survives is the proportion — 21 of 24 divergence events on 9 of 34 probes — and the divergence **rate** the specification is costed against, 0.194 against 0.204, which the widening left standing. | [Problem 15](theory/open-problems.md#15-φ-has-no-belief-component-where-the-manipulation-has-to-live) · [headroom-2x2.json](experiments/E-001c-fluency-length-controlled/headroom-2x2.json) |
 
 ---
 
