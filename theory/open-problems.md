@@ -429,11 +429,25 @@ of the six messages, and they are not a random six.
 | | still diverges at 230 words |
 |---|---|
 | `interaction`-tagged | **6 of 9** |
-| everything else | **0 of 25** |
+| everything else | ~~**0 of 25**~~ **3 of 25** |
 
-Fisher exact `p = 6.25e-05`. Across 150 probe-message pairs on non-interaction
-probes there were **zero** divergences. The surviving probes are `M25`, `M33`,
-`M19`, `M26`, `M34`, `M14`; `boundary` contributes 0 of 10 and `override` 0 of 3.
+Fisher exact `p = 6.25e-05` on the six-message sample. ~~Across 150
+probe-message pairs on non-interaction probes there were **zero**
+divergences.~~ **Withdrawn 2026-08-04, same day**, by widening the measurement
+to all four cells and twelve messages
+([`headroom-2x2.json`](../experiments/E-001c-fluency-length-controlled/headroom-2x2.json)):
+three non-interaction probes do diverge — `M02` (`R1, boundary`), `M12` (`R4`)
+and `M29` (`R6, R1, scope`). The zero was a small-sample artifact and is struck
+rather than quietly restated.
+
+What survives the widening is the proportion, not the absolute: **21 of 24
+divergence events (88%) are on interaction probes**, which are 9 of 34. And all
+three exceptions land on **one** message — cell B, 234 words, which alone
+accounts for 5 of the 24 events. One unusual message, not a general effect, but
+the claim may no longer be stated as "never".
+
+The recurring survivors are stable across both runs: `M14` (6 of 12), `M19`
+(5 of 12), `M33` (5 of 12), `M25` (4 of 12), all interaction.
 
 It replicates on an independent instrument. On [E-002c's](../experiments/E-002c-calibration-slope/FINDINGS.md)
 brief ladder — a different measure (`MERIDIAN-33`), different messages, a
@@ -450,14 +464,34 @@ harder thing to write, and it is also the thing the probe authors' hand-applied
 tag turns out to have captured — which is a small independent validation of the
 tag.
 
-**The specification this yields.** Interaction probes diverge at **0.204 per
-probe per message** at these lengths; everything else at 0.000. So:
+**The specification this yields.** Interaction probes diverge at **0.194 per
+probe per message** at these lengths — measured on twelve messages and 21
+events, against 0.204 on the first six and 11, so the number the design would be
+costed against is stable where the absolute claim above was not. So:
 
 | measure | expected diverged per message | expected `Â` |
 |---|---|---|
-| `MERIDIAN-34` as it stands (9 of 34 interaction) | 1.8 | 0.946 |
-| 15 interaction-class probes | 3.1 | — |
-| 34 interaction-class probes | 6.9 | **≈ 0.80** |
+| `MERIDIAN-34` as it stands (9 of 34 interaction) | 1.7 | 0.949 |
+| 16 interaction-class probes | 3.1 | — |
+| 34 interaction-class probes | 6.6 | **≈ 0.81** |
+
+The widened run also measured the whole 2×2 for the first time, which the
+six-message run could not:
+
+| cell | | words | `Â` | diverged |
+|---|---|---|---|---|
+| A | fluent · declarative | 308, 251, 250 | 0.971 | 2, 1, 0 |
+| B | fluent · contrastive | 237, 235, 234 | 0.941 | 0, 1, 5 |
+| C | terse · declarative | 232, 224, 221 | 0.941 | 0, 3, 3 |
+| D | terse · contrastive | 225, 225, 223 | 0.912 | 4, 2, 3 |
+
+Contrastive cells sit below declarative ones on both rows, and fluent above
+terse on both columns. **Neither ordering may be read as a result.** These
+messages carry no register verdicts — `floor_by_register.py` composed them to
+measure length and did not rate them — the cells differ in length as well as in
+register, `n = 3` per cell, and the whole set was selected after its lengths were
+known. It is recorded because a successor's power calculation needs a per-cell
+rate and there was none.
 
 E-002c's outcome-variation gate wants at least 3 diverged probes. **Fifteen
 interaction-class probes clear it; the current measure does not.** Twenty-eight

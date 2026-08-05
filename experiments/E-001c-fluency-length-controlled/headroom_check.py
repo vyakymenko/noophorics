@@ -63,6 +63,10 @@ PROBES = os.path.join(REPO, "experiments", "E-001-fluency-cost", "probes.json")
 SPEC = os.path.join(REPO, "experiments", "E-001-fluency-cost", "source-spec.md")
 
 
+AXES = {"A": ("fluent", "declarative"), "B": ("fluent", "contrastive"),
+        "C": ("terse", "declarative"), "D": ("terse", "contrastive")}
+
+
 def pick_messages(k: int) -> list:
     """Deterministic, so the selection is not a degree of freedom.
 
@@ -87,10 +91,60 @@ def pick_messages(k: int) -> list:
     return out
 
 
+def pick_all_cells(k: int) -> list:
+    """All four cells, from the floor measurement, longest first.
+
+    The six-message run covered A and C only, and its divergence rate rested on
+    eleven events. This widens it to the whole 2x2 so the contrastiveness axis is
+    measured rather than assumed, and so the rate a successor design would be
+    costed against has more than eleven events under it.
+
+    These messages carry NO register verdicts -- floor_by_register.py composed
+    them to measure length and did not rate them. So this arm establishes what
+    the probe measure does at these lengths; it does not establish that cell B
+    reads as fluent prose. Where the two arms disagree, the rated one wins.
+    """
+    floor = json.load(open(FLOOR, encoding="utf-8"))
+    out = []
+    for cell in sorted(floor["cells"]):
+        rows = sorted(floor["cells"][cell], key=lambda r: -r["words"])[:k]
+        for i, r in enumerate(rows):
+            out.append({"id": "%s%d" % (cell.lower(), i),
+                        "register": AXES[cell][0], "selection": AXES[cell][1],
+                        "cell": cell, "rated": False,
+                        "words": r["words"], "text": r["text"]})
+    return out
+
+
+def reuse_sender(path: str):
+    """The sender's draws from a previous run of this script, if compatible.
+
+    Same model, same spec, same probe measure, same draw count -- so re-drawing
+    would only add sampling noise between the two batches on a party that is not
+    what either batch is about. Reused rather than recomputed, and the run
+    records that it did.
+    """
+    if not os.path.exists(path):
+        return None
+    prev = json.load(open(path, encoding="utf-8"))
+    s = prev.get("parties", {}).get("sender")
+    if not s or prev.get("draws") is None:
+        return None
+    return {"modes": s["modes"], "margins": s["margins"],
+            "draws": prev["draws"], "measure": prev.get("probe_measure")}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--draws", type=int, default=10)
     ap.add_argument("--per-register", type=int, default=3)
+    ap.add_argument("--all-cells", action="store_true",
+                    help="all four cells from floor-by-register.json instead of "
+                         "the two rated ones. Widens the divergence rate past "
+                         "the eleven events the six-message run rested on.")
+    ap.add_argument("--reuse-sender", default=None,
+                    help="a previous output file whose sender draws to reuse. "
+                         "Refused unless model, measure and n match.")
     ap.add_argument("--model", default="gpt-oss:120b")
     ap.add_argument("--out", default=os.path.join(HERE, "headroom.json"))
     args = ap.parse_args()
@@ -101,10 +155,12 @@ def main() -> int:
 
     measure = ProbeMeasure.from_dict(json.load(open(PROBES, encoding="utf-8")))
     spec = open(SPEC, encoding="utf-8").read()
-    msgs = pick_messages(args.per_register)
+    msgs = (pick_all_cells(args.per_register) if args.all_cells
+            else pick_messages(args.per_register))
 
-    print("headroom check: %s, %d probes, n=%d draws"
-          % (measure.qualified_id, len(measure), args.draws))
+    print("headroom check: %s, %d probes, n=%d draws%s"
+          % (measure.qualified_id, len(measure), args.draws,
+             "  [all four cells]" if args.all_cells else ""))
     print("messages: %s\n" % ", ".join("%s(%dw)" % (m["id"], m["words"]) for m in msgs))
 
     rec = {
@@ -139,7 +195,23 @@ def main() -> int:
         return {"raw": raw, "modes": modes, "margins": margins,
                 "dists": [to_distribution(c) for c in raw]}
 
-    sender = draw("sender", spec)
+    prev = reuse_sender(args.reuse_sender) if args.reuse_sender else None
+    if prev and prev["draws"] == args.draws and prev["measure"] == measure.qualified_id:
+        print("  sender    reused from %s (same model, spec, measure and n)"
+              % os.path.basename(args.reuse_sender))
+        # agreement_rate reads modal answers off distributions, so a point mass
+        # on the recorded mode reproduces it exactly. Only the modes were
+        # persisted; the raw draws were not, and inventing a spread would be
+        # worse than admitting the point mass.
+        sender = {"modes": prev["modes"], "margins": prev["margins"],
+                  "dists": [{m: 1.0} for m in prev["modes"]]}
+        rec["sender_reused_from"] = os.path.basename(args.reuse_sender)
+    elif args.reuse_sender and prev:
+        raise SystemExit("refusing to reuse a sender drawn at n=%s on %s against "
+                         "n=%d on %s" % (prev["draws"], prev["measure"],
+                                         args.draws, measure.qualified_id))
+    else:
+        sender = draw("sender", spec)
     rec["parties"]["sender"] = {"modes": sender["modes"],
                                 "margins": sender["margins"]}
     with open(args.out, "w", encoding="utf-8") as fh:
@@ -152,6 +224,11 @@ def main() -> int:
                     if s != o]
         rec["parties"][m["id"]] = {
             "register": m["register"], "words": m["words"],
+            # Copied through because the per-cell summary groups on them and
+            # silently found nothing when they were left behind -- the table
+            # printed empty rather than wrong, which is the friendlier failure
+            # but still a failure.
+            "cell": m.get("cell"), "selection": m.get("selection"),
             "agreement_observed": a_hat,
             "diverged_probes": diverged,
             "diverged_count": len(diverged),
@@ -162,14 +239,27 @@ def main() -> int:
         with open(args.out, "w", encoding="utf-8") as fh:
             json.dump(rec, fh, indent=1, sort_keys=True)
 
+    done = [v for v in rec["parties"].values()
+            if isinstance(v, dict) and "agreement_observed" in v]
+    if args.all_cells:
+        print("\ncell  register/selection      n  mean A_hat   diverged of %d" % len(measure))
+        for cell in sorted(AXES):
+            g = [v for v in done if v.get("cell") == cell]
+            if g:
+                print("  %s   %-22s %d   %.3f        %s"
+                      % (cell, "/".join(AXES[cell]), len(g),
+                         statistics.mean(v["agreement_observed"] for v in g),
+                         ", ".join(str(v["diverged_count"]) for v in g)))
     print("\nregister   n  mean A_hat   diverged probes of %d" % len(measure))
     for reg in ("fluent", "terse"):
-        g = [v for v in rec["parties"].values()
-             if isinstance(v, dict) and v.get("register") == reg]
+        g = [v for v in done if v.get("register") == reg]
         if g:
             print("  %-8s %d   %.3f        %s"
                   % (reg, len(g), statistics.mean(v["agreement_observed"] for v in g),
                      ", ".join(str(v["diverged_count"]) for v in g)))
+    events = sum(v["diverged_count"] for v in done)
+    print("\ndivergence events: %d over %d probe-message pairs"
+          % (events, len(done) * len(measure)))
     print("\nE-002c's outcome-variation gate wanted at least 3 diverged probes.")
     print("wrote %s" % args.out)
     return 0
