@@ -43,7 +43,8 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(REPO, "metrics"))
 
 from noophorics.probes import ProbeMeasure  # noqa: E402
-from noophorics.divergence import agreement_rate, to_distribution  # noqa: E402
+from noophorics.divergence import (agreement_rate, mean_divergence,  # noqa: E402
+                                   to_distribution)
 
 
 def mode_of(rows):
@@ -213,13 +214,23 @@ def main() -> int:
     else:
         sender = draw("sender", spec)
     rec["parties"]["sender"] = {"modes": sender["modes"],
-                                "margins": sender["margins"]}
+                                "margins": sender["margins"],
+                                "raw": sender.get("raw")}
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(rec, fh, indent=1, sort_keys=True)
 
     for m in msgs:
         r = draw(m["id"], m["text"])
         a_hat = agreement_rate(sender["dists"], r["dists"], measure.weights)
+        # Reported beside the agreement rate, not instead of it. The agreement
+        # rate is a modal statistic and Problem 14 governs it; mean divergence
+        # reads the whole distribution and does not need a mode at all. Whether
+        # the two saturate together is the open question.
+        # Refused when the sender was reused: only its modes were persisted, so
+        # its "distributions" are point masses, and a Jensen-Shannon divergence
+        # against a point mass measures the reconstruction rather than the party.
+        d_post = (None if rec.get("sender_reused_from")
+                  else mean_divergence(sender["dists"], r["dists"], measure.weights))
         diverged = [p.id for p, s, o in zip(measure, sender["modes"], r["modes"])
                     if s != o]
         rec["parties"][m["id"]] = {
@@ -229,13 +240,22 @@ def main() -> int:
             # printed empty rather than wrong, which is the friendlier failure
             # but still a failure.
             "cell": m.get("cell"), "selection": m.get("selection"),
+            # The raw draws, not only the modes. The first two runs persisted
+            # modes and margins and threw the draws away, and the very next
+            # question -- whether Jensen-Shannon divergence over the full
+            # distributions saturates where the modal agreement rate does --
+            # could not be answered without re-running 4080 calls. A summary
+            # statistic is a decision about which later questions are askable.
+            "raw": r["raw"],
             "agreement_observed": a_hat,
+            "mean_divergence": d_post,
             "diverged_probes": diverged,
             "diverged_count": len(diverged),
             "modes": r["modes"], "margins": r["margins"],
         }
-        print("    -> %s  A_hat = %.3f   diverged %d of %d"
-              % (m["id"], a_hat, len(diverged), len(measure)))
+        print("    -> %s  A_hat = %.3f   JSD = %s   diverged %d of %d"
+              % (m["id"], a_hat, ("%.4f" % d_post) if d_post is not None else "n/a",
+                 len(diverged), len(measure)))
         with open(args.out, "w", encoding="utf-8") as fh:
             json.dump(rec, fh, indent=1, sort_keys=True)
 

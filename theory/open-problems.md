@@ -507,6 +507,65 @@ this programme's own limitation sections deny every time. The rate rests on
 **11 divergence events**. Treat the table as a target to design against and
 measure, not as a prediction.
 
+### One candidate repair is now measured and does not work
+
+Before rebuilding a probe measure, the cheaper question is whether the *outcome
+statistic* is what saturates. `Â` is the fraction of probes whose **modal**
+answers match — a coarse quantity, and one [Problem 14](#14-when-is-a-modal-answer-over-n-draws-a-stable-observable)
+governs. Mean Jensen–Shannon divergence reads the whole distribution and needs no
+mode at all. If it had range where `Â` has none, the repair would be a line of
+analysis rather than sixteen new probes.
+
+It does not. Measured on the same six messages, with the raw draws kept this
+time:
+
+| | fluent0 | fluent1 | fluent2 | terse0 | terse1 | terse2 |
+|---|---|---|---|---|---|---|
+| `Â` | 0.941 | 0.941 | 0.971 | 0.971 | 0.912 | 0.912 |
+| mean JSD | 0.0409 | 0.0405 | 0.0290 | 0.0192 | 0.0498 | 0.0563 |
+
+**`corr(JSD, Â) = −0.958`**, and the relative spread of the two is the same to
+within a twentieth — 0.95 against 1.00. Divergence is the modal disagreement
+count wearing a hat. **The repair is the probe measure, not the statistic.**
+
+What the exercise did establish is that sub-modal information exists and is not
+negligible: **27% of total divergence, averaged over messages, comes from probes
+whose modes agree** — invisible to `Â` by construction. It is also wildly
+uneven, from 0% to 52%, and it runs the opposite way to the modal count: the
+better-aligned receivers carry their residual disagreement under the mode, the
+worse-aligned ones have it captured by the mode. Real, but not enough to carry a
+design.
+
+### And the probes that survive are the ones whose modes are least trustworthy
+
+This is the collision with [Problem 14](#14-when-is-a-modal-answer-over-n-draws-a-stable-observable),
+and it qualifies the specification above rather than confirming it.
+
+| | mean modal margin (of 10) | unanimous | margin ≤ 4 |
+|---|---|---|---|
+| `interaction` probes | 8.53 | 73% | **15.0%** |
+| everything else | 9.90 | 98% | 0.8% |
+| the four recurring survivors | 7.25 | 52% | **28.8%** |
+
+**43% of all divergence events sit on a receiver margin of 4 or less**, and three
+are exact ties. The sender is unanimous on all nine probes that ever diverge, so
+the instability is entirely on the receiver's side — which is what an incomplete
+transfer ought to look like, and is also exactly what Problem 14 says the modal
+reduction cannot be trusted to represent.
+
+Filtering for stability costs most of the signal. Keep only interaction probes
+whose mean margin is ≥ 8.5 and six of the nine survive — but they carry **10 of
+the 35 divergence events**. Sensitivity and stability trade against each other
+directly here.
+
+So "sixteen interaction-class probes" is necessary and not sufficient. Sixteen
+probes *like these* would deliver outcome variation of which roughly a third is
+a coin-flip the analysis cannot distinguish from a disposition. The open problem
+is sharper than it was: **find probes that are hard and concentrated**, or solve
+Problem 14 first. `M19`, `M26` and `M34` are the existing proof that the
+combination is possible; three of thirty-four is not proof that it is findable at
+scale.
+
 **What a solution would look like.** Any one of these, and none is obviously
 right:
 
