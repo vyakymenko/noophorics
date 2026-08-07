@@ -507,6 +507,42 @@ this programme's own limitation sections deny every time. The rate rests on
 **11 divergence events**. Treat the table as a target to design against and
 measure, not as a prediction.
 
+### It is not one model's quirk. The other local model is worse.
+
+Every limitation section in this programme says one model and nothing
+generalises, and the saturation claim above rested on exactly one. So it was run
+again on `qwen3.5:35b`, same six messages, same measure, same `n = 10`.
+
+**Fluent arm, three messages at 232–233 words: `Â = 1.000` on all three. Zero
+diverged probes of 34.** Against `gpt-oss:120b`'s 0.941–0.971 on the same
+messages. The second model does not soften the finding, it removes the last of
+the headroom.
+
+The degenerate explanation was checked before the result was believed, because a
+receiver that answers everything the same way scores 1.000 for free:
+
+| | answers used | matches the key |
+|---|---|---|
+| `qwen3.5:35b` sender | `HANDLED` 13, `RETURNED` 18, `PADDED` 3 | **34 of 34** |
+| `qwen3.5:35b` receivers (×3) | identical distribution | **34 of 34** each |
+| `gpt-oss:120b` sender | identical distribution | **34 of 34** |
+
+Both models use all three options, in the same proportions, and both answer the
+whole measure correctly from the source specification. The receivers of the
+smaller model then reproduce all thirty-four from a 232-word message.
+
+**But the measure is not trivial in general**, and that distinction matters for
+the successor. [PARAMETERS](../experiments/E-001c-fluency-length-controlled/PARAMETERS.md)
+records `claude-opus-4-8` at 0.882 with four errors on this same measure, and
+[E-004](../experiments/E-004-disagreement-detector/VOID.md) independently put it
+at 0.909. `MERIDIAN-34` discriminates *between* models. What it cannot do is
+discriminate *within* a model's own sender–receiver pair at 230 words — which is
+the only comparison the E-001 line needs.
+
+*The terse arm is still running; this section covers the fluent arm and the
+sender, which is what decides the question. It will be extended, not rewritten,
+when the rest lands.*
+
 ### One candidate repair is now measured and does not work
 
 Before rebuilding a probe measure, the cheaper question is whether the *outcome
