@@ -539,9 +539,23 @@ at 0.909. `MERIDIAN-34` discriminates *between* models. What it cannot do is
 discriminate *within* a model's own sender–receiver pair at 230 words — which is
 the only comparison the E-001 line needs.
 
-*The terse arm is still running; this section covers the fluent arm and the
-sender, which is what decides the question. It will be extended, not rewritten,
-when the rest lands.*
+**The terse arm agrees, and the run then died.** `terse0`, 232 words, came back
+at `Â = 1.000` with zero diverged probes and a mean divergence of 0.0031 — the
+lowest of the five. So both registers are at ceiling for this model, not only the
+fluent one.
+
+Its provenance is worse than the others' and is stated rather than smoothed over:
+`terse0`'s numbers survive **in the run log only**. The write that would have
+persisted them is the write that failed — a transient `EPERM` on a file that was
+writable a second earlier and a second later — and the exception took the process
+down after seventeen hours, so `terse1` and `terse2` were never drawn.
+[`headroom-qwen.json`](../experiments/E-001c-fluency-length-controlled/headroom-qwen.json)
+therefore contains the sender and the three fluent messages, and this paragraph's
+figure does not appear in it.
+
+Four messages of six, both registers, every one at `Â = 1.000`. The two missing
+messages would have to disagree with all four to change the reading, and the
+arithmetic they would have to overturn is a ceiling.
 
 ### One candidate repair is now measured and does not work
 

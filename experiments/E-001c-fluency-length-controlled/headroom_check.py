@@ -135,6 +135,29 @@ def reuse_sender(path: str):
             "draws": prev["draws"], "measure": prev.get("probe_measure")}
 
 
+def checkpoint(rec: dict, path: str) -> None:
+    """Write the record so far, atomically, and never take the run down with it.
+
+    The qwen run of 2026-08-06 died on its seventeenth hour because a single
+    incremental write returned EPERM -- a transient macOS refusal on a file that
+    was writable a second earlier and a second later. It had just finished a
+    message; that message never reached the file, and the two after it were
+    never drawn. A checkpoint that kills the run when it fails is worse than no
+    checkpoint at all.
+
+    Temp file plus rename, so a crash mid-write cannot leave a truncated record
+    either.
+    """
+    tmp = path + ".tmp"
+    try:
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump(rec, fh, indent=1, sort_keys=True)
+        os.replace(tmp, path)
+    except OSError as exc:
+        print("  ! checkpoint failed (%s: %s) -- continuing; the run is worth "
+              "more than the snapshot" % (type(exc).__name__, exc), flush=True)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--draws", type=int, default=10)
@@ -216,8 +239,7 @@ def main() -> int:
     rec["parties"]["sender"] = {"modes": sender["modes"],
                                 "margins": sender["margins"],
                                 "raw": sender.get("raw")}
-    with open(args.out, "w", encoding="utf-8") as fh:
-        json.dump(rec, fh, indent=1, sort_keys=True)
+    checkpoint(rec, args.out)
 
     for m in msgs:
         r = draw(m["id"], m["text"])
@@ -256,8 +278,7 @@ def main() -> int:
         print("    -> %s  A_hat = %.3f   JSD = %s   diverged %d of %d"
               % (m["id"], a_hat, ("%.4f" % d_post) if d_post is not None else "n/a",
                  len(diverged), len(measure)))
-        with open(args.out, "w", encoding="utf-8") as fh:
-            json.dump(rec, fh, indent=1, sort_keys=True)
+        checkpoint(rec, args.out)
 
     done = [v for v in rec["parties"].values()
             if isinstance(v, dict) and "agreement_observed" in v]
