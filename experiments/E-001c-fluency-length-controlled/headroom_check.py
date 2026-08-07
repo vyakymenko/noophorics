@@ -169,6 +169,10 @@ def main() -> int:
     ap.add_argument("--reuse-sender", default=None,
                     help="a previous output file whose sender draws to reuse. "
                          "Refused unless model, measure and n match.")
+    ap.add_argument("--probes", default=PROBES,
+                    help="probe measure to run. Defaults to MERIDIAN-34; point it "
+                         "at a candidate measure to see whether that one has the "
+                         "headroom this one lacks.")
     ap.add_argument("--model", default="gpt-oss:120b")
     ap.add_argument("--out", default=os.path.join(HERE, "headroom.json"))
     args = ap.parse_args()
@@ -177,7 +181,7 @@ def main() -> int:
         print("ollama is not reachable", file=sys.stderr)
         return 2
 
-    measure = ProbeMeasure.from_dict(json.load(open(PROBES, encoding="utf-8")))
+    measure = ProbeMeasure.from_dict(json.load(open(args.probes, encoding="utf-8")))
     spec = open(SPEC, encoding="utf-8").read()
     msgs = (pick_all_cells(args.per_register) if args.all_cells
             else pick_messages(args.per_register))
@@ -236,6 +240,8 @@ def main() -> int:
                                          args.draws, measure.qualified_id))
     else:
         sender = draw("sender", spec)
+    rec["keys"] = [pr.key for pr in measure]
+    rec["probe_ids"] = [pr.id for pr in measure]
     rec["parties"]["sender"] = {"modes": sender["modes"],
                                 "margins": sender["margins"],
                                 "raw": sender.get("raw")}

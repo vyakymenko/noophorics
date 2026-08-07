@@ -475,6 +475,47 @@ costed against is stable where the absolute claim above was not. So:
 | 16 interaction-class probes | 3.1 | — |
 | 34 interaction-class probes | 6.6 | **≈ 0.81** |
 
+### The specification was built, and the projection was twice too generous
+
+[`MERIDIAN-IX16`](../probes/meridian-ix16/) is that measure: sixteen probes, every
+one requiring two or more rules to combine, written against the same source
+specification and validated on the same six messages.
+
+**The admission gate passed completely.** The rule was declared before the run —
+a probe is admitted only if the sender, holding the full specification, returns
+the key with a modal margin of at least 8 of 10 — and all **16 of 16** were
+admitted, every one unanimous at 10/10. The specification decides all sixteen
+cases and the model recovers all sixteen from it. Nothing was cut, so nothing
+had to be rewritten.
+
+**The headroom is real and half what was projected.**
+
+| | per-probe divergence rate | diverged per message |
+|---|---|---|
+| `MERIDIAN-34`, same six messages | 0.049 | 2.0 of 34 |
+| `MERIDIAN-IX16` | **0.104** | 1.67 of 16 |
+
+Twice as sensitive per probe. But the projection above said **0.194**, and the
+gap is a selection effect I walked into rather than noise:
+
+> 0.194 was measured on the interaction probes that **survived** saturation. That
+> survival was the selection. Four probes carried most of the signal, and
+> projecting their rate onto probes not yet written assumed the new ones would
+> all be like the survivors rather than like the class they were drawn from.
+
+The same shape repeats inside the new measure: **12 of its 16 probes never
+discriminated at all.** Ten divergence events sit on four probes — `X11` ("would
+be PADDED but also fails R1"), `X06` and `X07` (paired figure limits), and `X16`
+(R4's exact boundary inside a pair). Discriminating power concentrates whatever
+the measure, which is a fact about the domain and not about either measure's
+construction.
+
+**So sixteen probes is not enough after all.** At 0.104, clearing E-002c's
+outcome-variation gate of three diverged probes needs **29**, and a 34-probe
+measure of this class would expect 3.5 per message. The earlier table said 16 and
+was labelled "a target to design against and measure, not a prediction"; it has
+now been measured, and the target moves.
+
 The widened run also measured the whole 2×2 for the first time, which the
 six-message run could not:
 

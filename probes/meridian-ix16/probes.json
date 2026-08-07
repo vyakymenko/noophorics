@@ -1,0 +1,253 @@
+{
+ "id": "MERIDIAN-IX16",
+ "domain": "meridian-review-2026",
+ "description": "16 decidable submission cases over the Meridian Review handling rules, every one of which requires two or more rules to COMBINE. Built to the specification in theory/open-problems.md#15: MERIDIAN-34 is answered correctly from any competent 230-word brief by both local models, and the only probes that survived that saturation were its nine interaction-tagged ones. This measure is that class and nothing else.",
+ "probes": [
+  {
+   "id": "X01",
+   "prompt": "Solo submission. 26 pages, official template, presented at a Tier-1 venue 30 months before the deadline, then withdrawn from that presentation 10 months before the deadline. Never accepted in a prior round. 20 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R10",
+    "R3",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X02",
+   "prompt": "Solo submission. 24 pages, official template, accepted in a Meridian round 2 years before the deadline but withdrawn from that round. Never presented at a Tier-1 venue. 15 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R10",
+    "R4",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X03",
+   "prompt": "Solo submission to Track D. 25 pages, does not use the official template, carries 1 year of documented revision history and 1 endorsement. Never presented, never accepted. 18 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R6",
+    "R2",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X04",
+   "prompt": "Solo submission to Track D. 23 pages, does not use the official template, no documented revision history, carries exactly 2 endorsements. Never presented, never accepted. 5 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "PADDED",
+   "tags": [
+    "R6",
+    "R8",
+    "R9",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X05",
+   "prompt": "Solo submission. 24 pages, official template, never presented, never accepted, 4 figures, and an open retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R7",
+    "R9",
+    "override",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X06",
+   "prompt": "Paired submission of 2 manuscripts. Both are 30 pages and both use the official template. Neither has been presented at a Tier-1 venue and neither was accepted in a prior round. Combined figure count is 68. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R5",
+    "R8",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X07",
+   "prompt": "Paired submission of 2 manuscripts. Both are 26 pages and both use the official template. Neither has been presented and neither was previously accepted. Combined figure count is 6. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "PADDED",
+   "tags": [
+    "R5",
+    "R8",
+    "R9",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X08",
+   "prompt": "Paired submission of 2 manuscripts. Both are 27 pages and both use the official template. One was presented at a Tier-1 venue 24 months before the deadline; the other was presented at a Tier-1 venue 6 months before the deadline. 30 figures combined. No retraction notices, no prior acceptances. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R5",
+    "R3",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X09",
+   "prompt": "Paired submission of 2 manuscripts. One is 30 pages, the other is 20 pages. Both use the official template. Neither has been presented and neither was previously accepted. 25 figures combined. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R5",
+    "R1",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X10",
+   "prompt": "Paired submission of 3 manuscripts. All are 28 pages and all use the official template. None has been presented and none was previously accepted. 40 figures combined. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R5",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X11",
+   "prompt": "Solo submission. 20 pages, official template, never presented, never accepted, 5 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R9",
+    "R1",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X12",
+   "prompt": "Solo submission. 25 pages, official template, presented at a Tier-1 venue 40 months before the deadline, then withdrawn from that presentation exactly 18 months before the deadline. Never accepted. 20 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R10",
+    "R3",
+    "boundary",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X13",
+   "prompt": "Solo submission to Track D. 24 pages, does not use the official template, carries exactly 2 endorsements, 20 figures, never presented, never accepted, and an open retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R6",
+    "R7",
+    "override",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X14",
+   "prompt": "Solo submission. 30 pages, official template, never presented, never accepted, 50 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R8",
+    "R9",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X15",
+   "prompt": "Solo submission. 28 pages, official template, accepted in a Meridian round 2 years before the deadline but withdrawn from that round; presented at a Tier-1 venue 40 months before the deadline, with that withdrawal taking effect 25 months before the deadline. 22 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R10",
+    "R3",
+    "R4",
+    "interaction"
+   ]
+  },
+  {
+   "id": "X16",
+   "prompt": "Paired submission of 2 manuscripts. Both are 24 pages and both use the official template. One was accepted in a Meridian round exactly 5 years before the deadline; the other has never been accepted. Neither has been presented at a Tier-1 venue. 30 figures combined. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R5",
+    "R4",
+    "boundary",
+    "interaction"
+   ]
+  }
+ ]
+}
