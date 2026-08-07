@@ -9,18 +9,22 @@ is submitted anywhere by anything other than a human hand.
 
 ## Building it
 
-There is no LaTeX toolchain on the machine this was written on, so **the source
-has never been compiled**. It passes a structural check — balanced environments,
-matched braces, even inline math delimiters, every `\cite` resolving to a
-`\bibitem`, every `\ref` to a `\label` — and that is not the same as compiling.
-
 ```bash
-brew install --cask basictex     # or MacTeX, or use Overleaf
-pdflatex noophorics-2026.tex && pdflatex noophorics-2026.tex
+brew install tectonic
+tectonic -X compile paper/noophorics-2026.tex
 ```
 
-arXiv compiles LaTeX source on upload, so the `.tex` is the deliverable either
-way. Compile it once before trusting it.
+**It compiles clean** — no errors, no warnings, no overfull boxes. `tectonic` is
+the toolchain to use here: a single self-contained binary from a Homebrew
+formula, needing no `sudo`, against `basictex` which ships an installer package
+that does. This README previously said the paper "has never been compiled"
+because the machine had no TeX; that was true of `pdflatex` and false of the
+problem, and the first compile found two tables running past the right margin
+that every structural check had passed.
+
+arXiv compiles LaTeX source on upload, so the `.tex` is the deliverable and the
+PDF is a build artifact — gitignored, because a committed PDF drifts from its
+source the moment anyone edits a number in it.
 
 ## Checking it
 
@@ -29,7 +33,7 @@ python3 paper/check_numbers.py
 ```
 
 The paper says every figure in it is traceable to a committed results file. That
-is a claim, so it is checked rather than asserted: 24 figures read from the
+is a claim, so it is checked rather than asserted: 26 figures read from the
 results JSON on one side and from the LaTeX on the other, failing when **either**
 moves. A checker that only read the paper would pass on a paper that quietly
 disagreed with its own data.
@@ -40,19 +44,17 @@ was right and the checker had reached for the sample sd against a source that
 reports the population one. A check that can only ever accuse the document is
 not much of a check.
 
-## What is still open in it
+## What was open in it, and how it was settled
 
-- **The floor-by-register table.** Marked `% FLOOR-TABLE:` in the source. It is
-  filled from `experiments/E-001c-fluency-length-controlled/floor-by-register.json`,
-  produced by `floor_by_register.py`. Until that lands, the negative result rests
-  on cell A only.
-- **Authorship.** One name, taken from `AUTHORS.md`. Whether the agent
-  contribution is acknowledged, and how, is the author's call — see
-  [EXPOSURE.md](../EXPOSURE.md), which records that a model that is also one of
-  this programme's measurement subjects read the pre-registrations while helping
-  write this.
-- **Title.** Two claims in one title is one too many. Pick the one the paper is
-  actually about.
+- ~~**Authorship.**~~ Settled: one name from `AUTHORS.md`, plus an
+  *Acknowledgement of machine assistance* section that states the part which
+  matters here — the assisting model is also one of this programme's measurement
+  subjects, so it cannot judge whether the open problem it drafted is real. It
+  never held a probe measure in context, and the section says that too, because
+  it is what keeps those weights usable as a subject later.
+- ~~**Title.**~~ Settled: reduced to the one claim the paper *establishes*. The
+  dropped clause was about what the paper closes, which "four voids" already
+  carries.
 
 ## Constraints this draft is under
 

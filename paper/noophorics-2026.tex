@@ -8,14 +8,13 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{url}
 
-\title{Stated agreement barely responds to actual agreement,\\
-and register cannot be separated from length:\\
+\title{Stated agreement barely responds to actual agreement\\
 \large a preregistered programme, one result and four voids}
 
 \author{Valentyn Yakymenko\\
 \small Noophorics \quad \url{https://noophorics.org}}
 
-\date{2026-08-04}
+\date{2026-08-07}
 
 \begin{document}
 \maketitle
@@ -197,14 +196,15 @@ All six gates passed and all four registered hypotheses resolved.
 
 \begin{table}[h]
 \centering
+\small
 \begin{tabular}{llll}
 \toprule
  & value & 95\% CI & outcome \\
 \midrule
 H1 \quad $\beta < 0.5$ & $+0.130$ & $[+0.047, +0.223]$ & supported \\
 H2 \quad $\beta$ indistinguishable from 0 & $+0.130$ & $[+0.047, +0.223]$ & \textbf{not supported} \\
-H3 \quad sender less responsive than receiver & $+0.300$ & $[+0.151, +0.471]$ & supported ($p_{\text{Holm}} = 0.0009$) \\
-H4 \quad resolution survives a finer grid & $+0.307$ & $[+0.216, +0.404]$ & supported ($p_{\text{Holm}} = 0.0002$) \\
+H3 \quad sender less responsive than receiver & $+0.300$ & $[+0.151, +0.471]$ & supported, $p_{\text{Holm}} = 0.0009$ \\
+H4 \quad resolution survives a finer grid & $+0.307$ & $[+0.216, +0.404]$ & supported, $p_{\text{Holm}} = 0.0002$ \\
 \bottomrule
 \end{tabular}
 \caption{Registered outcomes. H1 and H2 carry no $p$-value by design: the claim
@@ -426,8 +426,9 @@ not separable from their lengths.
 
 E-002b's primary statistic was $\mathrm{corr}(\text{fidelity}, \Phi) = -0.966$ at
 $p = 0.0005$. Recomputed against synthetic counterfactual parties tracking the
-outcome at slope $\beta$, it returns $-0.977$ at $\beta = 0, 0.25, 0.50, 0.90,
-0.95$ and $0.99$ alike, breaking only at exactly $1.0$. It would have read the
+outcome at slope $\beta$, it returns $-0.977$ at
+$\beta = 0$, $0.25$, $0.50$, $0.90$, $0.95$ and $0.99$ alike, breaking only at
+exactly $1.0$. It would have read the
 same against 99\%-calibrated parties. A statistic that cannot distinguish the
 hypothesis from its negation is not evidence for either, however small its
 $p$-value. This is what motivated $\beta$.
@@ -503,6 +504,23 @@ public, including the ones reporting failures, at
 \url{https://github.com/vyakymenko/noophorics}. The metrics library is
 dependency-free. Every number in this paper is traceable to a committed results
 file, and the commit preceding each result is its registration.
+
+\section*{Acknowledgement of machine assistance}
+
+Parts of the analysis and drafting were done with a large language model working
+in the repository. This matters here beyond the usual disclosure, because the
+models this programme uses as tools are also its \emph{subjects}: the same
+weights that helped write a section may later be measured by an experiment that
+section shaped. The repository therefore keeps an exposure log
+(\texttt{EXPOSURE.md}) recording what each assisting model read and what that
+disqualifies it from.
+
+Two consequences are load-bearing for this paper. The saturation analysis in
+Section~\ref{sec:saturation} and the open problem it produced were drafted by an
+exposed model, which cannot then serve as an independent judge of whether that
+problem is real. And no probe measure was in that model's context at any point,
+so the probe measures remain uncontaminated and a later experiment may still use
+those weights as a subject against them.
 
 \section*{On the prior-art claims in this paper}
 

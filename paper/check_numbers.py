@@ -101,7 +101,7 @@ ROWS = [
     ("H3 value", eff["H3_sender_less_responsive"]["value"],
      r"H3 .*?& \$\+(0\.\d+)\$"),
     ("H3 p_holm", eff["H3_sender_less_responsive"]["p_value_holm"],
-     r"supported \(\$p_\{\\text\{Holm\}\} = (0\.\d+)\$\) \\\\\s*\nH4"),
+     r"supported, \$p_\{\\text\{Holm\}\} = (0\.\d+)\$ \\\\\s*\nH4"),
     ("H4 value", eff["H4_resolution_survives_finer_grid"]["value"],
      r"H4 .*?& \$\+(0\.\d+)\$"),
     ("observed mean", statistics.mean(observed),

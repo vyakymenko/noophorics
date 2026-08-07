@@ -39,3 +39,10 @@ automation/
 # accounts and scheduling belong to the maintainer, not to the science. The
 # repository must be readable by someone who has never heard of the campaign.
 launch/
+
+# LaTeX build artifacts. The .tex is the source; arXiv compiles it, and a
+# committed PDF drifts from the source the moment anyone edits a number.
+paper/*.pdf
+paper/*.log
+paper/*.aux
+paper/*.out
