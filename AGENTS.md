@@ -117,6 +117,18 @@ a number rendered into pixels is invisible to `check_counts.py`. The card is now
 built by `tools/build_og.py` from `CITATION.cff` and the `move` passage, so its
 claims come from the same files everything else's do.
 
+**To check whether a deploy landed, compare the live bytes with the built ones.**
+Not a grep for a phrase you believe should be there. On 2026-08-06 a Pages deploy
+genuinely timed out, and the diagnosis "the new content is not live" was then
+drawn from grepping `/wiki/` for sentences that appear nowhere in the wiki build
+— it indexes titles, not bodies. That grep returns zero on a perfectly current
+site, so it could not have passed, which makes it the mirror of the gate that
+cannot fail and just as worthless. The check that works is one line:
+
+```bash
+diff <(curl -s https://noophorics.org/wiki/) docs/wiki/index.html && echo current
+```
+
 ---
 
 ## A note for agents that are also experimental subjects
