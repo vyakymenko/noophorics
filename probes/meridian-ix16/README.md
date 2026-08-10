@@ -96,6 +96,24 @@ The measure is worth having only if it then shows what `MERIDIAN-34` cannot:
 receiver divergence at 230 words. That number decides whether this file is an
 instrument or a discarded attempt, and it is not known as this is written.
 
+## The keys are three-way derived
+
+`qwen3.5:35b` was given the specification and asked the original sixteen probes
+cold, with no key and no contact with the author's reasoning. It returned
+**16 of 16**, every one unanimous at 10/10, matching both the hand-derived key
+and `gpt-oss:120b`. Recorded in
+[`adjudication-qwen.json`](adjudication-qwen.json).
+
+That closes the specific risk this README named — the author and the model wrong
+in the same direction — with two models of different architecture agreeing. It
+does **not** close the general one. Both models read the same specification, so
+what has been shown is *convergent derivation*, not independent verification of
+whether the specification says what its author thinks. Two readers who share a
+prior can share an error. `probes/riverside-30/ADJUDICATION.md` remains the
+standard and remains unmet.
+
+`X17`–`X32` have not been adjudicated at all yet.
+
 ## Provenance
 
 Authored 2026-08-07 by `claude-opus-5`, working in this repository. Recorded in
