@@ -1,4 +1,7 @@
-# MERIDIAN-IX16 — sixteen probes that need two rules to combine
+# MERIDIAN-IX32 — probes that need two rules to combine
+
+*The directory is named for where this started, sixteen probes; the measure is
+now thirty-two. The name is left alone because links resolve to it.*
 
 **Status: validated on one model, not adjudicated.** The admission rule below was
 recorded before the validating run, and the result is in
@@ -15,8 +18,33 @@ probes never discriminated at all: ten events sit on `X11`, `X06`, `X07` and
 E-002c's outcome-variation gate of three; clearing it needs about **29** probes
 of this class, and 34 would expect 3.5.
 
-So this file is a working prototype and not yet a usable measure. It is half of
+So sixteen was a working prototype and not yet a usable measure. It was half of
 one.
+
+## The second sixteen, and a prediction recorded before they ran
+
+Of the first sixteen, **twelve discriminated nothing**. All ten divergence events
+sat on four probes — `X11`, `X06`, `X07`, `X16` — and those four share a shape the
+other twelve do not:
+
+- a **number** meeting a **regime**: the paired figure maximum of 70 against the
+  solo 45, the shared minimum of 8, R4's exact five years inside a pair
+- **verdict precedence**: R9's PADDED losing to any second failure
+
+What discriminated nothing was categorical: R7's override, R6's Track D
+exemption, R10's clock reset. A brief seems to keep a rule *as a rule* and lose
+the qualifier attached to a number.
+
+`X17`–`X32` test that. Twelve are number-meets-regime and **predicted to
+discriminate**; four are categorical overrides and **predicted not to**. Each
+probe carries the prediction in its own `predicted_discriminating` field, so the
+result is scored rather than remembered — and so a prediction that fails cannot
+be quietly reread as the one that succeeded.
+
+If the twelve beat 0.104 and the four fall below it, the design rule is: *write
+probes where a number's applicability depends on a regime the brief has room to
+state only once.* If they do not, the rule is wrong and sixteen more probes of
+the wrong kind is what this measure will have cost.
 
 `MERIDIAN-34` is saturated at the message lengths this programme's fluency line
 requires. Both local models answer it correctly from the source specification —

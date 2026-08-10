@@ -1,7 +1,7 @@
 {
- "id": "MERIDIAN-IX16",
+ "id": "MERIDIAN-IX32",
  "domain": "meridian-review-2026",
- "description": "16 decidable submission cases over the Meridian Review handling rules, every one of which requires two or more rules to COMBINE. Built to the specification in theory/open-problems.md#15: MERIDIAN-34 is answered correctly from any competent 230-word brief by both local models, and the only probes that survived that saturation were its nine interaction-tagged ones. This measure is that class and nothing else.",
+ "description": "32 decidable submission cases over the Meridian Review handling rules, every one requiring two or more rules to combine. Probes X01-X16 were written and validated first; X17-X32 were added with a PREDICTION recorded before they were run -- that joints where a NUMBER meets a REGIME (paired vs solo limits, inclusive boundaries) discriminate between a spec-holder and a 230-word brief, and that categorical overrides (R7 retraction, R6 Track D, R10 withdrawal) do not. The field 'predicted_discriminating' carries that prediction per probe so it can be scored rather than remembered.",
  "probes": [
   {
    "id": "X01",
@@ -16,7 +16,8 @@
     "R10",
     "R3",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X02",
@@ -31,7 +32,8 @@
     "R10",
     "R4",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X03",
@@ -46,7 +48,8 @@
     "R6",
     "R2",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X04",
@@ -62,7 +65,8 @@
     "R8",
     "R9",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X05",
@@ -78,7 +82,8 @@
     "R9",
     "override",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X06",
@@ -93,7 +98,8 @@
     "R5",
     "R8",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X07",
@@ -109,7 +115,8 @@
     "R8",
     "R9",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X08",
@@ -124,7 +131,8 @@
     "R5",
     "R3",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X09",
@@ -139,7 +147,8 @@
     "R5",
     "R1",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X10",
@@ -153,7 +162,8 @@
    "tags": [
     "R5",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X11",
@@ -168,7 +178,8 @@
     "R9",
     "R1",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X12",
@@ -184,7 +195,8 @@
     "R3",
     "boundary",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X13",
@@ -200,7 +212,8 @@
     "R7",
     "override",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X14",
@@ -215,7 +228,8 @@
     "R8",
     "R9",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X15",
@@ -231,7 +245,8 @@
     "R3",
     "R4",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
   },
   {
    "id": "X16",
@@ -247,7 +262,276 @@
     "R4",
     "boundary",
     "interaction"
-   ]
+   ],
+   "predicted_discriminating": null
+  },
+  {
+   "id": "X17",
+   "prompt": "Paired submission of 2 manuscripts. Both are 28 pages and both use the official template. Neither has been presented and neither was previously accepted. Combined figure count is 70. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R5",
+    "R8",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X18",
+   "prompt": "Paired submission of 2 manuscripts. Both are 28 pages and both use the official template. Neither has been presented and neither was previously accepted. Combined figure count is 71. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R5",
+    "R8",
+    "R9",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X19",
+   "prompt": "Solo submission. 26 pages, official template, never presented, never accepted, 45 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R8",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X20",
+   "prompt": "Solo submission. 26 pages, official template, never presented, never accepted, 46 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R8",
+    "R9",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X21",
+   "prompt": "Paired submission of 2 manuscripts. Both are 25 pages and both use the official template. Neither has been presented and neither was previously accepted. Combined figure count is 8. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R5",
+    "R8",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X22",
+   "prompt": "Paired submission of 2 manuscripts. Both are 25 pages and both use the official template. Neither has been presented and neither was previously accepted. Combined figure count is 7. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "PADDED",
+   "tags": [
+    "R5",
+    "R8",
+    "R9",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X23",
+   "prompt": "Solo submission. 24 pages, official template, never presented, never accepted, 8 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R8",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X24",
+   "prompt": "Paired submission of 2 manuscripts. One is exactly 22 pages, the other is 30 pages. Both use the official template. Neither has been presented and neither was previously accepted. 30 figures combined. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R5",
+    "R1",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X25",
+   "prompt": "Paired submission of 2 manuscripts. One is exactly 22 pages, the other is 21 pages. Both use the official template. Neither has been presented and neither was previously accepted. 30 figures combined. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R5",
+    "R1",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X26",
+   "prompt": "Paired submission of 2 manuscripts. One is 30 pages, the other is 20 pages. Both use the official template. Neither has been presented and neither was previously accepted. Combined figure count is 5. No retraction notices. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R5",
+    "R1",
+    "R9",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X27",
+   "prompt": "Solo submission to Track D. 27 pages, does not use the official template, carries exactly 2 endorsements. Never presented, never accepted. 46 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R6",
+    "R8",
+    "R9",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X28",
+   "prompt": "Solo submission. Exactly 22 pages, official template, presented at a Tier-1 venue 19 months before the deadline, never accepted, exactly 8 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R1",
+    "R3",
+    "R8",
+    "boundary",
+    "interaction"
+   ],
+   "predicted_discriminating": true
+  },
+  {
+   "id": "X29",
+   "prompt": "Solo submission to Track D. 25 pages, does not use the official template, carries exactly 2 endorsements. Never presented, never accepted. 20 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R6",
+    "R2",
+    "interaction"
+   ],
+   "predicted_discriminating": false
+  },
+  {
+   "id": "X30",
+   "prompt": "Solo submission. 26 pages, official template, never presented, never accepted, 20 figures, and an open retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "RETURNED",
+   "tags": [
+    "R7",
+    "override",
+    "interaction"
+   ],
+   "predicted_discriminating": false
+  },
+  {
+   "id": "X31",
+   "prompt": "Solo submission. 24 pages, official template, withdrawn from a Meridian round 1 year before the deadline, never presented at a Tier-1 venue, 15 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R10",
+    "R4",
+    "interaction"
+   ],
+   "predicted_discriminating": false
+  },
+  {
+   "id": "X32",
+   "prompt": "Solo submission. 25 pages, official template, presented at a Tier-1 venue 24 months before the deadline, never accepted, 20 figures, no retraction notice. Verdict?",
+   "options": [
+    "HANDLED",
+    "RETURNED",
+    "PADDED"
+   ],
+   "key": "HANDLED",
+   "tags": [
+    "R3",
+    "interaction"
+   ],
+   "predicted_discriminating": false
   }
  ]
 }
