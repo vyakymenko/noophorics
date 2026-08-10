@@ -46,6 +46,54 @@ probes where a number's applicability depends on a regime the brief has room to
 state only once.* If they do not, the rule is wrong and sixteen more probes of
 the wrong kind is what this measure will have cost.
 
+### It held
+
+| group | n | rate | probes that fired |
+|---|---|---|---|
+| predicted **to** discriminate | 12 | **0.181** | 5 of 12 |
+| predicted **not** to | 4 | **0.000** | 0 of 4 |
+| the original sixteen | 15 | 0.078 | 3 of 15 |
+
+Thirteen events on the first group, **zero** on the second across all 24
+probe-message pairs. Fisher exact `p = 0.0339`.
+
+The structure is sharper than the rate. Every one of the nine probes that ever
+discriminated turns on the **paired regime** (`R5`, in seven of nine) or on
+**verdict precedence** (`R9`, in four). Not one categorical override
+discriminated, in either batch — `R7`, `R6` and `R10` are silent across 32 probes
+and six messages.
+
+**The design rule, earned rather than guessed:** a brief keeps a rule as a rule
+and loses the qualifier attached to a number. Write probes where a number's
+applicability depends on a regime, and the brief will state the number once and
+drop which regime it belonged to.
+
+### The measure now clears the gate
+
+**3.33 diverged per message over 31 admitted probes**, against E-002c's
+outcome-variation gate of 3. It clears, and it clears narrowly, and one message
+(`terse0`) still returns zero — the same message that returned zero on
+`MERIDIAN-34` and on `qwen`. The gate is met on the mean and not on every
+message, which a successor's power calculation has to carry rather than round
+away.
+
+### And the admission gate itself is defective
+
+`X06` was admitted at margin **10/10** in the first validation and **cut at 4/10**
+in the second. Same probe, same model, same specification; the modal answer did
+not change, its stability did.
+
+So "16 of 16 admitted" was true of one measurement and not of the probe. An
+admission rule applied once is not an admission rule — it is a snapshot, and
+[Problem 14](../../theory/open-problems.md) is exactly about the difference. A
+usable version of this measure needs the gate applied across **repeated** runs,
+with a probe admitted only if it is stable in all of them. That is not done here,
+and `X06` is left in the file, cut by the run that could see it, precisely so the
+defect stays visible.
+
+Note what that costs: `X06` discriminated 3 of 6 messages. The instability is
+concentrated in a probe that was *working*, which is the uncomfortable direction.
+
 `MERIDIAN-34` is saturated at the message lengths this programme's fluency line
 requires. Both local models answer it correctly from the source specification —
 34 of 34 — and their receivers reproduce nearly all of it from a 230-word brief:

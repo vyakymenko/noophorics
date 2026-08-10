@@ -516,6 +516,45 @@ measure of this class would expect 3.5 per message. The earlier table said 16 an
 was labelled "a target to design against and measure, not a prediction"; it has
 now been measured, and the target moves.
 
+### What a brief drops, stated as a rule and then tested
+
+Twelve of the first sixteen discriminated nothing, and the four that did shared a
+shape: a **number** whose applicability depends on a **regime** — the paired
+figure maximum of 70 against the solo 45, the shared minimum of 8, `R4`'s exact
+five years inside a pair — or **verdict precedence**, `R9`'s PADDED losing to any
+second failure. What discriminated nothing was categorical: `R7`'s override,
+`R6`'s Track D exemption, `R10`'s clock reset.
+
+Sixteen further probes were written to test that rather than to assume it, with
+the prediction recorded **per probe, in the probe file**, before any of them ran:
+
+| group | n | rate | fired |
+|---|---|---|---|
+| predicted **to** discriminate | 12 | **0.181** | 5 of 12 |
+| predicted **not** to | 4 | **0.000** | 0 of 4 |
+
+Thirteen events against zero, over 24 probe-message pairs on the second group.
+Fisher exact `p = 0.0339`. And the structure is sharper than the rate: **all nine
+probes that ever discriminated turn on the paired regime (`R5`, seven of nine) or
+on verdict precedence (`R9`, four).** Across 32 probes and six messages, not one
+categorical override discriminated.
+
+> A brief keeps a rule *as a rule* and loses the qualifier attached to a number.
+
+That is the design rule the successor needed, and it is now earned rather than
+guessed. [`MERIDIAN-IX32`](../probes/meridian-ix16/) reaches **3.33 diverged per
+message over 31 admitted probes**, clearing the gate — narrowly, and with one
+message still at zero.
+
+**The admission procedure is defective and the measure records it.** `X06` was
+admitted at margin 10/10 in the first validation and cut at 4/10 in the second —
+same probe, same model, same specification, the modal answer unchanged and its
+stability not. An admission rule applied once is a snapshot, which is
+[Problem 14](#14-when-is-a-modal-answer-over-n-draws-a-stable-observable) again
+and from a new direction: it is not only the probes that need a stability
+criterion, it is the gate that admits them. And the instability landed on a probe
+that was discriminating 3 of 6 messages, which is the uncomfortable direction.
+
 The widened run also measured the whole 2×2 for the first time, which the
 six-message run could not:
 
