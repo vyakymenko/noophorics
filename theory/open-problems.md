@@ -542,9 +542,40 @@ categorical override discriminated.
 > A brief keeps a rule *as a rule* and loses the qualifier attached to a number.
 
 That is the design rule the successor needed, and it is now earned rather than
-guessed. [`MERIDIAN-IX32`](../probes/meridian-ix16/) reaches **3.33 diverged per
-message over 31 admitted probes**, clearing the gate — narrowly, and with one
-message still at zero.
+guessed. ~~[`MERIDIAN-IX32`](../probes/meridian-ix16/) reaches **3.33 diverged per
+message over 31 admitted probes**, clearing the gate.~~ **Withdrawn the same day
+— see below.** The design rule survives; the claim that the measure built on it
+clears the gate does not.
+
+### Discriminating power and stable observability are anti-correlated
+
+The admission gate had been applied once. Applied five times — a probe admitted
+only if it returns the key at margin ≥ 8 in **every** pass — it rejects four
+probes: `X06`, `X17`, `X21`, `X22`.
+
+**All four are among the nine that ever discriminated. None of the twenty-three
+that never discriminated was rejected.** Fisher exact `p = 0.0035`.
+
+On the 28 survivors the measure gives **2.00 diverged per message** at a
+per-probe rate of **0.071** — still above `MERIDIAN-34`'s 0.049, and **below the
+gate of three.** The headroom that appeared to clear it was substantially
+borrowed from probes that are not stable observables.
+
+So the repair does not work as stated, and the reason is not a defect in these
+sixteen probes:
+
+> At this operating point, a probe that separates a spec-holder from a brief is
+> markedly more likely to be one whose own modal answer is unstable.
+
+[Problem 14](#14-when-is-a-modal-answer-over-n-draws-a-stable-observable) is
+therefore not a caveat attached to this repair. It is the binding constraint on
+it. "Write harder probes" may not be a route to headroom at all, because harder
+is where the instability lives — and a measure cannot buy discrimination with
+observations it cannot trust.
+
+That leaves the successor needing **both** open problems solved, not one: a probe
+class that discriminates, and a reduction that stays meaningful where it does.
+Neither this measure nor this programme has the second.
 
 **The admission procedure is defective and the measure records it.** `X06` was
 admitted at margin 10/10 in the first validation and cut at 4/10 in the second —

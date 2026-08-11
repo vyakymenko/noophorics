@@ -3,29 +3,55 @@
 *The directory is named for where this started, sixteen probes; the measure is
 now thirty-two. The name is left alone because links resolve to it.*
 
-**Status: validated on one model, not adjudicated.** The admission rule below was
-recorded before the validating run, and the result is in
-[`validation.json`](validation.json).
+## Where it stands
 
-**All 16 of 16 admitted**, every one with the sender unanimous at 10/10 on the
-hand-derived key. The specification decides all sixteen cases and `gpt-oss:120b`
-recovers all sixteen from it. Nothing was cut.
+**32 probes, 28 stable, 2.00 diverged per message — it does NOT clear the gate.**
 
-**Per-probe divergence at 221–233 words: 0.104**, against `MERIDIAN-34`'s 0.049
-on the identical six messages — twice the sensitivity per probe. But 12 of the 16
-probes never discriminated at all: ten events sit on `X11`, `X06`, `X07` and
-`X16`. At this rate sixteen probes yield 1.67 diverged per message, **below**
-E-002c's outcome-variation gate of three; clearing it needs about **29** probes
-of this class, and 34 would expect 3.5.
+~~32 probes, 31 admitted, 3.33 diverged per message. That clears E-002c's
+outcome-variation gate of three.~~ **Withdrawn 2026-08-07**, by applying the
+admission gate the way it should always have been applied: repeatedly. Five
+sender passes instead of one rejected four probes as unstable, and the measure
+on the 28 survivors gives **2.00** diverged per message at a per-probe rate of
+**0.071** — still above `MERIDIAN-34`'s 0.049 on the identical six messages, and
+below the gate.
+
+**And the four rejected probes are four of the nine that ever discriminated.**
+Of the 23 probes that never discriminated, none was rejected. Fisher exact
+`p = 0.0035`. Discriminating power and modal stability are not merely in tension
+here, they are anti-correlated, and the headroom this measure appeared to have
+was substantially borrowed from probes that are not stable observables.
+
+Keys for `X01`–`X16` are independently derived by a second model. `X17`–`X32`
+are adjudicated by nothing. Neither batch is adjudicated by a person.
+
+**Two known defects, recorded below rather than fixed:** the admission gate has
+only ever been applied per-run, and one probe passed it once and failed it once;
+and the gate is met on the *mean* while one of the six messages still returns
+zero.
+
+Everything after this is the history in the order it happened, because how a
+measure was arrived at is most of what tells you whether to trust it.
+
+---
+
+## The first sixteen
+
+The admission rule below was recorded before the first validating run
+([`validation.json`](validation.json)). All **16 of 16** were admitted, the
+sender unanimous at 10/10 on every hand-derived key — a claim the second run
+later qualified; see the last section.
+
+Per-probe divergence was **0.104**, twice `MERIDIAN-34`'s, but 12 of the 16
+probes never discriminated at all: ten events sat on `X11`, `X06`, `X07` and
+`X16`. At that rate sixteen probes yield 1.67 diverged per message, **below** the
+gate of three, and clearing it looked to need about 29.
 
 So sixteen was a working prototype and not yet a usable measure. It was half of
 one.
 
 ## The second sixteen, and a prediction recorded before they ran
 
-Of the first sixteen, **twelve discriminated nothing**. All ten divergence events
-sat on four probes — `X11`, `X06`, `X07`, `X16` — and those four share a shape the
-other twelve do not:
+Those four that discriminated share a shape the other twelve do not:
 
 - a **number** meeting a **regime**: the paired figure maximum of 70 against the
   solo 45, the shared minimum of 8, R4's exact five years inside a pair
@@ -68,14 +94,14 @@ and loses the qualifier attached to a number. Write probes where a number's
 applicability depends on a regime, and the brief will state the number once and
 drop which regime it belonged to.
 
-### The measure now clears the gate
+### ~~The measure now clears the gate~~ — it did not, under a gate applied once
 
-**3.33 diverged per message over 31 admitted probes**, against E-002c's
-outcome-variation gate of 3. It clears, and it clears narrowly, and one message
-(`terse0`) still returns zero — the same message that returned zero on
-`MERIDIAN-34` and on `qwen`. The gate is met on the mean and not on every
-message, which a successor's power calculation has to carry rather than round
-away.
+~~**3.33 diverged per message over 31 admitted probes**, against E-002c's
+outcome-variation gate of 3.~~ True of single-pass admission and false of the
+probe set. See the section below and the head of this file.
+
+The narrow-clearance caveat stands and got worse: `terse0` returns zero on the
+stable subset too, as it does on `MERIDIAN-34` and on `qwen`.
 
 ### And the admission gate itself is defective
 
@@ -93,6 +119,30 @@ defect stays visible.
 
 Note what that costs: `X06` discriminated 3 of 6 messages. The instability is
 concentrated in a probe that was *working*, which is the uncomfortable direction.
+
+### The gate was then applied properly, and it took the measure down with it
+
+Five sender passes over all 32 probes, admitting a probe only if it returns the
+key at margin ≥ 8 in **every** pass it appears in:
+
+| rejected | why | did it discriminate? |
+|---|---|---|
+| `X06` | 4/10 in pass 2, 10/10 in the other four | yes, 3 of 6 messages |
+| `X17` | 6/10 in pass 3 | yes, 3 of 6 |
+| `X21` | 6/10 in pass 4 | yes, 3 of 6 |
+| `X22` | 6/10 in passes 4 and 5 | yes, 2 of 6 |
+
+**Four of the nine probes that ever discriminated; none of the twenty-three that
+never did.** `p = 0.0035`. On the 28 survivors the measure gives 2.00 diverged
+per message and 0.071 per probe, against 3.33 and 0.124 before.
+
+The reading is uncomfortable and worth stating flatly: **at this operating point,
+a probe that separates a spec-holder from a brief is markedly more likely to be
+one whose own modal answer is unstable.** That is not a flaw in these sixteen
+probes. It is [Problem 14](../../theory/open-problems.md) turning out to be the
+binding constraint on the whole repair, rather than a caveat attached to it —
+and it means "write harder probes" may not be a route to headroom at all, because
+harder is where the instability lives.
 
 `MERIDIAN-34` is saturated at the message lengths this programme's fluency line
 requires. Both local models answer it correctly from the source specification —

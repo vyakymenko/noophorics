@@ -173,6 +173,11 @@ def main() -> int:
                     help="probe measure to run. Defaults to MERIDIAN-34; point it "
                          "at a candidate measure to see whether that one has the "
                          "headroom this one lacks.")
+    ap.add_argument("--sender-only", action="store_true",
+                    help="draw the spec-holder and stop. The admission gate for a "
+                         "candidate measure needs the sender and nothing else, and "
+                         "a gate applied once is a snapshot -- this makes repeating "
+                         "it cost one seventh of a full run.")
     ap.add_argument("--model", default="gpt-oss:120b")
     ap.add_argument("--out", default=os.path.join(HERE, "headroom.json"))
     args = ap.parse_args()
@@ -246,6 +251,11 @@ def main() -> int:
                                 "margins": sender["margins"],
                                 "raw": sender.get("raw")}
     checkpoint(rec, args.out)
+
+    if args.sender_only:
+        print("\n--sender-only: %d probes drawn, receivers skipped" % len(measure))
+        print("wrote %s" % args.out)
+        return 0
 
     for m in msgs:
         r = draw(m["id"], m["text"])
