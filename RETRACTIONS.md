@@ -8,7 +8,7 @@ than a clean document that never made the mistake.
 This file exists because the site quotes a *count*, and a count nobody can audit
 is worse than no count.
 
-**Standing tally: 13 claims withdrawn, four experiments void, 1 finding
+**Standing tally: 14 claims withdrawn, four experiments void, 1 finding
 established.**
 
 The last two numbers were both stale until 2026-08-04, and in opposite
@@ -68,6 +68,7 @@ common failure.
 |---|---|---|---|
 | 12 | "The parties' confidence is very nearly unresponsive to how much actually transferred" — E-002b's headline pull-quote, labelled post-hoc when made | E-002c committed the quantity before collecting and measured `β = +0.1299`, CI `[+0.047, +0.223]`, which clears zero. Confidence **does** respond, at about an eighth of the rate calibration requires. The direction replicated and the magnitude did not. The unresponsive party is the **sender alone**, `β = −0.02` with its interval spanning zero — a narrower claim than the one withdrawn, and a sharper one. | [E-002b §6](experiments/E-002b-phantom-agreement-ladder/FINDINGS.md) · [E-002c §3](experiments/E-002c-calibration-slope/FINDINGS.md) |
 | 13 | "Zero of the 25 non-`interaction` probes diverge at 230 words" — stated in Problem 15 from six messages, and read as the property that only interaction probes survive saturation | Widening the same measurement to twelve messages across all four cells found three: `M02`, `M12`, `M29`. A small-sample zero, killed within a day by the instrument that produced it. What survives is the proportion — 21 of 24 divergence events on 9 of 34 probes — and the divergence **rate** the specification is costed against, 0.194 against 0.204, which the widening left standing. | [Problem 15](theory/open-problems.md#15-φ-has-no-belief-component-where-the-manipulation-has-to-live) · [headroom-2x2.json](experiments/E-001c-fluency-length-controlled/headroom-2x2.json) |
+| 14 | "`MERIDIAN-IX32` reaches 3.33 diverged probes per message and clears E-002c's outcome-variation gate" — the candidate probe measure built to repair Problem 15 | The admission gate behind that number had been applied **once**. Applied five times, admitting a probe only if it returns the key at margin ≥ 8 in every pass, it rejects four probes, and the measure on the 28 survivors gives **2.00** per message — below the gate. Worse for the repair than for the claim: all four rejected probes are among the nine that ever discriminated, and none of the twenty-three that never discriminated was rejected, `p = 0.0035`. The headroom was borrowed from probes that are not stable observables. | [MERIDIAN-IX32](probes/meridian-ix16/) · [Problem 15](theory/open-problems.md#15-φ-has-no-belief-component-where-the-manipulation-has-to-live) |
 
 ---
 

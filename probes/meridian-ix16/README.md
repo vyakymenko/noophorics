@@ -24,10 +24,11 @@ was substantially borrowed from probes that are not stable observables.
 Keys for `X01`–`X16` are independently derived by a second model. `X17`–`X32`
 are adjudicated by nothing. Neither batch is adjudicated by a person.
 
-**Two known defects, recorded below rather than fixed:** the admission gate has
-only ever been applied per-run, and one probe passed it once and failed it once;
-and the gate is met on the *mean* while one of the six messages still returns
-zero.
+**One defect fixed, one standing.** The admission gate is now applied across five
+sender passes rather than one, which is what produced the withdrawal above. What
+still stands: `terse0` returns zero diverged probes on every measure tried, so
+even a measure that cleared the gate on the mean would not clear it on that
+message.
 
 Everything after this is the history in the order it happened, because how a
 measure was arrived at is most of what tells you whether to trust it.
