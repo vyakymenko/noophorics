@@ -145,6 +145,41 @@ binding constraint on the whole repair, rather than a caveat attached to it —
 and it means "write harder probes" may not be a route to headroom at all, because
 harder is where the instability lives.
 
+### What the divergences actually are
+
+The obvious alternative explanation had to be ruled out before any of this means
+anything: divergence is scored as *sender mode ≠ receiver mode*, so a probe whose
+sender distribution is flat produces divergence by chance, with no transfer
+failure at all. The four rejected probes are exactly the flat ones, so the worry
+is pointed.
+
+**Ruled out.** On the 23 divergence events the receiver's own modal margin has a
+median of **8 of 10**, mean 7.1, unanimous in 7. On the 12 events that sit on
+*stable* probes the median is also 8. The receiver is confidently giving a
+different answer, which is transfer loss and not shared wobble.
+
+**Every divergence is a dropped qualifier**, and the mechanism is legible probe
+by probe: the paired figure maximum of 70 (`X06`, `X17`, `X21`), R1's
+"exactly 22 satisfies" (`X24`), R4's exact five years (`X16`), R9's padding
+allowance inside a pair (`X07`, `X22`), and R9's precedence clause — a submission
+that would be PADDED but fails a second rule is RETURNED (`X11`, `X26`). The
+brief carries the rule and loses the clause attached to it, which is the design
+rule restated from the other side.
+
+**The direction is not established, and the obvious statistic for it is an
+artifact.** Seventeen of the 23 events make the receiver *stricter* than the
+spec-holder, which sign-tests at `p = 0.0173` — and that number should not be
+used. Five of the nine discriminating probes are `HANDLED`-keyed, and a
+`HANDLED`-keyed probe **can only** err stricter, because nothing is more lenient
+than HANDLED. The majority is partly forced by which keys those probes happen to
+carry.
+
+Conditioning on the only probes that could go either way, the two `PADDED`-keyed
+ones: **4 of 4 events went stricter**, `p = 0.0625` one-sided. Suggestive, `n` is
+four, and it is reported as suggestive.
+
+## Provenance of the surrounding numbers
+
 `MERIDIAN-34` is saturated at the message lengths this programme's fluency line
 requires. Both local models answer it correctly from the source specification —
 34 of 34 — and their receivers reproduce nearly all of it from a 230-word brief:
