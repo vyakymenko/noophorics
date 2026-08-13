@@ -25,6 +25,7 @@ import html
 import os
 import json
 import re
+import sys
 import subprocess
 from typing import List, Tuple
 
@@ -54,9 +55,47 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("e-004-void", "experiments/E-004-disagreement-detector/VOID.md", "void"),
     ("e-004-interrupted",
      "experiments/E-004-disagreement-detector/INTERRUPTED.md", "instrument"),
+    ("e-001c-defect", "experiments/E-001c-fluency-length-controlled/DEFECT-001.md",
+     "defect"),
+    ("e-001c-calibration",
+     "experiments/E-001c-fluency-length-controlled/CALIBRATION-001.md", "instrument"),
+    ("e-001c-void", "experiments/E-001c-fluency-length-controlled/VOID.md", "void"),
     ("retractions", "RETRACTIONS.md", "audit"),
     ("prior-art", "theory/prior-art.md", "audit"),
 ]
+
+# Experiment documents that are deliberately NOT published as journal entries.
+# Anything else matching the patterns below and missing from SOURCES is a
+# build error, not a silent omission -- E-001c's VOID.md sat unpublished for
+# days because SOURCES is hand-maintained and a new experiment produces new
+# files nobody remembers to add. The same shape as check_retracted.py's source
+# list, found the same way and fixed the same way.
+NOT_PUBLISHED = {
+    "experiments/E-004-disagreement-detector/BLOCKED-NOTE.md",
+    "experiments/E-001b-fluency-factorial/SENSITIVITY-M33.md",
+    "experiments/E-001b-fluency-factorial/AMENDMENT-001.md",
+    "experiments/E-001c-fluency-length-controlled/AMENDMENT-001.md",
+}
+PUBLISHABLE = ("VOID.md", "FINDINGS.md", "DEFECT-001.md", "INTERRUPTED.md",
+               "CALIBRATION-001.md", "FEASIBILITY.md")
+
+
+def check_sources_complete() -> list:
+    """Every publishable experiment document is listed or explicitly excluded."""
+    listed = {path for _, path, _ in SOURCES}
+    missing = []
+    base = os.path.join(ROOT, "experiments")
+    for exp in sorted(os.listdir(base)):
+        d = os.path.join(base, exp)
+        if not os.path.isdir(d):
+            continue
+        for name in sorted(os.listdir(d)):
+            if name not in PUBLISHABLE:
+                continue
+            rel = "experiments/%s/%s" % (exp, name)
+            if rel not in listed and rel not in NOT_PUBLISHED:
+                missing.append(rel)
+    return missing
 
 REPO = "https://github.com/vyakymenko/noophorics/blob/main/"
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -391,6 +430,15 @@ def summarise(first_para: str, rest: str, limit: int = 175) -> str:
 
 
 def build() -> int:
+    missing = check_sources_complete()
+    if missing:
+        print("refusing to build: publishable experiment documents are not in "
+              "SOURCES and not in NOT_PUBLISHED --", file=sys.stderr)
+        for m in missing:
+            print("  " + m, file=sys.stderr)
+        print("  add each to one list or the other; a journal that silently omits "
+              "a void is worse than one that fails to build", file=sys.stderr)
+        return 2
     with open(os.path.join(DOCS, "index.html"), "r", encoding="utf-8") as fh:
         style = extract_style(fh.read())
     os.makedirs(OUT, exist_ok=True)
