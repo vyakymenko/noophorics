@@ -145,6 +145,36 @@ binding constraint on the whole repair, rather than a caveat attached to it —
 and it means "write harder probes" may not be a route to headroom at all, because
 harder is where the instability lives.
 
+### Confirmed on twice the messages
+
+The anti-correlation above rested on nine discriminating probes and six
+messages, which is thin for a claim that decides a research line. Re-run on
+**twelve** messages, all four cells, same 32 probes, sender reused
+([`validation-12msg.json`](validation-12msg.json)):
+
+| | six messages | twelve messages |
+|---|---|---|
+| divergence events | 23 | **49** |
+| probes that discriminated | 9 of 32 | **12 of 32** |
+| unstable probes that discriminate | 4 of 4 | **4 of 4** |
+| stable probes that discriminate | 5 of 28 | 8 of 28 |
+| Fisher exact | `p = 0.0035` | **`p = 0.0138`** |
+| mean diverged per message, stable probes only | 2.00 | **2.08** |
+
+It holds, and the sharpest way to say it is new:
+
+> **The four unstable probes are 12% of the measure and carry 49% of its
+> divergence events.**
+
+Half the signal comes from an eighth of the probes, and that eighth is exactly
+the eighth that fails a repeated admission gate. On the 28 stable probes the
+measure gives 2.08 diverged per message against a gate of three — the same
+answer the six-message run gave, on twice the data.
+
+Three of the twelve messages produce **zero** divergence on the stable subset
+(`a2`, `b1`, `c0`), joining `terse0`. A quarter of briefs transfer everything
+this measure can see.
+
 ### What the divergences actually are
 
 The obvious alternative explanation had to be ruled out before any of this means
