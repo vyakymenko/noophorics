@@ -21,8 +21,35 @@ Of the 23 probes that never discriminated, none was rejected. Fisher exact
 here, they are anti-correlated, and the headroom this measure appeared to have
 was substantially borrowed from probes that are not stable observables.
 
-Keys for `X01`–`X16` are independently derived by a second model. `X17`–`X32`
-are adjudicated by nothing. Neither batch is adjudicated by a person.
+**All 32 keys are twice-derived.** `qwen3.5:35b` was given the specification and
+every probe cold, and returned **32 of 32**, each unanimous at 10/10
+([`adjudication-qwen-32.json`](adjudication-qwen-32.json)). Still not adjudicated
+by a person — that gap stands.
+
+**And the instability does not transfer between models**, which qualifies the
+headline finding below:
+
+| probe | `gpt-oss:120b`, five passes | `qwen3.5:35b`, one pass |
+|---|---|---|
+| `X06` | 10, **4**, 10, 10, 10 | 10 |
+| `X17` | 10, **6**, 8, 8 | 10 |
+| `X21` | 8, 8, **6**, 10 | 10 |
+| `X22` | 10, 10, **6**, **6** | 10 |
+
+`qwen`'s only margins under 10 across all 32 are `X16` and `X19` at 8 — neither
+in the rejected set. So "the probes that discriminate are the ones that will not
+hold still" is true **of `gpt-oss:120b`**, and the probes it wavers on are read
+unanimously by a model of another architecture. They are not ill-posed.
+
+The caveat is the same one that produced the repeated gate in the first place and
+it cuts against the hopeful reading: **`qwen` ran one pass**, and `X06` passed
+four of five `gpt-oss` passes at 10/10. One pass cannot establish stability, by
+exactly the argument this file already makes. Five `qwen` passes would cost about
+eleven hours and have not been run.
+
+What can be said: the anti-correlation is measured on one model, and the
+instability behind it is not a property of the probes. Whether a successor can
+escape it by choosing a model is open, and now worth asking.
 
 **One defect fixed, one standing.** The admission gate is now applied across five
 sender passes rather than one, which is what produced the withdrawal above. What
