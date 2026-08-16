@@ -175,6 +175,29 @@ Three of the twelve messages produce **zero** divergence on the stable subset
 (`a2`, `b1`, `c0`), joining `terse0`. A quarter of briefs transfer everything
 this measure can see.
 
+**And nothing about a brief predicts which quarter it lands in.** Across the
+twelve:
+
+| | mean diverged |
+|---|---|
+| fluent (A, B) | 1.83 |
+| terse (C, D) | 2.33 |
+| declarative (A, C) | 1.83 |
+| contrastive (B, D) | 2.33 |
+
+`corr(words, diverged) = −0.010` over 221–308 words. The two axis differences are
+the same size in opposite directions with six messages a side, which is noise at
+this `n`. And the three complete transfers come from **three different cells** —
+`a2` fluent-declarative, `b1` fluent-contrastive, `c0` terse-declarative — at
+250, 235 and 232 words, the middle of the range.
+
+So at this operating point how much of a specification survives a brief is a
+property of *that brief*, not of its length, its register or its selection
+strategy. For a successor that matters twice: per-message variance will dominate
+and cannot be designed away by choosing a cell, and a design needing outcome
+variation **in every cell** cannot get it by writing a better prompt for the
+cell.
+
 ### What the divergences actually are
 
 The obvious alternative explanation had to be ruled out before any of this means
