@@ -124,15 +124,36 @@ def reuse_sender(path: str):
     would only add sampling noise between the two batches on a party that is not
     what either batch is about. Reused rather than recomputed, and the run
     records that it did.
+
+    The model is returned so the caller can CHECK it. It did not used to be:
+    this function returned four fields, none of them the model, and the caller
+    then printed "same model, spec, measure and n" -- an assertion about a
+    quantity it had never read. A `gpt-oss:120b` sender was therefore accepted
+    verbatim under `--model qwen3.5:35b`, and the run said so in the affirmative
+    while writing the other model's answers into the record. That is the gate
+    that cannot fail, in AGENTS.md's sense, with the failure inverted: not a
+    check that always passes, but a claim made where no check existed at all.
+
+    A missing file is now an error rather than None. Returning None sent a
+    mistyped `--reuse-sender` path down the `else` branch, where the run drew a
+    fresh 320-call sender and reported nothing unusual -- the operator asked for
+    reuse and silently got its opposite.
     """
     if not os.path.exists(path):
-        return None
+        raise SystemExit("--reuse-sender: no such file: %s" % path)
     prev = json.load(open(path, encoding="utf-8"))
     s = prev.get("parties", {}).get("sender")
     if not s or prev.get("draws") is None:
-        return None
+        raise SystemExit("--reuse-sender: %s has no usable sender party" % path)
     return {"modes": s["modes"], "margins": s["margins"],
-            "draws": prev["draws"], "measure": prev.get("probe_measure")}
+            "draws": prev["draws"], "measure": prev.get("probe_measure"),
+            "model": prev.get("model"),
+            # The raw draws when the previous run kept them. Early runs persisted
+            # only modes, which is why the reuse path collapsed the sender to a
+            # point mass and had to refuse a Jensen-Shannon divergence against
+            # it. The files written since do keep them, and refusing a statistic
+            # the data on disk can support is a self-inflicted gap.
+            "raw": s.get("raw")}
 
 
 def checkpoint(rec: dict, path: str) -> None:
@@ -229,20 +250,38 @@ def main() -> int:
                 "dists": [to_distribution(c) for c in raw]}
 
     prev = reuse_sender(args.reuse_sender) if args.reuse_sender else None
-    if prev and prev["draws"] == args.draws and prev["measure"] == measure.qualified_id:
-        print("  sender    reused from %s (same model, spec, measure and n)"
-              % os.path.basename(args.reuse_sender))
-        # agreement_rate reads modal answers off distributions, so a point mass
-        # on the recorded mode reproduces it exactly. Only the modes were
-        # persisted; the raw draws were not, and inventing a spread would be
-        # worse than admitting the point mass.
-        sender = {"modes": prev["modes"], "margins": prev["margins"],
-                  "dists": [{m: 1.0} for m in prev["modes"]]}
+    sender_dists_are_draws = True
+    if prev:
+        # Every field the reuse claim asserts is now tested, and the model is
+        # tested first because it is the one that used to be asserted untested.
+        if prev["model"] != args.model:
+            raise SystemExit("refusing to reuse a sender drawn on %s against a "
+                             "run of %s" % (prev["model"], args.model))
+        if prev["draws"] != args.draws or prev["measure"] != measure.qualified_id:
+            raise SystemExit("refusing to reuse a sender drawn at n=%s on %s "
+                             "against n=%d on %s"
+                             % (prev["draws"], prev["measure"],
+                                args.draws, measure.qualified_id))
+        if prev["raw"]:
+            # The real per-probe distributions, so mean_divergence measures the
+            # party rather than a reconstruction of it.
+            sender = {"modes": prev["modes"], "margins": prev["margins"],
+                      "dists": [to_distribution(c) for c in prev["raw"]]}
+        else:
+            # agreement_rate reads modal answers off distributions, so a point
+            # mass on the recorded mode reproduces it exactly. Where the raw
+            # draws were not persisted, inventing a spread would be worse than
+            # admitting the point mass -- and a Jensen-Shannon divergence
+            # against a point mass measures the reconstruction, so it is refused
+            # below rather than reported.
+            sender = {"modes": prev["modes"], "margins": prev["margins"],
+                      "dists": [{m: 1.0} for m in prev["modes"]]}
+            sender_dists_are_draws = False
+        print("  sender    reused from %s (%s, same measure and n; %s)"
+              % (os.path.basename(args.reuse_sender), prev["model"],
+                 "raw draws" if prev["raw"] else "modes only, JSD refused"))
         rec["sender_reused_from"] = os.path.basename(args.reuse_sender)
-    elif args.reuse_sender and prev:
-        raise SystemExit("refusing to reuse a sender drawn at n=%s on %s against "
-                         "n=%d on %s" % (prev["draws"], prev["measure"],
-                                         args.draws, measure.qualified_id))
+        rec["sender_reused_raw"] = bool(prev["raw"])
     else:
         sender = draw("sender", spec)
     rec["keys"] = [pr.key for pr in measure]
@@ -264,11 +303,15 @@ def main() -> int:
         # rate is a modal statistic and Problem 14 governs it; mean divergence
         # reads the whole distribution and does not need a mode at all. Whether
         # the two saturate together is the open question.
-        # Refused when the sender was reused: only its modes were persisted, so
-        # its "distributions" are point masses, and a Jensen-Shannon divergence
-        # against a point mass measures the reconstruction rather than the party.
-        d_post = (None if rec.get("sender_reused_from")
-                  else mean_divergence(sender["dists"], r["dists"], measure.weights))
+        # Refused only when the sender's distributions are a reconstruction --
+        # i.e. the reused file kept modes and threw the draws away, so its
+        # "distributions" are point masses and a Jensen-Shannon divergence
+        # against one measures the reconstruction rather than the party. Where
+        # the reused file kept its raw draws the distributions are the real
+        # ones and the statistic is computed, which is the whole reason the
+        # draws are persisted.
+        d_post = (mean_divergence(sender["dists"], r["dists"], measure.weights)
+                  if sender_dists_are_draws else None)
         diverged = [p.id for p, s, o in zip(measure, sender["modes"], r["modes"])
                     if s != o]
         rec["parties"][m["id"]] = {

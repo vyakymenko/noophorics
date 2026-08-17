@@ -28,6 +28,7 @@ be satisfied by a check that always returns zero.
 from __future__ import annotations
 
 import io
+import json
 import os
 import shutil
 import sys
@@ -360,6 +361,73 @@ class TestCheckCounts(ToolTest):
         code, out = self.run_check(files)
         self.assertEqual(code, 1)
         self.assertIn("PATTERN NOT FOUND", out)
+
+
+class TestReuseSender(ToolTest):
+    """`headroom_check.reuse_sender` asserted a model it never read.
+
+    The reuse path printed "same model, spec, measure and n" while comparing
+    only `draws` and `probe_measure`. A sender drawn on one model was therefore
+    accepted verbatim under `--model` naming another, and the run affirmed the
+    match in its own log. The measurement that results is a cross-model
+    sender/receiver pair labelled as same-model, which no later reader could
+    detect from the output file.
+
+    What these tests cover, stated exactly rather than generously: that the
+    model is now SURFACED, that raw draws survive when the file has them, and
+    that the two silent-failure paths raise instead of returning None. The
+    comparison itself lives in `main()` behind an ollama connection and a
+    650-line argument path, and is NOT exercised here. So this is the necessary
+    half, not the sufficient one -- a reader should know that the guard is
+    covered only as far as its inputs.
+    """
+
+    def setUp(self):
+        here = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, os.path.join(
+            os.path.dirname(here), "experiments",
+            "E-001c-fluency-length-controlled"))
+        import headroom_check  # noqa: E402
+        self.hc = headroom_check
+
+    def record(self, model="gpt-oss:120b", draws=10, raw=True):
+        rec = {"model": model, "draws": draws,
+               "probe_measure": "MERIDIAN-IX32@f058de0f906e",
+               "parties": {"sender": {"modes": ["HANDLED"], "margins": [10]}}}
+        if raw:
+            rec["parties"]["sender"]["raw"] = [["HANDLED"] * 10]
+        return rec
+
+    def write(self, rec) -> str:
+        root = self.tree({"prev.json": json.dumps(rec)})
+        return str(root / "prev.json")
+
+    def test_model_is_returned_so_it_can_be_checked(self):
+        """The defect was an omission: the field was never surfaced."""
+        got = self.hc.reuse_sender(self.write(self.record(model="qwen3.5:35b")))
+        self.assertEqual(got["model"], "qwen3.5:35b")
+
+    def test_raw_draws_survive_when_present(self):
+        """Refusing a statistic the file can support is a self-inflicted gap."""
+        got = self.hc.reuse_sender(self.write(self.record(raw=True)))
+        self.assertEqual(got["raw"], [["HANDLED"] * 10])
+
+    def test_modes_only_file_reports_no_raw(self):
+        """The legitimate case that most resembles it: an early file."""
+        got = self.hc.reuse_sender(self.write(self.record(raw=False)))
+        self.assertIsNone(got["raw"])
+
+    def test_missing_file_is_an_error_not_a_silent_fresh_draw(self):
+        """A mistyped path used to return None and fall through to `else`,
+        where the run drew a fresh sender and reported nothing unusual."""
+        with self.assertRaises(SystemExit):
+            self.hc.reuse_sender("/nonexistent/prev.json")
+
+    def test_file_without_sender_party_is_an_error(self):
+        rec = self.record()
+        rec["parties"] = {}
+        with self.assertRaises(SystemExit):
+            self.hc.reuse_sender(self.write(rec))
 
 
 if __name__ == "__main__":
