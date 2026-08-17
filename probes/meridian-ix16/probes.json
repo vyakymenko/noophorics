@@ -17,7 +17,8 @@
     "R3",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X02",
@@ -33,7 +34,8 @@
     "R4",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X03",
@@ -49,7 +51,8 @@
     "R2",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X04",
@@ -66,7 +69,8 @@
     "R9",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X05",
@@ -83,7 +87,8 @@
     "override",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X06",
@@ -99,7 +104,8 @@
     "R8",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X07",
@@ -116,7 +122,8 @@
     "R9",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X08",
@@ -132,7 +139,8 @@
     "R3",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X09",
@@ -148,7 +156,8 @@
     "R1",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X10",
@@ -163,7 +172,8 @@
     "R5",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X11",
@@ -179,7 +189,8 @@
     "R1",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X12",
@@ -196,7 +207,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X13",
@@ -213,7 +225,8 @@
     "override",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X14",
@@ -229,7 +242,8 @@
     "R9",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X15",
@@ -246,7 +260,8 @@
     "R4",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X16",
@@ -263,7 +278,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": null
+   "predicted_discriminating": null,
+   "predicted_diverging_qwen_receiver": true
   },
   {
    "id": "X17",
@@ -280,7 +296,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X18",
@@ -298,7 +315,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X19",
@@ -314,7 +332,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": true
   },
   {
    "id": "X20",
@@ -331,7 +350,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X21",
@@ -348,7 +368,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X22",
@@ -366,7 +387,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X23",
@@ -382,7 +404,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X24",
@@ -399,7 +422,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X25",
@@ -416,7 +440,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X26",
@@ -433,7 +458,8 @@
     "R9",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X27",
@@ -450,7 +476,8 @@
     "R9",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X28",
@@ -468,7 +495,8 @@
     "boundary",
     "interaction"
    ],
-   "predicted_discriminating": true
+   "predicted_discriminating": true,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X29",
@@ -484,7 +512,8 @@
     "R2",
     "interaction"
    ],
-   "predicted_discriminating": false
+   "predicted_discriminating": false,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X30",
@@ -500,7 +529,8 @@
     "override",
     "interaction"
    ],
-   "predicted_discriminating": false
+   "predicted_discriminating": false,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X31",
@@ -516,7 +546,8 @@
     "R4",
     "interaction"
    ],
-   "predicted_discriminating": false
+   "predicted_discriminating": false,
+   "predicted_diverging_qwen_receiver": false
   },
   {
    "id": "X32",
@@ -531,7 +562,8 @@
     "R3",
     "interaction"
    ],
-   "predicted_discriminating": false
+   "predicted_discriminating": false,
+   "predicted_diverging_qwen_receiver": false
   }
  ]
 }
