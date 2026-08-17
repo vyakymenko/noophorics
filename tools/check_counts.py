@@ -89,7 +89,7 @@ CLAIMS = [
     # same shape and the same fix. A number is a claim wherever it appears, and
     # this sentence is the one carried into nineteen translations -- so an
     # unchecked numeral here goes wrong in twenty places at once.
-    ("docs/index.html", r"(Fourteen|Thirteen|Twelve|Eleven|Ten|Nine) of our own claims are withdrawn",
+    ("docs/index.html", r"(Fifteen|Fourteen|Thirteen|Twelve|Eleven|Ten|Nine) of our own claims are withdrawn",
      "retractions"),
 ]
 

@@ -16,10 +16,13 @@ on the 28 survivors gives **2.00** diverged per message at a per-probe rate of
 below the gate.
 
 **And the four rejected probes are four of the nine that ever discriminated.**
-Of the 23 probes that never discriminated, none was rejected. Fisher exact
-`p = 0.0035`. Discriminating power and modal stability are not merely in tension
-here, they are anti-correlated, and the headroom this measure appeared to have
-was substantially borrowed from probes that are not stable observables.
+Of the 23 probes that never discriminated, none was rejected. ~~Fisher exact
+`p = 0.0035`.~~ **The p-value is withdrawn 2026-08-18** — [retraction
+15](../../RETRACTIONS.md) — because this measure is not 32 independent probes
+and the test assumes it is; see [the counting defect](#the-counting-defect)
+below. The **count** stands, and so does the direction: discriminating power and
+modal stability are in tension here, and the headroom this measure appeared to
+have was substantially borrowed from probes that are not stable observables.
 
 **All 32 keys are twice-derived.** `qwen3.5:35b` was given the specification and
 every probe cold, and returned **32 of 32**, each unanimous at 10/10
@@ -109,7 +112,10 @@ the wrong kind is what this measure will have cost.
 | the original sixteen | 15 | 0.078 | 3 of 15 |
 
 Thirteen events on the first group, **zero** on the second across all 24
-probe-message pairs. Fisher exact `p = 0.0339`.
+probe-message pairs. ~~Fisher exact `p = 0.0339`.~~ **Withdrawn 2026-08-18**,
+[retraction 15](../../RETRACTIONS.md), on the counting defect below — the
+thirteen-to-zero split is a fact about the probes and is unaffected; what it
+cannot carry is a significance level computed as if the rows were independent.
 
 The structure is sharper than the rate. Every one of the nine probes that ever
 discriminated turns on the **paired regime** (`R5`, in seven of nine) or on
@@ -161,8 +167,10 @@ key at margin ≥ 8 in **every** pass it appears in:
 | `X22` | 6/10 in passes 4 and 5 | yes, 2 of 6 |
 
 **Four of the nine probes that ever discriminated; none of the twenty-three that
-never did.** `p = 0.0035`. On the 28 survivors the measure gives 2.00 diverged
-per message and 0.071 per probe, against 3.33 and 0.124 before.
+never did.** ~~`p = 0.0035`.~~ Withdrawn 2026-08-18, [retraction
+15](../../RETRACTIONS.md); the counts are unaffected. On the 28 survivors the
+measure gives 2.00 diverged per message and 0.071 per probe, against 3.33 and
+0.124 before.
 
 The reading is uncomfortable and worth stating flatly: **at this operating point,
 a probe that separates a spec-holder from a brief is markedly more likely to be
@@ -185,7 +193,7 @@ messages, which is thin for a claim that decides a research line. Re-run on
 | probes that discriminated | 9 of 32 | **12 of 32** |
 | unstable probes that discriminate | 4 of 4 | **4 of 4** |
 | stable probes that discriminate | 5 of 28 | 8 of 28 |
-| Fisher exact | `p = 0.0035` | **`p = 0.0138`** |
+| Fisher exact | ~~`p = 0.0035`~~ | ~~**`p = 0.0138`**~~ |
 | mean diverged per message, stable probes only | 2.00 | **2.08** |
 
 It holds, and the sharpest way to say it is new:
@@ -224,6 +232,67 @@ strategy. For a successor that matters twice: per-message variance will dominate
 and cannot be designed away by choosing a cell, and a design needing outcome
 variation **in every cell** cannot get it by writing a better prompt for the
 cell.
+
+### The counting defect
+
+**Every Fisher exact `p` above is withdrawn, because this measure does not have
+thirty-two independent rows.** `X17` and `X18` differ by one token — "Combined
+figure count is 70" against "71" — and carry opposite keys, `HANDLED` and
+`RETURNED`. So do `X21`/`X22` (8 → 7) and `X24`/`X25` (30 → 21). They are minimal
+pairs straddling a numeric threshold, which is good probe design and fatal
+arithmetic: a test over 32 rows treats them as 32 elicitations of independent
+questions.
+
+Single-link clustering of the prompts, and where the instability falls:
+
+| similarity threshold | clusters | largest | clusters holding any instability |
+|---|---|---|---|
+| 0.80 | **9** | 11 probes | 2 |
+| 0.85 | **9** | 11 probes | 2 |
+| 0.90 | 13 | 9 probes | 3 |
+| 0.95 | 19 | 7 probes | 4 |
+
+There is no corrected p-value to put in their place, and that is the finding
+rather than an apology for it: the cluster-level `p` runs from **0.111 at
+threshold 0.80 to 0.006 at 0.95**, so any number quoted is a report on where the
+clustering line was drawn. "Four of nine" is a count of probes, not of readings.
+
+**What survives is at the draw level, and it is sharper than what it replaces.**
+Of **1 440** `gpt-oss:120b` sender draws across the passes, **19 are non-key —
+and all 19 fall on `R5`-tagged probes**: `X17` 4, `X21` 4, `X22` 4, `X06` 3,
+`X24` 2, `X16` 1, `X09` 1. No probe outside `R5` has ever returned a margin below
+10, in any pass, at any gate. The individual draw is the unit that *is*
+independent here, and the concentration is not a threshold artifact.
+
+Two things stop this being another post-hoc tag hunt. The `R5` label was
+committed in `157b80f` at **2026-08-10 09:29:56**, nine hours before the first
+`IX32` sender pass (`b37b0db`, 18:49:44) and a day before the gate runs — the
+label is prior to every instability datum and was not drawn to fit it. And the
+selection of `R5` from among the ten rules is corrected for: an exact
+enumeration over all `C(32,4) = 35 960` relabelings, across the distinct tag
+families a searcher could have written, returns `p = 0.0016`, not the `0.00042`
+the uncorrected table gives. `0.00042` is in any case a floor and not a
+measurement — `C(6,4)/C(32,4)` is what *any* six-probe family capturing all four
+would print.
+
+**What this does and does not do to the paragraph above.** It does not rescue the
+repair route. `R5` carries **45 of the 49** divergence events (3.75 per message
+against 0.33 for the other nineteen probes), so the region holding all of the
+instability is the region holding nearly all of the signal — which is the
+uncomfortable reading in sharper form, not a refutation of it. What it corrects
+is the generalisation: instability is not spread across hard probes, it is
+localised to one rule, and "harder is where the instability lives" should be read
+as "one rule is where both live". Conditioning on `R5`, the association between
+wobble and discrimination is `p = 0.0699` — and outside `R5` it is not weaker but
+untestable, there being no instability there to correlate with anything.
+
+And there is no stable discriminating joint to move to. `R1`&`R5` looked like one
+— 4 of 4 discriminating, 0 of 4 unstable — but 0 of 4 is the *modal* outcome for
+any four probes drawn from this measure (`P = 0.569`), 6 of its 11 events come
+from `X24` alone, and `X24` clears the admission gate by exactly zero. Under
+label permutation its rate gives `p = 0.309`.
+
+*Recorded 2026-08-18. Analysis is over data already on disk; no new elicitation.*
 
 ### What the divergences actually are
 
@@ -326,7 +395,14 @@ whether the specification says what its author thinks. Two readers who share a
 prior can share an error. `probes/riverside-30/ADJUDICATION.md` remains the
 standard and remains unmet.
 
-`X17`–`X32` have not been adjudicated at all yet.
+~~`X17`–`X32` have not been adjudicated at all yet.~~ **Superseded 2026-08-16**
+by [`adjudication-qwen-32.json`](adjudication-qwen-32.json), which derived all
+32 keys cold; the head of this file has said so since, and this sentence sat
+here contradicting it for two days. It is struck rather than deleted because the
+gap it names — *nothing* had checked the second sixteen — was real when written,
+and a reader arriving here should see that it closed rather than that it never
+existed. The general gap above is untouched: convergent derivation by two models
+is not independent adjudication, and no person has read these probes.
 
 ## Provenance
 

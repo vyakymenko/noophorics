@@ -8,7 +8,7 @@ than a clean document that never made the mistake.
 This file exists because the site quotes a *count*, and a count nobody can audit
 is worse than no count.
 
-**Standing tally: 14 claims withdrawn, four experiments void, 1 finding
+**Standing tally: 15 claims withdrawn, four experiments void, 1 finding
 established.**
 
 The last two numbers were both stale until 2026-08-04, and in opposite
@@ -64,11 +64,23 @@ measurement that produced it. A file that records only the expensive mistakes
 would be a curated list rather than a ledger, and the cheap ones are the more
 common failure.
 
+The fourth, #15, is of a kind this ledger had not held before. The three above
+withdraw a **quantity**; #15 withdraws the **warrant** — the arithmetic was
+performed correctly on a sample that does not have the structure the test
+assumes. It therefore reaches backwards into #14, whose own supporting evidence
+was one of the p-values it strikes, and it cannot be repaired by recomputation:
+a measure built from one-token variants of a shared prompt has no defensible
+number of independent rows, only a range that moves with where the clustering
+line is drawn. The lesson is not about Fisher's test. It is that
+[A2](PRINCIPIA.md) makes the probe measure the frame of reference, and nobody
+had asked how many *distinct* readings a frame of thirty-two probes contains.
+
 | # | Claim | Killed by | Where |
 |---|---|---|---|
 | 12 | "The parties' confidence is very nearly unresponsive to how much actually transferred" — E-002b's headline pull-quote, labelled post-hoc when made | E-002c committed the quantity before collecting and measured `β = +0.1299`, CI `[+0.047, +0.223]`, which clears zero. Confidence **does** respond, at about an eighth of the rate calibration requires. The direction replicated and the magnitude did not. The unresponsive party is the **sender alone**, `β = −0.02` with its interval spanning zero — a narrower claim than the one withdrawn, and a sharper one. | [E-002b §6](experiments/E-002b-phantom-agreement-ladder/FINDINGS.md) · [E-002c §3](experiments/E-002c-calibration-slope/FINDINGS.md) |
 | 13 | "Zero of the 25 non-`interaction` probes diverge at 230 words" — stated in Problem 15 from six messages, and read as the property that only interaction probes survive saturation | Widening the same measurement to twelve messages across all four cells found three: `M02`, `M12`, `M29`. A small-sample zero, killed within a day by the instrument that produced it. What survives is the proportion — 21 of 24 divergence events on 9 of 34 probes — and the divergence **rate** the specification is costed against, 0.194 against 0.204, which the widening left standing. | [Problem 15](theory/open-problems.md#15-φ-has-no-belief-component-where-the-manipulation-has-to-live) · [headroom-2x2.json](experiments/E-001c-fluency-length-controlled/headroom-2x2.json) |
 | 14 | "`MERIDIAN-IX32` reaches 3.33 diverged probes per message and clears E-002c's outcome-variation gate" — the candidate probe measure built to repair Problem 15 | The admission gate behind that number had been applied **once**. Applied five times, admitting a probe only if it returns the key at margin ≥ 8 in every pass, it rejects four probes, and the measure on the 28 survivors gives **2.00** per message — below the gate. Worse for the repair than for the claim: all four rejected probes are among the nine that ever discriminated, and none of the twenty-three that never discriminated was rejected, `p = 0.0035`. The headroom was borrowed from probes that are not stable observables. | [MERIDIAN-IX32](probes/meridian-ix16/) · [Problem 15](theory/open-problems.md#15-φ-has-no-belief-component-where-the-manipulation-has-to-live) |
+| 15 | Every Fisher exact `p` computed over `MERIDIAN-IX32`'s probes — `p = 0.0035` and `p = 0.0138` for the anti-correlation between discriminating power and modal stability, and `p = 0.0339` for the design rule that earned `X17`–`X32` | **The measure is not 32 independent probes.** `X17` and `X18` differ by one token — "Combined figure count is 70" against "71" — and carry opposite keys; so do `X21`/`X22` (8 → 7) and `X24`/`X25` (30 → 21). Single-link clustering of the prompts gives **9 clusters at similarity 0.80–0.85**, the largest holding 11 probes, and all instability falls inside 2 of them. Every one of these tests treats near-duplicate rows as independent draws. There is no corrected number to substitute, which is the point: the cluster-level `p` ranges from **0.111 at threshold 0.80 to 0.006 at 0.95**, so the result is a function of a clustering knob rather than of the data. What survives is at the **draw** level and is stronger — of 1 440 `gpt-oss:120b` sender draws, **19 are non-key and all 19 fall on `R5`-tagged probes**, a label committed 2026-08-10 09:29:56, nine hours before the first `IX32` sender pass and therefore prior to every instability datum. | [MERIDIAN-IX32](probes/meridian-ix16/) · [Problem 14](theory/open-problems.md#14-when-is-a-modal-answer-over-n-draws-a-stable-observable) |
 
 ---
 
