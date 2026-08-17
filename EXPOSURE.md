@@ -29,6 +29,8 @@ which; it only makes the choice visible.
 | 2026-08-04 (extended, same session) | `claude-opus-5` | E-002c `PREREGISTRATION.md` §1–3 and `FINDINGS.md` §1–6, including β and the sender/receiver split; `PRINCIPIA.md` §4–5 and the falsification criteria; `theory/laws.md` L5 and L6 in full; `theory/prior-art.md`; `RETRACTIONS.md` | The E-002 line as well as the E-001 line, and **L5/L6 as a subject**: it has read the laws it would be measured against. Also knows E-002b's withdrawn pull-quote and why it was too strong. |
 | 2026-08-04 (extended again) | `claude-opus-5` | `theory/open-problems.md` 12–14, and **authored Problem 15** | The open-problem set. It knows which defects the programme considers unsolved, including the one it raised — so it cannot serve as an independent judge of whether Problem 15 is real. Twelve further subagents of the same model read the same material designing E-001c's successor; their designs are **not** committed, and none was adopted. |
 | 2026-08-07 | `claude-opus-5` | The `MERIDIAN` source specification in full, and **authored the 16 probes of `MERIDIAN-IX16` and their keys** | That measure, totally and irrecoverably. It cannot be a subject against `MERIDIAN-IX16`, and it cannot judge whether those probes are good — the keys and the probes have the same author. `MERIDIAN-33` and `MERIDIAN-34` items remain unread, so those two are still clean. |
+| 2026-08-10 | `claude-opus-5` | **Authored `X17`–`X32` and their keys**, and the `predicted_discriminating` prediction they carry | `MERIDIAN-IX32` entire. **This row was missing until 2026-08-18.** `157b80f` took the probe file from 16 probes to 32 and did not touch this file, so for eight days the log recorded exposure to half the measure it should have. Dated to the commit rather than to its discovery, because the exposure happened when the probes were written. |
+| 2026-08-18 | `claude-opus-5` | All 32 probes with keys and tags; every sender pass and the 12-message divergence data; `RETRACTIONS.md`; `theory/open-problems.md` 11–15; `AGENTS.md` | `MERIDIAN-IX32` as subject **and as judge**. It computed the prompt clustering behind [retraction 15](RETRACTIONS.md) and cannot independently assess whether that retraction is right. It has also now seen the divergence outcomes probe by probe, so it cannot serve as a receiver against this measure. |
 
 ### Notes on the 2026-08-04 entry
 
@@ -56,6 +58,18 @@ the first row's own scope did not cover. That is worth naming: **the exposure
 grew because the agent kept working, and the record had to be revised rather
 than written once.** An exposure log that is only written at the end of a
 session records the session the author remembers, not the one that happened.
+
+**And the lesson did not take.** The paragraph above was written on 2026-08-04.
+Six days later `157b80f` doubled `MERIDIAN-IX32` from sixteen probes to
+thirty-two, by the same model, and no row was added — the file went on
+describing exposure to sixteen probes while the measure held thirty-two, for
+eight days, through four commits that reasoned about those probes. It was found
+on 2026-08-18 by an agent reading the log to add its own row, which is luck
+rather than a mechanism. Nothing checks this file: `check_counts.py` compares
+numbers to sources and there is no number here, and the probe count is not
+derivable from a table of prose. The 2026-08-04 caution therefore stands twice
+over — this log is a lower bound written by the party with the incentive to
+under-report, and it is now demonstrated to drift as well.
 
 **A caution about this row.** It was written by the agent it describes, which is
 the weakest possible provenance for a record of contamination — the party with
