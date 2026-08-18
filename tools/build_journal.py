@@ -60,6 +60,8 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("e-001c-calibration",
      "experiments/E-001c-fluency-length-controlled/CALIBRATION-001.md", "instrument"),
     ("e-001c-void", "experiments/E-001c-fluency-length-controlled/VOID.md", "void"),
+    ("nine-templates-not-thirty-two-probes",
+     "journal/2026-08-18-nine-templates-not-thirty-two-probes.md", "audit"),
     ("retractions", "RETRACTIONS.md", "audit"),
     ("prior-art", "theory/prior-art.md", "audit"),
 ]
@@ -81,9 +83,29 @@ PUBLISHABLE = ("VOID.md", "FINDINGS.md", "DEFECT-001.md", "INTERRUPTED.md",
 
 
 def check_sources_complete() -> list:
-    """Every publishable experiment document is listed or explicitly excluded."""
+    """Every publishable document is listed or explicitly excluded.
+
+    Covers `journal/*.md` as well as the experiment tree. It did not, until
+    2026-08-18: the guard below was written after E-001c's VOID.md sat
+    unpublished for days, and it was pointed only at `experiments/`. A new file
+    in `journal/` was therefore dropped in exactly the way the guard exists to
+    prevent -- silently, with the build still printing "built 19 entries" and
+    exit 0. Found by writing an entry and noticing it never reached the site.
+
+    The lesson the original comment drew was that a hand-maintained list drifts.
+    The lesson it missed is that a guard covering one of the two directories the
+    list draws from is itself a hand-maintained list.
+    """
     listed = {path for _, path, _ in SOURCES}
     missing = []
+    jdir = os.path.join(ROOT, "journal")
+    if os.path.isdir(jdir):
+        for name in sorted(os.listdir(jdir)):
+            if not name.endswith(".md"):
+                continue
+            rel = "journal/%s" % name
+            if rel not in listed and rel not in NOT_PUBLISHED:
+                missing.append(rel)
     base = os.path.join(ROOT, "experiments")
     for exp in sorted(os.listdir(base)):
         d = os.path.join(base, exp)
@@ -432,7 +454,7 @@ def summarise(first_para: str, rest: str, limit: int = 175) -> str:
 def build() -> int:
     missing = check_sources_complete()
     if missing:
-        print("refusing to build: publishable experiment documents are not in "
+        print("refusing to build: publishable documents are not in "
               "SOURCES and not in NOT_PUBLISHED --", file=sys.stderr)
         for m in missing:
             print("  " + m, file=sys.stderr)

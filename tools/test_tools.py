@@ -430,5 +430,51 @@ class TestReuseSender(ToolTest):
             self.hc.reuse_sender(self.write(rec))
 
 
+class TestJournalCompleteness(ToolTest):
+    """`build_journal.check_sources_complete` covered only half its inputs.
+
+    SOURCES is hand-maintained and draws from two directories. The guard that
+    catches an unlisted document was written after E-001c's VOID.md sat
+    unpublished, and it walked `experiments/` alone -- so a new file in
+    `journal/` was dropped silently, with the build printing a success line and
+    exiting 0. The guard against a hand-maintained list drifting was itself a
+    hand-maintained list.
+    """
+
+    def setUp(self):
+        here = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, here)
+        import build_journal  # noqa: E402
+        self.bj = build_journal
+        self._root = build_journal.ROOT
+        self.addCleanup(setattr, build_journal, "ROOT", self._root)
+
+    def point_at(self, files: dict):
+        root = self.tree(files)
+        self.bj.ROOT = str(root)
+        return root
+
+    def test_unlisted_journal_entry_is_reported(self):
+        """Red on the defect: a journal file in neither list."""
+        self.point_at({"journal/2026-01-01-unlisted.md": "# x\n",
+                       "experiments/.keep": ""})
+        self.assertIn("journal/2026-01-01-unlisted.md",
+                      self.bj.check_sources_complete())
+
+    def test_listed_journal_entry_is_not_reported(self):
+        """Green on the case that most resembles it: the same file, listed."""
+        listed = {path for _, path, _ in self.bj.SOURCES}
+        self.assertTrue(any(p.startswith("journal/") for p in listed),
+                        "SOURCES should carry journal entries")
+        self.point_at({"journal/2026-07-28-founding.md": "# x\n",
+                       "experiments/.keep": ""})
+        self.assertEqual(self.bj.check_sources_complete(), [])
+
+    def test_non_markdown_in_journal_is_ignored(self):
+        """A stray non-.md file is not a missing entry."""
+        self.point_at({"journal/notes.txt": "x", "experiments/.keep": ""})
+        self.assertEqual(self.bj.check_sources_complete(), [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
