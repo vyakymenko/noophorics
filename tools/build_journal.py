@@ -62,6 +62,8 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("e-001c-void", "experiments/E-001c-fluency-length-controlled/VOID.md", "void"),
     ("nine-templates-not-thirty-two-probes",
      "journal/2026-08-18-nine-templates-not-thirty-two-probes.md", "audit"),
+    ("headroom-was-one-readers-uncertainty",
+     "journal/2026-08-19-the-headroom-was-one-readers-uncertainty.md", "observation"),
     ("retractions", "RETRACTIONS.md", "audit"),
     ("prior-art", "theory/prior-art.md", "audit"),
 ]

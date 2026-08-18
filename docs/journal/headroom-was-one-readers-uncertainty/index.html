@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab journal — Noophorics</title>
-<meta name="description" content="The lab notebook of the noophorics programme: the void run, the near miss, and the retraction of its own diagnosis.">
+<title>Seven of the nine probes measured the reader, not the transfer — Noophorics</title>
+<meta name="description" content="2026-08-19. MERIDIAN-IX32 has been read by a second architecture, and the route it was built to open is closed.">
 <meta name="color-scheme" content="light dark">
-<link rel="canonical" href="https://noophorics.org/journal/">
+<link rel="canonical" href="https://noophorics.org/journal/headroom-was-one-readers-uncertainty/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Lab journal — Noophorics">
+<meta property="og:title" content="Seven of the nine probes measured the reader, not the transfer — Noophorics">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://noophorics.org/journal/">
+<meta property="og:url" content="https://noophorics.org/journal/headroom-was-one-readers-uncertainty/">
 <meta property="og:image" content="https://noophorics.org/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Noophorics — a dark card reading NOOPHORICS above the line “Understanding is measured by behavioural convergence toward a declared reference”, footed with Φ phantom agreement and the version.">
 <meta name="twitter:image" content="https://noophorics.org/og.png">
-<script type="application/ld+json">{}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","@id":"https://noophorics.org/journal/headroom-was-one-readers-uncertainty/#article","headline":"Seven of the nine probes measured the reader, not the transfer","description":"2026-08-19. MERIDIAN-IX32 has been read by a second architecture, and the route it was built to open is closed.","url":"https://noophorics.org/journal/headroom-was-one-readers-uncertainty/","inLanguage":"en","isPartOf":{"@id":"https://noophorics.org/#website"},"license":"https://creativecommons.org/licenses/by/4.0/","author":{"@type":"Person","name":"Valentyn Yakymenko","url":"https://github.com/vyakymenko"},"publisher":{"@type":"Organization","name":"Noophorics","url":"https://noophorics.org/"},"isAccessibleForFree":true,"creativeWorkStatus":"Published"}</script>
 <style>
 /* ---------------------------------------------------------------
    NOOPHORICS.ORG
@@ -1226,74 +1226,29 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <main id="content">
-<p class="jn">Lab notebook</p>
-<h1>The record of being wrong</h1>
-<p>Dated, append-only, and never edited after the fact except for typos. The entries below are the programme's most load-bearing documents: they are where it recorded its own failures while they were still fresh.</p>
+<p class="jn">observation · headroom was one readers uncertainty</p>
+<h1>Seven of the nine probes measured the reader, not the transfer</h1>
+<p><strong>2026-08-19.</strong> <code>MERIDIAN-IX32</code> has been read by a second architecture, and the route it was built to open is closed. The run also answers a question the measure could not have asked while only one model had ever read it.</p>
+<p><code>qwen3.5:35b</code> had never been run as a receiver against this measure — the file that exists for it carries a sender and nothing else. Twenty-eight and a half hours, 1 920 calls, the six briefs already on disk.</p>
+<div class="scroll"><table><thead><tr><th>message</th><th>qwen diverged</th><th><code>gpt-oss</code> diverged</th></tr></thead><tbody><tr><td><code>fluent0</code></td><td>2</td><td>2</td></tr><tr><td><code>fluent1</code></td><td>1</td><td>5</td></tr><tr><td><code>fluent2</code></td><td>2</td><td>2</td></tr><tr><td><code>terse0</code></td><td>0</td><td>0</td></tr><tr><td><code>terse1</code></td><td><strong>0</strong></td><td><strong>7</strong></td></tr><tr><td><code>terse2</code></td><td><strong>0</strong></td><td><strong>7</strong></td></tr><tr><td>total</td><td><strong>5</strong></td><td><strong>23</strong></td></tr></tbody></table></div>
+<p><strong>0.83 diverged probes per message against a gate of three</strong>, where <code>gpt-oss</code> gives 3.83 on the identical briefs.</p>
+<h2>The prediction failed, which is the useful part</h2>
+<p>A <a href="https://github.com/vyakymenko/noophorics/blob/main/probes/meridian-ix16/PREDICTION-qwen-receiver.md">prediction</a> was committed before the run, in its own commit, naming <code>X16</code> and <code>X19</code>. It scored <strong>0 of 2</strong>, with <code>X11</code> and <code>X26</code> diverging against it.</p>
+<p>The hypothesis it tested was that a probe diverges where <em>that model's own</em> spec-holder is least certain. On <code>gpt-oss</code> that is nearly exact — every probe it ever wavered on discriminates. It does not transfer. qwen's two wobble probes never diverged, and <strong>both of qwen's actual divergences sit at sender margin 10</strong>, its highest confidence. Sender margin predicts one model's losses at 7 of 7 and the other's at 0 of 2, so it is not the cheap pre-transfer detector <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/open-problems.md">Problem 11</a> asks for.</p>
+<h2>What two readers buy that one cannot</h2>
+<p>qwen's divergence set is a <strong>strict subset</strong> of <code>gpt-oss</code>'s. Nothing is lost by qwen and kept by <code>gpt-oss</code>. That splits the measure in a way a single reader cannot:</p>
+<div class="scroll"><table><thead><tr><th></th><th>probes</th><th>lost by</th></tr></thead><tbody><tr><td>both spec-holders unanimous, both receivers wrong</td><td><code>X11</code>, <code>X26</code></td><td>both models</td></tr><tr><td><code>gpt-oss</code> uncertain, qwen unanimous</td><td><code>X06 X07 X16 X17 X21 X22 X24</code></td><td><code>gpt-oss</code> only</td></tr></tbody></table></div>
+<p>The first class is transfer loss: the brief demonstrably fails to carry the qualifier and two independent readers confidently get it wrong. The second is the reader's own uncertainty wearing transfer loss's clothes — all seven are <code>R5</code>, six sit at <code>gpt-oss</code>'s wobble points, and a model that is unanimous on them loses none of them.</p>
+<p>So of the nine probes that discriminate here, <strong>seven are ones a second architecture does not lose at all.</strong> What looked like this measure's headroom was substantially one model's hesitation. Strip that and <code>MERIDIAN-IX32</code> measures model-independent transfer loss on <strong>two of its thirty-two probes</strong>.</p>
+<p>That is the closing of the escape route, and it closes for a reason nobody proposed. The worry was that qwen would be stable but saturated. It is neither — it diverges, just barely. Choosing the stable model costs nearly all the signal, so stability and discriminating power trade off <em>across models</em> exactly as <a href="https://github.com/vyakymenko/noophorics/blob/main/probes/meridian-ix16">they were found to trade off across probes</a>.</p>
+<h2>Two corrections this run forced</h2>
+<p><strong>The cost was overstated twice, in opposite directions.</strong> The README said five qwen sender passes would take about eleven hours; measured, qwen runs at 53.5 s/call, making it about twenty-four. But the prediction file said this run would take sixty-six hours, from a timing measurement taken while two other jobs were competing for the machine; it took twenty-eight and a half. A rate measured under load is not a rate.</p>
+<p><strong>The reused sender now carries its draws.</strong> Mean divergence is reported for all six messages rather than refused, because the reuse path had been collapsing the sender to a point mass and discarding raw draws the file already contained. The same commit stopped it asserting a model it had never read.</p>
+<h2>What this leaves</h2>
+<p>Two probes of thirty-two produce divergence both readers agree on, and the design rule that produced the other thirty is not a rule for producing those two. A successor needs <code>X11</code>/<code>X26</code>-shaped probes and no account yet of what shape that is — <code>X11</code> is the only non-<code>R5</code> probe in either divergence set, which is the one hint on offer.</p>
+<p>The single qwen sender pass remains a single pass, and the two-class split rests on its margins.</p>
 <hr>
-<h2><a href="/journal/founding/">2026-07-28 — Founding</a></h2>
-<p>First entry. The lab notebook is for the things that do not belong in uncertainty.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-founding.md">source</a></p>
-<h2><a href="/journal/first-live-run-void/">2026-07-28 — First live run: void, and the reason is worth keeping</a></h2>
-<p>E-001 ran against the API for the first time and died. Full record in AMENDMENT-001.md; this entry is for what it means.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-first-live-run-void.md">source</a></p>
-<h2><a href="/journal/e-001-findings/">E-001 — Findings</a></h2>
-<p>Status: the run was interrupted at the CEILING condition and never completed.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/FINDINGS.md">source</a></p>
-<h2><a href="/journal/e-001b-void/">E-001b is void — the cost parity gate failed before the sweep ran</a></h2>
-<p>Status: void · closed · superseded by E-001c (not yet registered) Voided: 2026-07-29, after composition, before any probe outcome was examined Gate: cost parity across cells, max/min realised cost ≤ 1.30 (PREREGISTRATION §4.1)…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/VOID.md">source</a></p>
-<h2><a href="/journal/e-001b-defect/">DEFECT-001 — the analysis path was never executed, and would have crashed</a></h2>
-<p>Found: 2026-07-29, ~4 hours into collection Status: repaired; collection restarted Data on disk when found: sender 34/34, PRIOR 34/34, CEILING 34/34,…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/e-001c-feasibility/">Can the four registers survive being pinned to a common length?</a></h2>
-<p>Instrument check, before registration. No hypothesis is tested here and none may be read off it.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/FEASIBILITY.md">source</a></p>
-<h2><a href="/journal/e-002-void/">E-002 is void — the elicitation saturated, and so did the transfer</a></h2>
-<p>Status: void · closed · superseded by E-002b (not yet registered) Voided: 2026-07-30, at the first brief&#x27;s elicitation, by the pre-registered degeneracy gate Cost: ~4.5 hours of the ~13 the full sweep would have taken…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002-phantom-agreement/VOID.md">source</a></p>
-<h2><a href="/journal/e-002b-findings/">E-002b — findings</a></h2>
-<p>The first run in this repository to reach analysis. Every prior experiment voided. All gates passed; all four rungs of the ladder produced outcome variation.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002b-phantom-agreement-ladder/FINDINGS.md">source</a></p>
-<h2><a href="/journal/e-002c-findings/">E-002c — findings</a></h2>
-<p>The first pre-registered positive result this programme has produced. All six gates passed, all twenty-four briefs analysed, all four registered hypotheses resolved.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002c-calibration-slope/FINDINGS.md">source</a></p>
-<h2><a href="/journal/cross-sender-disagreement/">2026-07-30 — Two models disagree exactly where one is wrong</a></h2>
-<p>Status: an observation, not a finding. Post-hoc, on data collected for another purpose, with a statistic chosen after seeing it.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-30-cross-sender-disagreement.md">source</a></p>
-<h2><a href="/journal/two-audit-holes/">2026-07-30 — Two audit holes, found by an agent sent to argue about definitions</a></h2>
-<p>Both were found while an adversarial panel was checking arithmetic for an unrelated decision. Both are verified here by independent recomputation.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-30-two-audit-holes.md">source</a></p>
-<h2><a href="/journal/site-four-versions-behind/">The public page was still publishing v0.1</a></h2>
-<p>2026-07-31. A four-lens consistency audit over the repository returned twenty findings, all claim-bearing, all verified against source. They deduplicate to nine places.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-31-the-site-was-four-versions-behind.md">source</a></p>
-<h2><a href="/journal/e-004-void/">E-004 is void — two of three models were never wrong</a></h2>
-<p>Status: void · closed · no successor registered Voided: 2026-08-03, by gate G2, before any hypothesis was read Cost: four days of local GPU, ~$1.50 of API, and the answer to a question this design could not have given…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-004-disagreement-detector/VOID.md">source</a></p>
-<h2><a href="/journal/e-004-interrupted/">Collection stopped at 104 of 126 cells, on one socket timeout</a></h2>
-<p>2026-07-31, 19:04 local. Written before the run is resumed and before any analysis, so that what happened is on the record independently of what the remaining data turns out to say.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-004-disagreement-detector/INTERRUPTED.md">source</a></p>
-<h2><a href="/journal/e-001c-defect/">DEFECT-001 — the band was calibrated on one instruction, and the run composed under another</a></h2>
-<p>Found: 2026-08-04, after the run of 2026-08-03 voided Status: repaired; the void stands as a void, but not for the reason it records Data on disk when found: one results file,…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/e-001c-calibration/">CALIBRATION-001 — the model writes to the ceiling it is told, and slightly past it</a></h2>
-<p>Measured 2026-08-04, after the run of 2026-08-03 voided and DEFECT-001 established that the void could not mean what it said.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/CALIBRATION-001.md">source</a></p>
-<h2><a href="/journal/e-001c-void/">E-001c is void — the fluent register has a floor where the band has a ceiling</a></h2>
-<p>Status: void · closed · successor not yet registered Voided: 2026-08-04, during composition, before any probe outcome existed Gate: register filter exhausted in cell A (PREREGISTRATION §4, §6.1)…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/VOID.md">source</a></p>
-<h2><a href="/journal/nine-templates-not-thirty-two-probes/">The measure was nine templates and every p-value counted thirty-two</a></h2>
-<p>2026-08-18. MERIDIAN-IX32 has thirty-two probes. It does not have thirty-two independent readings, and three published significance levels were computed as though it did.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-08-18-nine-templates-not-thirty-two-probes.md">source</a></p>
-<h2><a href="/journal/headroom-was-one-readers-uncertainty/">Seven of the nine probes measured the reader, not the transfer</a></h2>
-<p>2026-08-19. MERIDIAN-IX32 has been read by a second architecture, and the route it was built to open is closed.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-08-19-the-headroom-was-one-readers-uncertainty.md">source</a></p>
-<h2><a href="/journal/retractions/">Retractions</a></h2>
-<p>Every claim this programme has made and then withdrawn, with what killed it.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/RETRACTIONS.md">source</a></p>
-<h2><a href="/journal/prior-art/">Prior art</a></h2>
-<p>Created 2026-07-29, after an external review found that several of this programme&#x27;s founding novelty claims were false.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/theory/prior-art.md">source</a></p>
-
+<p><em>This document is licensed CC BY 4.0.</em></p>
 <p class="back"><a href="/journal/">All journal entries</a> · <a href="/wiki/">Reference</a> · <a href="/">Noophorics</a> · <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
 </main>
 </body>

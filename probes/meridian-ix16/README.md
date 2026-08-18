@@ -6,6 +6,8 @@ now thirty-two. The name is left alone because links resolve to it.*
 ## Where it stands
 
 **32 probes, 28 stable, 2.00 diverged per message — it does NOT clear the gate.**
+**And on a second architecture it gives 0.83**, with only 2 of 32 probes losing
+anything both models agree is lost ([results](RESULTS-qwen-receiver.md)).
 
 ~~32 probes, 31 admitted, 3.33 diverged per message. That clears E-002c's
 outcome-variation gate of three.~~ **Withdrawn 2026-08-07**, by applying the
@@ -47,12 +49,38 @@ unanimously by a model of another architecture. They are not ill-posed.
 The caveat is the same one that produced the repeated gate in the first place and
 it cuts against the hopeful reading: **`qwen` ran one pass**, and `X06` passed
 four of five `gpt-oss` passes at 10/10. One pass cannot establish stability, by
-exactly the argument this file already makes. Five `qwen` passes would cost about
-eleven hours and have not been run.
+exactly the argument this file already makes. Five `qwen` passes have not been
+run. ~~They would cost about eleven hours.~~ **Corrected 2026-08-19:** qwen was
+measured at **53.5 s/call** over a 1 920-call run, against `gpt-oss`'s 5.8 s/call
+derived from the gate-run timestamps — a factor of nine. Five passes is 1 600
+calls, so **about 24 hours**, not eleven.
 
 What can be said: the anti-correlation is measured on one model, and the
-instability behind it is not a property of the probes. Whether a successor can
-escape it by choosing a model is open, and now worth asking.
+instability behind it is not a property of the probes. ~~Whether a successor can
+escape it by choosing a model is open, and now worth asking.~~
+
+**Asked and answered, 2026-08-19 — the route is closed.** `qwen` was run as a
+receiver over all six messages
+([`RESULTS-qwen-receiver.md`](RESULTS-qwen-receiver.md)) and returns **0.83
+diverged probes per message against a gate of 3**, where `gpt-oss` returns 3.83
+on the identical briefs. Not saturation — qwen does diverge, on `X11` and `X26` —
+but choosing the stable model costs nearly all the signal, so stability and
+discriminating power trade off *across models* exactly as they trade off across
+probes.
+
+The sharper half is about the measure, not the models. **qwen's divergence set is
+a strict subset of `gpt-oss`'s**, and the seven probes only `gpt-oss` loses are
+all `R5`, six of them at its own wobble points. So of the nine probes that
+discriminate here, seven are ones a second architecture does not lose at all:
+what looked like headroom was substantially one reader's uncertainty, and
+`MERIDIAN-IX32` measures *model-independent* transfer loss on **2 of its 32
+probes**.
+
+The prediction recorded before that run
+([`PREDICTION-qwen-receiver.md`](PREDICTION-qwen-receiver.md)) named `X16` and
+`X19` and scored **0 of 2**, with `X11` and `X26` diverging against it. Sender
+margin predicts `gpt-oss`'s divergences at 7 of 7 and qwen's at 0 of 2 — qwen's
+two divergences both sit at margin 10 — so it is not a portable predictor.
 
 **One defect fixed, one standing.** The admission gate is now applied across five
 sender passes rather than one, which is what produced the withdrawal above. What
