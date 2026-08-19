@@ -56,16 +56,36 @@ So of the nine probes that discriminate here, **seven are ones a second
 architecture does not lose at all**, and `MERIDIAN-IX32` measures
 model-independent transfer loss on **two of its thirty-two probes**.
 
-**A correction to this entry, made the day it was published.** It first said the
-headroom "was substantially one model's hesitation," which asserts a cause the
-data only suggests. Splitting `gpt-oss`'s nine by its own sender margin gives 2
-of 3 unanimous probes lost by qwen against 0 of 6 wobbling ones — Fisher
-`p = 0.0833`, and nothing once the prompt-template clustering of [retraction
-15](../RETRACTIONS.md) is respected. The alternative, that qwen is simply the abler
-reader and this is ordinary item difficulty, is weakened — qwen does not lose the
-probes `gpt-oss` loses most often, rank correlation 0.466 — but stands. The
-counts are arithmetic; the explanation is open, and the title of this entry is
-more confident than its evidence.
+**This entry's central claim is withdrawn — [retraction
+16](../RETRACTIONS.md) — on the day it was published.** It said the headroom
+"was substantially one model's hesitation." That asserts a cause, and three
+things kill it.
+
+*The statistic was not like-for-like.* "Six of seven sit at gpt-oss's wobble
+points" compares `gpt-oss`'s **minimum over four** sender passes against
+`qwen`'s **single** pass. More passes, more chances to show a low margin.
+Counted one pass each it is **2 of 7**.
+
+*No reader-specific term is needed.* One difficulty per probe plus a single
+reader-ability gap — **no reader×probe interaction at all** — fits at deviance
+10.54 on 8 df, `p = 0.229`, gap 2.20 logits. The strict subset is what that
+model predicts anyway.
+
+*And it is impact, not differential functioning.* [Dorans & Holland
+(1992)](../theory/prior-art.md) require conditioning on the attribute measured
+before an item may be called differentially functioning; an unconditioned
+difference between readers of unequal ability is **impact**, with Simpson's
+paradox as the named hazard. I never conditioned on the 2.20-logit gap.
+
+The whole framing was also prior art, which a literature search found the same
+day: the reader is a **fixed facet** in generalizability theory, and Brennan
+(2003) states as a theorem that with all facets fixed "no generalization is
+involved, and all error variances are zero." Recorded as [prior-art
+§11](../theory/prior-art.md); the drafted open problem was **refused entry**.
+
+The counts survive — qwen loses 2 of 32, `gpt-oss` 9, strict subset. Why is
+open. **The title of this entry is wrong and is kept**, because the URL is
+published and renaming it to hide the error would be the tidier lie.
 
 That is the closing of the escape route, and it closes for a reason nobody
 proposed. The worry was that qwen would be stable but saturated. It is neither —

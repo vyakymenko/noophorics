@@ -320,4 +320,44 @@ is forbidden**: they have the defect, not a solution.
 
 ---
 
+## 11. The reader is a facet, and this programme fixed it without saying so
+
+[A2](../PRINCIPIA.md) indexes every quantity by a probe measure `P` and a
+declared reference `R`. It does not index by the **agent that reads `P`**, and
+the reporting standard in [definitions §7](definitions.md) files sender and
+receiver identity as a *disclosure field* — something you state about a
+measurement, not something the measurement is indexed by. Measurement theory has
+had a name for that choice, and a price for it, since the 1970s.
+
+| source | what it establishes | confidence |
+|---|---|---|
+| Brennan, R. L. (2003), *Coefficients and Indices in Generalizability Theory*, CASMA Research Report No. 1, University of Iowa, p. 27 | Every condition of measurement is a **facet** — persons, items, **raters**, occasions — and a facet may be random or fixed. Verbatim: *"in any generalizability analysis there must be at least one random facet for the analysis to be meaningful. If all facets were fixed, then no generalization is involved, and all error variances are zero, be definition."* (the typo is the original's) | **primary source read** — PDF obtained and the passage extracted verbatim |
+| Dorans, N. J. & Holland, P. W. (1992), *DIF Detection and Description*, ETS RR-92-10 / ERIC ED387526, pp. 5–8 | **DIF is not a rate difference.** Verbatim: *"DIF is an unexpected difference among groups of examinees who are supposed to be comparable with respect to the attribute measured by the item and test on which it appears"*, and *"Simpson's paradox (Simpson, 1951) illustrates why we should compare the comparable, as is done in DIF analyses."* An unconditioned difference between groups of unequal ability is **impact**, a different quantity. | **primary source read** — PDF obtained and the passages extracted verbatim |
+| Song, Lee & Jiao (2025), *Exploring LLM Autoscoring Reliability in Large-Scale Writing Assessments Using Generalizability Theory*, arXiv:2507.19980 | A generalizability study with two human and **seven AI raters** as an explicit rater facet. Applying G-theory to *model* readers is done work. | abstract read |
+
+**What this means for this repository, stated plainly.** Every characterization
+`MERIDIAN-IX32` carries — which probes discriminate, the per-probe rate, the
+headroom against E-002c's gate — was estimated with the reader held fixed at
+`gpt-oss:120b`. In G-theory's vocabulary that is a **fixed facet**, and Brennan's
+sentence is not a caution but a theorem: with the facet fixed there is no
+generalization over readers and the corresponding error variance is zero *by
+construction*, not by measurement. The remedy is equally standard — a D-study
+over a population of readers — and it is a design cost, not a research problem.
+
+**Not licensed.** That the field has studied *this* programme's quantities: it
+has not. G-theory decomposes the variance of a score into facets; it says
+nothing about `F*`, about `Φ`, or about a sender's belief regarding what
+transferred. What is prior art is the **structural** point — that an instrument
+read through one rater cannot separate its own properties from that rater's —
+and it is prior art completely. What is not prior art is any noophoric quantity
+computed under that structure.
+
+Also not licensed: reading [the two-reader result](../probes/meridian-ix16/RESULTS-qwen-receiver.md)
+as differential item functioning. `gpt-oss` and `qwen3.5:35b` differ in overall
+ability on this measure — a fitted gap of **2.20 logits** — and the comparison
+was never conditioned on it. By Dorans & Holland that is **impact**, and Simpson's
+paradox is the named hazard. Recorded as [retraction 16](../RETRACTIONS.md).
+
+---
+
 *This document is licensed CC BY 4.0.*

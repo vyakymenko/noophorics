@@ -57,7 +57,7 @@ the qualifier. The second **looks like** the reader's own uncertainty — all se
 are `R5`, six of the seven sit at `gpt-oss`'s wobble points, and a model that is
 unanimous on them loses none of them.
 
-### That attribution is weaker than the counts, and was overstated when first written
+### That attribution is withdrawn — [retraction 16](../../RETRACTIONS.md)
 
 **Added 2026-08-19, correcting this document's own first version**, which stated
 the second class as reader uncertainty rather than as a reading of it.
@@ -83,6 +83,34 @@ as often as `X11` and `X26` — and qwen loses them 0 of 6. Rank correlation
 between the two models' per-probe loss counts is **0.466** over the nine. That
 weakens pure difficulty-plus-ability; it does not refute it, and on this `n`
 nothing here could.
+
+**And two further grounds, found the same day, withdraw it rather than qualify
+it.** First, the statistic was not like-for-like: `gpt-oss` has **four** sender
+passes and `qwen` **one**, so "min margin" gives `gpt-oss` four chances to show a
+low value against `qwen`'s one. Counted one pass each, the probes "at a wobble
+point" are **2 of 7**, not 6 —
+
+| probe | `gpt-oss` per pass | min of 4 | 1 pass | `qwen` 1 pass |
+|---|---|---|---|---|
+| `X06` | 10, 10, 10, **4** | 4 | 10 | 10 |
+| `X17` | **6**, 8, 8, 10 | 6 | 6 | 10 |
+| `X21` | 8, **6**, 10, 8 | 6 | 8 | 10 |
+| `X22` | 10, **6**, **6**, 10 | 6 | 10 | 10 |
+| `X16` | 10, 10, 8, 10 | 8 | 10 | 8 |
+| `X24` | 10, 8, 8, 10 | 8 | 10 | 10 |
+| `X07` | 10, 10, 10, 10 | 10 | 10 | 10 |
+
+Second, **no reader-specific term is needed at all.** Fitting one difficulty per
+probe plus a *single* reader-ability gap, with no reader×probe interaction,
+gives a gap of **2.20 logits** and deviance **10.54 on 8 df, `p = 0.229`** — the
+no-interaction model is not rejected, and under it the strict subset is what you
+would expect to see.
+
+And by [Dorans & Holland (1992)](../../theory/prior-art.md) an unconditioned
+difference between readers of unequal ability is **impact**, not differential
+item functioning; the comparison was never conditioned on the 2.20-logit gap,
+and Simpson's paradox is the named hazard. See [prior-art
+§11](../../theory/prior-art.md).
 
 What stands without qualification is arithmetic: qwen loses 2 of 32 probes,
 `gpt-oss` loses 9, and qwen's set is a strict subset. Why the other seven

@@ -76,15 +76,16 @@ discriminate here, seven are ones a second architecture does not lose at all, an
 probes**.
 
 ~~What looked like headroom was substantially one reader's uncertainty.~~
-**Qualified 2026-08-19, the same day it was written.** The counts above are
-arithmetic and stand. The *attribution* — that the seven measure the reader
-rather than the transfer — tests at Fisher `p = 0.0833` splitting `gpt-oss`'s
-nine by its own sender margin (2 of 3 unanimous probes lost by qwen, 0 of 6
-wobbling ones), and at the cluster level of [retraction
-15](../../RETRACTIONS.md) it carries nothing. Pure difficulty-plus-ability is
-weakened — qwen does not lose the probes `gpt-oss` loses most often, rank
-correlation 0.466 — but is not excluded. Why the seven separate the models is
-open; see [the results](RESULTS-qwen-receiver.md).
+**Withdrawn 2026-08-19 — [retraction 16](../../RETRACTIONS.md).** Qualified once
+that morning at `p = 0.0833`, then withdrawn outright the same day on three
+independent grounds: the supporting statistic compared `gpt-oss`'s minimum over
+four sender passes against `qwen`'s single pass (like-for-like it is **2 of 7**,
+not 6); a model with **no reader×probe term at all** — one difficulty per probe
+plus a single ability gap of **2.20 logits** — fits at deviance 10.54 on 8 df,
+`p = 0.229`, and predicts the strict subset anyway; and the comparison was never
+conditioned on that gap, which by [Dorans & Holland
+(1992)](../../theory/prior-art.md) makes it **impact**, not differential
+functioning. The counts stand. Why the seven separate the models is open.
 
 The prediction recorded before that run
 ([`PREDICTION-qwen-receiver.md`](PREDICTION-qwen-receiver.md)) named `X16` and
