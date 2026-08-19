@@ -124,6 +124,49 @@ anything — one more reader at four passes is still two readers, and
 obstacle 3 above — that two readers cannot estimate a variance component — is
 untouched by it.
 
+### Scored, 2026-08-19 — the prediction was met
+
+Three further passes ran (`gate-qwen2/3/4.json`), bringing qwen to four against
+`gpt-oss`'s four. **`X29` returned margin 6 in pass 3 and fails the ≥ 8 gate.**
+The prediction was *"at least one probe falls below margin 8"*; it is met by
+exactly one probe in exactly one pass, which is the minimum that could have
+confirmed it and is worth saying rather than rounding up.
+
+The reading was fixed in advance and stands: **qwen's 32-of-32 was a single-pass
+artifact**, the same shape `X06` produced for `gpt-oss` — two clean passes, then
+a drop. `X29` had never appeared in any wobble set for either model.
+
+**At parity the earlier picture inverts.** Equalised to four sender passes each:
+
+| | `gpt-oss:120b` | `qwen3.5:35b` |
+|---|---|---|
+| probes ever below margin 10 | **7** | **8** |
+| probes failing the ≥ 8 gate | `X06 X17 X21 X22` | `X29` |
+| min-margins of its wobblers | 4, 6, 6, 6, 8, 8, 8 | 6, 8, 8, 8, 8, 8, 8, 8 |
+| shared with the other | `X06 X16 X21 X24` | same four |
+
+So qwen wobbles on **more** probes, not fewer — it wobbles *shallower*. "The
+instability is the model's, not the probes'" was true; "qwen is the stable one"
+was four passes against one. Breadth is comparable; depth is what differs.
+
+**And the association between wobble and divergence is measurable on one reader
+only.** Equalised further to the same six messages for both:
+
+| | wobble & diverges | wobble only | diverges only | neither | Fisher |
+|---|---|---|---|---|---|
+| `gpt-oss` | 6 | 1 | 3 | 22 | **`p = 0.00058`** |
+| `qwen` | 0 | 8 | 2 | 22 | `p = 1.0` |
+
+**`p = 1.0` here is not evidence of absence.** qwen has two diverging probes in
+total, so chance alone predicts an overlap of `8 × 2 / 32 = 0.5`; observing zero
+is what you expect either way. The test has no power on this reader, and saying
+"the association is absent for qwen" would be reading a null as a finding —
+[retraction 16](../../RETRACTIONS.md) was exactly that error, four hours earlier.
+
+What is established: the association is strong for `gpt-oss` at parity, and
+untestable for `qwen` until it has more divergence events. Obstacle 3 above is
+unchanged, and obstacle 1 is now discharged.
+
 ---
 
 *This document is licensed CC BY 4.0.*

@@ -34,12 +34,20 @@ by a person — that gap stands.
 **And the instability does not transfer between models**, which qualifies the
 headline finding below:
 
-| probe | `gpt-oss:120b`, five passes | `qwen3.5:35b`, one pass |
+| probe | `gpt-oss:120b`, five passes | `qwen3.5:35b`, ~~one pass~~ **four** |
 |---|---|---|
-| `X06` | 10, **4**, 10, 10, 10 | 10 |
-| `X17` | 10, **6**, 8, 8 | 10 |
-| `X21` | 8, 8, **6**, 10 | 10 |
-| `X22` | 10, 10, **6**, **6** | 10 |
+| `X06` | 10, **4**, 10, 10, 10 | 10, 10, **8**, 10 |
+| `X17` | 10, **6**, 8, 8 | 10, 10, 10, 10 |
+| `X21` | 8, 8, **6**, 10 | 10, 10, 10, **8** |
+| `X22` | 10, 10, **6**, **6** | 10, 10, 10, 10 |
+| `X29` | 10, 10, 10, 10 | 10, 10, **6**, 10 — **fails the gate** |
+
+**Updated 2026-08-19 from one qwen pass to four**
+([D-STUDY.md](D-STUDY.md)). A prediction committed before those passes ran said
+at least one probe would fall below margin 8; `X29` did, and it had never been in
+any wobble set for either model. At parity qwen wobbles on **eight** probes to
+`gpt-oss`'s seven — more, not fewer, but shallower. The single-pass unanimity was
+the artifact, not the stability.
 
 `qwen`'s only margins under 10 across all 32 are `X16` and `X19` at 8 — neither
 in the rejected set. So "the probes that discriminate are the ones that will not
