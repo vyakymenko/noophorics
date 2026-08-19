@@ -51,8 +51,16 @@ already supplied.
 (floor-corrected) for arbitrary sender/receiver pairs.
 
 **Status:** `conjectured`
-**Attacked by:** planned E-002 (ablation ladder: same message truncated at
-8 cost levels, fidelity curve fitted)
+**Attacked by:** planned **E-006** (ablation ladder: same message truncated at
+8 cost levels, fidelity curve fitted).
+~~planned E-002~~ — **renumbered 2026-08-19.** The founding roadmap assigned
+`E-002` to the ablation ladder, and the identifier was then **reused** for
+[E-002 — the first measurement of Φ](../experiments/E-002-phantom-agreement/VOID.md),
+which is void and is a different experiment. This pointer therefore resolved to
+the wrong thing for as long as it stood. The ladder is renumbered rather than the
+run experiment, because that one is published, cited in
+[RETRACTIONS.md](../RETRACTIONS.md), and in the history this repository does not
+rewrite.
 
 ---
 
@@ -218,8 +226,11 @@ description-form content show decay slopes that are statistically
 indistinguishable (L4c).
 
 **Status:** `conjectured` · *restated after the original was found ill-typed*
-**Attacked by:** planned E-004 (six-hop chain, content tagged by form, every hop
-scored against the origin)
+**Attacked by:** planned **E-007** (six-hop chain, content tagged by form, every
+hop scored against the origin).
+~~planned E-004~~ — **renumbered 2026-08-19**, same collision: `E-004` was reused
+for [the disagreement detector](../experiments/E-004-disagreement-detector/VOID.md),
+which is void and is a different experiment.
 
 ---
 

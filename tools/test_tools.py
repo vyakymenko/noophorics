@@ -476,5 +476,76 @@ class TestJournalCompleteness(ToolTest):
         self.assertEqual(self.bj.check_sources_complete(), [])
 
 
+class TestCheckExperiments(ToolTest):
+    """The site said E-002 was a Planned ablation ladder for weeks.
+
+    `experiments/E-002-phantom-agreement/` held a VOID.md the whole time. The
+    founding roadmap had given that id to the ladder and the repository later
+    reused it, so a reader following L1's pointer landed on a voided experiment
+    about something else. `check_links` could not see it -- the ids in laws.md
+    are prose, not links -- and `check_counts` compared "four experiments are
+    void" against four VOID.md files and was right.
+    """
+
+    def setUp(self):
+        here = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, here)
+        import check_experiments
+        self.ce = check_experiments
+
+    def site(self, rows) -> str:
+        body = "".join(
+            '<div class="exp"><div class="hd">'
+            '<span class="id">%s</span><span class="nm">n</span>'
+            '<span class="tag">%s</span></div><p>x</p></div>' % r for r in rows)
+        return '<div class="ledger">%s</div>' % body
+
+    def tree_with(self, dirs: dict, rows) -> str:
+        files = {"docs/index.html": self.site(rows)}
+        for name, marker in dirs.items():
+            files["experiments/%s/%s" % (name, marker)] = "x\n"
+        return str(self.tree(files))
+
+    def test_void_experiment_shown_as_planned_is_caught(self):
+        """Red on the exact defect: the id exists and the site calls it Planned."""
+        root = self.tree_with({"E-002-phantom-agreement": "VOID.md"},
+                              [("E-002", "Planned")])
+        bad = self.ce.check(root)
+        self.assertEqual(len(bad), 1)
+        self.assertIn("exists", bad[0][1])
+
+    def test_void_experiment_shown_as_void_passes(self):
+        """Green on the case that most resembles it."""
+        root = self.tree_with({"E-002-phantom-agreement": "VOID.md"},
+                              [("E-002", "Void")])
+        self.assertEqual(self.ce.check(root), [])
+
+    def test_experiment_missing_from_the_site_is_caught(self):
+        root = self.tree_with({"E-002c-calibration-slope": "FINDINGS.md"}, [])
+        bad = self.ce.check(root)
+        self.assertEqual(len(bad), 1)
+        self.assertIn("absent from the site", bad[0][1])
+
+    def test_planned_row_with_no_directory_passes(self):
+        """A genuinely unbuilt experiment is the legitimate use of Planned."""
+        root = self.tree_with({}, [("E-006", "Planned")])
+        self.assertEqual(self.ce.check(root), [])
+
+    def test_findings_row_with_no_directory_is_caught(self):
+        root = self.tree_with({}, [("E-009", "Findings")])
+        bad = self.ce.check(root)
+        self.assertEqual(len(bad), 1)
+        self.assertIn("no experiments", bad[0][1])
+
+    def test_compound_tag_is_normalised_not_treated_as_absent(self):
+        """`Void &middot; informative` is a Void with a gloss.
+
+        The first version of the regex required class="tag" exactly and missed
+        E-001's class="tag tag-alert", then reported the row as ABSENT -- a
+        louder and quite different defect from the one present.
+        """
+        self.assertEqual(self.ce.normalise("Void &middot; informative"), "Void")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

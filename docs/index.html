@@ -1544,7 +1544,7 @@ th:last-child, td:last-child { padding-right: 0; }
         <li><span class="n">§3</span><a href="#quantities">The quantities</a></li>
         <li><span class="n">§4</span><a href="#phi">Φ — phantom agreement</a></li>
         <li><span class="n">§5</span><a href="#laws">The laws worth arguing about</a></li>
-        <li><span class="n">§6</span><a href="#roadmap">Roadmap: ten problems, five experiments</a></li>
+        <li><span class="n">§6</span><a href="#roadmap">Roadmap: fifteen problems, ten experiments</a></li>
         <li><span class="n">§7</span><a href="#standing">Standing — what this is not</a></li>
       </ol>
     </nav>
@@ -2133,10 +2133,18 @@ F*(m)  =  ───────────────────────�
     <span class="gloss">theory/open-problems.md — stated in Hilbert's spirit: precise enough to work on, open enough to be hard.</span>
   </div>
   <div class="col">
-    <h2>Ten problems for the first decade.</h2>
+    <h2>Fifteen problems; the first ten were the first decade.</h2>
 
     <p class="lead">Numbering is stable; solved problems are annotated, not
-    renumbered. Grouped here by what a solution would settle.</p>
+    renumbered. Grouped here by what a solution would settle. <b>The ten below are
+    the founding set.</b> Five more have been raised since, every one from a defect
+    found in this programme&rsquo;s own measurements &mdash; 11 post-transfer
+    admissibility, 12 the vanishing denominator, 13 a reported statistic and its
+    tested statistic not checked against each other, 14 when a modal answer over
+    <span class="q">n</span> draws is a stable observable, and 15 &Phi; having no
+    belief component where the manipulation has to live. They are stated in full in
+    <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/open-problems.md">theory/open-problems.md</a>;
+    14 and 15 are the two currently driving the work.</p>
 
     <div class="groups">
       <div class="group">
@@ -2226,16 +2234,57 @@ F*(m)  =  ───────────────────────�
         <span class="q">p = 0.123</span>. <b>A null.</b> Both L5 and L6 remain
         conjectured; E-001 tested neither.</p>
       </div>
+            <div class="exp">
+        <div class="hd">
+          <span class="id">E-001b</span>
+          <span class="nm">Fluency &times; contrastiveness</span>
+          <span class="at">attacks L5, L6</span>
+          <span class="tag">Void</span>
+        </div>
+        <p>The cost-parity gate failed on the composed messages: fluent briefs cost 1.5&times; terse ones under an identical budget instruction. Style and length are entangled in the generator.</p>
+      </div>
       <div class="exp">
         <div class="hd">
-          <span class="id">E-002</span>
-          <span class="nm">Ablation ladder</span>
-          <span class="at">attacks L1</span>
-          <span class="tag">Planned</span>
+          <span class="id">E-001c</span>
+          <span class="nm">Length-controlled fluency</span>
+          <span class="at">attacks L5</span>
+          <span class="tag">Void</span>
         </div>
-        <p>One message truncated at eight cost levels, with the resulting
-        <span class="q">F*(C)</span> curve fitted. The cheapest remaining
-        experiment.</p>
+        <p>The fluent register&rsquo;s length floor sits <i>above</i> the word band&rsquo;s ceiling &mdash; 232 words against 231. The manipulation is unsatisfiable rather than underpowered.</p>
+      </div>
+<div class="exp">
+        <div class="hd">
+          <span class="id">E-002</span>
+          <span class="nm">First measurement of &Phi;, per probe</span>
+          <span class="at">attacks L5</span>
+          <span class="tag">Void</span>
+        </div>
+        <p>330 of 330 elicitations returned &ldquo;yes, we will agree&rdquo; &mdash; the
+        instrument had a default answer, because it ported Keysar &amp; Henly&rsquo;s
+        granularity and not their forced-choice structure. The transfer was also
+        perfect, 0 of 33 probes diverging, so there was nothing for a belief to be
+        wrong about. <b>This row said &ldquo;Ablation ladder &middot; Planned&rdquo; until
+        2026-08-19</b>, because the founding roadmap gave <span class="q">E-002</span>
+        to the ladder and the identifier was later reused. The ladder is now
+        <span class="q">E-006</span>.</p>
+      </div>
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-002b</span>
+          <span class="nm">&Phi; ladder</span>
+          <span class="at">attacks L5</span>
+          <span class="tag">Findings</span>
+        </div>
+        <p>Four cost rungs, 24 briefs. Produced the first &Phi; measurements on this instrument and a headline pull-quote that was later withdrawn as <a href="/journal/retractions/">retraction 12</a>.</p>
+      </div>
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-002c</span>
+          <span class="nm">Calibration slope &beta;</span>
+          <span class="at">attacks L5</span>
+          <span class="tag">Findings</span>
+        </div>
+        <p>Is confidence responsive to transfer at all? Measured &beta; = &minus;0.02 for the sender and +0.28 for the receiver against 1 for calibration, and supplied the outcome-variation gate of three that every later probe measure is costed against.</p>
       </div>
       <div class="exp">
         <div class="hd">
@@ -2250,12 +2299,35 @@ F*(m)  =  ───────────────────────�
       <div class="exp">
         <div class="hd">
           <span class="id">E-004</span>
+          <span class="nm">Disagreement detector</span>
+          <span class="at">attacks L4</span>
+          <span class="tag">Void</span>
+        </div>
+        <p>Whether a model can predict where another model will disagree, without a
+        key. Void: two of the three registered models were never wrong &mdash; 1 error
+        and 0 errors across the whole design &mdash; and a detector of disagreement
+        needs disagreement to detect. <b>This row said &ldquo;Chain decay &middot;
+        Planned&rdquo; until 2026-08-19</b>, the same identifier reuse as
+        <span class="q">E-002</span> above. The chain is now
+        <span class="q">E-007</span>.</p>
+      </div>
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-006</span>
+          <span class="nm">Ablation ladder</span>
+          <span class="at">attacks L1</span>
+          <span class="tag">Planned</span>
+        </div>
+        <p>One message truncated at eight cost levels, with the resulting <span class="q">F*(C)</span> curve fitted. The cheapest remaining experiment. Was <span class="q">E-002</span> in the founding roadmap; renumbered 2026-08-19 after that identifier was reused.</p>
+      </div>
+      <div class="exp">
+        <div class="hd">
+          <span class="id">E-007</span>
           <span class="nm">Chain decay</span>
           <span class="at">attacks L4</span>
           <span class="tag">Planned</span>
         </div>
-        <p>A telephone chain of six hops, content tagged by form, per-hop fidelity
-        measured — to test whether constraints outlast descriptions.</p>
+        <p>A telephone chain of six hops, content tagged by form, per-hop fidelity measured against the origin &mdash; to test whether constraints outlast descriptions. Was <span class="q">E-004</span> in the founding roadmap; renumbered for the same reason.</p>
       </div>
       <div class="exp">
         <div class="hd">

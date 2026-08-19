@@ -125,6 +125,7 @@ python3 tools/test_tools.py                    # the checks below can still fail
 python3 tools/check_counts.py                  # every stated count vs its source
 python3 tools/check_retracted.py               # no withdrawn claim stated as live
 python3 tools/check_links.py                   # every internal pointer resolves
+python3 tools/check_experiments.py             # site status == the directory behind it
 python3 tools/build_translations.py --check    # must say "current"
 python3 tools/build_og.py --check              # the social card matches the version
 python3 tools/build_wiki.py --check            # /wiki/ matches the sources it maps
