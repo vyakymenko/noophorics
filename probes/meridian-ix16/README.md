@@ -85,7 +85,10 @@ plus a single ability gap of **2.20 logits** — fits at deviance 10.54 on 8 df,
 `p = 0.229`, and predicts the strict subset anyway; and the comparison was never
 conditioned on that gap, which by [Dorans & Holland
 (1992)](../../theory/prior-art.md) makes it **impact**, not differential
-functioning. The counts stand. Why the seven separate the models is open.
+functioning. The counts stand. Why the seven separate the models is open, and
+[D-STUDY.md](D-STUDY.md) states what would settle it: conditioning the comparison
+(free), equalising the sender passes (~14 h), and a third reader, which this
+hardware does not have.
 
 The prediction recorded before that run
 ([`PREDICTION-qwen-receiver.md`](PREDICTION-qwen-receiver.md)) named `X16` and

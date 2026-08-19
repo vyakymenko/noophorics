@@ -91,6 +91,30 @@ tools/build_translations.py --check` fails when a watched passage moves. The fix
 is to translate the new sentence in all eleven languages. Re-running the build
 to clear the warning without touching the strings defeats the mechanism.
 
+**A count is not a cause.** Report the arithmetic; state the explanation
+separately, with whatever tests it. Two retractions inside thirty-six hours have
+this one shape, and in both the counting was correct:
+
+- [15](RETRACTIONS.md) — "four of nine discriminating probes fail the gate" was a
+  true count. `p = 0.0035` beside it was computed over thirty-two rows that are
+  nine prompt templates.
+- [16](RETRACTIONS.md) — "seven of nine probes a second reader does not lose" was
+  a true count. *"They measured the reader"* was an attribution, and a model with
+  no reader-by-probe term at all fits the same data at `p = 0.229`.
+
+The tell is a sentence where a number is followed by *because*, *so*, or
+*which means*. The count survives every later correction; the clause after it is
+what gets struck. Before writing that clause, name the simplest model that
+reproduces the count without it, and fit it. If it fits, you have a count.
+
+**A comparison across parties must be like-for-like, and asymmetric effort is
+the easy way to lose that.** Retraction 16's headline statistic put
+`gpt-oss:120b`'s *minimum over four sender passes* against `qwen3.5:35b`'s
+*single* pass. A minimum over more draws is smaller for free, so the comparison
+manufactured its own result: six of seven at one pass each becomes two of seven.
+Where two parties have had different amounts of measurement spent on them, say
+so in the sentence that compares them, or equalise before comparing.
+
 ---
 
 ## Before you push
