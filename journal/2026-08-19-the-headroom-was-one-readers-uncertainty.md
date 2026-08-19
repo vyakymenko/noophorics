@@ -53,9 +53,19 @@ six sit at `gpt-oss`'s wobble points, and a model that is unanimous on them lose
 none of them.
 
 So of the nine probes that discriminate here, **seven are ones a second
-architecture does not lose at all.** What looked like this measure's headroom was
-substantially one model's hesitation. Strip that and `MERIDIAN-IX32` measures
+architecture does not lose at all**, and `MERIDIAN-IX32` measures
 model-independent transfer loss on **two of its thirty-two probes**.
+
+**A correction to this entry, made the day it was published.** It first said the
+headroom "was substantially one model's hesitation," which asserts a cause the
+data only suggests. Splitting `gpt-oss`'s nine by its own sender margin gives 2
+of 3 unanimous probes lost by qwen against 0 of 6 wobbling ones — Fisher
+`p = 0.0833`, and nothing once the prompt-template clustering of [retraction
+15](../RETRACTIONS.md) is respected. The alternative, that qwen is simply the abler
+reader and this is ordinary item difficulty, is weakened — qwen does not lose the
+probes `gpt-oss` loses most often, rank correlation 0.466 — but stands. The
+counts are arithmetic; the explanation is open, and the title of this entry is
+more confident than its evidence.
 
 That is the closing of the escape route, and it closes for a reason nobody
 proposed. The worry was that qwen would be stable but saturated. It is neither —

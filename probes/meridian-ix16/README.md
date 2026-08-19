@@ -71,10 +71,20 @@ probes.
 The sharper half is about the measure, not the models. **qwen's divergence set is
 a strict subset of `gpt-oss`'s**, and the seven probes only `gpt-oss` loses are
 all `R5`, six of them at its own wobble points. So of the nine probes that
-discriminate here, seven are ones a second architecture does not lose at all:
-what looked like headroom was substantially one reader's uncertainty, and
+discriminate here, seven are ones a second architecture does not lose at all, and
 `MERIDIAN-IX32` measures *model-independent* transfer loss on **2 of its 32
 probes**.
+
+~~What looked like headroom was substantially one reader's uncertainty.~~
+**Qualified 2026-08-19, the same day it was written.** The counts above are
+arithmetic and stand. The *attribution* — that the seven measure the reader
+rather than the transfer — tests at Fisher `p = 0.0833` splitting `gpt-oss`'s
+nine by its own sender margin (2 of 3 unanimous probes lost by qwen, 0 of 6
+wobbling ones), and at the cluster level of [retraction
+15](../../RETRACTIONS.md) it carries nothing. Pure difficulty-plus-ability is
+weakened — qwen does not lose the probes `gpt-oss` loses most often, rank
+correlation 0.466 — but is not excluded. Why the seven separate the models is
+open; see [the results](RESULTS-qwen-receiver.md).
 
 The prediction recorded before that run
 ([`PREDICTION-qwen-receiver.md`](PREDICTION-qwen-receiver.md)) named `X16` and

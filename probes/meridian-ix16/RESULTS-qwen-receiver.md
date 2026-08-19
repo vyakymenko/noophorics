@@ -53,9 +53,40 @@ because until now it had only ever been read by one model:
 
 The first class is transfer loss: both spec-holders are unanimous, both receivers
 confidently return a different answer, and the brief demonstrably fails to carry
-the qualifier. The second is **the reader's own uncertainty** — all seven are
-`R5`, six of the seven sit at `gpt-oss`'s wobble points, and a model that is
+the qualifier. The second **looks like** the reader's own uncertainty — all seven
+are `R5`, six of the seven sit at `gpt-oss`'s wobble points, and a model that is
 unanimous on them loses none of them.
+
+### That attribution is weaker than the counts, and was overstated when first written
+
+**Added 2026-08-19, correcting this document's own first version**, which stated
+the second class as reader uncertainty rather than as a reading of it.
+
+Splitting `gpt-oss`'s nine discriminating probes by `gpt-oss`'s **own** sender
+margin:
+
+| `gpt-oss` sender | probes | qwen also loses |
+|---|---|---|
+| unanimous (10) | `X07 X11 X26` | **2 of 3** |
+| wobbles (4–8) | `X06 X16 X17 X21 X22 X24` | **0 of 6** |
+
+Fisher two-sided **`p = 0.0833`**. Suggestive, not significant, and the counting
+defect of [retraction 15](../../RETRACTIONS.md) applies with force: at similarity
+0.85 the three unanimous probes are two clusters (`X07`+`X26`, `X11`) and the six
+wobbling ones are three (`X06`+`X17`+`X21`+`X22`, `X16`, `X24`), so the real
+table is nearer 2×3 than 3×6 and carries no significance at all.
+
+**The rival explanation is not excluded.** If this were simply one difficulty
+dimension with qwen the abler reader, qwen would lose the probes `gpt-oss` loses
+*most often*. It does not: `X06`, `X17` and `X21` are lost 3 of 6 by `gpt-oss` —
+as often as `X11` and `X26` — and qwen loses them 0 of 6. Rank correlation
+between the two models' per-probe loss counts is **0.466** over the nine. That
+weakens pure difficulty-plus-ability; it does not refute it, and on this `n`
+nothing here could.
+
+What stands without qualification is arithmetic: qwen loses 2 of 32 probes,
+`gpt-oss` loses 9, and qwen's set is a strict subset. Why the other seven
+separate the models is **open**.
 
 ## The consequence, which is worse than the one it replaces
 
