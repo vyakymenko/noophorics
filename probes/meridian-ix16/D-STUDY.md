@@ -91,4 +91,39 @@ ability on this measure) that the study is trying to hold constant.
 
 ---
 
+## The prediction for the parity run, recorded before it finishes
+
+**Committed 2026-08-19 while pass 2 was still drawing and no `gate-qwen*.json`
+existed.** It was first stated in conversation, which is not the record; this
+repository's pre-registration *is* its git history, so it is written here
+instead — and this note exists partly because stating it in chat first was the
+wrong order.
+
+The run: three further `qwen3.5:35b` sender-only passes over all 32 probes,
+n = 10, bringing qwen to four passes against `gpt-oss`'s four.
+
+**Prediction: at least one probe falls below margin 8 in at least one of the
+three passes.**
+
+The reasoning is the argument this measure has already made once against itself.
+`X06` returned 10/10 on four of five `gpt-oss` passes and 4/10 on the fifth; a
+single clean pass is therefore known to be capable of hiding instability on this
+exact measure. qwen's 32-of-32 unanimity rests on one pass, and
+[the README](README.md) has said since 2026-08-16 that this cannot establish
+stability.
+
+| outcome | reading |
+|---|---|
+| ≥ 1 probe below margin 8 | qwen's unanimity was a single-pass artifact, the same one `X06` produced. The two models differ in **ability**, not in kind, which is the reading the 2.20-logit fit already favours. |
+| all 32 hold at 10/10 across four passes | qwen's stability is a genuine property at this operating point. That does **not** revive [retraction 16](../../RETRACTIONS.md) — the withdrawn claim was about which probes *diverge*, not about margins — but it makes "the two readers differ in kind" worth stating for the first time. |
+| some probe drops but only to 8 | the admission gate (≥ 8) still passes it. Records that qwen wobbles shallowly where `gpt-oss` wobbles to 4–6, which is a graded difference and needs the D-study, not this run, to mean anything. |
+
+**What this run cannot do.** It is a sender-only run: it says nothing about
+divergence, and no receiver claim may be drawn from it. It also cannot condition
+anything — one more reader at four passes is still two readers, and
+obstacle 3 above — that two readers cannot estimate a variance component — is
+untouched by it.
+
+---
+
 *This document is licensed CC BY 4.0.*
