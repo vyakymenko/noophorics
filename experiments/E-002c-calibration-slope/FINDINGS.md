@@ -97,16 +97,27 @@ the one this document first reported — see §6.
 
 Per rung, the asymmetry is visible without any statistics:
 
-| rung | observed agreement | claimed sender | claimed receiver | fidelity |
+| rung | observed agreement | claimed sender | claimed receiver | ~~fidelity~~ corrected |
 |---|---|---|---|---|
-| 30 | 0.631 | 0.9574 | 0.8451 | +0.228 |
-| 70 | 0.692 | 0.9820 | 0.8810 | +0.456 |
-| 110 | 0.778 | 0.9944 | 0.8737 | +0.606 |
-| 150 | 0.889 | 0.9669 | 0.9371 | +0.848 |
+| 30 | 0.631 | 0.9574 | 0.8451 | ~~+0.228~~ **+0.217** |
+| 70 | 0.692 | 0.9820 | 0.8810 | ~~+0.456~~ **+0.424** |
+| 110 | 0.778 | 0.9944 | 0.8737 | ~~+0.606~~ **+0.560** |
+| 150 | 0.889 | 0.9669 | 0.9371 | ~~+0.848~~ **+0.784** |
 
-Observed agreement climbs 0.26 and fidelity climbs 0.62 across the ladder. The
-sender's claim ends **lower than it started at rung 110** and never leaves the
-0.957–0.994 band.
+**The fidelity column is corrected 2026-08-20** — [DEFECT-001](DEFECT-001.md),
+[retraction 17](../../RETRACTIONS.md). The noise floor was computed between the
+**sender and PRIOR** and then applied to **sender-versus-receiver** comparisons,
+which are different pairs; the sender is a point mass on all 33 probes and the
+receivers are not, so the mismatched floor is an order of magnitude too large and
+every fidelity was inflated. Because the matched floor falls as cost rises, the
+error was largest at the top of the ladder — it steepened the column as well as
+lifting it.
+
+Observed agreement climbs 0.26 and fidelity climbs ~~0.62~~ **0.57** across the
+ladder. The sender's claim ends **lower than it started at rung 110** and never
+leaves the 0.957–0.994 band. **`β` is unaffected**: it is a slope of claim on
+*observed agreement* and never reads this column, so §3's finding stands as
+published.
 
 ## 5. H4: the earlier resolution was not a granularity artifact
 

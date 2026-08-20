@@ -52,7 +52,14 @@ already supplied.
 
 **Status:** `conjectured`
 **Attacked by:** planned **E-006** (ablation ladder: same message truncated at
-8 cost levels, fidelity curve fitted).
+8 cost levels, fidelity curve fitted). **Still never tested**, 2026-08-20.
+E-002c's four-rung ladder looks like an `F*(C)` curve and is not one: its briefs
+were composed independently per rung rather than ablated from one message, so it
+is a between-message cost gradient. Its own findings said so before anyone tried
+to use it. Reading it as an L1 test also surfaced
+[DEFECT-001](../experiments/E-002c-calibration-slope/DEFECT-001.md) — the floor
+was computed on the wrong pair — and what looked like three briefs reaching
+`F* = 1.0`, which is L1's refutation condition, was that defect and not this law.
 ~~planned E-002~~ — **renumbered 2026-08-19.** The founding roadmap assigned
 `E-002` to the ablation ladder, and the identifier was then **reused** for
 [E-002 — the first measurement of Φ](../experiments/E-002-phantom-agreement/VOID.md),

@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab journal — Noophorics</title>
-<meta name="description" content="The lab notebook of the noophorics programme: the void run, the near miss, and the retraction of its own diagnosis.">
+<title>DEFECT-001 — the noise floor was computed on the wrong pair — Noophorics</title>
+<meta name="description" content="Found 2026-08-20, from files already committed, at no measurement cost. Affects the per-brief and per-rung fidelity column only.">
 <meta name="color-scheme" content="light dark">
-<link rel="canonical" href="https://noophorics.org/journal/">
+<link rel="canonical" href="https://noophorics.org/journal/e-002c-defect/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Lab journal — Noophorics">
+<meta property="og:title" content="DEFECT-001 — the noise floor was computed on the wrong pair — Noophorics">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://noophorics.org/journal/">
+<meta property="og:url" content="https://noophorics.org/journal/e-002c-defect/">
 <meta property="og:image" content="https://noophorics.org/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Noophorics — a dark card reading NOOPHORICS above the line “Understanding is measured by behavioural convergence toward a declared reference”, footed with Φ phantom agreement and the version.">
 <meta name="twitter:image" content="https://noophorics.org/og.png">
-<script type="application/ld+json">{}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://noophorics.org/journal/e-002c-defect/#article","headline":"DEFECT-001 — the noise floor was computed on the wrong pair","description":"Found 2026-08-20, from files already committed, at no measurement cost. Affects the per-brief and per-rung fidelity column only.","url":"https://noophorics.org/journal/e-002c-defect/","inLanguage":"en","isPartOf":{"@id":"https://noophorics.org/#website"},"license":"https://creativecommons.org/licenses/by/4.0/","author":{"@type":"Person","name":"Valentyn Yakymenko","url":"https://github.com/vyakymenko"},"publisher":{"@type":"Organization","name":"Noophorics","url":"https://noophorics.org/"},"isAccessibleForFree":true,"creativeWorkStatus":"Published"}</script>
 <style>
 /* ---------------------------------------------------------------
    NOOPHORICS.ORG
@@ -1226,77 +1226,35 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <main id="content">
-<p class="jn">Lab notebook</p>
-<h1>The record of being wrong</h1>
-<p>Dated, append-only, and never edited after the fact except for typos. The entries below are the programme's most load-bearing documents: they are where it recorded its own failures while they were still fresh.</p>
+<p class="jn">defect · e 002c defect</p>
+<h1>DEFECT-001 — the noise floor was computed on the wrong pair</h1>
+<p><strong>Found 2026-08-20, from files already committed, at no measurement cost.</strong> Affects the per-brief and per-rung <strong>fidelity</strong> column only. It does <strong>not</strong> touch <code>β</code>, which is this experiment's registered primary quantity.</p>
+<h2>The defect</h2>
+<p><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002c-calibration-slope/runner.py"><code>runner.py:222</code></a> computes the permutation floor between the <strong>sender</strong> and <strong>PRIOR</strong>:</p>
+<pre><code>floor = mean_permutation_floor(raw[&quot;sender&quot;], raw[&quot;PRIOR&quot;], ...)</code></pre>
+<p><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002c-calibration-slope/runner.py"><code>runner.py:241</code></a> then divides every <strong>sender-versus-receiver</strong> fidelity by it:</p>
+<pre><code>d_post   = mean_divergence(s_dists, r_dists, measure.weights)
+fidelity = transfer_fidelity(d_prior, d_post, floor, epsilon)</code></pre>
+<p>Those are different pairs. <code>D_floor</code> is <em>finite-sample estimator bias for the comparison being made</em> — the site's own definition calls it "a property of the measurement, not of the agents" — and the permutation null pools <strong>that pair's</strong> draws. Pool a different pair and you get a different floor.</p>
+<p>Here the difference is an order of magnitude, because the two parties are not alike:</p>
+<div class="scroll"><table><thead><tr><th>party</th><th>probes where all 16 draws are identical</th></tr></thead><tbody><tr><td>sender</td><td><strong>33 of 33</strong> — a point mass everywhere</td></tr><tr><td>PRIOR</td><td>4 of 33</td></tr><tr><td>receivers</td><td>between the two</td></tr></tbody></table></div>
+<p>Pooling a point mass with the wide PRIOR distribution produces a large expected divergence under permutation. Pooling it with a receiver, which is much closer to the sender, produces a small one.</p>
+<pre><code>floor used for every brief (sender vs PRIOR)   0.041666
+comparison-matched floors (sender vs receiver) 0.0076 – 0.0226</code></pre>
+<h2>What it does to the published numbers</h2>
+<p>Because a too-large floor <em>shrinks</em> the denominator <code>D_prior − D_floor</code>, every fidelity is inflated. And the matched floor <strong>falls as cost rises</strong>, so the inflation is largest at the top of the ladder: the defect does not merely shift the column, it <strong>steepens</strong> it.</p>
+<div class="scroll"><table><thead><tr><th>rung</th><th>published</th><th>corrected</th><th>Δ</th><th>matched floor</th></tr></thead><tbody><tr><td>30</td><td>0.228</td><td><strong>0.217</strong></td><td>−0.012</td><td>0.0226</td></tr><tr><td>70</td><td>0.456</td><td><strong>0.424</strong></td><td>−0.032</td><td>0.0152</td></tr><tr><td>110</td><td>0.606</td><td><strong>0.560</strong></td><td>−0.047</td><td>0.0118</td></tr><tr><td>150</td><td>0.848</td><td><strong>0.784</strong></td><td>−0.064</td><td>0.0076</td></tr></tbody></table></div>
+<p>The climb across the ladder goes from <strong>+0.62 to +0.57</strong>, and the three briefs that reported exactly <code>1.0000</code> (<code>r110_1</code>, <code>r110_2</code>, <code>r150_1</code>) were at the <code>min(1.0, ·)</code> cap because their <code>d_post</code> fell below the mismatched floor. Under matched floors they are <strong>0.912, 0.915, 0.953</strong>, and <strong>no brief on the ladder reaches 1.0</strong> — the maximum is 0.9530.</p>
+<p>Recorded as <a href="https://github.com/vyakymenko/noophorics/blob/main/RETRACTIONS.md">retraction 17</a>.</p>
+<h2>What is <em>not</em> affected</h2>
+<p><strong><code>β</code> is untouched.</strong> It is <code>_slope(observed_agreement, claims)</code> (<a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002c-calibration-slope/runner.py"><code>runner.py:399</code></a>) and never reads the fidelity column. The registered finding — sender <code>β = −0.02</code>, receiver <code>+0.28</code>, against 1 for calibration — stands exactly as published.</p>
+<p><strong>No gate decision flips.</strong> <code>ceiling_fidelity</code> passed at 1.0 against a threshold of 0.70; under a matched floor <code>CEILING</code> is 1.0000 and still passes. That gate has a separate and older problem, recorded in <a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-30-two-audit-holes.md">the 2026-07-30 audit</a>: it compares an agent with a copy of itself and could not have failed.</p>
+<h2>How it was found, and why that is the uncomfortable part</h2>
+<p>Not by an audit of this experiment. It surfaced while asking whether the ladder could test <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/laws.md#l1">L1</a> — three briefs appeared to reach <code>F* = 1.0</code>, which is L1's stated refutation condition, and checking <em>why</em> they reached it found the floor instead.</p>
+<p>So a mismatched denominator sat in a published table for seventeen days and was caught only because someone tried to use the column for something else. Nothing checks it: <code>metrics/tests/test_metrics.py</code> tests <code>transfer_fidelity</code> against values it is handed, and cannot know which pair produced them.</p>
+<p><strong>The general form is worth stating, because it is not specific to this runner:</strong> a floor, a prior and a post that are not all computed over <em>the same pair of parties</em> do not compose into a fidelity, and the type system that would have caught it — one that carries the pair with the number — does not exist here. <code>F*</code> already refuses to be reported without its reference <code>R</code> (error E-001); this is the same lesson one argument along.</p>
 <hr>
-<h2><a href="/journal/founding/">2026-07-28 — Founding</a></h2>
-<p>First entry. The lab notebook is for the things that do not belong in uncertainty.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-founding.md">source</a></p>
-<h2><a href="/journal/first-live-run-void/">2026-07-28 — First live run: void, and the reason is worth keeping</a></h2>
-<p>E-001 ran against the API for the first time and died. Full record in AMENDMENT-001.md; this entry is for what it means.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-28-first-live-run-void.md">source</a></p>
-<h2><a href="/journal/e-001-findings/">E-001 — Findings</a></h2>
-<p>Status: the run was interrupted at the CEILING condition and never completed.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/FINDINGS.md">source</a></p>
-<h2><a href="/journal/e-001b-void/">E-001b is void — the cost parity gate failed before the sweep ran</a></h2>
-<p>Status: void · closed · superseded by E-001c (not yet registered) Voided: 2026-07-29, after composition, before any probe outcome was examined Gate: cost parity across cells, max/min realised cost ≤ 1.30 (PREREGISTRATION §4.1)…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/VOID.md">source</a></p>
-<h2><a href="/journal/e-001b-defect/">DEFECT-001 — the analysis path was never executed, and would have crashed</a></h2>
-<p>Found: 2026-07-29, ~4 hours into collection Status: repaired; collection restarted Data on disk when found: sender 34/34, PRIOR 34/34, CEILING 34/34,…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/e-001c-feasibility/">Can the four registers survive being pinned to a common length?</a></h2>
-<p>Instrument check, before registration. No hypothesis is tested here and none may be read off it.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/FEASIBILITY.md">source</a></p>
-<h2><a href="/journal/e-002-void/">E-002 is void — the elicitation saturated, and so did the transfer</a></h2>
-<p>Status: void · closed · superseded by E-002b (not yet registered) Voided: 2026-07-30, at the first brief&#x27;s elicitation, by the pre-registered degeneracy gate Cost: ~4.5 hours of the ~13 the full sweep would have taken…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002-phantom-agreement/VOID.md">source</a></p>
-<h2><a href="/journal/e-002b-findings/">E-002b — findings</a></h2>
-<p>The first run in this repository to reach analysis. Every prior experiment voided. All gates passed; all four rungs of the ladder produced outcome variation.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002b-phantom-agreement-ladder/FINDINGS.md">source</a></p>
-<h2><a href="/journal/e-002c-findings/">E-002c — findings</a></h2>
-<p>The first pre-registered positive result this programme has produced. All six gates passed, all twenty-four briefs analysed, all four registered hypotheses resolved.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002c-calibration-slope/FINDINGS.md">source</a></p>
-<h2><a href="/journal/cross-sender-disagreement/">2026-07-30 — Two models disagree exactly where one is wrong</a></h2>
-<p>Status: an observation, not a finding. Post-hoc, on data collected for another purpose, with a statistic chosen after seeing it.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-30-cross-sender-disagreement.md">source</a></p>
-<h2><a href="/journal/two-audit-holes/">2026-07-30 — Two audit holes, found by an agent sent to argue about definitions</a></h2>
-<p>Both were found while an adversarial panel was checking arithmetic for an unrelated decision. Both are verified here by independent recomputation.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-30-two-audit-holes.md">source</a></p>
-<h2><a href="/journal/site-four-versions-behind/">The public page was still publishing v0.1</a></h2>
-<p>2026-07-31. A four-lens consistency audit over the repository returned twenty findings, all claim-bearing, all verified against source. They deduplicate to nine places.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-07-31-the-site-was-four-versions-behind.md">source</a></p>
-<h2><a href="/journal/e-004-void/">E-004 is void — two of three models were never wrong</a></h2>
-<p>Status: void · closed · no successor registered Voided: 2026-08-03, by gate G2, before any hypothesis was read Cost: four days of local GPU, ~$1.50 of API, and the answer to a question this design could not have given…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-004-disagreement-detector/VOID.md">source</a></p>
-<h2><a href="/journal/e-004-interrupted/">Collection stopped at 104 of 126 cells, on one socket timeout</a></h2>
-<p>2026-07-31, 19:04 local. Written before the run is resumed and before any analysis, so that what happened is on the record independently of what the remaining data turns out to say.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-004-disagreement-detector/INTERRUPTED.md">source</a></p>
-<h2><a href="/journal/e-001c-defect/">DEFECT-001 — the band was calibrated on one instruction, and the run composed under another</a></h2>
-<p>Found: 2026-08-04, after the run of 2026-08-03 voided Status: repaired; the void stands as a void, but not for the reason it records Data on disk when found: one results file,…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/e-001c-calibration/">CALIBRATION-001 — the model writes to the ceiling it is told, and slightly past it</a></h2>
-<p>Measured 2026-08-04, after the run of 2026-08-03 voided and DEFECT-001 established that the void could not mean what it said.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/CALIBRATION-001.md">source</a></p>
-<h2><a href="/journal/e-001c-void/">E-001c is void — the fluent register has a floor where the band has a ceiling</a></h2>
-<p>Status: void · closed · successor not yet registered Voided: 2026-08-04, during composition, before any probe outcome existed Gate: register filter exhausted in cell A (PREREGISTRATION §4, §6.1)…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001c-fluency-length-controlled/VOID.md">source</a></p>
-<h2><a href="/journal/nine-templates-not-thirty-two-probes/">The measure was nine templates and every p-value counted thirty-two</a></h2>
-<p>2026-08-18. MERIDIAN-IX32 has thirty-two probes. It does not have thirty-two independent readings, and three published significance levels were computed as though it did.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-08-18-nine-templates-not-thirty-two-probes.md">source</a></p>
-<h2><a href="/journal/headroom-was-one-readers-uncertainty/">Seven of the nine probes measured the reader, not the transfer</a></h2>
-<p>2026-08-19. MERIDIAN-IX32 has been read by a second architecture, and the route it was built to open is closed.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/journal/2026-08-19-the-headroom-was-one-readers-uncertainty.md">source</a></p>
-<h2><a href="/journal/e-002c-defect/">DEFECT-001 — the noise floor was computed on the wrong pair</a></h2>
-<p>Found 2026-08-20, from files already committed, at no measurement cost. Affects the per-brief and per-rung fidelity column only.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002c-calibration-slope/DEFECT-001.md">source</a></p>
-<h2><a href="/journal/retractions/">Retractions</a></h2>
-<p>Every claim this programme has made and then withdrawn, with what killed it.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/RETRACTIONS.md">source</a></p>
-<h2><a href="/journal/prior-art/">Prior art</a></h2>
-<p>Created 2026-07-29, after an external review found that several of this programme&#x27;s founding novelty claims were false.…</p>
-<p style="font-size:.9rem;color:var(--soft)"><a href="https://github.com/vyakymenko/noophorics/blob/main/theory/prior-art.md">source</a></p>
-
+<p><em>This document is licensed CC BY 4.0.</em></p>
 <p class="back"><a href="/journal/">All journal entries</a> · <a href="/wiki/">Reference</a> · <a href="/">Noophorics</a> · <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
 </main>
 </body>

@@ -1,78 +1,78 @@
 {
   "ar": {
     "name": "العربية",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "bn": {
     "name": "বাংলা",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "de": {
     "name": "Deutsch",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "es": {
     "name": "Español",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "fa": {
     "name": "فارسی",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "fr": {
     "name": "Français",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "hi": {
     "name": "हिन्दी",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "id": {
     "name": "Bahasa Indonesia",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "it": {
     "name": "Italiano",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "ja": {
     "name": "日本語",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "ko": {
     "name": "한국어",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "nl": {
     "name": "Nederlands",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "pl": {
     "name": "Polski",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "pt": {
     "name": "Português",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "ru": {
     "name": "Русский",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "tr": {
     "name": "Türkçe",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "uk": {
     "name": "Українська",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "vi": {
     "name": "Tiếng Việt",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   },
   "zh": {
     "name": "中文",
-    "source_fingerprint": "f3a7aa5dca49"
+    "source_fingerprint": "0f16ad5f1eac"
   }
 }

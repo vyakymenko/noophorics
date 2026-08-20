@@ -64,6 +64,8 @@ SOURCES: List[Tuple[str, str, str]] = [
      "journal/2026-08-18-nine-templates-not-thirty-two-probes.md", "audit"),
     ("headroom-was-one-readers-uncertainty",
      "journal/2026-08-19-the-headroom-was-one-readers-uncertainty.md", "observation"),
+    ("e-002c-defect",
+     "experiments/E-002c-calibration-slope/DEFECT-001.md", "defect"),
     ("retractions", "RETRACTIONS.md", "audit"),
     ("prior-art", "theory/prior-art.md", "audit"),
 ]
