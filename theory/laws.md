@@ -150,7 +150,11 @@ L2 remains a promissory note.
 
 **Status:** `conjectured` · *headline form withdrawn as tautological*
 **Attacked by:** planned E-003, cross-provider (fidelity matrix over a grid of
-sender/receiver pairs, both directions)
+sender/receiver pairs, both directions). **Blocked on the instrument, 2026-08-20:**
+the asymmetry there is reason to expect between the two local models is about
+**0.219**, and 32 probes resolve **0.338**
+([INSTRUMENT-LIMITS](../probes/INSTRUMENT-LIMITS.md)). Needs 64–128 probes; the
+largest measure this programme owns has 34.
 
 ---
 
@@ -240,7 +244,10 @@ indistinguishable (L4c).
 
 **Status:** `conjectured` · *restated after the original was found ill-typed*
 **Attacked by:** planned **E-007** (six-hop chain, content tagged by form, every
-hop scored against the origin).
+hop scored against the origin). **Blocked on the instrument, 2026-08-20:** L4c is
+a difference between two *classes* of probe, so the split halves each `n` —
+`MERIDIAN-IX32` tagged by form gives at most ~16 per class, resolving **0.479**
+([INSTRUMENT-LIMITS](../probes/INSTRUMENT-LIMITS.md)).
 ~~planned E-004~~ — **renumbered 2026-08-19**, same collision: `E-004` was reused
 for [the disagreement detector](../experiments/E-004-disagreement-detector/VOID.md),
 which is void and is a different experiment.
