@@ -69,6 +69,76 @@ statistic — 64–128 for a difference, ~512 for a curvature.
 That is why three laws have stood `conjectured` since founding with no experiment
 against them. It was read as a queue. It is a ceiling.
 
+## Effective probe count, measured 2026-08-20 — and the MDEs above are optimistic
+
+Every MDE in the table above uses **raw** probe counts. Retraction 15 established
+that `MERIDIAN-IX32`'s 32 probes are about nine independent prompt templates. So
+the obvious question is what the other three measures are, and it turns out to be
+the most consequential number in this file.
+
+Single-link clustering on prompt similarity, all four measures at the same
+thresholds:
+
+| measure | raw | 0.80 | 0.85 | 0.90 | 0.95 | largest cluster @0.85 |
+|---|---|---|---|---|---|---|
+| `MERIDIAN-34` | 34 | 4 | **10** | 16 | 20 | 16 probes |
+| `MERIDIAN-33` | 33 | 4 | **9** | 15 | 19 | 16 probes |
+| `MERIDIAN-IX32` | 32 | 9 | **9** | 13 | 19 | 11 probes |
+| **`RIVERSIDE-30`** | 30 | 21 | **25** | 27 | 30 | **4 probes** |
+
+**`RIVERSIDE-30` is not like the others.** And it is not a length artifact — its
+prompts are longer (294 chars against ~200), which would depress a similarity
+ratio mechanically, so the same question was asked with Jaccard over word sets,
+which is almost length-blind:
+
+| measure | mean Jaccard | max | **pairs with J ≥ 0.8** |
+|---|---|---|---|
+| `MERIDIAN-34` | 0.444 | 0.944 | **25** |
+| `MERIDIAN-33` | 0.449 | 0.944 | **25** |
+| `MERIDIAN-IX32` | 0.398 | 0.969 | **18** |
+| `RIVERSIDE-30` | 0.266 | 0.750 | **0** |
+
+Zero near-duplicate pairs against eighteen to twenty-five. The difference is real
+and it is structural.
+
+What that does to the numbers above, at threshold 0.85:
+
+| measure | raw | effective | MDE(raw) | **MDE(effective)** |
+|---|---|---|---|---|
+| `MERIDIAN-34` | 34 | 10 | 0.328 | **0.605** |
+| `MERIDIAN-33` | 33 | 9 | 0.333 | **0.638** |
+| `MERIDIAN-IX32` | 32 | 9 | 0.338 | **0.638** |
+| `RIVERSIDE-30` | 30 | 25 | 0.349 | **0.383** |
+
+**Every published MERIDIAN result rests on about nine effective probes, not
+thirty-odd.** The ceiling is lower than the first half of this file states, and
+the correction is a factor of about 1.9 on every MERIDIAN MDE.
+
+### The programme already owns the instrument it needs to be building toward
+
+`RIVERSIDE-30` is also the **only** probe measure here whose keys were ruled on
+by readers who did not write them — three adjudicators, blind to the keys, each
+under a different instruction, with a probe dropped if *any* of them answered
+against the key **or** flagged it indeterminate
+([ADJUDICATION](riverside-30/ADJUDICATION.md)).
+
+So the best-adjudicated and least-templated measure in the repository is the same
+file, and it has been used in exactly one experiment —
+[E-004](../experiments/E-004-disagreement-detector/VOID.md) — which is void.
+Everything else ran on MERIDIAN.
+
+Two consequences, and the second is the one that matters:
+
+1. `E-003` and `E-007` should run against `RIVERSIDE-30`, not MERIDIAN. It does
+   not close the gap — 0.383 against the ~0.219 asymmetry E-003 expects — but it
+   is 1.7× better than the measure they would otherwise have used.
+2. **A successor measure must be built the way `RIVERSIDE-30` was built.** The
+   "512 probes" figure assumes independent rows; scaled the MERIDIAN way it would
+   be 512 probes worth about 140. `RIVERSIDE-30` demonstrates that 30 probes can
+   be worth 25, from one author, in one sitting — so the ceiling is not a law
+   about probe-writing, it is a fact about how these three measures happened to
+   be written.
+
 ## What it does not license
 
 **Not** that the laws are unfalsifiable. They are falsifiable at a probe count

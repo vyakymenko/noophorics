@@ -152,9 +152,11 @@ L2 remains a promissory note.
 **Attacked by:** planned E-003, cross-provider (fidelity matrix over a grid of
 sender/receiver pairs, both directions). **Blocked on the instrument, 2026-08-20:**
 the asymmetry there is reason to expect between the two local models is about
-**0.219**, and 32 probes resolve **0.338**
-([INSTRUMENT-LIMITS](../probes/INSTRUMENT-LIMITS.md)). Needs 64–128 probes; the
-largest measure this programme owns has 34.
+**0.219**. `MERIDIAN-IX32` resolves **0.638** — not 0.338, because its 32 probes
+are about **nine** independent templates — and `RIVERSIDE-30`, the only
+low-template measure here, resolves **0.383**
+([INSTRUMENT-LIMITS](../probes/INSTRUMENT-LIMITS.md)). Run it against
+`RIVERSIDE-30` when it runs; even that does not close the gap.
 
 ---
 
@@ -246,8 +248,10 @@ indistinguishable (L4c).
 **Attacked by:** planned **E-007** (six-hop chain, content tagged by form, every
 hop scored against the origin). **Blocked on the instrument, 2026-08-20:** L4c is
 a difference between two *classes* of probe, so the split halves each `n` —
-`MERIDIAN-IX32` tagged by form gives at most ~16 per class, resolving **0.479**
-([INSTRUMENT-LIMITS](../probes/INSTRUMENT-LIMITS.md)).
+`MERIDIAN-IX32` tagged by form gives at most ~16 raw per class and about **four
+effective**, since its probes are ~nine templates
+([INSTRUMENT-LIMITS](../probes/INSTRUMENT-LIMITS.md)). `RIVERSIDE-30` is the
+measure to use, and it is still short.
 ~~planned E-004~~ — **renumbered 2026-08-19**, same collision: `E-004` was reused
 for [the disagreement detector](../experiments/E-004-disagreement-detector/VOID.md),
 which is void and is a different experiment.
