@@ -75,7 +75,7 @@ CLAIMS = [
     # "ten open problems" against twelve in the file for as long as anyone had
     # been reading it. A number is a claim wherever it appears.
     ("docs/index.html", r"(fifteen|fourteen|thirteen|twelve|eleven|ten|nine) open problems", "open problems"),
-    ("docs/index.html", r"(two|three|four) experiments are void", "voids"),
+    ("docs/index.html", r"(two|three|four|five) experiments are void", "voids"),
     # RETRACTIONS.md opens by saying "a count nobody can audit is worse than no
     # count" and then carried an unaudited one: its standing tally still said
     # three experiments void after E-001c's VOID.md landed, and still said zero
@@ -83,7 +83,7 @@ CLAIMS = [
     # is checked here. The findings half is not -- an experiment with a
     # FINDINGS.md and no VOID.md is not the same thing as an established
     # result, and a counter that got that wrong would be worse than none.
-    ("RETRACTIONS.md", r"(two|three|four) experiments void", "voids"),
+    ("RETRACTIONS.md", r"(two|three|four|five) experiments void", "voids"),
     # The retraction count is on the front page twice: as a stat card, which was
     # checked, and in the status sentence, which was not. The void count had the
     # same shape and the same fix. A number is a claim wherever it appears, and
@@ -97,7 +97,7 @@ CLAIMS = [
 # correct new count reads as PATTERN NOT FOUND. That is the check
 # behaving properly -- a claim it can no longer find is a claim it can no
 # longer guard -- but the two lists have to be extended together.
-WORDS = {"two": 2, "three": 3, "four": 4, "nine": 9, "ten": 10,
+WORDS = {"two": 2, "three": 3, "four": 4, "five": 5, "nine": 9, "ten": 10,
          "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
          "fifteen": 15, "sixteen": 16,
          "seventeen": 17}

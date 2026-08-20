@@ -51,8 +51,14 @@ already supplied.
 (floor-corrected) for arbitrary sender/receiver pairs.
 
 **Status:** `conjectured`
-**Attacked by:** planned **E-006** (ablation ladder: same message truncated at
-8 cost levels, fidelity curve fitted). **Still never tested**, 2026-08-20.
+**Attacked by:** ~~planned **E-006**~~ — [**E-006 is void before
+collection**](../experiments/E-006-ablation-ladder/VOID.md), 2026-08-20, at zero
+model calls. Its own pre-registered power gate refused the run: **0.117** against
+a moderately concave truth on 32 probes. The concavity limb needs about **512
+probes** and the largest measure this programme owns has 34, so L1 is untested
+not for want of trying but because **no probe measure here can carry the test**.
+More draws do not help and more rungs do not help — the noise is probe-level.
+**Unattacked**, 2026-08-20.
 E-002c's four-rung ladder looks like an `F*(C)` curve and is not one: its briefs
 were composed independently per rung rather than ablated from one message, so it
 is a between-message cost gradient. Its own findings said so before anyone tried

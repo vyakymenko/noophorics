@@ -8,7 +8,7 @@ than a clean document that never made the mistake.
 This file exists because the site quotes a *count*, and a count nobody can audit
 is worse than no count.
 
-**Standing tally: 17 claims withdrawn, four experiments void, 1 finding
+**Standing tally: 17 claims withdrawn, five experiments void, 1 finding
 established.**
 
 The last two numbers were both stale until 2026-08-04, and in opposite
@@ -95,6 +95,7 @@ had asked how many *distinct* readings a frame of thirty-two probes contains.
 | [E-002](experiments/E-002-phantom-agreement/VOID.md) | `Φ` for the first time, elicited per probe | 330 of 330 elicitations returned "yes, we will agree" — the instrument has a default answer, because it ported Keysar & Henly's granularity and not their forced-choice structure. And the transfer was perfect (0 of 33 probes diverged), so there was nothing for a belief to be wrong about. |
 | [E-004](experiments/E-004-disagreement-detector/VOID.md) | whether a model can predict where another model will disagree | Two of the three registered models were never wrong: 1 error and 0 errors across the whole design. A detector of disagreement needs disagreement to detect, and reporting the run would have reported the defect as the result. |
 | [E-001c](experiments/E-001c-fluency-length-controlled/VOID.md) | the E-001 question again, with length pinned by a two-sided word band | The fluent register's length floor sits **above** the band's ceiling — 232 words against 231, at 0 of 12 and 0 of 40. Fluent cells land in the band 5 times in 24 against terse cells' 23 in 24. The fluency instruction is partly a length instruction, so the manipulation is unsatisfiable rather than underpowered. Also [DEFECT-001](experiments/E-001c-fluency-length-controlled/DEFECT-001.md) — the first of the two runs voided on a copied instruction the band was never calibrated on, and establishes nothing. |
+| [E-006](experiments/E-006-ablation-ladder/VOID.md) | whether `F*(C)` is concave — the ablation ladder for L1 | **Void before collection, zero model calls.** Its own pre-registered power gate, computed before any draw, returned **0.117** against a moderately concave truth on 32 probes. L1's concavity limb needs about **512 probes**; `MERIDIAN-IX32` has 32, of which about nine are independent prompt templates. More draws do not help and more rungs do not help — the noise is probe-level. What this establishes is better than the run would have been: L1 is untested not for want of trying but because **no probe measure this programme owns can carry the test**. |
 
 **This table was two rows stale until 2026-08-04.** E-004 voided on 2026-08-03
 and E-001c on 2026-08-04, and neither was indexed here. The count on the front
