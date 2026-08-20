@@ -7,11 +7,14 @@ from __future__ import annotations
 
 from typing import Dict, Iterable, List, NamedTuple, Optional, Sequence
 
-from .divergence import jensen_shannon
+from .divergence import (jensen_shannon, mean_divergence,
+                         mean_permutation_floor, to_distribution)
 
 __all__ = [
     "DEFAULT_EPSILON",
     "InadmissibleProbeMeasure",
+    "MismatchedFloorPair",
+    "fidelity_from_draws",
     "is_admissible",
     "transfer_fidelity",
     "efficiency",
@@ -35,6 +38,23 @@ class InadmissibleProbeMeasure(ValueError):
     """The parties did not disagree enough before transfer to measure anything."""
 
 
+class MismatchedFloorPair(ValueError):
+    """The floor corrects a comparison other than the one being made.
+
+    `D_floor` is finite-sample estimator bias *for a stated pair of parties*.
+    The permutation null pools that pair's draws, so a floor taken on one pair
+    does not correct another. E-002c computed the floor between sender and
+    PRIOR and applied it to sender-versus-receiver -- different pairs, and the
+    sender was a point mass on every probe while PRIOR was not, so the floor
+    came out an order of magnitude too large and inflated every fidelity it
+    touched ([retraction 17](../../RETRACTIONS.md)).
+
+    Seventeen days, a published table, and nothing could see it: the estimator
+    received three floats and had no way to know which comparisons produced
+    them. This exception is that missing argument.
+    """
+
+
 def is_admissible(
     d_prior: float, d_floor: float, epsilon: float = DEFAULT_EPSILON
 ) -> bool:
@@ -53,6 +73,8 @@ def transfer_fidelity(
     d_post: float,
     d_floor: float,
     epsilon: float = DEFAULT_EPSILON,
+    post_pair=None,
+    floor_pair=None,
 ) -> float:
     """F* -- floor-corrected transfer fidelity. definitions.md 4.1
 
@@ -65,7 +87,20 @@ def transfer_fidelity(
 
     Capped at 1.0 above, since a post-transfer divergence below the noise floor
     is sampling luck, not superhuman transfer.
+
+    `post_pair` and `floor_pair` are optional declarations of *which two
+    parties* produced `d_post` and `d_floor`. When both are given and differ,
+    this raises `MismatchedFloorPair`. They are optional because callers that
+    already pass bare floats cannot be made to know, and a required argument
+    would have broken every one of them into silence; prefer
+    `fidelity_from_draws`, where the mismatch cannot be expressed at all.
     """
+    if (post_pair is not None and floor_pair is not None
+            and tuple(post_pair) != tuple(floor_pair)):
+        raise MismatchedFloorPair(
+            "d_floor was taken on %r but d_post compares %r; a floor corrects "
+            "the bias of one comparison and does not transfer to another"
+            % (tuple(floor_pair), tuple(post_pair)))
     if not is_admissible(d_prior, d_floor, epsilon):
         raise InadmissibleProbeMeasure(
             "d_prior (%.4f) does not exceed d_floor (%.4f) by epsilon (%.4f); "
@@ -73,6 +108,65 @@ def transfer_fidelity(
             % (d_prior, d_floor, epsilon)
         )
     return min(1.0, (d_prior - d_post) / (d_prior - d_floor))
+
+
+def fidelity_from_draws(
+    sender_draws,
+    prior_draws,
+    post_draws,
+    weights=None,
+    permutations: int = 400,
+    seed: int = 0,
+    epsilon: float = DEFAULT_EPSILON,
+    floor_on: str = "post",
+) -> dict:
+    """`F*` with all three quantities computed from the same draws.
+
+    `transfer_fidelity` takes three floats and cannot know which comparisons
+    produced them. This takes the draws instead, so the mismatch that produced
+    [retraction 17](../../RETRACTIONS.md) cannot be written.
+
+        D_prior  divergence(sender, prior)
+        D_post   divergence(sender, post)
+        D_floor  permutation floor on the pair named by `floor_on`
+
+    **`floor_on` is a real choice and it is left to the caller on purpose.**
+    The default `"post"` takes the floor on `(sender, post)`, on the argument
+    that `D_floor` corrects the bias of the `D_post` term: a receiver that had
+    perfectly reconstructed the sender would score `D_floor`, not zero, at this
+    `n`. `"prior"` takes it on `(sender, prior)` and reproduces what E-002c did
+    -- available so an old number can be regenerated deliberately, never by
+    accident.
+
+    What the choice costs is not settled here. A `"post"` floor is per-receiver,
+    so each message gets its own denominator and fidelities are no longer on one
+    common scale; a `"prior"` floor is shared, and wrong whenever the receiver's
+    spread differs from the prior's. [Retraction 2](../../RETRACTIONS.md)
+    established that the floor is estimator bias rather than a property of the
+    agents, which points at `"post"`; comparability points at `"prior"`. Nobody
+    has stated which the definition intends, and this docstring is the first
+    place the question is written down.
+
+    Returns every intermediate, because a fidelity whose floor cannot be
+    inspected is how seventeen days happened.
+    """
+    if floor_on not in ("post", "prior"):
+        raise ValueError("floor_on must be 'post' or 'prior', not %r" % (floor_on,))
+    s_d = [to_distribution(c) for c in sender_draws]
+    p_d = [to_distribution(c) for c in prior_draws]
+    r_d = [to_distribution(c) for c in post_draws]
+    d_prior = mean_divergence(s_d, p_d, weights)
+    d_post = mean_divergence(s_d, r_d, weights)
+    other = post_draws if floor_on == "post" else prior_draws
+    d_floor = mean_permutation_floor(sender_draws, other, weights,
+                                     permutations, seed)
+    return {
+        "d_prior": d_prior,
+        "d_post": d_post,
+        "d_floor": d_floor,
+        "floor_on": floor_on,
+        "fidelity": transfer_fidelity(d_prior, d_post, d_floor, epsilon),
+    }
 
 
 def fidelity_to_reference(

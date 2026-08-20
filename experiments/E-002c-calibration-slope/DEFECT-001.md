@@ -93,10 +93,42 @@ values it is handed, and cannot know which pair produced them.
 
 **The general form is worth stating, because it is not specific to this runner:**
 a floor, a prior and a post that are not all computed over *the same pair of
-parties* do not compose into a fidelity, and the type system that would have
-caught it — one that carries the pair with the number — does not exist here.
-`F*` already refuses to be reported without its reference `R` (error E-001);
-this is the same lesson one argument along.
+parties* do not compose into a fidelity. `F*` already refuses to be reported
+without its reference `R` (error E-001); this is the same lesson one argument
+along.
+
+## Repaired 2026-08-20, in the estimator rather than in this runner
+
+Two additions to [`metrics/noophorics/fidelity.py`](../../metrics/noophorics/fidelity.py):
+
+- `transfer_fidelity` now accepts `post_pair` and `floor_pair`. Give both and
+  they must match, or it raises **`MismatchedFloorPair`**. They are optional
+  because every existing caller passes bare floats and a required argument would
+  have broken them all into silence.
+- **`fidelity_from_draws(sender, prior, post, …)`** takes the draws instead of
+  three floats and computes `D_prior`, `D_post` and `D_floor` itself, so the
+  mismatch cannot be written. Verified against this run: it returns `0.9530` for
+  `r150_1` by default and reproduces the published `1.0000` only when explicitly
+  asked with `floor_on="prior"`.
+
+**And it makes the floor policy a decision rather than an accident.** `floor_on`
+defaults to `"post"` — the floor taken on `(sender, receiver)`, on the argument
+that `D_floor` corrects the `D_post` term's bias. `"prior"` reproduces what this
+runner did.
+
+Which is *correct* is not settled, and the docstring is the first place the
+question has been written down. A `"post"` floor is per-receiver, so every
+message gets its own denominator and the fidelities stop sharing a scale; a
+`"prior"` floor is shared and is wrong whenever the receiver's spread differs
+from the prior's. [Retraction 2](../../RETRACTIONS.md) established that the floor
+is estimator bias rather than a property of the agents, which argues for
+`"post"`; comparability argues for `"prior"`. This repair removes the accident;
+it does not answer the question.
+
+Five tests in `metrics/tests/test_metrics.py`, red on the mismatch and green on
+the matched pair, plus one that asserts the mechanism directly: a point-mass
+sender pooled with a wide prior yields a strictly larger floor than the same
+sender pooled with a near-identical receiver. That inequality *is* the defect.
 
 ---
 

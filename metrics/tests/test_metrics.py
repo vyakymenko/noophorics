@@ -40,6 +40,7 @@ from noophorics import (  # noqa: E402
     to_distribution,
     transfer_fidelity,
 )
+from noophorics import fidelity  # noqa: E402
 from noophorics.inference import (  # noqa: E402
     bootstrap_ci, goodman_kruskal_gamma, holm_adjust, permutation_diff,
     point_biserial,
@@ -954,6 +955,56 @@ class TestTransportRetry(unittest.TestCase):
         self.assertEqual(log.count("[ollama_agent]"), 2)
         self.assertIn("attempt 1/3", log)
         self.assertIn("attempt 2/3", log)
+
+
+class FloorPairTest(unittest.TestCase):
+    """A floor corrects one comparison and does not transfer to another.
+
+    E-002c took the permutation floor between sender and PRIOR and divided
+    sender-versus-receiver fidelities by it. The estimator received three floats
+    and could not know. Seventeen days, a published table, retraction 17.
+    """
+
+    def test_mismatched_pair_is_refused(self):
+        """Red on the defect itself."""
+        with self.assertRaises(fidelity.MismatchedFloorPair):
+            fidelity.transfer_fidelity(
+                0.42, 0.10, 0.01,
+                post_pair=("sender", "receiver"),
+                floor_pair=("sender", "PRIOR"))
+
+    def test_matching_pair_passes(self):
+        """Green on the case that most resembles it: same pair, both declared."""
+        v = fidelity.transfer_fidelity(
+            0.42, 0.10, 0.01,
+            post_pair=("sender", "receiver"),
+            floor_pair=("sender", "receiver"))
+        self.assertAlmostEqual(v, (0.42 - 0.10) / (0.42 - 0.01), places=9)
+
+    def test_undeclared_pairs_stay_permitted(self):
+        """Callers passing bare floats must not be broken into silence."""
+        self.assertAlmostEqual(
+            fidelity.transfer_fidelity(0.42, 0.10, 0.01),
+            (0.42 - 0.10) / (0.42 - 0.01), places=9)
+
+    def test_from_draws_puts_the_floor_on_the_post_pair_by_default(self):
+        """The mismatch cannot be expressed when the draws are the argument."""
+        sender = [["A"] * 8 for _ in range(6)]
+        prior = [["A", "B", "C", "B", "C", "A", "B", "C"] for _ in range(6)]
+        post = [["A"] * 7 + ["B"] for _ in range(6)]
+        got = fidelity.fidelity_from_draws(sender, prior, post, permutations=60)
+        self.assertEqual(got["floor_on"], "post")
+        ref = fidelity.fidelity_from_draws(sender, prior, post,
+                                           permutations=60, floor_on="prior")
+        # The whole defect in one assertion: a point-mass sender pooled with a
+        # wide prior gives a much larger floor than the same sender pooled with
+        # a near-identical receiver.
+        self.assertGreater(ref["d_floor"], got["d_floor"])
+
+    def test_from_draws_rejects_an_unknown_floor_policy(self):
+        with self.assertRaises(ValueError):
+            fidelity.fidelity_from_draws([["A"]], [["A"]], [["A"]],
+                                         floor_on="whatever")
 
 
 if __name__ == "__main__":
