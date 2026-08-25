@@ -153,10 +153,13 @@ L2 remains a promissory note.
 sender/receiver pairs, both directions). **Blocked on the instrument, 2026-08-20:**
 the asymmetry there is reason to expect between the two local models is about
 **0.219**. `MERIDIAN-IX32` resolves **0.638** — not 0.338, because its 32 probes
-are about **nine** independent templates — and `RIVERSIDE-30`, the only
-low-template measure here, resolves **0.383**
-([INSTRUMENT-LIMITS](../probes/INSTRUMENT-LIMITS.md)). Run it against
-`RIVERSIDE-30` when it runs; even that does not close the gap.
+are about **nine** independent templates — and ~~`RIVERSIDE-30` resolves **0.383**; even that does not close the gap.~~
+**Unblocked 2026-08-20:** `RIVERSIDE-30` measured directly returns **10.00
+diverged of 30**, its divergence is probe-attributable rather than
+brief-attributable, and pairing therefore buys **×2.58** — giving an MDE of
+**0.128** against an expected 0.219
+([results](../probes/riverside-30/RESULTS-headroom.md)). **E-003 is powered on
+`RIVERSIDE-30` with a paired design.**
 
 ---
 

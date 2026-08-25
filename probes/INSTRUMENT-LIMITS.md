@@ -61,7 +61,20 @@ Curvature is harder than a difference: about **512 probes**.
 
 ## The conclusion, stated plainly
 
-**The instrument is the binding constraint on this programme, not the ideas.**
+~~**The instrument is the binding constraint on this programme, not the ideas.**~~
+**Corrected 2026-08-20 — the ceiling was MERIDIAN's, not the programme's.**
+`RIVERSIDE-30` was measured against briefs for the first time
+([results](riverside-30/RESULTS-headroom.md)) and returns **10.00 diverged of 30**
+against a gate of 3. Its divergence is **probe-attributable** where MERIDIAN's is
+brief-attributable — eight probes diverge on every brief, inter-brief correlation
+`+0.849 / +0.805 / +0.666` — so **pairing buys a factor of 2.58**, which the table
+below assumes it does not. Measured directly rather than scaled, `RIVERSIDE-30`
+resolves **0.128** with a paired design, not the 0.383 stated here, and **E-003
+is powered on it.** The numbers below stand for MERIDIAN and are the reason the
+roadmap looked closed. Keep reading them as MERIDIAN's.
+
+**The instrument every experiment reached for is the binding constraint, not the
+ideas and not the programme.**
 Every experiment still on the roadmap needs a probe measure several times larger
 than any that exists, and the requirement rises with the complexity of the
 statistic — 64–128 for a difference, ~512 for a curvature.
