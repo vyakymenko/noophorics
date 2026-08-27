@@ -154,12 +154,20 @@ sender/receiver pairs, both directions). **Blocked on the instrument, 2026-08-20
 the asymmetry there is reason to expect between the two local models is about
 **0.219**. `MERIDIAN-IX32` resolves **0.638** — not 0.338, because its 32 probes
 are about **nine** independent templates — and ~~`RIVERSIDE-30` resolves **0.383**; even that does not close the gap.~~
-**Unblocked 2026-08-20:** `RIVERSIDE-30` measured directly returns **10.00
-diverged of 30**, its divergence is probe-attributable rather than
-brief-attributable, and pairing therefore buys **×2.58** — giving an MDE of
+**Powered 2026-08-20, still not testable.** `RIVERSIDE-30` measured directly
+returns **10.00 diverged of 30**, its divergence is probe-attributable rather
+than brief-attributable, and pairing therefore buys **×2.58** — an MDE of
 **0.128** against an expected 0.219
-([results](../probes/riverside-30/RESULTS-headroom.md)). **E-003 is powered on
-`RIVERSIDE-30` with a paired design.**
+([results](../probes/riverside-30/RESULTS-headroom.md)). ~~E-003 is powered on
+`RIVERSIDE-30` with a paired design.~~ **Corrected the same day:** power was
+never the only blocker. The *sharper form above* needs a pair in which **domain
+prior and general capability point in opposite directions**, and this pair cannot
+produce one — `qwen3.5:35b` is stronger or level on **both** domains
+(`MERIDIAN-33` 1.000/1.000, `RIVERSIDE-30` 0.967/1.000, and 5 receiver losses
+against 23 over the same six briefs). Measuring only that an asymmetry *exists*
+is [retraction 5](../RETRACTIONS.md), withdrawn as tautological. **E-003 is
+blocked on model selection, not on the instrument**, and needs a third model or a
+domain where `gpt-oss` holds the richer prior. Neither is available locally.
 
 ---
 
