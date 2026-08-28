@@ -67,6 +67,8 @@ SOURCES: List[Tuple[str, str, str]] = [
     ("e-002c-defect",
      "experiments/E-002c-calibration-slope/DEFECT-001.md", "defect"),
     ("e-006-void", "experiments/E-006-ablation-ladder/VOID.md", "void"),
+    ("good-instrument-sitting-unused",
+     "journal/2026-08-28-the-good-instrument-was-sitting-unused.md", "observation"),
     ("retractions", "RETRACTIONS.md", "audit"),
     ("prior-art", "theory/prior-art.md", "audit"),
 ]
