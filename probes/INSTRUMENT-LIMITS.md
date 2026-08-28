@@ -69,8 +69,16 @@ against a gate of 3. Its divergence is **probe-attributable** where MERIDIAN's i
 brief-attributable — eight probes diverge on every brief, inter-brief correlation
 `+0.849 / +0.805 / +0.666` — so **pairing buys a factor of 2.58**, which the table
 below assumes it does not. Measured directly rather than scaled, `RIVERSIDE-30`
-resolves **0.128** with a paired design, not the 0.383 stated here, and **E-003
-is powered on it.** The numbers below stand for MERIDIAN and are the reason the
+resolves **0.128** with a paired design, not the 0.383 stated here.
+**Confirmed on a second reader 2026-08-28** ([qwen](riverside-30/RESULTS-qwen.md)):
+`qwen3.5:35b` diverges 9.67 of 30, lands on the same probes (Jaccard **0.654**,
+predicted ≥ 0.4 beforehand), and is **not** a subset of `gpt-oss`'s set — the
+structure belongs to the measure, not to one reader. The pairing gain is
+reader-dependent in size, ×2.46 against ×1.80, so the honest MDE range is
+**0.135–0.183** and any figure quoted must name its reader. ~~And **E-003 is
+powered on it.**~~ Power was never the only blocker: L2's sharper form needs a
+model pair whose domain prior and general capability disagree, and these two
+cannot provide one, so E-003 is blocked on **model selection**. The numbers below stand for MERIDIAN and are the reason the
 roadmap looked closed. Keep reading them as MERIDIAN's.
 
 **The instrument every experiment reached for is the binding constraint, not the

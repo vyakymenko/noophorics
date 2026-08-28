@@ -72,6 +72,14 @@ Probe-bootstrapping the three briefs, measured directly rather than scaled:
 where `qwen` lost 2 on the same six briefs. **`0.128 < 0.219`, so E-003 is
 powered on `RIVERSIDE-30` with a paired design.**
 
+**Two corrections, 2026-08-28.** The 0.128 is **`gpt-oss`'s**; a second reader
+gives ×1.80 rather than ×2.46 and an MDE of **0.183**, so the honest range is
+0.135–0.183 ([qwen result](RESULTS-qwen.md)). And power was never the only
+blocker — L2's sharper form needs a pair whose domain prior and general
+capability disagree, which these two models cannot provide, so **E-003 is blocked
+on model selection** ([L2](../../theory/laws.md#l2)). The structure itself
+survived the second reader: Jaccard 0.654, predicted ≥ 0.4.
+
 ## What this corrects in a file published yesterday
 
 [INSTRUMENT-LIMITS](../INSTRUMENT-LIMITS.md) concluded *"the instrument is the
