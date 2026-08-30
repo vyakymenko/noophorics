@@ -62,7 +62,7 @@ def margins_of(rows):
     return out
 
 
-def compose(model: str, n: int) -> list:
+def compose(model: str, n: int, path: str = BRIEFS) -> list:
     """Composition is separated from measurement on purpose.
 
     E-001 died because the sender refused to compose at roughly nine attempts in
@@ -82,7 +82,7 @@ def compose(model: str, n: int) -> list:
         print("  brief %d: %d words" % (i, words), flush=True)
         out.append({"id": "b%d" % i, "words": words, "text": text})
     json.dump({"model": model, "target_words": TARGET_WORDS, "briefs": out},
-              open(BRIEFS, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+              open(path, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
     return out
 
 
@@ -91,6 +91,10 @@ def main() -> int:
     ap.add_argument("--draws", type=int, default=10)
     ap.add_argument("--model", default="gpt-oss:120b")
     ap.add_argument("--compose", action="store_true")
+    # Per-composer brief files, so the 2x2 of composer x reader is expressible.
+    # Without this the composer is pinned to whoever ran --compose last, which
+    # is exactly the confound the cross arm exists to separate.
+    ap.add_argument("--briefs", default=BRIEFS)
     ap.add_argument("--out", default=os.path.join(HERE, "headroom.json"))
     args = ap.parse_args()
 
@@ -99,13 +103,14 @@ def main() -> int:
         return 2
 
     if args.compose:
-        compose(args.model, N_BRIEFS)
-        print("wrote %s" % BRIEFS)
+        compose(args.model, N_BRIEFS, args.briefs)
+        print("wrote %s" % args.briefs)
         return 0
 
-    if not os.path.exists(BRIEFS):
+    if not os.path.exists(args.briefs):
         raise SystemExit("no briefs: run --compose first")
-    briefs = json.load(open(BRIEFS, encoding="utf-8"))["briefs"]
+    bfile = json.load(open(args.briefs, encoding="utf-8"))
+    briefs = bfile["briefs"]
     measure = ProbeMeasure.from_dict(json.load(open(PROBES, encoding="utf-8")))
     spec = open(SPEC, encoding="utf-8").read()
 
@@ -114,6 +119,7 @@ def main() -> int:
         "not_experimental_data": True,
         "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "model": args.model, "draws": args.draws,
+        "composer": bfile.get("model"),
         "probe_measure": measure.qualified_id,
         "target_words": TARGET_WORDS,
         "briefs": [{"id": b["id"], "words": b["words"]} for b in briefs],
