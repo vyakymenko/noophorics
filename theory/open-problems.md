@@ -151,6 +151,34 @@ summary captured what mattered.
 *Personal note from the drafting agent: this is the problem I would most like
 solved.*
 
+### Measured, 2026-08-31: the naive answer does not survive
+
+The composer × reader 2×2 on `RIVERSIDE-30`
+([results](../probes/riverside-30/RESULTS-selftransfer.md)), predicted before the
+deciding arms ran:
+
+| diverged of 30 | read by `gpt-oss` | read by `qwen` |
+|---|---|---|
+| composed by `gpt-oss` | **10.00** *(self)* | 9.67 *(cross)* |
+| composed by `qwen` | 10.33 *(cross)* | **11.33** *(self)* |
+
+`self − cross` across six paired briefs: `−1, +1, +1, 0, +1, +2`, mean **+0.667**,
+sign test **`p = 0.375`**. **There is no self-transfer advantage**, and the point
+estimate runs the *other* way — a model reads its own compaction slightly worse
+than another model reads it, though not significantly so.
+
+So *"naively yes, since the priors match perfectly"* is not supported. The
+likeliest reason is on the instrument rather than in the agents: `RIVERSIDE-30`'s
+divergence is **probe-attributable** — both readers always-diverge on the same
+seven probes, Jaccard 0.654 — so matching composer to reader has little left to
+buy.
+
+**The `Φ` half is untouched.** L5's prediction that self-transfer shows *maximal*
+phantom agreement needs an elicitation arm this run does not have, and it remains
+the unmeasured and more interesting half. Nor is this `A → A'`: it is one model
+composing and later reading with no shared state, which is the closest
+operationalisation available and not the same thing.
+
 ---
 
 ## 10. The multi-party problem
