@@ -38,8 +38,10 @@ That length difference is itself worth recording.
 [E-001c voided](../../experiments/E-001c-fluency-length-controlled/VOID.md)
 because the fluent register's length floor sat above the word band's ceiling —
 232 words against 231 — and concluded the instruction was *unsatisfiable*. It was
-measured on `gpt-oss`. `qwen` satisfies it. That void may be model-specific in
-exactly the way the discriminating/stability anti-correlation turned out to be.
+measured on `gpt-oss`. ~~`qwen` satisfies it. That void may be model-specific.~~
+**Wrong, and withdrawn 2026-08-31:** the band is 182–231 and `qwen`'s 240/239/241
+sit above it, at essentially the same place `gpt-oss`'s calibrated cell A landed
+(242.1). See [the result](RESULTS-selftransfer.md).
 
 ## The prediction
 

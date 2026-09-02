@@ -75,12 +75,31 @@ Six paired comparisons, two composers, one measure, one sitting.
 ## One thing worth carrying forward
 
 `gpt-oss` was instructed to write ~230 words and produced 423/389/403. `qwen`
-produced 240/239/241. [E-001c voided](../../experiments/E-001c-fluency-length-controlled/VOID.md)
-on the judgement that a word band was *unsatisfiable* in this generator — the
-fluent register's floor sat at 232 against a ceiling of 231. That was measured on
-`gpt-oss` alone. `qwen` satisfies it comfortably, so that void may be
-model-specific in exactly the way the discriminating/stability anti-correlation
-turned out to be. Not pursued here; recorded so it is not lost.
+produced 240/239/241.
+
+~~`qwen` satisfies it comfortably, so [E-001c's void](../../experiments/E-001c-fluency-length-controlled/VOID.md)
+may be model-specific in exactly the way the discriminating/stability
+anti-correlation turned out to be.~~ **Withdrawn 2026-08-31, the day after it was
+written, on arithmetic that was available when it was written.**
+
+E-001c's band is **182–231** words. `qwen`'s 240/239/241 are all *above* the
+ceiling, so it does not satisfy the band either. Worse for the claim: E-001c's
+cell A on `gpt-oss` under its **calibrated** instruction has a mean of **242.1**
+words, and `qwen` here has a mean of **240.0**. The two models land in the same
+place, which is the opposite of a model-specific void.
+
+What survives is a narrower and different fact. On the **identical** instruction
+and specification, `qwen` produced 240 where `gpt-oss` produced 405 — so the two
+differ sharply in *length-instruction compliance*. That is not what E-001c
+voided on, and it does not revive the E-001 line: a proper test would run
+E-001c's own calibrated cell-A instruction against `qwen` and count how many of
+40 land inside 182–231, and that has not been done.
+
+The coincidence of 240 and 242.1 across two models, two specifications and two
+instructions is worth more than the retracted claim was: it suggests ~240 words
+may be a **floor for this kind of compressed briefing regardless of reader**,
+which would *strengthen* E-001c's void rather than undermine it. Three
+compositions is not a basis for asserting that.
 
 ---
 
