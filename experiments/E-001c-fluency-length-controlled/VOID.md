@@ -1,4 +1,12 @@
-# E-001c is void — the fluent register has a floor where the band has a ceiling
+# E-001c is void — ~~the fluent register has~~ **`gpt-oss:120b` has** a floor where the band has a ceiling
+
+> **Title corrected 2026-08-31, [retraction 18](../../RETRACTIONS.md).** The
+> void stands and its numbers stand. What does not is the generalisation from
+> this generator to *the fluent register*: on `qwen3.5:35b`, the same script,
+> specification, instruction and band put cell A in band **11 of 12** against
+> `gpt-oss`'s **0 of 12**, and there is no fluency-axis length effect at all —
+> 23 of 24 fluent against 23 of 24 terse. See
+> [RESULTS-qwen-floor](RESULTS-qwen-floor.md).
 
 **Status:** void · closed · successor not yet registered
 **Voided:** 2026-08-04, during composition, before any probe outcome existed

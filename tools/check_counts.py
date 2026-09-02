@@ -89,7 +89,7 @@ CLAIMS = [
     # same shape and the same fix. A number is a claim wherever it appears, and
     # this sentence is the one carried into nineteen translations -- so an
     # unchecked numeral here goes wrong in twenty places at once.
-    ("docs/index.html", r"(Seventeen|Sixteen|Fifteen|Fourteen|Thirteen|Twelve|Eleven|Ten|Nine) of our own claims are withdrawn",
+    ("docs/index.html", r"(Eighteen|Seventeen|Sixteen|Fifteen|Fourteen|Thirteen|Twelve|Eleven|Ten|Nine) of our own claims are withdrawn",
      "retractions"),
 ]
 
@@ -100,7 +100,7 @@ CLAIMS = [
 WORDS = {"two": 2, "three": 3, "four": 4, "five": 5, "nine": 9, "ten": 10,
          "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
          "fifteen": 15, "sixteen": 16,
-         "seventeen": 17}
+         "seventeen": 17, "eighteen": 18}
 
 
 def main() -> int:
