@@ -23,6 +23,20 @@ returns an EMPTY response, the same failure class Claude Opus 5 shows when
 thinking is disabled. Turning reasoning off is a mode with its own pathologies,
 not a neutral setting.
 
+Refined 2026-09-06, because the sentence above is true only under a condition it
+did not name: gpt-oss returns empty at ``think=False`` **when a ``format`` schema
+is sent**, which is every probe call this programme makes. Without the schema the
+same request answers normally, so a reader testing the claim informally would
+have found it false.
+
+And the regimes do not intersect across models. ``llama3.3:70b`` rejects the
+parameter outright -- ollama answers ``"llama3.3:70b" does not support
+thinking`` -- so it cannot enter ``think=medium``, the regime in which every
+measurement in this repository was made. gpt-oss cannot enter ``think=False``.
+The only shape both accept is ``think=None``, which OMITS the field and leaves
+each model at its own default: a third regime, comparable within itself and to
+nothing already published here.
+
 ``temperature`` -- at 0 the model is deterministic, per-probe distributions
 collapse to point masses, and the permutation floor is identically zero. That
 would silently return the field to uncorrected fidelity. A temperature that
@@ -90,7 +104,7 @@ class OllamaAgent(Agent):
         name: str,
         context: str = "",
         model: str = "gpt-oss:120b",
-        think: str = "medium",
+        think: Optional[str] = "medium",
         temperature: float = 0.7,
         endpoint: str = DEFAULT_ENDPOINT,
         timeout_s: int = 900,
@@ -112,7 +126,7 @@ class OllamaAgent(Agent):
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
             "stream": False,
-            "think": self.think,
+            **({} if self.think is None else {"think": self.think}),
             "options": {"temperature": self.temperature},
         }
         if schema is not None:

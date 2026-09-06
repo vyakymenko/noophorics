@@ -18,6 +18,21 @@ Sender accuracy — the model given the full specification, answering every prob
 is still unrun because no Anthropic key is reachable in this shell; that
 prediction stands as written and is not superseded, only overtaken.
 
+## Amendment, 2026-09-06 — the regime, before any draw
+
+This prediction did not name a sampling regime, and the baselines it quotes
+(`1.000`, `1.000`, `0.967`, `1.000`) are all `think=medium`. `llama3.3:70b`
+**cannot run at `think=medium`** — the parameter is rejected — so those baselines
+cannot serve.
+
+The run therefore measures **both `llama3.3:70b` and `gpt-oss:120b` with `think`
+omitted**, each at its own default, which is the only shape both accept. The
+prediction's clauses are unchanged and are scored in that regime, where
+`acc(llama) − acc(gpt-oss)` is a within-regime comparison. Nothing here is
+compared to a published `think=medium` number.
+
+Amended before the first draw, not after. The clauses below stand as written.
+
 ## The prediction
 
 **No crossover, and `llama3.3` clears the sender gate on both domains.**

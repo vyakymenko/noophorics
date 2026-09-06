@@ -95,6 +95,10 @@ def main() -> int:
     # Without this the composer is pinned to whoever ran --compose last, which
     # is exactly the confound the cross arm exists to separate.
     ap.add_argument("--briefs", default=BRIEFS)
+    # The crossover test needs the spec-holder and nothing else: a model that
+    # cannot recover the keys from the full text is not a subject, it is a
+    # defect, and the receivers cost ten times as much to learn nothing more.
+    ap.add_argument("--sender-only", action="store_true")
     ap.add_argument("--out", default=os.path.join(HERE, "headroom.json"))
     args = ap.parse_args()
 
@@ -149,6 +153,11 @@ def main() -> int:
     rec["parties"]["sender"] = sender
     rec["sender_accuracy"] = acc
     json.dump(rec, open(args.out, "w", encoding="utf-8"), indent=1, sort_keys=True)
+
+    if args.sender_only:
+        print("--sender-only: %d probes drawn, receivers skipped" % len(measure))
+        print("wrote %s" % args.out)
+        return 0
 
     for b in briefs:
         r = draw(b["id"], b["text"])

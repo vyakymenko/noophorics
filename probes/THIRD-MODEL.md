@@ -47,6 +47,35 @@ MERIDIAN in order to manufacture a crossover. The crossover has to be found, not
 arranged, and the prediction below is recorded before the first draw for exactly
 that reason.
 
+## The defect in this rationale, found by the run failing
+
+**Added 2026-09-06.** Everything above argues lineage and throughput. It does not
+ask whether the model can enter **the sampling regime every measurement in this
+repository was made in**, and it cannot.
+
+`llama3.3:70b` rejects the `think` parameter outright — ollama answers
+`"llama3.3:70b" does not support thinking`. It cannot run at `think=medium`.
+And `gpt-oss:120b` cannot meet it halfway: at `think=False` **with a `format`
+schema**, which is every probe call this programme makes, it returns an empty
+response. (Without the schema it answers normally, so the claim as previously
+written in [`ollama_agent.py`](../metrics/noophorics/ollama_agent.py) was true
+only under a condition it did not name. Now refined there.)
+
+The only shape both accept is **omitting `think`**, leaving each model at its own
+default. That is a third regime, internally comparable and comparable to nothing
+already published here.
+
+**So lineage independence and regime compatibility are in tension on this
+instrument**, and the rationale above did not notice: the reasoning models are
+the OpenAI- and Alibaba-lineage ones, and the Meta model that supplies the third
+tokenizer supplies no reasoning mode. A future third-model choice must check the
+regime before the weights, and this file is the record that this one did not.
+
+**Consequence for the crossover.** It is still runnable, but **both** models must
+be re-measured with `think` omitted; the published `1.000` and `0.967` are
+`think=medium` numbers and are not a baseline for it. That is 640 calls each, and
+`llama3.3` measures at **2.2 s/call** — faster than `gpt-oss`'s 5.8 at medium.
+
 ## What it must clear before it counts
 
 Sender accuracy on the source specification, the same gate every model here has
