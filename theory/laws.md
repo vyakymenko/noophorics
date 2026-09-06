@@ -165,9 +165,18 @@ prior and general capability point in opposite directions**, and this pair canno
 produce one — `qwen3.5:35b` is stronger or level on **both** domains
 (`MERIDIAN-33` 1.000/1.000, `RIVERSIDE-30` 0.967/1.000, and 5 receiver losses
 against 23 over the same six briefs). Measuring only that an asymmetry *exists*
-is [retraction 5](../RETRACTIONS.md), withdrawn as tautological. **E-003 is
+is [retraction 5](../RETRACTIONS.md), withdrawn as tautological. ~~**E-003 is
 blocked on model selection, not on the instrument**, and needs a third model or a
-domain where `gpt-oss` holds the richer prior. Neither is available locally.
+domain where `gpt-oss` holds the richer prior.~~ **Measured 2026-09-06 and
+narrowed:** a third model was added — `llama3.3:70b`, a third lineage — and it
+does not supply the pair either. It is **uniformly weaker**, 0.824 on
+`MERIDIAN-34` and 0.467 on `RIVERSIDE-30` against `gpt-oss`'s 1.000 and 0.967 at
+matched default, so the sign does not flip and it fails E-004's 0.90 subject gate
+on both ([results](../probes/RESULTS-llama-crossover.md)). A uniform capability
+difference is what [retraction 5](../RETRACTIONS.md) calls not worth measuring.
+**E-003 is blocked on DOMAIN selection**: both domains here are the same task
+type, and nothing a model holds a prior *about* separates them. That is a probe
+measure and a month, not a download.
 
 ---
 
