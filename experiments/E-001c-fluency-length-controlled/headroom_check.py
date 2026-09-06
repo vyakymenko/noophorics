@@ -200,6 +200,12 @@ def main() -> int:
                          "a gate applied once is a snapshot -- this makes repeating "
                          "it cost one seventh of a full run.")
     ap.add_argument("--model", default="gpt-oss:120b")
+    # think=None omits the field. llama3.3 rejects the parameter outright and
+    # gpt-oss returns empty at think=False under a format schema, so omitting is
+    # the only shape both accept -- and it is a different regime from every
+    # measurement already in this repository.
+    ap.add_argument("--think", default="medium",
+                    help="reasoning depth, or 'none' to omit the field")
     ap.add_argument("--out", default=os.path.join(HERE, "headroom.json"))
     args = ap.parse_args()
 
@@ -231,7 +237,8 @@ def main() -> int:
 
     def draw(name: str, context: str) -> dict:
         agent = OllamaAgent(name, context=context, model=args.model,
-                            think="medium", temperature=0.7)
+                            think=(None if args.think == "none" else args.think),
+                            temperature=0.7)
         raw = []
         for i, probe in enumerate(measure):
             raw.append(agent.answer_samples(probe, args.draws))

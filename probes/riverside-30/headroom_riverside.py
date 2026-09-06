@@ -74,7 +74,8 @@ def compose(model: str, n: int, path: str = BRIEFS) -> list:
     # context=spec, matching how E-001c's floor_by_register.py composed: the
     # specification is the composer's context, and the prompt is the instruction.
     agent = OllamaAgent("composer", spec, model=model,
-                        think="medium", temperature=0.7)
+                        think=(None if args.think == "none" else args.think),
+                            temperature=0.7)
     out = []
     for i in range(n):
         text = agent.compose(COMPOSE_PROMPT % TARGET_WORDS, seed=i)
@@ -99,6 +100,12 @@ def main() -> int:
     # cannot recover the keys from the full text is not a subject, it is a
     # defect, and the receivers cost ten times as much to learn nothing more.
     ap.add_argument("--sender-only", action="store_true")
+    # think=None omits the field. llama3.3 rejects the parameter outright and
+    # gpt-oss returns empty at think=False under a format schema, so omitting is
+    # the only shape both accept -- and it is a different regime from every
+    # measurement already in this repository.
+    ap.add_argument("--think", default="medium",
+                    help="reasoning depth, or 'none' to omit the field")
     ap.add_argument("--out", default=os.path.join(HERE, "headroom.json"))
     args = ap.parse_args()
 
@@ -134,7 +141,8 @@ def main() -> int:
 
     def draw(name, context):
         agent = OllamaAgent(name, context=context, model=args.model,
-                            think="medium", temperature=0.7)
+                            think=(None if args.think == "none" else args.think),
+                            temperature=0.7)
         raw = []
         for i, probe in enumerate(measure):
             raw.append(agent.answer_samples(probe, args.draws))
