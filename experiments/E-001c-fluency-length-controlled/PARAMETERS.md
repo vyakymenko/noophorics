@@ -36,8 +36,16 @@ that selected it — perfect accuracy on MERIDIAN-34 at medium effort, against
 
 That measurement has since been replicated by an experiment that was not looking
 for it: [E-004](../E-004-disagreement-detector/VOID.md) put `claude-opus-4-8` at
-0.909 on the same measure and 0.733 on a second one, against 1.000 and 0.967 for
-`gpt-oss:120b`. Two independent runs, the same ordering.
+0.909 ~~on the same measure~~ **on `MERIDIAN-33` — a *different* measure from the
+0.882 above, which is `MERIDIAN-34`; distinct hashes, 33 probes against 34, and
+this sentence ran them together (corrected 2026-09-08)** and 0.733 on a second
+one, against 1.000 and 0.967 for `gpt-oss:120b`. Two independent runs, the same
+ordering.
+
+**That 0.733 is on `RIVERSIDE-30@2e6afe2f3c92`, and this sentence has quoted the
+figure — without naming the measure — since 2026-08-03.** It is the measurement a prediction written on 2026-09-01
+declared had never been made
+([retraction 20](../../RETRACTIONS.md), [scored](../../probes/riverside-30/RESULTS-crossover.md)).
 
 ## Register raters
 

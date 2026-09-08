@@ -22,8 +22,17 @@ Predicted: *no crossover; `acc ≥ 0.90` on both; the sign of
 - **No crossover. Held.** The sign is negative on both domains. `llama3.3` is
   worse everywhere, not differently-better anywhere.
 - **Sign does not flip. Held.**
-- **`acc ≥ 0.90` on both. FAILED, badly** — 0.824 and 0.467 against E-004's
-  subject gate of 0.90.
+- **`acc ≥ 0.90` on both. FAILED, badly** — 0.824 and 0.467. ~~against E-004's
+  subject gate of 0.90.~~ **Corrected 2026-09-08 —
+  [retraction 21](../RETRACTIONS.md): the 0.90 bar is not E-004's.** E-004
+  registered `each model's accuracy > 0.60 on each measure`
+  ([PREREGISTRATION §5.1](../experiments/E-004-disagreement-detector/PREREGISTRATION.md)),
+  and its own void note records that *"every model cleared the 0.60 accuracy
+  floor"*. On E-004's real gate `llama3.3` **passes** `MERIDIAN-34` at 0.824 and
+  fails only `RIVERSIDE-30`. The > 0.90 threshold is real but is the
+  **sender-accuracy-vs-key gate** registered in E-001b, E-001c, E-002b and
+  E-002c. `llama3.3` fails *that* gate on both domains, so the conclusion below
+  stands — under the right gate, named correctly.
 
 So the pre-registered third outcome fires: **`llama3.3:70b` is not a subject.**
 A model that recovers 14 of 30 keys from the *full specification* has no
@@ -73,6 +82,24 @@ task.
 Both of those are judgements about *text*, not applications of the rules
 `llama3.3` demonstrably cannot apply. Whether that distinction survives contact
 with a rating run is itself untested and should be predicted before it is.
+
+## The question this run was launched to settle was already settled
+
+**Recorded 2026-09-08.** This file was written because
+[THIRD-MODEL.md](THIRD-MODEL.md) argued that the crossover question needed a
+third model and that the obvious candidate had never read `RIVERSIDE-30`. It had.
+[E-004 measured `claude-opus-4-8` on 2026-08-03](riverside-30/RESULTS-crossover.md)
+against the identical `RIVERSIDE-30@2e6afe2f3c92` at **0.733**, against
+`gpt-oss`'s 0.967 — negative on both domains, no crossover
+([retraction 20](../RETRACTIONS.md)).
+
+`llama3.3` was a genuinely different candidate and this run is not void — but it
+does **not** make the crossover conclusion stronger. A model that is not a subject
+has no measurable domain prior, so its ordering across two domains is not evidence
+about priors; that is this file's own finding, three sections up. What the run
+establishes is the narrower point already made here: `llama3.3` cannot supply the
+pair E-003 needs. The run's stated *reason* was false, and the reason is what
+justified 42 GB and 1 280 calls.
 
 ## Limits
 

@@ -1,10 +1,20 @@
 # Prediction — does `claude-opus-4-8` cross over on RIVERSIDE-30?
 
-**Written 2026-09-01, before the run. No `claude-*` model has ever read
-`RIVERSIDE-30`.** The measurement below has not been made and the API key is not
+**Written 2026-09-01, before the run.** ~~No `claude-*` model has ever read
+`RIVERSIDE-30`. The measurement below has not been made and the API key is not
 available in this shell, so this file exists first and alone, which is the order
 the programme's own discipline requires and the order it has repeatedly failed
-to keep.
+to keep.~~
+
+**Withdrawn 2026-09-08 — [retraction 20](../../RETRACTIONS.md). The measurement
+had been made on 2026-08-03**, by
+[E-004](../../experiments/E-004-disagreement-detector/VOID.md), against
+`RIVERSIDE-30@2e6afe2f3c92` — the identical measure hash — putting
+`claude-opus-4-8` at **0.733**. The file this paragraph goes on to cite for its
+`MERIDIAN` number is the file that contains it. No API key was ever needed. The
+prediction below is scored against that data in
+[RESULTS-crossover.md](RESULTS-crossover.md); both its sharp clauses hold, which
+does not repair the premise.
 
 ---
 
@@ -25,7 +35,10 @@ profile points the right way. On `MERIDIAN-34`, `claude-opus-4-8` scores
 **0.882** with four errors ([E-001b PARAMETERS](../../experiments/E-001b-fluency-factorial/PARAMETERS.md))
 and **0.909** in an independent E-004 run — against **1.000** for `gpt-oss:120b`.
 A frontier model measurably *weaker* on one of our domains is exactly the shape
-in which a crossover could live. It has never been run on `RIVERSIDE-30`.
+in which a crossover could live. ~~It has never been run on `RIVERSIDE-30`.~~
+**Withdrawn 2026-09-08: it had, at 0.733.** Corrected also: 0.882 is on
+`MERIDIAN-34` and 0.909 is on `MERIDIAN-33`, two distinct measures with distinct
+hashes, and this sentence ran them together.
 
 ## The prediction
 

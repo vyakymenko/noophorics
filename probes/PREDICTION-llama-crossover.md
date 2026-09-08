@@ -39,8 +39,10 @@ Amended before the first draw, not after. The clauses below stand as written.
 
 Sharply, so it can be wrong in public:
 
-- **`acc ≥ 0.90` on both**, clearing E-004's bar. If it fails this, it is not a
-  subject and nothing else here applies.
+- **`acc ≥ 0.90` on both**, ~~clearing E-004's bar~~ **— the bar is E-001b's and
+  E-001c's `sender accuracy vs key > 0.90`, not E-004's, which is 0.60
+  ([retraction 21](../RETRACTIONS.md), corrected 2026-09-08)**. If it fails this,
+  it is not a subject and nothing else here applies.
 - **`acc(llama) − acc(gpt-oss)` has the same sign on both domains**, or is zero
   on both. A crossover means the sign flips.
 - Most likely outcome by my reading: **at or near ceiling on both**, like the two

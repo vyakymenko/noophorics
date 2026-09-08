@@ -1529,7 +1529,7 @@ th:last-child, td:last-child { padding-right: 0; }
       <div><dt>Conjectural laws</dt><dd>6 <span style="color:var(--soft)">(2 restated after refutation)</span></dd></div>
       <div><dt>Open problems</dt><dd>15</dd></div>
       <div><dt>Experiments run to completion</dt><dd>1 <span style="color:var(--soft)">(5 void)</span></dd></div>
-      <div><dt>Own claims refuted</dt><dd><a href="/journal/retractions/">18</a></dd></div>
+      <div><dt>Own claims refuted</dt><dd><a href="/journal/retractions/">21</a></dd></div>
       <div><dt>Confirmed findings</dt><dd class="zero">0</dd></div>
       <div><dt>Last revised</dt><dd>2026-07-31<time datetime="2026-07-29">2026-07-29</time></dd></div>
       <div><dt>Licence</dt><dd>Apache-2.0 · CC BY 4.0</dd></div>
@@ -2250,8 +2250,13 @@ F*(m)  =  ───────────────────────�
           <span class="at">attacks L5</span>
           <span class="tag">Void</span>
         </div>
-        <p>The fluent register&rsquo;s length floor sits <i>above</i> the word band&rsquo;s
-        ceiling &mdash; 232 words against 231 &mdash; <b>for <span class="q">gpt-oss:120b</span></b>.
+        <p><s>The fluent register&rsquo;s length floor sits <i>above</i> the word band&rsquo;s
+        ceiling &mdash; 232 words against 231 &mdash;</s> <b>for <span class="q">gpt-oss:120b</span></b>,
+        and <b>for cell A only</b> &mdash; <b>corrected 2026-09-08</b>
+        (<a href="/journal/retractions/">retraction 19</a>): 232 is the floor of the
+        fluent&nbsp;&times;&nbsp;declarative cell. The <i>fluent register&rsquo;s</i> floor,
+        taken across both fluent cells, is <span class="q">223</span> &mdash; eight words
+        <i>below</i> the ceiling, not above it.
         <b>Corrected 2026-08-31:</b> the same script, specification, instruction and band on
         <span class="q">qwen3.5:35b</span> put cell A in band <b>11 of 12</b> against 0 of 12, and
         showed no fluency-axis length effect at all &mdash; 23 of 24 fluent against 23 of 24 terse.
@@ -2307,16 +2312,35 @@ F*(m)  =  ───────────────────────�
         about <b>nine</b> independent prompt templates. <b>Powered 2026-08-20, still not testable.</b>
         RIVERSIDE-30, measured directly for the first time, returns 10.00 diverged
         of 30 and its divergence is probe-attributable, so pairing buys
-        <span class="q">&times;2.58</span> and the MDE is <span class="q">0.128</span>
-        against an expected <span class="q">0.219</span>. But power was never the
+        <s>&times;2.58</s> <span class="q">&times;2.46</span> for gpt-oss and
+        <span class="q">&times;1.80</span> for qwen, an MDE of
+        <s>0.128</s> <span class="q">0.135&ndash;0.183</span> depending on the
+        reader &mdash; <b>corrected 2026-09-08</b>, the single figure was one
+        reader's, and the <span class="q">0.219</span> beside it is an effect
+        derived on MERIDIAN, so a threshold from one measure was standing next to
+        an effect from another. But power was never the
         only blocker: L2's sharper form needs a pair where domain prior and general
         capability point in <i>opposite</i> directions, and qwen is stronger or level
         on both domains. Measuring only that an asymmetry exists is retraction 5.
-        ~~<b>Blocked on model selection.</b>~~ <b>Measured 2026-09-06:</b> a third
+        <s>Blocked on model selection.</s> <b>Measured 2026-09-06:</b> a third
         lineage was added &mdash; llama3.3:70b &mdash; and it is <i>uniformly</i>
         weaker, <span class="q">0.824</span> and <span class="q">0.467</span>
-        against 1.000 and 0.967, failing the 0.90 subject gate on both domains. The
-        sign does not flip, so there is no crossover to find.
+        against 1.000 and 0.967 &mdash; each model at its own default with the
+        <span class="q">think</span> field omitted, which is default-versus-default
+        and not a matched regime, since llama3.3 has no reasoning mode at all. The
+        sign does not flip, so there is no crossover to find. It fails
+        <s>E-004's 0.90 subject gate</s> the <span class="q">&gt;&nbsp;0.90</span>
+        sender-accuracy-vs-key gate registered in E-001b, E-001c, E-002b and E-002c
+        &mdash; not E-004's, which is <span class="q">0.60</span> and which
+        llama3.3 passes on MERIDIAN-34
+        (<a href="/journal/retractions/">retraction 21</a>). <b>And it was not the
+        first model asked.</b> E-004 measured claude-opus-4-8 on <b>2026-08-03</b>
+        against the identical RIVERSIDE-30 hash at <span class="q">0.733</span>
+        against gpt-oss's <span class="q">0.967</span>, and
+        <span class="q">0.909</span> against <span class="q">1.000</span> on
+        MERIDIAN-33 &mdash; negative on both, no crossover, a month before the
+        question was posed as open
+        (<a href="/journal/retractions/">retraction 20</a>).
         <b>Blocked on domain selection</b> &mdash; both domains are the same task
         type, which is a probe measure and a month, not a download. The instrument
         itself held up on a second reader (2026-08-28): qwen diverges 9.67 of 30 on
@@ -2398,7 +2422,7 @@ F*(m)  =  ───────────────────────�
     <span class="gloss">Principia Noophorica §7 and §10 — what would falsify the programme.</span>
   </div>
   <div class="col">
-    <h2 data-i18n-src="status">Version 0.5. One pre-registered result is now established. Eighteen of our own claims are withdrawn and five experiments are void.</h2>
+    <h2 data-i18n-src="status">Version 0.5. One pre-registered result is now established. Twenty-one of our own claims are withdrawn and five experiments are void.</h2>
 
       <p style="margin-top:1rem"><a href="/journal/retractions/">Every one of them, with what killed it &rarr;</a> &nbsp;A count nobody can audit is worse than no count.</p>
 

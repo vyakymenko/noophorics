@@ -33,8 +33,30 @@ fluent register.**
 | fluent cells in band, of 24 | **5** | **23** |
 | terse cells in band, of 24 | 23 | 23 |
 
-The band ceiling is 231. `gpt-oss`'s fluent floor sits above it; `qwen`'s sits
-**34 words below** it.
+~~The band ceiling is 231. `gpt-oss`'s fluent floor sits above it; `qwen`'s sits
+**34 words below** it.~~
+
+**Withdrawn 2026-09-08 — [retraction 19](../../RETRACTIONS.md). The table above
+refutes the sentence under it.** `gpt-oss`'s fluent floor is **223**, which is
+**eight words *below*** the 231 ceiling, not above it. The claim is true only of
+cell **A**, whose floor is 232; cell B's floor is 223 and cell B lands in band
+**5 of 12**. So `gpt-oss` reaches the band under a *fluency instruction* — in the
+contrastive cell — and what it cannot do is fluent × declarative specifically,
+which is the cell [VOID.md](VOID.md) names in its gate. `qwen`'s 34 words is
+correct.
+
+**That is a claim about length, not about register.** This run measures the band
+alone; the register half of E-001c's gate is untested here, as §"L5/L6 are not
+revived" below already says. [VOID.md](VOID.md) records that of the two live
+cell-A messages that did reach the band, **neither was judged fluent prose** — so
+"`gpt-oss` composes fluently inside the band" is exactly the inference this file
+is not entitled to make, and an earlier draft of this correction made it.
+
+What this does **not** touch: the in-band counts that carry
+[retraction 18](../../RETRACTIONS.md) — 11 of 12 against 0 of 12 in cell A, 12 of
+12 against 5 of 12 in cell B — are measured, unaffected, and are the evidence
+that the floor belongs to the generator rather than the register. The heading
+above stands; one sentence of gloss under it did not.
 
 And the sharper form: [VOID.md](VOID.md) concluded *"the floor belongs to the
 fluency axis"* from fluent cells landing in band 5 times in 24 against terse

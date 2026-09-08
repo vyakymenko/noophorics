@@ -156,23 +156,42 @@ the asymmetry there is reason to expect between the two local models is about
 are about **nine** independent templates — and ~~`RIVERSIDE-30` resolves **0.383**; even that does not close the gap.~~
 **Powered 2026-08-20, still not testable.** `RIVERSIDE-30` measured directly
 returns **10.00 diverged of 30**, its divergence is probe-attributable rather
-than brief-attributable, and pairing therefore buys **×2.58** — an MDE of
-**0.128** against an expected 0.219
-([results](../probes/riverside-30/RESULTS-headroom.md)). ~~E-003 is powered on
+than brief-attributable, and pairing therefore buys ~~**×2.58** — an MDE of
+**0.128** against an expected 0.219~~ **×2.46 for `gpt-oss` and ×1.80 for
+`qwen`, an MDE of 0.135–0.183 depending on the reader**
+([results](../probes/riverside-30/RESULTS-headroom.md),
+[second reader](../probes/riverside-30/RESULTS-qwen.md)). *Corrected 2026-09-08:*
+the unqualified 0.128 was one reader's, and RESULTS-qwen says in terms that any
+MDE quoted for `RIVERSIDE-30` must name its reader. The 0.219 it is set against
+is an effect derived on `MERIDIAN`, so this is a threshold from one measure beside
+an effect from another and is not a power calculation for either. ~~E-003 is powered on
 `RIVERSIDE-30` with a paired design.~~ **Corrected the same day:** power was
 never the only blocker. The *sharper form above* needs a pair in which **domain
 prior and general capability point in opposite directions**, and this pair cannot
 produce one — `qwen3.5:35b` is stronger or level on **both** domains
-(`MERIDIAN-33` 1.000/1.000, `RIVERSIDE-30` 0.967/1.000, and 5 receiver losses
-against 23 over the same six briefs). Measuring only that an asymmetry *exists*
+(`MERIDIAN-33` 1.000/1.000, `RIVERSIDE-30` 0.967/1.000; ~~and 5 receiver losses
+against 23 over the same six briefs~~ **— struck 2026-09-08: that is a
+`MERIDIAN-IX32` receiver comparison whose ability reading is withdrawn under
+[retraction 16](../RETRACTIONS.md) as not like-for-like, so citing it as
+capability evidence re-imports the reading its own source retracted**). Measuring only that an asymmetry *exists*
 is [retraction 5](../RETRACTIONS.md), withdrawn as tautological. ~~**E-003 is
 blocked on model selection, not on the instrument**, and needs a third model or a
 domain where `gpt-oss` holds the richer prior.~~ **Measured 2026-09-06 and
 narrowed:** a third model was added — `llama3.3:70b`, a third lineage — and it
 does not supply the pair either. It is **uniformly weaker**, 0.824 on
-`MERIDIAN-34` and 0.467 on `RIVERSIDE-30` against `gpt-oss`'s 1.000 and 0.967 at
-matched default, so the sign does not flip and it fails E-004's 0.90 subject gate
-on both ([results](../probes/RESULTS-llama-crossover.md)). A uniform capability
+`MERIDIAN-34` and 0.467 on `RIVERSIDE-30` against `gpt-oss`'s 1.000 and 0.967
+~~at matched default~~ **with each model at its own default and the `think` field
+omitted — `llama3.3` has no reasoning mode at all, so this is default-versus-default,
+not a matched regime**, so the sign does not flip and it fails ~~E-004's 0.90
+subject gate~~ **the > 0.90 `sender accuracy vs key` gate registered in E-001b,
+E-001c, E-002b and E-002c — not E-004's, which is 0.60** on both
+([results](../probes/RESULTS-llama-crossover.md); corrected 2026-09-08,
+[retraction 21](../RETRACTIONS.md)). **And it was not the first model to answer
+the question.** [E-004 measured `claude-opus-4-8` on 2026-08-03](../probes/riverside-30/RESULTS-crossover.md)
+against the identical `RIVERSIDE-30@2e6afe2f3c92`: **0.733** against `gpt-oss`'s
+0.967, and 0.909 against 1.000 on `MERIDIAN-33` — negative on both, no crossover,
+a month before the question was posed as open
+([retraction 20](../RETRACTIONS.md)). A uniform capability
 difference is what [retraction 5](../RETRACTIONS.md) calls not worth measuring.
 **E-003 is blocked on DOMAIN selection**: both domains here are the same task
 type, and nothing a model holds a prior *about* separates them. That is a probe

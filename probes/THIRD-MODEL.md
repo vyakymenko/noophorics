@@ -80,8 +80,11 @@ be re-measured with `think` omitted; the published `1.000` and `0.967` are
 
 Sender accuracy on the source specification, the same gate every model here has
 faced: a model that cannot recover the keys from the full text is not a subject,
-it is a defect. `gpt-oss` scores 29/30 on `RIVERSIDE-30` and `qwen` 30/30; E-004
-set the bar at 0.9.
+it is a defect. `gpt-oss` scores 29/30 on `RIVERSIDE-30` and `qwen` 30/30;
+~~E-004 set the bar at 0.9.~~ **Corrected 2026-09-08
+([retraction 21](../RETRACTIONS.md)): the 0.90 bar is the `sender accuracy vs
+key` gate registered in E-001b, E-001c, E-002b and E-002c. E-004's registered
+accuracy gate is 0.60.**
 
 If `llama3.3` fails that, it is not a third reader and this file records a
 download rather than a measurement.
