@@ -1,7 +1,8 @@
 # Result: the crossover run had already been made, a month before it was predicted
 
 [The prediction](PREDICTION-crossover.md) was written 2026-09-01 and opens:
-**"No `claude-*` model has ever read `RIVERSIDE-30`."** It says the measurement
+**"No `claude-*` model has ever read `RIVERSIDE-30`"** — a premise **withdrawn**
+here as [retraction 20](../../RETRACTIONS.md). It goes on to say the measurement
 "has not been made", that the API key is not available in this shell, and that
 the file therefore "exists first and alone, which is the order the programme's
 own discipline requires."

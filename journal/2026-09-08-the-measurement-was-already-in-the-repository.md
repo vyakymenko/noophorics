@@ -115,6 +115,18 @@ ten counts. Every one of the three claims above was a number in prose it does
 not cover — and the audit that found them is not yet a script, which is the next
 thing worth building.
 
+**Built the next day.** [`tools/check_provenance.py`](../tools/check_provenance.py)
+reproduces two of the three from the repository's own files: it indexes every
+threshold registered in an `experiments/*/PREREGISTRATION.md` gate table and every
+model×measure pair any result artifact records, then reads prose back against
+both. Run against the tree the day before, it finds retractions 20 and 21 without
+being told they exist — four claims, exit 1. It does **not** find retraction 19,
+and says so in its own docstring: that one is prose contradicting a table cell it
+does not name, which is not a regex. Nor does it catch every *instance* — the same
+miscitation in `theory/laws.md` sits thirty words from an unrelated "withdrawn"
+and reads as a quotation. Both gaps are measured and written into the tool rather
+than left for a reader to discover.
+
 **E-003 is blocked on domain selection**, unchanged and better evidenced: four
 models, two domains of one task type, and nothing a model holds a prior *about*
 separating them. That is a probe measure and a month, not a download.

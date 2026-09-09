@@ -41,6 +41,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import check_counts  # noqa: E402
 import check_links  # noqa: E402
+import check_provenance  # noqa: E402
 import check_retracted  # noqa: E402
 
 
@@ -545,6 +546,120 @@ class TestCheckExperiments(ToolTest):
         louder and quite different defect from the one present.
         """
         self.assertEqual(self.ce.normalise("Void &middot; informative"), "Void")
+
+
+class TestCheckProvenance(ToolTest):
+    """The two classes of claim behind retractions 20 and 21, reproduced.
+
+    A checker that passes on a clean tree proves nothing. Each test below
+    injects the failure the tool was written for and asserts it fires.
+    """
+
+    PREREG = ("experiments/E-004-disagreement-detector/PREREGISTRATION.md",
+              "### 5.1 Gates\n\n| gate | threshold | when |\n|---|---|---|\n"
+              "| each model's accuracy | > 0.60 on each measure | before analysis |\n")
+    ARTIFACT = ("experiments/E-004-disagreement-detector/results/r.json",
+                json.dumps({"measures": {"RIVERSIDE-30": "RIVERSIDE-30@2e6afe2f3c92"},
+                            "accuracy": {"RIVERSIDE-30": {"claude-opus-4-8": 0.733}}}))
+
+    def run_check(self, extra: dict):
+        files = {self.PREREG[0]: self.PREREG[1], self.ARTIFACT[0]: self.ARTIFACT[1]}
+        files.update(extra)
+        root = self.tree(files)
+        old, check_provenance.ROOT = check_provenance.ROOT, root
+        self.addCleanup(lambda: setattr(check_provenance, "ROOT", old))
+        out = io.StringIO()
+        with redirect_stdout(out):
+            code = check_provenance.main()
+        return code, out.getvalue()
+
+    def test_a_gate_attributed_to_the_wrong_experiment_is_caught(self):
+        """Retraction 21. E-004 registers 0.60; the claim says 0.90 is its gate."""
+        code, out = self.run_check(
+            {"laws.md": "It fails E-004's 0.90 subject gate on both domains.\n"})
+        self.assertEqual(code, 1)
+        self.assertIn("E-004 registers", out)
+
+    def test_the_gate_the_experiment_did_register_passes(self):
+        code, _ = self.run_check(
+            {"laws.md": "Every model cleared E-004's 0.60 accuracy floor.\n"})
+        self.assertEqual(code, 0)
+
+    def test_set_the_bar_at_is_read_as_an_attribution(self):
+        """The third phrasing the repository actually used, in THIRD-MODEL.md."""
+        code, _ = self.run_check({"m.md": "E-004 set the bar at 0.9.\n"})
+        self.assertEqual(code, 1)
+
+    def test_a_never_measured_claim_contradicted_by_an_artifact_is_caught(self):
+        """Retraction 20. The run is in results/; the prose says it never happened."""
+        code, out = self.run_check(
+            {"p.md": "No `claude-*` model has ever read `RIVERSIDE-30`.\n"})
+        self.assertEqual(code, 1)
+        self.assertIn("claude-opus-4-8", out)
+
+    def test_a_never_measured_claim_about_an_unmeasured_pair_passes(self):
+        code, _ = self.run_check(
+            {"p.md": "No `mistral-*` model has ever read `RIVERSIDE-30`.\n"})
+        self.assertEqual(code, 0)
+
+    def test_an_unbound_subject_reports_every_candidate_rather_than_guessing(self):
+        """"It has never been run on X" -- the phrasing that carried retraction 20.
+
+        The real sentence names `gpt-oss:120b` last and means `claude-opus-4-8`,
+        so a nearest-name heuristic attributes it to the wrong model. It reports
+        the candidates instead.
+        """
+        code, out = self.run_check(
+            {"p.md": "On MERIDIAN, `claude-opus-4-8` scores 0.882 against 1.000 "
+                     "for `gpt-oss:120b`. It has never been run on `RIVERSIDE-30`.\n"})
+        self.assertEqual(code, 1)
+        self.assertIn("claude-opus-4-8", out)
+
+    def test_an_unbound_subject_with_no_measured_model_nearby_passes(self):
+        code, _ = self.run_check(
+            {"p.md": "A model we have not run. It has never been run on `RIVERSIDE-30`.\n"})
+        self.assertEqual(code, 0)
+
+    def test_a_struck_claim_is_not_reported(self):
+        code, _ = self.run_check(
+            {"p.md": "~~No `claude-*` model has ever read `RIVERSIDE-30`.~~ It had.\n"})
+        self.assertEqual(code, 0)
+
+    def test_the_same_claim_quoted_with_its_withdrawal_passes(self):
+        """A retraction has to be able to state what it withdrew."""
+        code, _ = self.run_check(
+            {"p.md": "Withdrawn 2026-09-08: \"No `claude-*` model has ever read "
+                     "`RIVERSIDE-30`\" was false when written.\n"})
+        self.assertEqual(code, 0)
+
+    def test_the_ledgers_claim_column_is_exempt_but_its_reason_column_is_not(self):
+        """Narrower than check_retracted's whole-file exemption, and on purpose."""
+        row = ("| # | Claim | Killed by |\n|---|---|---|\n"
+               "| 20 | No `claude-*` model has ever read `RIVERSIDE-30` | It had. |\n")
+        code, _ = self.run_check({"RETRACTIONS.md": row})
+        self.assertEqual(code, 0)
+        # Padded: the header cell "Killed by" carries a word that the shared
+        # withdrawal vocabulary reads as perfective, so a row sitting inside
+        # the 40-word window of its own header is acknowledged by accident.
+        # Real ledger rows are hundreds of words from the header. That blind
+        # spot is inherited from check_retracted and is left there rather than
+        # forked, because two writers of one vocabulary is the same race.
+        filler = " ".join(["prose"] * 60)
+        bad = ("| # | Claim | Killed by |\n|---|---|---|\n"
+               "| 20 | %s | %s |\n"
+               "| 21 | something else | Because it fails E-004's 0.90 subject gate. |\n"
+               % (filler, filler))
+        code, out = self.run_check({"RETRACTIONS.md": bad})
+        self.assertEqual(code, 1)
+        self.assertIn("E-004 registers", out)
+
+    def test_a_missing_experiments_directory_reports_rather_than_crashes(self):
+        root = self.tree({"p.md": "nothing to see\n"})
+        old, check_provenance.ROOT = check_provenance.ROOT, root
+        self.addCleanup(lambda: setattr(check_provenance, "ROOT", old))
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(check_provenance.main(), 0)
+
 
 
 if __name__ == "__main__":
