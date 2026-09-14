@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "qwen-register-20260909",
+  "kind": "instrument feasibility; no hypothesis test",
+  "source": {
+    "path": "experiments/E-001c-fluency-length-controlled/floor-by-register-qwen.json",
+    "sha256": "cfbd5d776cec1bb430f0bb9ec82b5d1a08f2c0a22c5dff43520a7f1fb8f5d0f9",
+    "composer": "qwen3.5:35b",
+    "composer_digest": null,
+    "band": [
+      182,
+      231
+    ],
+    "n_per_cell": 12
+  },
+  "prompt": {
+    "path": "experiments/E-001c-fluency-length-controlled/blind_rating.py",
+    "variable": "ABSOLUTE",
+    "file_sha256": "6f5edc238d1b90c3fc5ca15738539d9fe43a594bf87435deee94b7ab3f3a0f69",
+    "sha256": "44571477c1c92e7ce9526c707a88fc08eda3075fa87459871153f1f7cdcb6590"
+  },
+  "raters": [
+    {
+      "model": "gpt-oss:120b",
+      "digest": "a951a23b46a1f6093dafee2ea481d634b4e31ac720a8a16f3f91e04f5a40ecd9",
+      "think": "medium",
+      "temperature": 0.7
+    },
+    {
+      "model": "llama3.3:70b",
+      "digest": "a6eb4748fd2990ad2952b2335a95a7f952d1a06119a0aa6a2df6cd052a93a3fa",
+      "think": null,
+      "temperature": 0.7
+    }
+  ],
+  "seed": 20260909,
+  "controls": [
+    {
+      "id": "control-prose-rain",
+      "text": "Rain soaked the path overnight. Because the wet surface had become slippery, the walkers slowed down. Their slower pace meant that they reached the gate after noon.",
+      "expected": "A"
+    },
+    {
+      "id": "control-list-rain",
+      "text": "Weather: rain.\nPath: wet.\nWalkers: slow pace.\nGate arrival: afternoon.",
+      "expected": "B"
+    },
+    {
+      "id": "control-prose-library",
+      "text": "The library closed early for repairs. As a result, Mira could not return her book there, so she used the return box outside instead. This allowed her to return it before the deadline.",
+      "expected": "A"
+    },
+    {
+      "id": "control-list-library",
+      "text": "Library hours: shortened.\nBuilding work: repairs.\nBorrower: Mira.\nReturn box: outside.\nReturn deadline: today.",
+      "expected": "B"
+    }
+  ],
+  "timeout_seconds": 120,
+  "max_requests": 104,
+  "retries": 0,
+  "expected_by_cell": {
+    "A": "A",
+    "B": "A",
+    "C": "B",
+    "D": "B"
+  },
+  "control_policy": "all four correct for each rater; otherwise skip its corpus and report unavailable joint result",
+  "collection_policy": "one draw per item per rater; shuffled messages; all 48 source items regardless of band; save every failure; no replacements",
+  "interpretation": "counts for this archived corpus and these fixed raters only; direct joint band and both-register acceptance; no p-value, no equivalence or capability claim, no E-001c revival"
+}
