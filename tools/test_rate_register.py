@@ -192,11 +192,11 @@ class RegisterTest(unittest.TestCase):
         call = self.source_call(cell="C")
         wrong = [TimeoutError("timeout"), raw_response({"error": "server"}, 500),
                  raw_response([]), raw_response(None),
-                 raw_response({"done": True, "message": None}),
-                 raw_response({"done": True, "message": []}),
-                 raw_response({"done": True, "message": {"role": "assistant", "content": "B"}}),
-                 raw_response({"done": False, "message": {"role": "assistant", "content": '{"verdict":"B"}'}}),
-                 raw_response({"done": True, "message": {"role": "assistant", "content": '{"verdict":"B","extra":1}'}})]
+                 raw_response({"model": call["rater"]["model"], "done": True, "message": None}),
+                 raw_response({"model": call["rater"]["model"], "done": True, "message": []}),
+                 raw_response({"model": call["rater"]["model"], "done": True, "message": {"role": "assistant", "content": "B"}}),
+                 raw_response({"model": call["rater"]["model"], "done": False, "message": {"role": "assistant", "content": '{"verdict":"B"}'}}),
+                 raw_response({"model": call["rater"]["model"], "done": True, "message": {"role": "assistant", "content": '{"verdict":"B","extra":1}'}})]
         for index, bad in enumerate(wrong):
             with self.subTest(index=index):
                 destination = self.directory / f"bad-{index}"
