@@ -477,6 +477,53 @@ class TestJournalCompleteness(ToolTest):
         self.assertEqual(self.bj.check_sources_complete(), [])
 
 
+class TestJournalPublication(ToolTest):
+    """Published drafts keep their status and linked evidence remains reachable."""
+
+    def setUp(self):
+        import build_journal
+        self.bj = build_journal
+        self.addCleanup(setattr, build_journal, "git_dates", build_journal.git_dates)
+        build_journal.git_dates = lambda _: None
+        self.addCleanup(build_journal._LINK_BASE.__setitem__, 0,
+                        build_journal._LINK_BASE[0])
+        build_journal._LINK_BASE[0] = "research"
+
+    def test_explicit_drafts_are_not_presented_as_completed_publications(self):
+        for kind in ("audit draft", "design draft"):
+            with self.subTest(kind=kind):
+                data = json.loads(self.bj.structured_data(
+                    "A draft", "A proposal for review.", "https://example.org/",
+                    kind, "research/draft.md"))
+                self.assertEqual(data["creativeWorkStatus"], "Draft")
+
+    def test_instrument_readout_is_not_marked_as_a_draft(self):
+        data = json.loads(self.bj.structured_data(
+            "Instrument readout", "Collected observations.", "https://example.org/",
+            "instrument", "research/readout.md"))
+        self.assertEqual(data["creativeWorkStatus"], "Published")
+
+    def test_published_research_link_stays_on_the_site(self):
+        self.assertEqual(
+            self.bj._inline("[readout](2026-09-14-register-feasibility.md)"),
+            '<a href="/journal/qwen-register-feasibility/">readout</a>')
+
+    def test_raw_evidence_and_unpublished_files_stay_on_github(self):
+        for rel in ("selftransfer-audit.json", "../tools/report_register.py",
+                    "../probes/qwen-register/PLAN.md"):
+            with self.subTest(rel=rel):
+                path = os.path.normpath(os.path.join("research", rel))
+                self.assertEqual(
+                    self.bj._inline("[source](%s)" % rel),
+                    '<a href="%s%s">source</a>' % (self.bj.REPO, path))
+
+    def test_section_links_keep_working_without_generated_heading_ids(self):
+        self.assertEqual(
+            self.bj._inline("[section](2026-09-14-register-feasibility.md#calibration)"),
+            '<a href="%sresearch/2026-09-14-register-feasibility.md#calibration">'
+            'section</a>' % self.bj.REPO)
+
+
 class TestCheckExperiments(ToolTest):
     """The site said E-002 was a Planned ablation ladder for weeks.
 

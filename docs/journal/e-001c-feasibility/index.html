@@ -1228,7 +1228,7 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <main id="content">
 <p class="jn">instrument · e 001c feasibility</p>
 <h1>Can the four registers survive being pinned to a common length?</h1>
-<p><strong>Instrument check, before registration.</strong> No hypothesis is tested here and none may be read off it. It exists to answer whether E-001c is buildable at all, after <a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/VOID.md">E-001b was voided</a> by its cost parity gate.</p>
+<p><strong>Instrument check, before registration.</strong> No hypothesis is tested here and none may be read off it. It exists to answer whether E-001c is buildable at all, after <a href="/journal/e-001b-void/">E-001b was voided</a> by its cost parity gate.</p>
 <p><strong>Answer: yes, with a calibration problem that is measured rather than assumed.</strong></p>
 <hr>
 <h2>What was replaced</h2>
@@ -1269,7 +1269,7 @@ claude-opus-4-8   64/64 = 1.000   cluster CI [1.000, 1.000]   chose-first 0.42
 agreement                64/64</code></pre>
 <p>No position bias — both raters chose the first passage 42% of the time, matching the 42% rate at which the fluent message was shown first.</p>
 <p>That result is worth nothing, and the reason is the reason it was worth building the second arm. A forced choice makes the rater name one of two passages even when <strong>neither</strong> is the thing described, and it will name the wordier one, which tracks the label perfectly. A score of 64/64 establishes that the two registers are distinguishable — which the structural markers above already said.</p>
-<p>This is the shape of <a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-002b-phantom-agreement-ladder/FINDINGS.md">E-002b's H5</a>: an estimator that could not fail, built here by the same hand that wrote that section up.</p>
+<p>This is the shape of <a href="/journal/e-002b-findings/">E-002b's H5</a>: an estimator that could not fail, built here by the same hand that wrote that section up.</p>
 <h3>Judged one at a time, three of eight fluent messages are lists</h3>
 <p>Each message classified on its own against the fluent instruction's own words, with "a list" available as an honest answer:</p>
 <pre><code>                  called CONNECTED PROSE
@@ -1302,7 +1302,7 @@ band for target 203: 182 - 223</code></pre>
 <p>Every fluent message overshot the band, and they overshot it to <em>the same place</em>: a standard deviation of 1.5 words across eight compositions, against 14.5 for terse. The fluent instruction is not loosely overshooting a target, it is imposing a length of its own and ignoring the one asked for.</p>
 <p>Two consequences for the registration, both stated here and neither resolved:</p>
 <ul><li><strong>A single word target cannot land both registers in one band.</strong> The offset correction in Result 1b assumed a common overshoot; there are two, and they differ in spread by an order of magnitude. Per-cell targets would fix the band and confound register with instruction, which is worse.</li><li><strong>A tight distribution is not obedience.</strong> <code>sd = 1.5</code> on a missed target reads as a strong prior about how long connected prose should be, not as a model trying and failing to comply. Whether that is a property of this register instruction, this model, or prose in general is not something this check can say.</li></ul>
-<p>Compliance at 50% also sets the price of rejection sampling on <em>words</em>: roughly two compositions per accepted message. Affordable — and worth contrasting with rejection sampling on <em>cost</em>, which the <a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/VOID.md">voided run</a> showed has acceptance <strong>zero</strong> for every band, because the two families' realised costs were disjoint.</p>
+<p>Compliance at 50% also sets the price of rejection sampling on <em>words</em>: roughly two compositions per accepted message. Affordable — and worth contrasting with rejection sampling on <em>cost</em>, which the <a href="/journal/e-001b-void/">voided run</a> showed has acceptance <strong>zero</strong> for every band, because the two families' realised costs were disjoint.</p>
 <h2>What E-001c needs before it can be registered</h2>
 <ol><li><strong>The calibration confirmed</strong>, not predicted. In progress.</li><li><strong>Independent blind rating</strong> that the four cells still instantiate the intended registers at a pinned length. The structural markers are not sufficient and are not offered as sufficient.</li><li><strong>A decision on the parity reading.</strong> E-001b's pre-registration said "across cells" and its runner compared messages. E-001c will state one, require both, and evaluate them at composition — where their inputs already exist — rather than after the sweep.</li><li><strong>M33 repaired or removed.</strong> <code>MERIDIAN-34</code> is superseded for new experiments (<a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001b-fluency-factorial/SENSITIVITY-M33.md">SENSITIVITY-M33</a>); a probe whose key the source does not determine should not be inherited.</li></ol>
 <p>Registration follows those. Not before.</p>

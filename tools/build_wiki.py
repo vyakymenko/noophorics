@@ -310,6 +310,7 @@ attached, and leaves it never. From <a href="%stheory/laws.md">theory/laws.md</a
 </tbody></table></div>
 
 <p class="back"><a href="/">Noophorics</a> · <a href="/journal/">Lab journal</a> ·
+<a href="/journal/research-september-2026/">September research</a> ·
 <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
 </main>
 </body>

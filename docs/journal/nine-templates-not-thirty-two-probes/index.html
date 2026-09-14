@@ -1228,7 +1228,7 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <main id="content">
 <p class="jn">audit · nine templates not thirty two probes</p>
 <h1>The measure was nine templates and every p-value counted thirty-two</h1>
-<p><strong>2026-08-18.</strong> <code>MERIDIAN-IX32</code> has thirty-two probes. It does not have thirty-two independent readings, and three published significance levels were computed as though it did. They are withdrawn as <a href="https://github.com/vyakymenko/noophorics/blob/main/RETRACTIONS.md">retraction 15</a>.</p>
+<p><strong>2026-08-18.</strong> <code>MERIDIAN-IX32</code> has thirty-two probes. It does not have thirty-two independent readings, and three published significance levels were computed as though it did. They are withdrawn as <a href="/journal/retractions/">retraction 15</a>.</p>
 <p>The defect is visible in two lines of the probe file:</p>
 <div class="scroll"><table><thead><tr><th>probe</th><th>prompt</th><th>key</th><th>stability</th></tr></thead><tbody><tr><td><code>X17</code></td><td>…Combined figure count is <strong>70</strong>.</td><td><code>HANDLED</code></td><td>fails the gate</td></tr><tr><td><code>X18</code></td><td>…Combined figure count is <strong>71</strong>.</td><td><code>RETURNED</code></td><td>passes</td></tr></tbody></table></div>
 <p>One token apart, opposite verdicts. <code>X21</code>/<code>X22</code> differ the same way (8 → 7) and <code>X24</code>/<code>X25</code> likewise (30 → 21). These are minimal pairs straddling a numeric threshold, which is careful probe design and ruinous arithmetic: Fisher's exact test over thirty-two rows treats a pair that shares 99.5% of its text as two independent elicitations.</p>

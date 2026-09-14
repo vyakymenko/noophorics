@@ -1231,7 +1231,7 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <p>Both were found while an adversarial panel was checking arithmetic for an unrelated decision. Both are verified here by independent recomputation. Neither was found by anyone reading the repository, including its author, over three days of doing exactly that.</p>
 <hr>
 <h2>1. The evidence for the programme's central finding was not in the repository</h2>
-<p><a href="https://github.com/vyakymenko/noophorics/blob/main/experiments/E-001-fluency-cost/FINDINGS.md">E-001's FINDINGS</a> is the document that forced the v0.3 rewrite: it established that the headline quantity rewards mimicry, and every subsequent correction descends from it. Line 139 says:</p>
+<p><a href="/journal/e-001-findings/">E-001's FINDINGS</a> is the document that forced the v0.3 rewrite: it established that the headline quantity rewards mimicry, and every subsequent correction descends from it. Line 139 says:</p>
 <blockquote><p>every number above is reproducible from <code>.sample-cache.json</code>, now tracked.</p></blockquote>
 <p>It was not tracked. It was committed in <code>0345350</code>, deleted in <code>6c59143</code> ("v0.3 runner"), and was absent from both the working tree and <code>git ls-files</code>. The only tracked E-001 result is <code>results/E-001-20260728T184446Z.json</code>, which is <code>void: true</code> with no conditions composed.</p>
 <p>So for some days the repository asserted the reproducibility of numbers whose inputs it did not contain. The <code>.gitignore</code> even records that excluding caches had been "an audit hole" — the lesson was written down, and then the file was deleted anyway by a commit about something else.</p>

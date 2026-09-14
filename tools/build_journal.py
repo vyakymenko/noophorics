@@ -35,6 +35,12 @@ OUT = os.path.join(DOCS, "journal")
 
 SOURCES: List[Tuple[str, str, str]] = [
     # (slug, source path, kind)
+    ("research-september-2026", "research/README.md", "research overview"),
+    ("qwen-register-feasibility", "research/2026-09-14-register-feasibility.md",
+     "instrument"),
+    ("selftransfer-audit", "research/2026-09-09-selftransfer-audit.md", "audit draft"),
+    ("domain-selection", "research/2026-09-09-domain-selection.md", "design draft"),
+    ("domain-methods", "research/2026-09-14-domain-methods.md", "methods note"),
     ("founding", "journal/2026-07-28-founding.md", "journal"),
     ("first-live-run-void", "journal/2026-07-28-first-live-run-void.md", "journal"),
     ("e-001-findings", "experiments/E-001-fluency-cost/FINDINGS.md", "findings"),
@@ -162,11 +168,17 @@ def _link(m) -> str:
         pass
     elif href.startswith("#"):
         pass
-    else:  # relative repo path -> point at the repository
+    else:
         base = _LINK_BASE[0]
-        href = REPO + os.path.normpath(
+        path = os.path.normpath(
             os.path.join(base, href)
         ).replace("\\", "/").lstrip("./")
+        published = {source: slug for slug, source, _ in SOURCES}
+        # Heading fragments stay on GitHub: this renderer does not create
+        # heading IDs. Exact published documents can link to their site pages;
+        # raw records and other repository files keep their source URLs.
+        href = ("/journal/%s/" % published[path]
+                if path in published else REPO + path)
     return '<a href="%s">%s</a>' % (html.escape(href, quote=True), label)
 
 
@@ -283,7 +295,8 @@ def structured_data(title: str, description: str, canonical: str, kind: str,
     kind_to_type = {"findings": "ScholarlyArticle", "audit": "ScholarlyArticle",
                     "instrument": "TechArticle", "defect": "TechArticle",
                     "void": "ScholarlyArticle", "observation": "ScholarlyArticle",
-                    "journal": "Article"}
+                    "journal": "Article", "audit draft": "ScholarlyArticle",
+                    "design draft": "TechArticle", "methods note": "TechArticle"}
     data = {
         "@context": "https://schema.org",
         "@type": kind_to_type.get(kind, "Article"),
@@ -299,7 +312,8 @@ def structured_data(title: str, description: str, canonical: str, kind: str,
         "publisher": {"@type": "Organization", "name": "Noophorics",
                       "url": "https://noophorics.org/"},
         "isAccessibleForFree": True,
-        "creativeWorkStatus": "Published",
+        "creativeWorkStatus": ("Draft" if kind in {"audit draft", "design draft"}
+                               else "Published"),
     }
     dates = git_dates(source)
     if dates:
@@ -495,17 +509,18 @@ def build() -> int:
 
     index_body = (
         '<p class="jn">Lab notebook</p>\n<h1>The record of being wrong</h1>\n'
-        "<p>Dated, append-only, and never edited after the fact except for typos. "
-        "The entries below are the programme's most load-bearing documents: they "
-        "are where it recorded its own failures while they were still fresh.</p>\n"
+        "<p>The programme's observations, instrument checks, corrections and "
+        "research drafts. Each entry states its kind; drafts remain proposals "
+        "for review. Earlier claims and their corrections remain visible.</p>\n"
         "<hr>\n"
     )
     for slug, title, summary, kind, path in entries:
         index_body += (
             '<h2><a href="/journal/%s/">%s</a></h2>\n<p>%s…</p>\n'
             '<p style="font-size:.9rem;color:var(--soft)">'
-            '<a href="%s%s">source</a></p>\n'
-            % (slug, html.escape(title), html.escape(summary), REPO, path)
+            '%s · <a href="%s%s">source</a></p>\n'
+            % (slug, html.escape(title), html.escape(summary),
+               html.escape(kind), REPO, path)
         )
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8") as fh:
         fh.write(page_shell(
