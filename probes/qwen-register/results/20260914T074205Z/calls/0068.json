@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:49:09.583076+00:00",
+  "item_id": "source-A-03",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe deadline is 1 March 2026. All rules apply as of that date. Manuscripts must be at least 22 pages; exactly 22 pages satisfies this length requirement. Format requires either the official template or three years documented revision history, though Track D submissions need exactly two endorsements instead, exempt from R2 only. A venue presentation renders a manuscript unhandled if presented at a Tier-1 venue more than 18 months before deadline; exactly 18 months does not qualify. Prior round acceptances block handling if fewer than 5 years elapsed since that round, though withdrawals do not count as acceptances under that rule but reset the venue clock to the withdrawal date. Paired submissions permit exactly two manuscripts where both satisfy length and format rules independently while at least one satisfies venue constraints; three or more is not permitted. Figure counts must be between 8 and 45 inclusive for single submissions, whereas paired submissions allow up to 70 figures with the same minimum. A submission that fails R8 only by carrying fewer than the minimum is padded up to the minimum rather than returned; its verdict is PADDED. A submission carrying more than the applicable maximum is returned outright. Manuscripts with open retraction notices are not handled regardless of every other rule including R9. Every submission resolves to exactly one verdict: HANDLED for all satisfied rules, RETURNED for failures, or PADDED for figure adjustments.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":1121029599,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:49:05.472078+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:49:09.582382Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4096415666,\"load_duration\":2684750,\"prompt_eval_count\":383,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3157107000,\"eval_count\":8,\"eval_duration\":899644000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ5OjA5LjU4MjM4MloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQwOTY0MTU2NjYsImxvYWRfZHVyYXRpb24iOjI2ODQ3NTAsInByb21wdF9ldmFsX2NvdW50IjozODMsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMTU3MTA3MDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo4OTk2NDQwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:49:09 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 68,
+  "state": "complete"
+}

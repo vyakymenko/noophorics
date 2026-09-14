@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:43:16.538258+00:00",
+  "item_id": "source-C-09",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nMeridian Review Submission Handling Rules 2026 round\\nDomain replaced 2026 July 28 Kestrel Fellowship eligibility unusable tripped classifier\\nSource given sender CEILING receiver only not treatment receivers\\nDeadline 1 March 2026 every rule evaluated as of that date\\n\\nR1 Length >= 22 pages exactly 22 satisfies\\nR2 Format official template OR >= 3 years documented revision history\\nR3 Tier-1 venue presentation handled ONLY if > 18 months before deadline exactly 18 months does not qualify\\nR4 Prior round acceptance NOT handled if < 5 years elapsed exactly 5 years fine\\nR5 Paired submissions permitted exactly 2 manuscripts >= 3 not permitted R1 and R2 both satisfy R3 one must satisfy\\nR6 Track D exempt from R2 carry exactly 2 endorsements 1 endorsement insufficient R6 exempts R2 only no other rule\\nR7 Retraction open retraction notice NOT handled regardless of every other rule including R9\\nR8 Figures count between 8 and 45 inclusive paired submission up to 70 figures min 8\\nR9 Figure adjustment fails R8 only by < min PADDED pad to min > max RETURNED outright\\nR10 Withdrawals prior withdrawal NOT acceptance under R4 withdrawal resets R3 venue clock presentation treated as withdrawal date not actual date\\n\\nVerdicts HANDLED satisfies all applicable rules RETURNED fails >= 1 applicable rule PADDED R9 case only submission handles carries < min figures padded not returned submission PADDED fails another rule RETURNED\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":4048435002,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:43:10.343688+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:43:16.53769Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to determine whether the passage is \\\"CONNECTED PROSE\\\" (A) or \\\"A LIST\\\" (B). The passage appears as a series of fragments, rules, etc., not connected sentences with relational words. It looks like a list of rules and statements separated by line breaks, not flowing prose. So classification: B.\\n\\nCheck definitions: A: complete sentences that follow from one another, relationships spelled out in words. B: separate items stated one after another, with no wording that relates them, whether or not items are full sentences.\\n\\nThe passage contains many fragments, bullet-like lines, but some sentences? They are not connected with relational words like \\\"therefore\\\", \\\"because\\\". It's more like a list. So answer B.\\n\\nThus output \\\"B\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":6183379667,\"load_duration\":4751250,\"prompt_eval_count\":468,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":799960000,\"eval_count\":171,\"eval_duration\":5333937000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQzOjE2LjUzNzY5WiIsIm1lc3NhZ2UiOnsicm9sZSI6ImFzc2lzdGFudCIsImNvbnRlbnQiOiJ7XCJ2ZXJkaWN0XCI6XCJCXCJ9IiwidGhpbmtpbmciOiJXZSBuZWVkIHRvIGRldGVybWluZSB3aGV0aGVyIHRoZSBwYXNzYWdlIGlzIFwiQ09OTkVDVEVEIFBST1NFXCIgKEEpIG9yIFwiQSBMSVNUXCIgKEIpLiBUaGUgcGFzc2FnZSBhcHBlYXJzIGFzIGEgc2VyaWVzIG9mIGZyYWdtZW50cywgcnVsZXMsIGV0Yy4sIG5vdCBjb25uZWN0ZWQgc2VudGVuY2VzIHdpdGggcmVsYXRpb25hbCB3b3Jkcy4gSXQgbG9va3MgbGlrZSBhIGxpc3Qgb2YgcnVsZXMgYW5kIHN0YXRlbWVudHMgc2VwYXJhdGVkIGJ5IGxpbmUgYnJlYWtzLCBub3QgZmxvd2luZyBwcm9zZS4gU28gY2xhc3NpZmljYXRpb246IEIuXG5cbkNoZWNrIGRlZmluaXRpb25zOiBBOiBjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgcmVsYXRpb25zaGlwcyBzcGVsbGVkIG91dCBpbiB3b3Jkcy4gQjogc2VwYXJhdGUgaXRlbXMgc3RhdGVkIG9uZSBhZnRlciBhbm90aGVyLCB3aXRoIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0sIHdoZXRoZXIgb3Igbm90IGl0ZW1zIGFyZSBmdWxsIHNlbnRlbmNlcy5cblxuVGhlIHBhc3NhZ2UgY29udGFpbnMgbWFueSBmcmFnbWVudHMsIGJ1bGxldC1saWtlIGxpbmVzLCBidXQgc29tZSBzZW50ZW5jZXM/IFRoZXkgYXJlIG5vdCBjb25uZWN0ZWQgd2l0aCByZWxhdGlvbmFsIHdvcmRzIGxpa2UgXCJ0aGVyZWZvcmVcIiwgXCJiZWNhdXNlXCIuIEl0J3MgbW9yZSBsaWtlIGEgbGlzdC4gU28gYW5zd2VyIEIuXG5cblRodXMgb3V0cHV0IFwiQlwiLiJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NjE4MzM3OTY2NywibG9hZF9kdXJhdGlvbiI6NDc1MTI1MCwicHJvbXB0X2V2YWxfY291bnQiOjQ2OCwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50IjoxNDAsInByb21wdF9ldmFsX2R1cmF0aW9uIjo3OTk5NjAwMDAsImV2YWxfY291bnQiOjE3MSwiZXZhbF9kdXJhdGlvbiI6NTMzMzkzNzAwMH0=",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:43:16 GMT"
+      ],
+      [
+        "Content-Length",
+        "1109"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 7,
+  "state": "complete"
+}

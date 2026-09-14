@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:26.174537+00:00",
+  "item_id": "source-C-11",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nSubmission deadline 1 March 2026.\\nManuscript must be at least 22 pages. Exactly 22 satisfies.\\nMust use official template OR carry at least 3 years documented revision history.\\nPresented at Tier-1 venue not handled unless presentation more than 18 months before deadline. Exactly 18 months does not qualify.\\nAccepted in prior Meridian round not handled if fewer than 5 years elapsed since round. Exactly 5 years elapsed fine.\\nPermitted for exactly 2 manuscripts. 3 or more not permitted form. Both must independently satisfy R1 and R2. At least one must satisfy R3. Not required both do.\\nTrack D exempt from format. Must carry exactly 2 endorsements instead. 1 insufficient. Exempt format only.\\nManuscript with open retraction notice not handled regardless other rules including R9.\\nFigure count between 8 and 45 inclusive. Paired submission may carry up to 70 figures same minimum 8.\\nFails figure rule only carrying fewer than minimum padded up to minimum rather returned. Verdict PADDED. Carrying more than applicable max returned outright.\\nWithdrawal prior round does not count acceptance under prior rounds. Withdrawal resets venue clock presentation treated withdrawal date rather actual date.\\nHANDLED satisfies all applicable rules.\\nRETURNED fails at least one applicable rule.\\nPADDED used only for figure adjustment case submission would be handled carries fewer than minimum padded up rather returned. Fails another rule returns RETURNED.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":579337827,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:20.725882+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:26.173201Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\n\\n\\\"verdict\\\": \\\"B\\\"\\n\\n}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":5445324667,\"load_duration\":1327875,\"prompt_eval_count\":397,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3648052000,\"eval_count\":11,\"eval_duration\":1742416000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjI2LjE3MzIwMVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1xuXG5cInZlcmRpY3RcIjogXCJCXCJcblxufSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NTQ0NTMyNDY2NywibG9hZF9kdXJhdGlvbiI6MTMyNzg3NSwicHJvbXB0X2V2YWxfY291bnQiOjM5NywicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4MiwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjM2NDgwNTIwMDAsImV2YWxfY291bnQiOjExLCJldmFsX2R1cmF0aW9uIjoxNzQyNDE2MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:26 GMT"
+      ],
+      [
+        "Content-Length",
+        "355"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 84,
+  "state": "complete"
+}

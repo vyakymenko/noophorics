@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:51:25.468686+00:00",
+  "item_id": "source-B-06",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nEvaluate manuscripts against the deadline of 1 March 2026. Every submission must contain at least 22 pages, though exactly that number satisfies the requirement. Format rules require either the official template or documented revision history spanning 3 years. For Track D submissions, this format rule is waived entirely, requiring instead precisely 2 endorsements; one endorsement remains insufficient. Note that R6 exempts only from R2, not other constraints.\\n\\nVenue restrictions apply strictly: presentations at Tier-1 venues older than 18 months are handled, but exactly 18 months disqualifies them. Withdrawals reset this clock to the withdrawal date rather than the presentation date. Prior round acceptances block submissions if fewer than 5 years have elapsed; withdrawals do not count as acceptances here.\\n\\nFigure counts must sit between 8 and 45 inclusive. Paired submissions allow up to 70 figures but retain the 8-figure minimum. If a manuscript falls below the minimum in figure count, it receives a PADDED verdict only if no other rule fails; any other failure mandates RETURNED. Exceeding the maximum results in an immediate return regardless of padding logic.\\n\\nCrucially, an open retraction notice prevents handling under all rules, overriding even R9. Paired submissions require 2 manuscripts meeting length and format independently, though only one satisfies venue restrictions. Align every verdict with these thresholds before finalizing decisions.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":3850243582,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:51:20.672812+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:51:25.468214Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4717366000,\"load_duration\":4019166,\"prompt_eval_count\":381,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3373610000,\"eval_count\":9,\"eval_duration\":1291611000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUxOjI1LjQ2ODIxNFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQ3MTczNjYwMDAsImxvYWRfZHVyYXRpb24iOjQwMTkxNjYsInByb21wdF9ldmFsX2NvdW50IjozODEsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMzczNjEwMDAwLCJldmFsX2NvdW50Ijo5LCJldmFsX2R1cmF0aW9uIjoxMjkxNjExMDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:51:25 GMT"
+      ],
+      [
+        "Content-Length",
+        "346"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 96,
+  "state": "complete"
+}

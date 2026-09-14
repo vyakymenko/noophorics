@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:46:59.034484+00:00",
+  "item_id": "source-B-06",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nEvaluate manuscripts against the deadline of 1 March 2026. Every submission must contain at least 22 pages, though exactly that number satisfies the requirement. Format rules require either the official template or documented revision history spanning 3 years. For Track D submissions, this format rule is waived entirely, requiring instead precisely 2 endorsements; one endorsement remains insufficient. Note that R6 exempts only from R2, not other constraints.\\n\\nVenue restrictions apply strictly: presentations at Tier-1 venues older than 18 months are handled, but exactly 18 months disqualifies them. Withdrawals reset this clock to the withdrawal date rather than the presentation date. Prior round acceptances block submissions if fewer than 5 years have elapsed; withdrawals do not count as acceptances here.\\n\\nFigure counts must sit between 8 and 45 inclusive. Paired submissions allow up to 70 figures but retain the 8-figure minimum. If a manuscript falls below the minimum in figure count, it receives a PADDED verdict only if no other rule fails; any other failure mandates RETURNED. Exceeding the maximum results in an immediate return regardless of padding logic.\\n\\nCrucially, an open retraction notice prevents handling under all rules, overriding even R9. Paired submissions require 2 manuscripts meeting length and format independently, though only one satisfies venue restrictions. Align every verdict with these thresholds before finalizing decisions.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":882387602,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:46:52.523263+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:46:59.032825Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to determine whether passage is \\\"CONNECTED PROSE\\\" or \\\"A LIST\\\". Connected prose: complete sentences that follow from one another, relationships spelled out in words. List: separate items stated one after another, with no wording that relates them, whether or not items are full sentences.\\n\\nWe examine passage. It appears as a series of sentences each stating a rule or condition. They are separated by periods and line breaks, but they seem to be independent statements, not connected with transition words. However there are some connective words like \\\"though\\\", \\\"but\\\", \\\"if\\\", \\\"and\\\". The passage is a set of rules; each sentence is a separate rule, not building narrative. Does it qualify as a list? The definition of list: separate items stated one after another, with no wording that relates them to each other. Here there is some relational wording: \\\"though exactly that number satisfies the requirement\\\", \\\"but exactly 18 months disqualifies them\\\", \\\"if a manuscript falls below...\\\". These are conditional relationships within sentences, but between sentences? Not much linking across sentences. They are just enumerated rules. Likely considered a list.\\n\\nThus answer \\\"B\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":6510050500,\"load_duration\":1906792,\"prompt_eval_count\":439,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":470751000,\"eval_count\":253,\"eval_duration\":5960599000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ2OjU5LjAzMjgyNVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQlwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBkZXRlcm1pbmUgd2hldGhlciBwYXNzYWdlIGlzIFwiQ09OTkVDVEVEIFBST1NFXCIgb3IgXCJBIExJU1RcIi4gQ29ubmVjdGVkIHByb3NlOiBjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgcmVsYXRpb25zaGlwcyBzcGVsbGVkIG91dCBpbiB3b3Jkcy4gTGlzdDogc2VwYXJhdGUgaXRlbXMgc3RhdGVkIG9uZSBhZnRlciBhbm90aGVyLCB3aXRoIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0sIHdoZXRoZXIgb3Igbm90IGl0ZW1zIGFyZSBmdWxsIHNlbnRlbmNlcy5cblxuV2UgZXhhbWluZSBwYXNzYWdlLiBJdCBhcHBlYXJzIGFzIGEgc2VyaWVzIG9mIHNlbnRlbmNlcyBlYWNoIHN0YXRpbmcgYSBydWxlIG9yIGNvbmRpdGlvbi4gVGhleSBhcmUgc2VwYXJhdGVkIGJ5IHBlcmlvZHMgYW5kIGxpbmUgYnJlYWtzLCBidXQgdGhleSBzZWVtIHRvIGJlIGluZGVwZW5kZW50IHN0YXRlbWVudHMsIG5vdCBjb25uZWN0ZWQgd2l0aCB0cmFuc2l0aW9uIHdvcmRzLiBIb3dldmVyIHRoZXJlIGFyZSBzb21lIGNvbm5lY3RpdmUgd29yZHMgbGlrZSBcInRob3VnaFwiLCBcImJ1dFwiLCBcImlmXCIsIFwiYW5kXCIuIFRoZSBwYXNzYWdlIGlzIGEgc2V0IG9mIHJ1bGVzOyBlYWNoIHNlbnRlbmNlIGlzIGEgc2VwYXJhdGUgcnVsZSwgbm90IGJ1aWxkaW5nIG5hcnJhdGl2ZS4gRG9lcyBpdCBxdWFsaWZ5IGFzIGEgbGlzdD8gVGhlIGRlZmluaXRpb24gb2YgbGlzdDogc2VwYXJhdGUgaXRlbXMgc3RhdGVkIG9uZSBhZnRlciBhbm90aGVyLCB3aXRoIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0gdG8gZWFjaCBvdGhlci4gSGVyZSB0aGVyZSBpcyBzb21lIHJlbGF0aW9uYWwgd29yZGluZzogXCJ0aG91Z2ggZXhhY3RseSB0aGF0IG51bWJlciBzYXRpc2ZpZXMgdGhlIHJlcXVpcmVtZW50XCIsIFwiYnV0IGV4YWN0bHkgMTggbW9udGhzIGRpc3F1YWxpZmllcyB0aGVtXCIsIFwiaWYgYSBtYW51c2NyaXB0IGZhbGxzIGJlbG93Li4uXCIuIFRoZXNlIGFyZSBjb25kaXRpb25hbCByZWxhdGlvbnNoaXBzIHdpdGhpbiBzZW50ZW5jZXMsIGJ1dCBiZXR3ZWVuIHNlbnRlbmNlcz8gTm90IG11Y2ggbGlua2luZyBhY3Jvc3Mgc2VudGVuY2VzLiBUaGV5IGFyZSBqdXN0IGVudW1lcmF0ZWQgcnVsZXMuIExpa2VseSBjb25zaWRlcmVkIGEgbGlzdC5cblxuVGh1cyBhbnN3ZXIgXCJCXCIuIn0sImRvbmUiOnRydWUsImRvbmVfcmVhc29uIjoic3RvcCIsInRvdGFsX2R1cmF0aW9uIjo2NTEwMDUwNTAwLCJsb2FkX2R1cmF0aW9uIjoxOTA2NzkyLCJwcm9tcHRfZXZhbF9jb3VudCI6NDM5LCJwcm9tcHRfZXZhbF9jYWNoZWRfY291bnQiOjE0MCwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjQ3MDc1MTAwMCwiZXZhbF9jb3VudCI6MjUzLCJldmFsX2R1cmF0aW9uIjo1OTYwNTk5MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:46:59 GMT"
+      ],
+      [
+        "Content-Length",
+        "1564"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 44,
+  "state": "complete"
+}

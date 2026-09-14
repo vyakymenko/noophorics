@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:43:55.374154+00:00",
+  "item_id": "source-C-05",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline 1 March 2026 rules evaluated that date.\\nR1 manuscript minimum 22 pages exactly 22 pages satisfies rule.\\nR2 manuscript must use official template or 3 years documented revision history.\\nR3 Tier-1 venue presentation not handled unless more than 18 months before deadline exactly 18 months does not qualify.\\nR4 accepted prior Meridian round not handled if fewer than 5 years elapsed since round exactly 5 years fine.\\nR5 paired submission permitted for exactly 2 manuscripts 3 or more not permitted form manuscripts must satisfy R1 and R2 at least one of two must satisfy R3 not required both do.\\nTrack D exempt from R2 must carry exactly 2 endorsements 1 insufficient R6 exempts R2 only no other rule.\\nR7 open retraction notice not handled regardless other rules including R9.\\nR8 figure count between 8 and 45 inclusive paired submission may carry up to 70 figures same minimum 8.\\nR9 fails R8 carrying fewer than minimum padded up minimum rather returned PADDED carries more than applicable maximum returned outright.\\nWithdrawals prior round not count acceptance under R4 withdrawal resets R3 venue clock presentation treated occurred withdrawal date rather actual date.\\nHANDLED satisfies all applicable rules.\\nRETURNED fails at least one applicable rule.\\nPADDED used only R9 submission would handled carries fewer figures minimum padded up rather returned submission would PADDED but also fails another rule RETURNED.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":3682159971,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:43:49.292641+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:43:55.371421Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to decide whether passage is \\\"CONNECTED PROSE\\\" (A) or \\\"A LIST\\\" (B). Connected prose: complete sentences that follow from one another, relationships spelled out. List: separate items, no wording that relates them, items maybe sentences but not connected.\\n\\nThe passage is a series of short statements, each seems like bullet items but not separated by punctuation? They are run together with periods? Let's read: \\\"Deadline 1 March 2026 rules evaluated that date.\\\" That's a sentence. Next: \\\"R1 manuscript minimum 22 pages exactly 22 pages satisfies rule.\\\" That's a sentence but seems like a separate item. There's no connective words linking them (like \\\"and\\\", \\\"therefore\\\"). They are independent statements about rules. It looks like a list of rule descriptions. No narrative flow.\\n\\nThus it's a list (B). Answer \\\"B\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":6042183917,\"load_duration\":2710917,\"prompt_eval_count\":446,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":494547000,\"eval_count\":193,\"eval_duration\":5475880000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQzOjU1LjM3MTQyMVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQlwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBkZWNpZGUgd2hldGhlciBwYXNzYWdlIGlzIFwiQ09OTkVDVEVEIFBST1NFXCIgKEEpIG9yIFwiQSBMSVNUXCIgKEIpLiBDb25uZWN0ZWQgcHJvc2U6IGNvbXBsZXRlIHNlbnRlbmNlcyB0aGF0IGZvbGxvdyBmcm9tIG9uZSBhbm90aGVyLCByZWxhdGlvbnNoaXBzIHNwZWxsZWQgb3V0LiBMaXN0OiBzZXBhcmF0ZSBpdGVtcywgbm8gd29yZGluZyB0aGF0IHJlbGF0ZXMgdGhlbSwgaXRlbXMgbWF5YmUgc2VudGVuY2VzIGJ1dCBub3QgY29ubmVjdGVkLlxuXG5UaGUgcGFzc2FnZSBpcyBhIHNlcmllcyBvZiBzaG9ydCBzdGF0ZW1lbnRzLCBlYWNoIHNlZW1zIGxpa2UgYnVsbGV0IGl0ZW1zIGJ1dCBub3Qgc2VwYXJhdGVkIGJ5IHB1bmN0dWF0aW9uPyBUaGV5IGFyZSBydW4gdG9nZXRoZXIgd2l0aCBwZXJpb2RzPyBMZXQncyByZWFkOiBcIkRlYWRsaW5lIDEgTWFyY2ggMjAyNiBydWxlcyBldmFsdWF0ZWQgdGhhdCBkYXRlLlwiIFRoYXQncyBhIHNlbnRlbmNlLiBOZXh0OiBcIlIxIG1hbnVzY3JpcHQgbWluaW11bSAyMiBwYWdlcyBleGFjdGx5IDIyIHBhZ2VzIHNhdGlzZmllcyBydWxlLlwiIFRoYXQncyBhIHNlbnRlbmNlIGJ1dCBzZWVtcyBsaWtlIGEgc2VwYXJhdGUgaXRlbS4gVGhlcmUncyBubyBjb25uZWN0aXZlIHdvcmRzIGxpbmtpbmcgdGhlbSAobGlrZSBcImFuZFwiLCBcInRoZXJlZm9yZVwiKS4gVGhleSBhcmUgaW5kZXBlbmRlbnQgc3RhdGVtZW50cyBhYm91dCBydWxlcy4gSXQgbG9va3MgbGlrZSBhIGxpc3Qgb2YgcnVsZSBkZXNjcmlwdGlvbnMuIE5vIG5hcnJhdGl2ZSBmbG93LlxuXG5UaHVzIGl0J3MgYSBsaXN0IChCKS4gQW5zd2VyIFwiQlwiLiJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NjA0MjE4MzkxNywibG9hZF9kdXJhdGlvbiI6MjcxMDkxNywicHJvbXB0X2V2YWxfY291bnQiOjQ0NiwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50IjoxNDAsInByb21wdF9ldmFsX2R1cmF0aW9uIjo0OTQ1NDcwMDAsImV2YWxfY291bnQiOjE5MywiZXZhbF9kdXJhdGlvbiI6NTQ3NTg4MDAwMH0=",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:43:55 GMT"
+      ],
+      [
+        "Content-Length",
+        "1199"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 13,
+  "state": "complete"
+}

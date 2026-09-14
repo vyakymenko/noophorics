@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:11.450544+00:00",
+  "item_id": "source-D-03",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nSubmission deadline fixed 1 March 2026. All rules evaluated as of that date.\\nManuscript length requires at least 22 pages exactly 22 satisfies rule R1.\\nFormat requires official template or carries three years documented revision history per R2.\\nTier-1 venue presentation not handled unless more than 18 months before deadline. Exactly 18 months does not qualify for handling.\\nPrior Meridian round acceptance not handled if fewer than 5 years elapsed since that round. Exactly 5 years elapsed fine under R4. Withdrawal prior round does not count as acceptance.\\nPaired submission permitted exactly two manuscripts three or more not permitted form. Both independently satisfy R1 and R2 requirements. At least one must satisfy R3 requirement. Both need not satisfy R3.\\nTrack D exempt from R2 only. No other rule applies differently. Instead requires exactly two endorsements one endorsement insufficient for track D.\\nOpen retraction notice not handled regardless every other rule including R9 provisions.\\nFigure count between 8 and 45 inclusive per standard rules. Paired submission carries up to 70 figures same minimum 8 required.\\nSubmission failing R8 fewer than minimum padded up verdict PADDED. Submission exceeding maximum returned outright under R9.\\nVerdict PADDED applies only if no other rule fails submission. Submission would be PADDED but fails another rule is RETURNED instead.\\nWithdrawal resets R3 venue clock presentation treated as occurring on withdrawal date rather actual date.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":1338512639,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:06.684473+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:11.446038Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\n\\n\\\"verdict\\\": \\\"A\\\"\\n\\n}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4759736625,\"load_duration\":3009417,\"prompt_eval_count\":392,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3246412000,\"eval_count\":11,\"eval_duration\":1463653000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjExLjQ0NjAzOFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1xuXG5cInZlcmRpY3RcIjogXCJBXCJcblxufSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NDc1OTczNjYyNSwibG9hZF9kdXJhdGlvbiI6MzAwOTQxNywicHJvbXB0X2V2YWxfY291bnQiOjM5MiwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4MiwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjMyNDY0MTIwMDAsImV2YWxfY291bnQiOjExLCJldmFsX2R1cmF0aW9uIjoxNDYzNjUzMDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:11 GMT"
+      ],
+      [
+        "Content-Length",
+        "355"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 81,
+  "state": "complete"
+}

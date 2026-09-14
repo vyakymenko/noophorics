@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:47:25.483457+00:00",
+  "item_id": "source-A-10",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nFor the 1 March 2026 Meridian Review deadline, manuscripts require twenty-two pages minimum where exactly twenty-two satisfies R1. Format needs an official template or three years documented revision history under R2, though Track D submissions need exactly two endorsements instead, exempting R2 only. Venue presentations at Tier-1 venues are handled only if occurring more than eighteen months prior to the deadline; exactly eighteen months disqualifies them. Acceptance in prior rounds blocks handling if fewer than five years have elapsed since that round, exactly five years elapsed is fine, noting withdrawals do not count as acceptance under R4 yet reset venue clocks to withdrawal dates rather than actual presentation dates. Paired submissions allow exactly two manuscripts provided both meet length and format rules independently, with at least one satisfying the venue requirement regardless of the other's status. Figure counts must remain between eight and forty-five inclusive for single submissions, while paired entries permit up to seventy figures maintaining the eight-figure minimum. Submissions failing figure limits by carrying fewer than the minimum receive a PADDED verdict only if R8 is the sole failure; excess figures trigger an immediate RETURNED verdict. Open retraction notices halt handling entirely regardless of other rules or figure adjustments. Finally, any submission satisfying all applicable rules receives a HANDLED verdict, whereas failures result in either returned or padded statuses depending on specific rule violations encountered during evaluation.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":1664119976,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:47:22.275848+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:47:25.4826Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"A\\\"}\",\"thinking\":\"We need to determine whether passage is \\\"CONNECTED PROSE\\\" (complete sentences that follow from one another, with relationships spelled out) or \\\"A LIST\\\" (separate items stated one after another, no wording that relates them). The passage is a dense block of sentences with many clauses, seems like connected prose describing rules. It uses semicolons, commas, but each clause is related, with logical flow. Not just bullet list. So it's CONNECTED PROSE =\\u003e A.\\n\\nThus answer \\\"A\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3190316334,\"load_duration\":1694250,\"prompt_eval_count\":431,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":443092000,\"eval_count\":119,\"eval_duration\":2713788000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ3OjI1LjQ4MjZaIiwibWVzc2FnZSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IntcInZlcmRpY3RcIjpcIkFcIn0iLCJ0aGlua2luZyI6IldlIG5lZWQgdG8gZGV0ZXJtaW5lIHdoZXRoZXIgcGFzc2FnZSBpcyBcIkNPTk5FQ1RFRCBQUk9TRVwiIChjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgd2l0aCByZWxhdGlvbnNoaXBzIHNwZWxsZWQgb3V0KSBvciBcIkEgTElTVFwiIChzZXBhcmF0ZSBpdGVtcyBzdGF0ZWQgb25lIGFmdGVyIGFub3RoZXIsIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0pLiBUaGUgcGFzc2FnZSBpcyBhIGRlbnNlIGJsb2NrIG9mIHNlbnRlbmNlcyB3aXRoIG1hbnkgY2xhdXNlcywgc2VlbXMgbGlrZSBjb25uZWN0ZWQgcHJvc2UgZGVzY3JpYmluZyBydWxlcy4gSXQgdXNlcyBzZW1pY29sb25zLCBjb21tYXMsIGJ1dCBlYWNoIGNsYXVzZSBpcyByZWxhdGVkLCB3aXRoIGxvZ2ljYWwgZmxvdy4gTm90IGp1c3QgYnVsbGV0IGxpc3QuIFNvIGl0J3MgQ09OTkVDVEVEIFBST1NFID1cdTAwM2UgQS5cblxuVGh1cyBhbnN3ZXIgXCJBXCIuIn0sImRvbmUiOnRydWUsImRvbmVfcmVhc29uIjoic3RvcCIsInRvdGFsX2R1cmF0aW9uIjozMTkwMzE2MzM0LCJsb2FkX2R1cmF0aW9uIjoxNjk0MjUwLCJwcm9tcHRfZXZhbF9jb3VudCI6NDMxLCJwcm9tcHRfZXZhbF9jYWNoZWRfY291bnQiOjE0MCwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjQ0MzA5MjAwMCwiZXZhbF9jb3VudCI6MTE5LCJldmFsX2R1cmF0aW9uIjoyNzEzNzg4MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:47:25 GMT"
+      ],
+      [
+        "Content-Length",
+        "847"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 49,
+  "state": "complete"
+}

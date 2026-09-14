@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:48:11.187896+00:00",
+  "item_id": "control-prose-library",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe library closed early for repairs. As a result, Mira could not return her book there, so she used the return box outside instead. This allowed her to return it before the deadline.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":1981829,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:48:09.105259+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:48:11.169049Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":2034909209,\"load_duration\":1563125,\"prompt_eval_count\":140,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":1077595000,\"eval_count\":8,\"eval_duration\":952688000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ4OjExLjE2OTA0OVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjIwMzQ5MDkyMDksImxvYWRfZHVyYXRpb24iOjE1NjMxMjUsInByb21wdF9ldmFsX2NvdW50IjoxNDAsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjoxMDc3NTk1MDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5NTI2ODgwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:48:11 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 54,
+  "state": "complete"
+}

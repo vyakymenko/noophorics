@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:46:48.334397+00:00",
+  "item_id": "source-B-03",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nCheck retraction status immediately, as an open notice forces a return regardless of compliance with every other provision including figure adjustments. Manuscript length requires at least twenty-two pages, where exactly that page count satisfies the requirement. Format demands either the official template or documentation evidencing three years of revision history, though submissions to Track D are exempt from this specific rule provided they carry exactly two endorsements rather than one; this exemption applies only to format and does not lift other constraints. Regarding venue history, a Tier-1 presentation renders a manuscript ineligible unless it occurred more than eighteen months prior to the deadline, with exactly that duration failing qualification. Prior round acceptances similarly bar submissions if fewer than five years have elapsed since that round, though exactly five years permits handling. Paired submissions must consist of exactly two manuscripts; both independently require length and format compliance, yet only one needs venue clearance. Figure counts range from eight to forty-five inclusive for standard entries, while pairs allow up to seventy figures with the same minimum threshold. A deficiency below the minimum results in a padded verdict rather than return, whereas exceeding the maximum mandates an immediate return. These figure rules operate independently of retraction notices which always supersede final disposition.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":3545311931,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:46:44.079733+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:46:48.323948Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"A\\\"}\",\"thinking\":\"We need to decide if passage is connected prose (A) or a list (B). The passage: long complex sentences with many clauses, but are they separate items? It seems like a dense paragraph with many conditions, but they are sentences separated by periods? Actually the passage is one paragraph with multiple sentences. The description of list: separate items stated one after another, with no wording that relates them to each other, whether or not the items are full sentences. Here the items are related, using connective words, conditions, etc. So it's connected prose. Therefore answer \\\"A\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4236433042,\"load_duration\":2107250,\"prompt_eval_count\":399,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":287472000,\"eval_count\":134,\"eval_duration\":3862214000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ2OjQ4LjMyMzk0OFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQVwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBkZWNpZGUgaWYgcGFzc2FnZSBpcyBjb25uZWN0ZWQgcHJvc2UgKEEpIG9yIGEgbGlzdCAoQikuIFRoZSBwYXNzYWdlOiBsb25nIGNvbXBsZXggc2VudGVuY2VzIHdpdGggbWFueSBjbGF1c2VzLCBidXQgYXJlIHRoZXkgc2VwYXJhdGUgaXRlbXM/IEl0IHNlZW1zIGxpa2UgYSBkZW5zZSBwYXJhZ3JhcGggd2l0aCBtYW55IGNvbmRpdGlvbnMsIGJ1dCB0aGV5IGFyZSBzZW50ZW5jZXMgc2VwYXJhdGVkIGJ5IHBlcmlvZHM/IEFjdHVhbGx5IHRoZSBwYXNzYWdlIGlzIG9uZSBwYXJhZ3JhcGggd2l0aCBtdWx0aXBsZSBzZW50ZW5jZXMuIFRoZSBkZXNjcmlwdGlvbiBvZiBsaXN0OiBzZXBhcmF0ZSBpdGVtcyBzdGF0ZWQgb25lIGFmdGVyIGFub3RoZXIsIHdpdGggbm8gd29yZGluZyB0aGF0IHJlbGF0ZXMgdGhlbSB0byBlYWNoIG90aGVyLCB3aGV0aGVyIG9yIG5vdCB0aGUgaXRlbXMgYXJlIGZ1bGwgc2VudGVuY2VzLiBIZXJlIHRoZSBpdGVtcyBhcmUgcmVsYXRlZCwgdXNpbmcgY29ubmVjdGl2ZSB3b3JkcywgY29uZGl0aW9ucywgZXRjLiBTbyBpdCdzIGNvbm5lY3RlZCBwcm9zZS4gVGhlcmVmb3JlIGFuc3dlciBcIkFcIi4ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQyMzY0MzMwNDIsImxvYWRfZHVyYXRpb24iOjIxMDcyNTAsInByb21wdF9ldmFsX2NvdW50IjozOTksInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6MTQwLCJwcm9tcHRfZXZhbF9kdXJhdGlvbiI6Mjg3NDcyMDAwLCJldmFsX2NvdW50IjoxMzQsImV2YWxfZHVyYXRpb24iOjM4NjIyMTQwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:46:48 GMT"
+      ],
+      [
+        "Content-Length",
+        "951"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 42,
+  "state": "complete"
+}

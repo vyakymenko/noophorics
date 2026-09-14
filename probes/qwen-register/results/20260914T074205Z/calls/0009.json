@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:43:37.210781+00:00",
+  "item_id": "source-B-07",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nBegin by confirming the deadline applies strictly as of 1 March 2026 for all evaluations. Length must reach exactly twenty-two pages to satisfy R1; anything less fails immediately. Regarding format, either the official template suffices or documented revision history spanning at least three years works, though Track D submissions bypass this requirement entirely by needing exactly two endorsements instead of one. Crucially, Track D exemption applies solely to R2, leaving other constraints intact.\\n\\nVenue restrictions hinge on precise timing: presentations exceeding eighteen months prior qualify, whereas exactly eighteen months disqualifies a manuscript under R3. Similarly, prior round acceptances block handling if fewer than five years have passed, with the fifth anniversary permitting resubmission. Note that withdrawals reset the venue clock to the withdrawal date for R3 calculations but do not constitute acceptance for R4 purposes.\\n\\nPaired submissions require precisely two manuscripts; three is impermissible. Both must independently meet length and format rules, yet only one needs to satisfy the venue overlap condition. Figure counts range from eight to forty-five inclusive, extending to seventy for pairs. If figures fall below the minimum without other failures, the verdict becomes PADDED rather than returned. Conversely, exceeding any maximum triggers an immediate RETURN. Finally, open retraction notices override all other provisions, ensuring such manuscripts are never handled regardless of figure adjustments or length compliance.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":857216071,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:43:30.728815+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:43:37.209527Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"A\\\"}\",\"thinking\":\"We need classify passage as either CONNECTED PROSE (A) or A LIST (B). Connected prose: complete sentences that follow from one another, relationships spelled out in words. A list: separate items stated one after another, with no wording that relates them, whether or not items are full sentences.\\n\\nWe examine passage: It's a dense paragraph with many sentences, but they are connected with logical relationships: \\\"Begin by confirming...\\\", \\\"Length must reach...\\\", \\\"Regarding format...\\\", \\\"Crucially...\\\", \\\"Venue restrictions hinge...\\\", \\\"Similarly...\\\", \\\"Note that...\\\", \\\"Paired submissions require...\\\", \\\"Both must independently meet...\\\", \\\"Figure counts range...\\\", \\\"If figures fall below...\\\", \\\"Conversely...\\\", \\\"Finally...\\\". The sentences are linked with conjunctions, referencing previous items. This seems connected prose, not a simple list. So answer \\\"A\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":6465336916,\"load_duration\":4332625,\"prompt_eval_count\":429,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":815931000,\"eval_count\":187,\"eval_duration\":5575435000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQzOjM3LjIwOTUyN1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQVwifSIsInRoaW5raW5nIjoiV2UgbmVlZCBjbGFzc2lmeSBwYXNzYWdlIGFzIGVpdGhlciBDT05ORUNURUQgUFJPU0UgKEEpIG9yIEEgTElTVCAoQikuIENvbm5lY3RlZCBwcm9zZTogY29tcGxldGUgc2VudGVuY2VzIHRoYXQgZm9sbG93IGZyb20gb25lIGFub3RoZXIsIHJlbGF0aW9uc2hpcHMgc3BlbGxlZCBvdXQgaW4gd29yZHMuIEEgbGlzdDogc2VwYXJhdGUgaXRlbXMgc3RhdGVkIG9uZSBhZnRlciBhbm90aGVyLCB3aXRoIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0sIHdoZXRoZXIgb3Igbm90IGl0ZW1zIGFyZSBmdWxsIHNlbnRlbmNlcy5cblxuV2UgZXhhbWluZSBwYXNzYWdlOiBJdCdzIGEgZGVuc2UgcGFyYWdyYXBoIHdpdGggbWFueSBzZW50ZW5jZXMsIGJ1dCB0aGV5IGFyZSBjb25uZWN0ZWQgd2l0aCBsb2dpY2FsIHJlbGF0aW9uc2hpcHM6IFwiQmVnaW4gYnkgY29uZmlybWluZy4uLlwiLCBcIkxlbmd0aCBtdXN0IHJlYWNoLi4uXCIsIFwiUmVnYXJkaW5nIGZvcm1hdC4uLlwiLCBcIkNydWNpYWxseS4uLlwiLCBcIlZlbnVlIHJlc3RyaWN0aW9ucyBoaW5nZS4uLlwiLCBcIlNpbWlsYXJseS4uLlwiLCBcIk5vdGUgdGhhdC4uLlwiLCBcIlBhaXJlZCBzdWJtaXNzaW9ucyByZXF1aXJlLi4uXCIsIFwiQm90aCBtdXN0IGluZGVwZW5kZW50bHkgbWVldC4uLlwiLCBcIkZpZ3VyZSBjb3VudHMgcmFuZ2UuLi5cIiwgXCJJZiBmaWd1cmVzIGZhbGwgYmVsb3cuLi5cIiwgXCJDb252ZXJzZWx5Li4uXCIsIFwiRmluYWxseS4uLlwiLiBUaGUgc2VudGVuY2VzIGFyZSBsaW5rZWQgd2l0aCBjb25qdW5jdGlvbnMsIHJlZmVyZW5jaW5nIHByZXZpb3VzIGl0ZW1zLiBUaGlzIHNlZW1zIGNvbm5lY3RlZCBwcm9zZSwgbm90IGEgc2ltcGxlIGxpc3QuIFNvIGFuc3dlciBcIkFcIi4ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjY0NjUzMzY5MTYsImxvYWRfZHVyYXRpb24iOjQzMzI2MjUsInByb21wdF9ldmFsX2NvdW50Ijo0MjksInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6MTQwLCJwcm9tcHRfZXZhbF9kdXJhdGlvbiI6ODE1OTMxMDAwLCJldmFsX2NvdW50IjoxODcsImV2YWxfZHVyYXRpb24iOjU1NzU0MzUwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:43:37 GMT"
+      ],
+      [
+        "Content-Length",
+        "1242"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 9,
+  "state": "complete"
+}

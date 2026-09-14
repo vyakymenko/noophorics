@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:30.725529+00:00",
+  "item_id": "source-B-11",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nBegin with length requirements, noting that exactly 22 pages satisfies the minimum. Format rules require either the official template or 3 years documented revision history, though Track D submissions bypass this requirement entirely by carrying exactly 2 endorsements rather than 1. Prior round acceptances block handling for fewer than 5 years, whereas withdrawals do not count as acceptances but reset the venue clock to the withdrawal date for R3 calculations. Venue presentations at Tier-1 levels prevent handling if they occurred within 18 months of the deadline, where exactly 18 months fails this threshold. Paired submissions mandate 2 manuscripts independently meeting length and format rules, with at least one satisfying the venue overlap restriction while carrying up to 70 figures against a standard maximum of 45. Figure counts below 8 trigger padding only if the submission passes all other applicable rules; any failure elsewhere results in a return rather than adjustment. Counts exceeding the applicable maximum necessitate an immediate return regardless of other factors, while open retraction notices override every other provision, ensuring no handled verdicts for such manuscripts regardless of figure counts or prior round status. Verdicts remain singular: submissions meeting all conditions receive the HANDLED verdict, while failures are RETURNED except for minor figure deficits which are PADDED.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":936754842,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:26.217989+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:30.724676Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4487323541,\"load_duration\":1810666,\"prompt_eval_count\":353,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3383653000,\"eval_count\":8,\"eval_duration\":1058516000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjMwLjcyNDY3NloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQ0ODczMjM1NDEsImxvYWRfZHVyYXRpb24iOjE4MTA2NjYsInByb21wdF9ldmFsX2NvdW50IjozNTMsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMzgzNjUzMDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjoxMDU4NTE2MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:30 GMT"
+      ],
+      [
+        "Content-Length",
+        "346"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 85,
+  "state": "complete"
+}

@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:48:34.779613+00:00",
+  "item_id": "source-D-11",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline 1 March 2026 governs all rule evaluations.\\nLength requires 22 pages exactly 22 satisfies rule.\\nFormat demands official template or revision history documented for 3 years.\\nTier-1 venue presentations handled only if occurred more than 18 months before deadline.\\nExactly 18 months fails R3 exclusion condition.\\nPrior round acceptances rejected if fewer than 5 years elapsed since round.\\n5 years exactly qualifies for handling under R4.\\nWithdrawals do not count as acceptances but reset R3 clock to withdrawal date.\\nPaired submissions permit exactly 2 manuscripts 3 or more invalid form.\\nBoth paired manuscripts must independently satisfy R1 and R2 conditions.\\nAt least one paired manuscript must satisfy R3 venue overlap restriction.\\nTrack D exempt from R2 requires exactly 2 endorsements one insufficient.\\nR6 exemption applies to R2 only not other rules in document.\\nOpen retraction notice prevents handling regardless of every other rule including R9.\\nStandard figure count between 8 and 45 inclusive mandatory for submission.\\nPaired submission figures range 8 to 70 inclusive minimum same as standard.\\nFewer than minimum figures triggers PADDED verdict padding up rather than returned.\\nMore than applicable maximum figures returns outright without exception.\\nSubmission failing R9 plus any other rule returns instead of pads.\\nVerdicts resolve HANDLED RETURNED or PADDED exclusively based on rule satisfaction.\\nWithdrawals reset venue clock regardless of acceptance status under prior rounds.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":1208260484,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:48:30.639535+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:48:34.779034Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"B\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4119434125,\"load_duration\":2069917,\"prompt_eval_count\":389,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3170313000,\"eval_count\":8,\"eval_duration\":905452000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ4OjM0Ljc3OTAzNFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkJcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQxMTk0MzQxMjUsImxvYWRfZHVyYXRpb24iOjIwNjk5MTcsInByb21wdF9ldmFsX2NvdW50IjozODksInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMTcwMzEzMDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5MDU0NTIwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:48:34 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 60,
+  "state": "complete"
+}

@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:45:05.476448+00:00",
+  "item_id": "source-B-04",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe deadline remains fixed at 1 March 2026 for all evaluations. Length must be at least twenty-two pages; exactly twenty-two satisfies R1. Format requires either the official template or documented revision history spanning three years minimum. For Track D, R2 is exempted entirely, replaced strictly by two endorsements; one endorsement fails this requirement. Single submissions require eight to forty-five figures; paired submissions allow up to seventy, retaining the minimum of eight. Fewer than eight figures triggers a PADDED verdict only if no other rule fails; exceeding the applicable maximum results in immediate RETURNED status regardless of other compliance.\\n\\nVenue restrictions operate differently depending on prior history. A Tier-1 presentation prevents handling unless occurring more than eighteen months before the deadline; exactly eighteen months disqualifies the manuscript. Withdrawals reset this clock to the withdrawal date rather than the actual presentation date, but withdrawals do not count as acceptances for the five-year rule governing prior rounds. Acceptance in a prior round blocks handling if fewer than five years have elapsed since that round concluded; exactly five years permits acceptance.\\n\\nPaired submissions require exactly two manuscripts, each independently satisfying length and format rules, with at least one meeting venue restrictions. An open retraction notice overrides all other provisions, ensuring non-handling even if figure adjustments would otherwise apply.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":2853737019,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:44:57.869562+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:45:05.474095Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to determine if passage is \\\"connected prose\\\" or \\\"a list\\\". Connected prose: complete sentences that follow from one another, where relationships between points are spelled out in words. A list: separate items stated one after another, with no wording that relates them to each other, whether or not items are full sentences.\\n\\nThe passage is composed of multiple sentences, each providing rules. They are separated by periods, but they seem to be distinct statements, not explicitly connected with transitional words like \\\"and\\\", \\\"therefore\\\", etc. However they are still sentences that collectively describe rules. Are they \\\"connected prose\\\"? The definition: relationships between points are spelled out in words. Does the passage have explicit relational words? It has some connectors like \\\"for all evaluations\\\", \\\"for Track D\\\", \\\"if no other rule fails\\\", \\\"unless occurring\\\", \\\"but withdrawals do not count\\\", etc. There are conjunctions and conditional language linking clauses within sentences, but between sentences, the connection is not explicit; they are separate rule statements.\\n\\nIt resembles a list of rules: each sentence is an item. There's no narrative flow, just enumerated conditions. That seems more like a list.\\n\\nThus answer B.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":7574855042,\"load_duration\":2326458,\"prompt_eval_count\":420,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":658363000,\"eval_count\":257,\"eval_duration\":6870398000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ1OjA1LjQ3NDA5NVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQlwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBkZXRlcm1pbmUgaWYgcGFzc2FnZSBpcyBcImNvbm5lY3RlZCBwcm9zZVwiIG9yIFwiYSBsaXN0XCIuIENvbm5lY3RlZCBwcm9zZTogY29tcGxldGUgc2VudGVuY2VzIHRoYXQgZm9sbG93IGZyb20gb25lIGFub3RoZXIsIHdoZXJlIHJlbGF0aW9uc2hpcHMgYmV0d2VlbiBwb2ludHMgYXJlIHNwZWxsZWQgb3V0IGluIHdvcmRzLiBBIGxpc3Q6IHNlcGFyYXRlIGl0ZW1zIHN0YXRlZCBvbmUgYWZ0ZXIgYW5vdGhlciwgd2l0aCBubyB3b3JkaW5nIHRoYXQgcmVsYXRlcyB0aGVtIHRvIGVhY2ggb3RoZXIsIHdoZXRoZXIgb3Igbm90IGl0ZW1zIGFyZSBmdWxsIHNlbnRlbmNlcy5cblxuVGhlIHBhc3NhZ2UgaXMgY29tcG9zZWQgb2YgbXVsdGlwbGUgc2VudGVuY2VzLCBlYWNoIHByb3ZpZGluZyBydWxlcy4gVGhleSBhcmUgc2VwYXJhdGVkIGJ5IHBlcmlvZHMsIGJ1dCB0aGV5IHNlZW0gdG8gYmUgZGlzdGluY3Qgc3RhdGVtZW50cywgbm90IGV4cGxpY2l0bHkgY29ubmVjdGVkIHdpdGggdHJhbnNpdGlvbmFsIHdvcmRzIGxpa2UgXCJhbmRcIiwgXCJ0aGVyZWZvcmVcIiwgZXRjLiBIb3dldmVyIHRoZXkgYXJlIHN0aWxsIHNlbnRlbmNlcyB0aGF0IGNvbGxlY3RpdmVseSBkZXNjcmliZSBydWxlcy4gQXJlIHRoZXkgXCJjb25uZWN0ZWQgcHJvc2VcIj8gVGhlIGRlZmluaXRpb246IHJlbGF0aW9uc2hpcHMgYmV0d2VlbiBwb2ludHMgYXJlIHNwZWxsZWQgb3V0IGluIHdvcmRzLiBEb2VzIHRoZSBwYXNzYWdlIGhhdmUgZXhwbGljaXQgcmVsYXRpb25hbCB3b3Jkcz8gSXQgaGFzIHNvbWUgY29ubmVjdG9ycyBsaWtlIFwiZm9yIGFsbCBldmFsdWF0aW9uc1wiLCBcImZvciBUcmFjayBEXCIsIFwiaWYgbm8gb3RoZXIgcnVsZSBmYWlsc1wiLCBcInVubGVzcyBvY2N1cnJpbmdcIiwgXCJidXQgd2l0aGRyYXdhbHMgZG8gbm90IGNvdW50XCIsIGV0Yy4gVGhlcmUgYXJlIGNvbmp1bmN0aW9ucyBhbmQgY29uZGl0aW9uYWwgbGFuZ3VhZ2UgbGlua2luZyBjbGF1c2VzIHdpdGhpbiBzZW50ZW5jZXMsIGJ1dCBiZXR3ZWVuIHNlbnRlbmNlcywgdGhlIGNvbm5lY3Rpb24gaXMgbm90IGV4cGxpY2l0OyB0aGV5IGFyZSBzZXBhcmF0ZSBydWxlIHN0YXRlbWVudHMuXG5cbkl0IHJlc2VtYmxlcyBhIGxpc3Qgb2YgcnVsZXM6IGVhY2ggc2VudGVuY2UgaXMgYW4gaXRlbS4gVGhlcmUncyBubyBuYXJyYXRpdmUgZmxvdywganVzdCBlbnVtZXJhdGVkIGNvbmRpdGlvbnMuIFRoYXQgc2VlbXMgbW9yZSBsaWtlIGEgbGlzdC5cblxuVGh1cyBhbnN3ZXIgQi4ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjc1NzQ4NTUwNDIsImxvYWRfZHVyYXRpb24iOjIzMjY0NTgsInByb21wdF9ldmFsX2NvdW50Ijo0MjAsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6MTQwLCJwcm9tcHRfZXZhbF9kdXJhdGlvbiI6NjU4MzYzMDAwLCJldmFsX2NvdW50IjoyNTcsImV2YWxfZHVyYXRpb24iOjY4NzAzOTgwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:45:05 GMT"
+      ],
+      [
+        "Content-Length",
+        "1632"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 23,
+  "state": "complete"
+}

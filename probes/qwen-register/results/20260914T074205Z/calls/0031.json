@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:45:46.937439+00:00",
+  "item_id": "source-B-01",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nA submission carrying an open retraction notice is not handled under any circumstance, overriding all other provisions including figure adjustments. Figure counts determine PADDED versus RETURNED verdicts strictly: fewer than eight figures trigger padding up to the minimum, while exceeding the applicable maximum results in return. For paired submissions, the maximum allowable figures rise to seventy, though the lower bound remains eight; both manuscripts must independently satisfy length and format rules regardless of pairing status. Time-based exclusions require precise calculation against the 1 March 2026 deadline. A Tier-1 venue presentation permits handling only if more than eighteen months prior; exactly eighteen months disqualifies the submission. Similarly, prior Meridian acceptance blocks new submissions unless five full years have elapsed since that round. Withdrawals do not constitute prior acceptances but reset venue presentation clocks to the withdrawal date instead of the original presentation date. Track D submissions bypass format requirements entirely, necessitating exactly two endorsements rather than one. Note that Track D exemptions apply solely to format rules, leaving all other constraints intact. Paired submissions require at least one manuscript satisfying venue timing rules, though both must satisfy length and format requirements individually. Finally, exact page counts matter: twenty-two pages satisfies the minimum requirement, as does any number exceeding it without bound.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":980588116,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:45:39.975527+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:45:46.935084Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"A\\\"}\",\"thinking\":\"We need to classify the passage as either \\\"CONNECTED PROSE\\\" (A) or \\\"A LIST\\\" (B). Connected prose: complete sentences that follow from one another, relationships spelled out. List: separate items stated one after another, with no wording that relates them, even if full sentences.\\n\\nThe passage: It's a paragraph with many sentences, but they are a series of statements each about rules. Does it have connecting words? It seems like a series of rules, each sentence is independent but there are some transitions: \\\"For paired submissions...\\\", \\\"Time-based exclusions require...\\\", \\\"A Tier-1 venue presentation permits handling only if...\\\", \\\"Similarly, prior Meridian acceptance blocks...\\\", \\\"Withdrawals do not constitute...\\\", \\\"Track D submissions bypass...\\\", \\\"Note that...\\\", \\\"Paired submissions require...\\\", \\\"Finally, exact page counts matter...\\\". This seems like connected prose, as sentences follow and sometimes refer back (e.g., \\\"Similarly\\\", \\\"Note that\\\", \\\"Finally\\\").\\n\\nThus classification A.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":6951985500,\"load_duration\":6092208,\"prompt_eval_count\":410,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":613577000,\"eval_count\":216,\"eval_duration\":6253681000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ1OjQ2LjkzNTA4NFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQVwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBjbGFzc2lmeSB0aGUgcGFzc2FnZSBhcyBlaXRoZXIgXCJDT05ORUNURUQgUFJPU0VcIiAoQSkgb3IgXCJBIExJU1RcIiAoQikuIENvbm5lY3RlZCBwcm9zZTogY29tcGxldGUgc2VudGVuY2VzIHRoYXQgZm9sbG93IGZyb20gb25lIGFub3RoZXIsIHJlbGF0aW9uc2hpcHMgc3BlbGxlZCBvdXQuIExpc3Q6IHNlcGFyYXRlIGl0ZW1zIHN0YXRlZCBvbmUgYWZ0ZXIgYW5vdGhlciwgd2l0aCBubyB3b3JkaW5nIHRoYXQgcmVsYXRlcyB0aGVtLCBldmVuIGlmIGZ1bGwgc2VudGVuY2VzLlxuXG5UaGUgcGFzc2FnZTogSXQncyBhIHBhcmFncmFwaCB3aXRoIG1hbnkgc2VudGVuY2VzLCBidXQgdGhleSBhcmUgYSBzZXJpZXMgb2Ygc3RhdGVtZW50cyBlYWNoIGFib3V0IHJ1bGVzLiBEb2VzIGl0IGhhdmUgY29ubmVjdGluZyB3b3Jkcz8gSXQgc2VlbXMgbGlrZSBhIHNlcmllcyBvZiBydWxlcywgZWFjaCBzZW50ZW5jZSBpcyBpbmRlcGVuZGVudCBidXQgdGhlcmUgYXJlIHNvbWUgdHJhbnNpdGlvbnM6IFwiRm9yIHBhaXJlZCBzdWJtaXNzaW9ucy4uLlwiLCBcIlRpbWUtYmFzZWQgZXhjbHVzaW9ucyByZXF1aXJlLi4uXCIsIFwiQSBUaWVyLTEgdmVudWUgcHJlc2VudGF0aW9uIHBlcm1pdHMgaGFuZGxpbmcgb25seSBpZi4uLlwiLCBcIlNpbWlsYXJseSwgcHJpb3IgTWVyaWRpYW4gYWNjZXB0YW5jZSBibG9ja3MuLi5cIiwgXCJXaXRoZHJhd2FscyBkbyBub3QgY29uc3RpdHV0ZS4uLlwiLCBcIlRyYWNrIEQgc3VibWlzc2lvbnMgYnlwYXNzLi4uXCIsIFwiTm90ZSB0aGF0Li4uXCIsIFwiUGFpcmVkIHN1Ym1pc3Npb25zIHJlcXVpcmUuLi5cIiwgXCJGaW5hbGx5LCBleGFjdCBwYWdlIGNvdW50cyBtYXR0ZXIuLi5cIi4gVGhpcyBzZWVtcyBsaWtlIGNvbm5lY3RlZCBwcm9zZSwgYXMgc2VudGVuY2VzIGZvbGxvdyBhbmQgc29tZXRpbWVzIHJlZmVyIGJhY2sgKGUuZy4sIFwiU2ltaWxhcmx5XCIsIFwiTm90ZSB0aGF0XCIsIFwiRmluYWxseVwiKS5cblxuVGh1cyBjbGFzc2lmaWNhdGlvbiBBLiJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6Njk1MTk4NTUwMCwibG9hZF9kdXJhdGlvbiI6NjA5MjIwOCwicHJvbXB0X2V2YWxfY291bnQiOjQxMCwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50IjoxNDAsInByb21wdF9ldmFsX2R1cmF0aW9uIjo2MTM1NzcwMDAsImV2YWxfY291bnQiOjIxNiwiZXZhbF9kdXJhdGlvbiI6NjI1MzY4MTAwMH0=",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:45:46 GMT"
+      ],
+      [
+        "Content-Length",
+        "1382"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 31,
+  "state": "complete"
+}

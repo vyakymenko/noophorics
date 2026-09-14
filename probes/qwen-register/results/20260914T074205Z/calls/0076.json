@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:49:46.357976+00:00",
+  "item_id": "source-D-00",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nMinimum page count twenty-two exactly satisfies length requirement.\\nFormat requires template OR three years documented revision history.\\nTier-one venue presentations blocked unless more than eighteen months prior deadline.\\nExactly eighteen months disqualifies submission.\\nPrior acceptance blocks handling if fewer than five years elapsed since prior round.\\nFive years elapsed exactly permitted.\\nPaired submissions limited to exactly two manuscripts.\\nBoth independently meet R1 and R2 requirements.\\nAt least one pair member satisfies venue timing.\\nTrack D exempt from format rule only.\\nRequires exactly two endorsements.\\nOne insufficient.\\nRetraction notice overrides all rules including figure adjustment provisions completely.\\nOpen retraction notice returns submission currently regardless of other rule compliance.\\nFigure counts standard eight minimum forty-five maximum inclusive.\\nPaired submissions allow up to seventy figures minimum eight applies.\\nUnderfigures below minimum pad to eight only if no other failure.\\nVerdict PADDED.\\nOverlimit figures return immediately.\\nFailures beyond figure count result in RETURNED verdict even if underfigure rule otherwise applies.\\nWithdrawal prior round does not count as acceptance for elapsed time calculation.\\nVenue clock resets to withdrawal date instead of presentation date for timing rules.\\nRule seven retraction overrides nine exceptions completely.\\nTrack D exemption applies strictly to format requirement no other rules waived.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":829351279,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:49:41.577304+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:49:46.354737Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\n\\n\\\"verdict\\\": \\\"B\\\"\\n\\n}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4775922458,\"load_duration\":1525375,\"prompt_eval_count\":345,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3248765000,\"eval_count\":11,\"eval_duration\":1498618000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ5OjQ2LjM1NDczN1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1xuXG5cInZlcmRpY3RcIjogXCJCXCJcblxufSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NDc3NTkyMjQ1OCwibG9hZF9kdXJhdGlvbiI6MTUyNTM3NSwicHJvbXB0X2V2YWxfY291bnQiOjM0NSwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4MiwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjMyNDg3NjUwMDAsImV2YWxfY291bnQiOjExLCJldmFsX2R1cmF0aW9uIjoxNDk4NjE4MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:49:46 GMT"
+      ],
+      [
+        "Content-Length",
+        "355"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 76,
+  "state": "complete"
+}

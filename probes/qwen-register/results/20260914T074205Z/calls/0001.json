@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:42:36.514384+00:00",
+  "item_id": "control-list-rain",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nWeather: rain.\\nPath: wet.\\nWalkers: slow pace.\\nGate arrival: afternoon.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":3607492582,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:42:34.024736+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:42:36.5138Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to decide if passage is connected prose (A) or a list (B). Passage:\\n\\nWeather: rain.\\nPath: wet.\\nWalkers: slow pace.\\nGate arrival: afternoon.\\n\\nThese are separate items, each with a label and a value, each on its own line, no connective words. That matches a list. So answer \\\"B\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":2485178708,\"load_duration\":4487917,\"prompt_eval_count\":177,\"prompt_eval_cached_count\":141,\"prompt_eval_duration\":259666999,\"eval_count\":90,\"eval_duration\":2181441000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQyOjM2LjUxMzhaIiwibWVzc2FnZSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IntcInZlcmRpY3RcIjpcIkJcIn0iLCJ0aGlua2luZyI6IldlIG5lZWQgdG8gZGVjaWRlIGlmIHBhc3NhZ2UgaXMgY29ubmVjdGVkIHByb3NlIChBKSBvciBhIGxpc3QgKEIpLiBQYXNzYWdlOlxuXG5XZWF0aGVyOiByYWluLlxuUGF0aDogd2V0LlxuV2Fsa2Vyczogc2xvdyBwYWNlLlxuR2F0ZSBhcnJpdmFsOiBhZnRlcm5vb24uXG5cblRoZXNlIGFyZSBzZXBhcmF0ZSBpdGVtcywgZWFjaCB3aXRoIGEgbGFiZWwgYW5kIGEgdmFsdWUsIGVhY2ggb24gaXRzIG93biBsaW5lLCBubyBjb25uZWN0aXZlIHdvcmRzLiBUaGF0IG1hdGNoZXMgYSBsaXN0LiBTbyBhbnN3ZXIgXCJCXCIuIn0sImRvbmUiOnRydWUsImRvbmVfcmVhc29uIjoic3RvcCIsInRvdGFsX2R1cmF0aW9uIjoyNDg1MTc4NzA4LCJsb2FkX2R1cmF0aW9uIjo0NDg3OTE3LCJwcm9tcHRfZXZhbF9jb3VudCI6MTc3LCJwcm9tcHRfZXZhbF9jYWNoZWRfY291bnQiOjE0MSwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjI1OTY2Njk5OSwiZXZhbF9jb3VudCI6OTAsImV2YWxfZHVyYXRpb24iOjIxODE0NDEwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:42:36 GMT"
+      ],
+      [
+        "Content-Length",
+        "651"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 1,
+  "state": "complete"
+}

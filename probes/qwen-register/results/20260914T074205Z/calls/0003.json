@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:42:41.599848+00:00",
+  "item_id": "control-list-library",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nLibrary hours: shortened.\\nBuilding work: repairs.\\nBorrower: Mira.\\nReturn box: outside.\\nReturn deadline: today.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":2772712455,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:42:39.861811+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:42:41.59913Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to determine whether passage is connected prose (A) or a list (B). The passage shows items each on separate lines with colon, no connecting words. That's a list. So answer B.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1705161542,\"load_duration\":1814709,\"prompt_eval_count\":183,\"prompt_eval_cached_count\":141,\"prompt_eval_duration\":260444000,\"eval_count\":58,\"eval_duration\":1405674000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQyOjQxLjU5OTEzWiIsIm1lc3NhZ2UiOnsicm9sZSI6ImFzc2lzdGFudCIsImNvbnRlbnQiOiJ7XCJ2ZXJkaWN0XCI6XCJCXCJ9IiwidGhpbmtpbmciOiJXZSBuZWVkIHRvIGRldGVybWluZSB3aGV0aGVyIHBhc3NhZ2UgaXMgY29ubmVjdGVkIHByb3NlIChBKSBvciBhIGxpc3QgKEIpLiBUaGUgcGFzc2FnZSBzaG93cyBpdGVtcyBlYWNoIG9uIHNlcGFyYXRlIGxpbmVzIHdpdGggY29sb24sIG5vIGNvbm5lY3Rpbmcgd29yZHMuIFRoYXQncyBhIGxpc3QuIFNvIGFuc3dlciBCLiJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6MTcwNTE2MTU0MiwibG9hZF9kdXJhdGlvbiI6MTgxNDcwOSwicHJvbXB0X2V2YWxfY291bnQiOjE4MywicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50IjoxNDEsInByb21wdF9ldmFsX2R1cmF0aW9uIjoyNjA0NDQwMDAsImV2YWxfY291bnQiOjU4LCJldmFsX2R1cmF0aW9uIjoxNDA1Njc0MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:42:41 GMT"
+      ],
+      [
+        "Content-Length",
+        "541"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 3,
+  "state": "complete"
+}

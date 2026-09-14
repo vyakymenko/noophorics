@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:54.652737+00:00",
+  "item_id": "source-C-04",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline 1 March 2026. Evaluated deadline.\\nR1 Length manuscript must be at least 22 pages. Exactly 22 pages satisfies rule.\\nR2 Format manuscript must use official template or documented revision history at least 3 years.\\nR3 Venue overlap manuscript presented at Tier-1 venue not handled unless presentation more than 18 months before deadline. Exactly 18 months disqualifies.\\nR4 Prior rounds prior round acceptance not handled if fewer than 5 years elapsed. Exactly 5 years OK.\\nR5 Paired submissions permitted for exactly 2 manuscripts 3 or more not permitted form. Both satisfy R1 R2. At least one satisfies R3.\\nR6 Track D exempt from R2. Require exactly 2 endorsements. 1 insufficient. Exempts R2 only.\\nR7 Retraction open retraction notice not handled. Overrides all rules including R9.\\nR8 Figures figure count 8 to 45 inclusive. Paired max 70 min 8.\\nR9 Figure adjustment Fails R8 below minimum padded to min. Verdict PADDED. Exceeding maximum returned outright.\\nVerdicts HANDLED satisfies all applicable rules. RETURNED fails at least one applicable rule. PADDED R9 case <min figures, padded up not returned. PADDED fails other rule returns RETURNED.\\nR10 Withdrawals prior round withdrawal not acceptance R4. Resets R3 clock treated as withdrawal date.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":3298467489,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:49.404356+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:54.650411Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{ \\\"verdict\\\": \\\"B\\\" }\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":5243485125,\"load_duration\":3821750,\"prompt_eval_count\":391,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3621479000,\"eval_count\":10,\"eval_duration\":1522399000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjU0LjY1MDQxMVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50IjoieyBcInZlcmRpY3RcIjogXCJCXCIgfSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NTI0MzQ4NTEyNSwibG9hZF9kdXJhdGlvbiI6MzgyMTc1MCwicHJvbXB0X2V2YWxfY291bnQiOjM5MSwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4MiwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjM2MjE0NzkwMDAsImV2YWxfY291bnQiOjEwLCJldmFsX2R1cmF0aW9uIjoxNTIyMzk5MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:54 GMT"
+      ],
+      [
+        "Content-Length",
+        "349"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 90,
+  "state": "complete"
+}

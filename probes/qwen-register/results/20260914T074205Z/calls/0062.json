@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:48:43.152273+00:00",
+  "item_id": "source-A-08",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe Meridian Review submission deadline is 1 March 2026, evaluated as of that date. A manuscript must be at least 22 pages long, where exactly 22 satisfies the rule. Format requires either the official template or documented revision history spanning 3 years minimum, though Track D submissions require exactly 2 endorsements instead and remain exempt from format rules only. Tier-1 venue presentations prevent handling unless occurring more than 18 months prior to the deadline, noting that exactly 18 months does not qualify. Prior round acceptances block handling if fewer than 5 years elapsed since then, whereas exactly 5 years remains acceptable. Paired submissions consist of exactly 2 manuscripts; both must independently satisfy length and format requirements, but only one needs to satisfy venue timing rules. Track D exemption applies strictly against R2. Any open retraction notice stops handling regardless of every other rule in this document, including R9. Figure counts must range between 8 and 45 inclusive for singles, while paired submissions permit up to 70 figures maintaining the minimum 8 count. Submissions failing only by carrying fewer than the minimum receive PADDED verdicts rather than return; exceeding the maximum triggers return immediately. A withdrawal in a prior round does not count as acceptance but resets the venue clock to the withdrawal date. Final verdicts resolve to HANDLED, RETURNED, or PADDED based on these strict conditions.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":2238374610,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:48:38.926056+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:48:43.150323Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4187142584,\"load_duration\":2154375,\"prompt_eval_count\":382,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3106479000,\"eval_count\":9,\"eval_duration\":1047553000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ4OjQzLjE1MDMyM1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQxODcxNDI1ODQsImxvYWRfZHVyYXRpb24iOjIxNTQzNzUsInByb21wdF9ldmFsX2NvdW50IjozODIsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMTA2NDc5MDAwLCJldmFsX2NvdW50Ijo5LCJldmFsX2R1cmF0aW9uIjoxMDQ3NTUzMDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:48:43 GMT"
+      ],
+      [
+        "Content-Length",
+        "346"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 62,
+  "state": "complete"
+}

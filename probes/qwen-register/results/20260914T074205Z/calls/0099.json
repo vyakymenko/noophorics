@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:51:39.549968+00:00",
+  "item_id": "source-A-07",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe submission deadline is 1 March 2026. Every rule evaluates as of that date. Manuscripts must reach at least 22 pages, satisfying the requirement with exactly 22 pages accepted. Format rules demand either the official template or 3 years of documented revision history, unless the work targets Track D, which exempts only R2 but requires exactly two endorsements instead. A paired submission permits exactly two manuscripts, which must independently satisfy length and format rules, though only one needs to clear venue overlap conditions regarding Tier-1 presentations made more than 18 months before the deadline; exactly 18 months does not qualify. Prior Meridian acceptances prevent handling if fewer than 5 years elapsed since that round. Open retractions block handling regardless of other rules. Figure counts must range between 8 and 45 inclusive, with paired submissions permitted up to 70 figures including the minimum. Submissions failing figure minimums receive a PADDED verdict after padding; exceeding maximums causes return. Withdrawals reset venue clocks but do not count as acceptances for prior round restrictions. HANDLED applies only when all applicable rules are satisfied. Any failure results in RETURNED, unless the submission would be PADDED but fails another rule, which forces RETURNED status instead.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":797055018,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:51:35.375301+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:51:39.548177Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4167416708,\"load_duration\":1808167,\"prompt_eval_count\":352,\"prompt_eval_cached_count\":93,\"prompt_eval_duration\":3112799000,\"eval_count\":8,\"eval_duration\":981166000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUxOjM5LjU0ODE3N1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQxNjc0MTY3MDgsImxvYWRfZHVyYXRpb24iOjE4MDgxNjcsInByb21wdF9ldmFsX2NvdW50IjozNTIsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6OTMsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMTEyNzk5MDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5ODExNjYwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:51:39 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 99,
+  "state": "complete"
+}

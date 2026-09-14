@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:49.396826+00:00",
+  "item_id": "source-B-00",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nEnsure manuscripts meet the minimum length of 22 pages, with exactly that count satisfying the requirement. Regarding format, either the official template suffices or documented revision history must span at least 3 years. Track D submissions are exempt from this specific requirement but must instead carry exactly 2 endorsements, as 1 is insufficient; note this exemption applies only to the format rule. For venue overlap, a Tier-1 presentation before 18 months prior disqualifies the manuscript, though precisely 18 months does not qualify for exemption. Similarly, prior round acceptance bars handling if fewer than 5 years have elapsed, whereas exactly 5 years remains acceptable. Paired submissions require exactly 2 manuscripts where both independently satisfy length and format rules, yet only one needs venue compliance. Withdrawals reset the venue clock to the withdrawal date rather than actual presentation, but do not count as acceptances for prior round restrictions. An open retraction notice prevents handling regardless of other rules, overriding even figure adjustment provisions. Figure counts must fall between 8 and 45 inclusive for single submissions; paired ones allow up to 70. Submissions with fewer figures face padding rather than return if no other rule fails, yet any concurrent failure results in a return verdict instead of padding. More figures than the maximum mandates an immediate return. Ensure these boundaries are respected strictly when assigning verdicts.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":3588906259,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:44.755600+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:49.396417Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4638537500,\"load_duration\":1579250,\"prompt_eval_count\":372,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3601932000,\"eval_count\":8,\"eval_duration\":1006183000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjQ5LjM5NjQxN1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQ2Mzg1Mzc1MDAsImxvYWRfZHVyYXRpb24iOjE1NzkyNTAsInByb21wdF9ldmFsX2NvdW50IjozNzIsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozNjAxOTMyMDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjoxMDA2MTgzMDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:49 GMT"
+      ],
+      [
+        "Content-Length",
+        "346"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 89,
+  "state": "complete"
+}

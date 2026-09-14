@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:48:13.286890+00:00",
+  "item_id": "control-list-library",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nLibrary hours: shortened.\\nBuilding work: repairs.\\nBorrower: Mira.\\nReturn box: outside.\\nReturn deadline: today.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":432642287,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:48:11.250238+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:48:13.286451Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"B\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":1988748042,\"load_duration\":1428250,\"prompt_eval_count\":128,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":1067551999,\"eval_count\":8,\"eval_duration\":917047000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ4OjEzLjI4NjQ1MVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkJcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjE5ODg3NDgwNDIsImxvYWRfZHVyYXRpb24iOjE0MjgyNTAsInByb21wdF9ldmFsX2NvdW50IjoxMjgsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjoxMDY3NTUxOTk5LCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5MTcwNDcwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:48:13 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 55,
+  "state": "complete"
+}

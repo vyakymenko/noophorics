@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:51:05.490986+00:00",
+  "item_id": "source-D-06",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nLength minimum 22 pages exactly satisfies R1.\\nFormat requires official template or three years documented revision history.\\nTier-1 venue presentation allowed only if more than 18 months before deadline.\\nExactly 18 months fails R3.\\nPrior round acceptance blocks handling fewer than 5 years elapsed since round.\\nExactly 5 years elapsed fine for prior rounds.\\nPaired submissions limited to exactly 2 manuscripts.\\nThree or more not permitted form.\\nBoth paired manuscripts need R1 and R2 compliance independently satisfied.\\nAt least one paired manuscript satisfies R3 requirement.\\nTrack D exempt from R2 only needs exactly 2 endorsements.\\nOne endorsement insufficient for Track D submission.\\nOpen retraction notice prevents handling regardless other rules including R9.\\nWithdrawal prior round does not count acceptance under R4.\\nWithdrawal resets R3 venue clock treated as withdrawal date rather actual date.\\nFigure count 8 to 45 inclusive.\\nPaired submission max figures 70 minimum 8.\\nFewer than minimum figures triggers PADDED verdict padded up rather returned outright.\\nMore than applicable maximum figures returns outright submission.\\nSubmission fails R9 only gets PADDED verdict assigned.\\nSubmission fails another rule also returns RETURNED regardless figure status.\\nR7 overrides all rules including R9 exceptions.\\nR6 exemption applies manuscript from R2 only not other rules.\\nDeadline 1 March 2026 every rule evaluated as of that date.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":99886284,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:51:00.116315+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:51:05.489613Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{ \\\"verdict\\\": \\\"B\\\" }\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":5359664000,\"load_duration\":2009667,\"prompt_eval_count\":376,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3551833000,\"eval_count\":11,\"eval_duration\":1729128000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUxOjA1LjQ4OTYxM1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50IjoieyBcInZlcmRpY3RcIjogXCJCXCIgfSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NTM1OTY2NDAwMCwibG9hZF9kdXJhdGlvbiI6MjAwOTY2NywicHJvbXB0X2V2YWxfY291bnQiOjM3NiwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4MiwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjM1NTE4MzMwMDAsImV2YWxfY291bnQiOjExLCJldmFsX2R1cmF0aW9uIjoxNzI5MTI4MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:51:05 GMT"
+      ],
+      [
+        "Content-Length",
+        "349"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 92,
+  "state": "complete"
+}

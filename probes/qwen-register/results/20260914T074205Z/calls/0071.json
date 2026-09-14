@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:49:23.933174+00:00",
+  "item_id": "source-C-02",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline 1 March 2026 rules apply\\nMin 22 pages required exactly 22 acceptable for length rule\\nFormat needs official template OR 3 years documented revision history\\nTier-1 venue over 18 months before deadline handled exactly 18 months excluded\\nPrior round under 5 years elapsed not handled exactly 5 years allowed\\nPaired submissions limited to exactly 2 manuscripts three or more forbidden\\nBoth paired manuscripts satisfy R1 and R2 independently required\\nOne paired manuscript satisfies R3 venue rule not both needed simultaneously\\nTrack D exempt format rule requires exactly 2 endorsements one insufficient\\nTrack D exemption applies to R2 only no other rules waived\\nOpen retraction notice results in not handled overrides all rules including figure adjustment verdicts\\nFigure count between 8 and 45 inclusive standard paired max 70 figures min 8 same\\nSubmissions under figure minimum padded up to minimum verdict PADDED only if no other failures exist\\nSubmissions exceeding figure maximum returned outright regardless of other rules or adjustments\\nWithdrawal prior round does not count as acceptance for prior round rule calculation\\nWithdrawal resets venue presentation clock treated as withdrawal date rather than actual presentation date\\nVerdicts HANDLED satisfied all applicable rules RETURNED fails any applicable rule PADDED R9 specific case\\nSubmission would be PADDED but fails another rule RETURNED instead\\nDomain replaced 2026-07-28 original Kestrel Fellowship eligibility unusable safety classifier trip prevented composition\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":2408211158,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:49:19.702686+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:49:23.932244Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"B\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4223862834,\"load_duration\":1484334,\"prompt_eval_count\":392,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3269131000,\"eval_count\":8,\"eval_duration\":919457000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ5OjIzLjkzMjI0NFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkJcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQyMjM4NjI4MzQsImxvYWRfZHVyYXRpb24iOjE0ODQzMzQsInByb21wdF9ldmFsX2NvdW50IjozOTIsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMjY5MTMxMDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5MTk0NTcwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:49:23 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 71,
+  "state": "complete"
+}

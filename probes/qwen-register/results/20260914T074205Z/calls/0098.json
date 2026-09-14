@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:51:35.359708+00:00",
+  "item_id": "source-C-06",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline 1 March 2026 applies rules as of that date.\\nManuscript at least 22 pages. Exactly 22 satisfies R1.\\nFormat requires official template or documented revision history at least 3 years.\\nTier-1 venue presentation handled only if more than 18 months before deadline.\\nExactly 18 months presentation does not qualify for R3.\\nAccepted prior Meridian round not handled if fewer than 5 years elapsed.\\nExactly 5 years elapsed since prior round is fine for R4.\\nPaired submission permitted exactly 2 manuscripts. 3 or more not permitted.\\nBoth paired manuscripts must independently satisfy R1 and R2.\\nAt least one paired manuscript must satisfy R3 venue overlap rule.\\nTrack D exempt from R2 format requirement only.\\nTrack D requires exactly 2 endorsements.\\nOne endorsement insufficient for Track D.\\nOpen retraction notice prevents handling regardless all rules including R9.\\nFigure count between 8 and 45 figures inclusive.\\nPaired submission carry up to 70 figures minimum 8 figures.\\nSubmission failing R8 only by fewer than minimum gets verdict PADDED.\\nSubmission carrying more than applicable maximum figure count returned outright.\\nVerdicts HANDLED, RETURNED, or PADDED exactly one per submission.\\nWithdrawal prior round does not count acceptance under R4.\\nWithdrawal resets R3 venue clock to withdrawal date rather presentation date.\\nSubmission failing other rule plus R8 min figure failure gets verdict RETURNED.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":2158676256,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:51:30.240657+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:51:35.357547Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\n\\n\\\"verdict\\\": \\\"B\\\"\\n\\n}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":5112805375,\"load_duration\":1728000,\"prompt_eval_count\":389,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3462866000,\"eval_count\":11,\"eval_duration\":1605370000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUxOjM1LjM1NzU0N1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1xuXG5cInZlcmRpY3RcIjogXCJCXCJcblxufSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NTExMjgwNTM3NSwibG9hZF9kdXJhdGlvbiI6MTcyODAwMCwicHJvbXB0X2V2YWxfY291bnQiOjM4OSwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4MiwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjM0NjI4NjYwMDAsImV2YWxfY291bnQiOjExLCJldmFsX2R1cmF0aW9uIjoxNjA1MzcwMDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:51:35 GMT"
+      ],
+      [
+        "Content-Length",
+        "355"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 98,
+  "state": "complete"
+}

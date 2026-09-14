@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:44:57.842884+00:00",
+  "item_id": "source-B-09",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nEvery decision relies on the submission date falling by the 1 March 2026 deadline, as all rules evaluate as of that day. A manuscript requires a minimum of 22 pages; exactly 22 satisfies this condition immediately. Track D submissions bypass R2 entirely but demand exactly 2 endorsements, where 1 proves insufficient and no other exemption applies there. Crucially, any open retraction notice blocks handling completely, overriding every provision including figure adjustments regardless of other compliance. Regarding time limits, Tier-1 venue presentations must occur strictly more than 18 months prior to the deadline; an exact match disqualifies the submission. Similarly, prior round acceptances require 5 full years elapsed since that round, with exactly 5 permitted but fewer prohibited.\\n\\nPaired submissions permit exactly 2 manuscripts maximum. Both independently satisfy length and format rules, yet only one needs meeting the venue timing requirement. Figure counts range from 8 minimum to 45 maximum generally; paired sets extend the upper limit to 70 while maintaining the same floor. Any submission below the minimum receives a padded verdict rather than return unless another rule fails simultaneously, in which case it returns outright. Withdrawals do not count as acceptances for prior rounds but reset venue clocks to the withdrawal date instead of the actual presentation date. Ensure figures exceeding maximums result in return regardless of padding eligibility. Never treat a retraction as a valid figure adjustment scenario.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":713204884,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:44:51.096980+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:44:57.837838Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\n  \\\"verdict\\\": \\\"A\\\"\\n}\",\"thinking\":\"We need to determine whether passage is \\\"CONNECTED PROSE\\\" (complete sentences that follow from one another, relationships spelled out) or \\\"A LIST\\\" (separate items stated one after another, with no wording that relates them, whether or not the items are full sentences).\\n\\nWe need to see structure. The passage is several sentences, but they are somewhat independent statements about rules. Are they connected with linking words? The passage uses transitions like \\\"Similarly,\\\" \\\"Regarding time limits,\\\" \\\"Crucially,\\\" etc. It seems to be a series of statements but with some connective words. However the definition of list: separate items stated one after another, with no wording that relates them to each other. In this passage, there is some relational language (e.g., \\\"Crucially,\\\" \\\"Similarly,\\\" \\\"Regarding time limits,\\\" \\\"Both independently satisfy... yet only one needs...\\\"). That suggests connected prose. The passage is not just bullet list style; it's paragraph with sentences that refer to each other.\\n\\nThus answer A.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":6738117916,\"load_duration\":2981708,\"prompt_eval_count\":440,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":676623000,\"eval_count\":226,\"eval_duration\":6016102000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ0OjU3LjgzNzgzOFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1xuICBcInZlcmRpY3RcIjogXCJBXCJcbn0iLCJ0aGlua2luZyI6IldlIG5lZWQgdG8gZGV0ZXJtaW5lIHdoZXRoZXIgcGFzc2FnZSBpcyBcIkNPTk5FQ1RFRCBQUk9TRVwiIChjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgcmVsYXRpb25zaGlwcyBzcGVsbGVkIG91dCkgb3IgXCJBIExJU1RcIiAoc2VwYXJhdGUgaXRlbXMgc3RhdGVkIG9uZSBhZnRlciBhbm90aGVyLCB3aXRoIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0sIHdoZXRoZXIgb3Igbm90IHRoZSBpdGVtcyBhcmUgZnVsbCBzZW50ZW5jZXMpLlxuXG5XZSBuZWVkIHRvIHNlZSBzdHJ1Y3R1cmUuIFRoZSBwYXNzYWdlIGlzIHNldmVyYWwgc2VudGVuY2VzLCBidXQgdGhleSBhcmUgc29tZXdoYXQgaW5kZXBlbmRlbnQgc3RhdGVtZW50cyBhYm91dCBydWxlcy4gQXJlIHRoZXkgY29ubmVjdGVkIHdpdGggbGlua2luZyB3b3Jkcz8gVGhlIHBhc3NhZ2UgdXNlcyB0cmFuc2l0aW9ucyBsaWtlIFwiU2ltaWxhcmx5LFwiIFwiUmVnYXJkaW5nIHRpbWUgbGltaXRzLFwiIFwiQ3J1Y2lhbGx5LFwiIGV0Yy4gSXQgc2VlbXMgdG8gYmUgYSBzZXJpZXMgb2Ygc3RhdGVtZW50cyBidXQgd2l0aCBzb21lIGNvbm5lY3RpdmUgd29yZHMuIEhvd2V2ZXIgdGhlIGRlZmluaXRpb24gb2YgbGlzdDogc2VwYXJhdGUgaXRlbXMgc3RhdGVkIG9uZSBhZnRlciBhbm90aGVyLCB3aXRoIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0gdG8gZWFjaCBvdGhlci4gSW4gdGhpcyBwYXNzYWdlLCB0aGVyZSBpcyBzb21lIHJlbGF0aW9uYWwgbGFuZ3VhZ2UgKGUuZy4sIFwiQ3J1Y2lhbGx5LFwiIFwiU2ltaWxhcmx5LFwiIFwiUmVnYXJkaW5nIHRpbWUgbGltaXRzLFwiIFwiQm90aCBpbmRlcGVuZGVudGx5IHNhdGlzZnkuLi4geWV0IG9ubHkgb25lIG5lZWRzLi4uXCIpLiBUaGF0IHN1Z2dlc3RzIGNvbm5lY3RlZCBwcm9zZS4gVGhlIHBhc3NhZ2UgaXMgbm90IGp1c3QgYnVsbGV0IGxpc3Qgc3R5bGU7IGl0J3MgcGFyYWdyYXBoIHdpdGggc2VudGVuY2VzIHRoYXQgcmVmZXIgdG8gZWFjaCBvdGhlci5cblxuVGh1cyBhbnN3ZXIgQS4ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjY3MzgxMTc5MTYsImxvYWRfZHVyYXRpb24iOjI5ODE3MDgsInByb21wdF9ldmFsX2NvdW50Ijo0NDAsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6MTQwLCJwcm9tcHRfZXZhbF9kdXJhdGlvbiI6Njc2NjIzMDAwLCJldmFsX2NvdW50IjoyMjYsImV2YWxfZHVyYXRpb24iOjYwMTYxMDIwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:44:57 GMT"
+      ],
+      [
+        "Content-Length",
+        "1410"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 22,
+  "state": "complete"
+}

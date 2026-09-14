@@ -1,0 +1,2 @@
+# Process coordination only; all manifests, call records and summaries are kept.
+**/.lock

@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:46:30.826839+00:00",
+  "item_id": "source-C-04",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline 1 March 2026. Evaluated deadline.\\nR1 Length manuscript must be at least 22 pages. Exactly 22 pages satisfies rule.\\nR2 Format manuscript must use official template or documented revision history at least 3 years.\\nR3 Venue overlap manuscript presented at Tier-1 venue not handled unless presentation more than 18 months before deadline. Exactly 18 months disqualifies.\\nR4 Prior rounds prior round acceptance not handled if fewer than 5 years elapsed. Exactly 5 years OK.\\nR5 Paired submissions permitted for exactly 2 manuscripts 3 or more not permitted form. Both satisfy R1 R2. At least one satisfies R3.\\nR6 Track D exempt from R2. Require exactly 2 endorsements. 1 insufficient. Exempts R2 only.\\nR7 Retraction open retraction notice not handled. Overrides all rules including R9.\\nR8 Figures figure count 8 to 45 inclusive. Paired max 70 min 8.\\nR9 Figure adjustment Fails R8 below minimum padded to min. Verdict PADDED. Exceeding maximum returned outright.\\nVerdicts HANDLED satisfies all applicable rules. RETURNED fails at least one applicable rule. PADDED R9 case <min figures, padded up not returned. PADDED fails other rule returns RETURNED.\\nR10 Withdrawals prior round withdrawal not acceptance R4. Resets R3 clock treated as withdrawal date.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":2707158558,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:46:26.335082+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:46:30.824238Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to determine if passage is CONNECTED PROSE (A) or a LIST (B). The passage seems to be a series of bullet-like statements, each starting with a rule identifier (R1, R2, etc.) and sentences that are short, sometimes fragments. They are separate items, not connected with linking words. Likely a list. The definition: A list = separate items stated one after another, with no wording that relates them to each other, whether or not the items are full sentences. Indeed each line is separate rule, no connective words. So answer B.\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4450612291,\"load_duration\":5265875,\"prompt_eval_count\":446,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":477971000,\"eval_count\":136,\"eval_duration\":3866416000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ2OjMwLjgyNDIzOFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQlwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBkZXRlcm1pbmUgaWYgcGFzc2FnZSBpcyBDT05ORUNURUQgUFJPU0UgKEEpIG9yIGEgTElTVCAoQikuIFRoZSBwYXNzYWdlIHNlZW1zIHRvIGJlIGEgc2VyaWVzIG9mIGJ1bGxldC1saWtlIHN0YXRlbWVudHMsIGVhY2ggc3RhcnRpbmcgd2l0aCBhIHJ1bGUgaWRlbnRpZmllciAoUjEsIFIyLCBldGMuKSBhbmQgc2VudGVuY2VzIHRoYXQgYXJlIHNob3J0LCBzb21ldGltZXMgZnJhZ21lbnRzLiBUaGV5IGFyZSBzZXBhcmF0ZSBpdGVtcywgbm90IGNvbm5lY3RlZCB3aXRoIGxpbmtpbmcgd29yZHMuIExpa2VseSBhIGxpc3QuIFRoZSBkZWZpbml0aW9uOiBBIGxpc3QgPSBzZXBhcmF0ZSBpdGVtcyBzdGF0ZWQgb25lIGFmdGVyIGFub3RoZXIsIHdpdGggbm8gd29yZGluZyB0aGF0IHJlbGF0ZXMgdGhlbSB0byBlYWNoIG90aGVyLCB3aGV0aGVyIG9yIG5vdCB0aGUgaXRlbXMgYXJlIGZ1bGwgc2VudGVuY2VzLiBJbmRlZWQgZWFjaCBsaW5lIGlzIHNlcGFyYXRlIHJ1bGUsIG5vIGNvbm5lY3RpdmUgd29yZHMuIFNvIGFuc3dlciBCLiJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NDQ1MDYxMjI5MSwibG9hZF9kdXJhdGlvbiI6NTI2NTg3NSwicHJvbXB0X2V2YWxfY291bnQiOjQ0NiwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50IjoxNDAsInByb21wdF9ldmFsX2R1cmF0aW9uIjo0Nzc5NzEwMDAsImV2YWxfY291bnQiOjEzNiwiZXZhbF9kdXJhdGlvbiI6Mzg2NjQxNjAwMH0=",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:46:30 GMT"
+      ],
+      [
+        "Content-Length",
+        "896"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 38,
+  "state": "complete"
+}

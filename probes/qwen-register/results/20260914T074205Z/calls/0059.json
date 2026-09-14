@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:48:30.599041+00:00",
+  "item_id": "source-C-09",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nMeridian Review Submission Handling Rules 2026 round\\nDomain replaced 2026 July 28 Kestrel Fellowship eligibility unusable tripped classifier\\nSource given sender CEILING receiver only not treatment receivers\\nDeadline 1 March 2026 every rule evaluated as of that date\\n\\nR1 Length >= 22 pages exactly 22 satisfies\\nR2 Format official template OR >= 3 years documented revision history\\nR3 Tier-1 venue presentation handled ONLY if > 18 months before deadline exactly 18 months does not qualify\\nR4 Prior round acceptance NOT handled if < 5 years elapsed exactly 5 years fine\\nR5 Paired submissions permitted exactly 2 manuscripts >= 3 not permitted R1 and R2 both satisfy R3 one must satisfy\\nR6 Track D exempt from R2 carry exactly 2 endorsements 1 endorsement insufficient R6 exempts R2 only no other rule\\nR7 Retraction open retraction notice NOT handled regardless of every other rule including R9\\nR8 Figures count between 8 and 45 inclusive paired submission up to 70 figures min 8\\nR9 Figure adjustment fails R8 only by < min PADDED pad to min > max RETURNED outright\\nR10 Withdrawals prior withdrawal NOT acceptance under R4 withdrawal resets R3 venue clock presentation treated as withdrawal date not actual date\\n\\nVerdicts HANDLED satisfies all applicable rules RETURNED fails >= 1 applicable rule PADDED R9 case only submission handles carries < min figures padded not returned submission PADDED fails another rule RETURNED\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":3188951913,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:48:26.435335+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:48:30.563844Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"B\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4077355000,\"load_duration\":4762625,\"prompt_eval_count\":412,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3137517000,\"eval_count\":8,\"eval_duration\":900598000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ4OjMwLjU2Mzg0NFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkJcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQwNzczNTUwMDAsImxvYWRfZHVyYXRpb24iOjQ3NjI2MjUsInByb21wdF9ldmFsX2NvdW50Ijo0MTIsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMTM3NTE3MDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5MDA1OTgwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:48:30 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 59,
+  "state": "complete"
+}

@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:44.750994+00:00",
+  "item_id": "source-D-09",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline fixed 1 March 2026.\\nPage count minimum 22 pages exact inclusion acceptable.\\nFormat requires official template OR three years documented revision history.\\nVenue presentation more than 18 months prior to deadline qualifies; equal duration disqualifies handling.\\nPrior acceptance blocks handling fewer than five years elapsed since round; exactly five years permitted status.\\nWithdrawal does not constitute acceptance for R4 purposes calculation.\\nPaired submissions limited to two manuscripts maximum form.\\nBoth paired items must satisfy length and format rules independently before pairing considered.\\nOnly one pairing member requires venue compliance satisfaction regarding prior presentation.\\nTrack D exempts from format requirement only without affecting other rules.\\nTrack D mandates exactly two endorsements single endorsement insufficient status.\\nFigure minimum eight inclusive count required.\\nFigure maximum forty-five general seventy paired submissions allowed.\\nFewer than minimum triggers padding verdict solely if no other failure exists simultaneously.\\nExcess figures result in return regardless of other conditions met.\\nOpen retraction notice prohibits handling under any circumstances including figure adjustment provisions overriding R9.\\nPadding overrides return only for figure count deficiency alone without separate rule violation.\\nR9 applies only to figure minimum violation not maximum exceeding limits.\\nRetraction rule supersedes all others without exception priority.\\nVerdicts resolve HANDLED RETURNED PADDED exclusively.\\nReturn occurs if fail applicable rule including retraction notice presence.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":4261516031,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:40.628968+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:44.750542Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"B\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4099349334,\"load_duration\":2591417,\"prompt_eval_count\":364,\"prompt_eval_cached_count\":83,\"prompt_eval_duration\":2973083000,\"eval_count\":8,\"eval_duration\":1028265000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjQ0Ljc1MDU0MloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkJcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQwOTkzNDkzMzQsImxvYWRfZHVyYXRpb24iOjI1OTE0MTcsInByb21wdF9ldmFsX2NvdW50IjozNjQsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODMsInByb21wdF9ldmFsX2R1cmF0aW9uIjoyOTczMDgzMDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjoxMDI4MjY1MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:44 GMT"
+      ],
+      [
+        "Content-Length",
+        "346"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 88,
+  "state": "complete"
+}

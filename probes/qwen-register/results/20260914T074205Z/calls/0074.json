@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:49:37.343891+00:00",
+  "item_id": "source-B-09",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nEvery decision relies on the submission date falling by the 1 March 2026 deadline, as all rules evaluate as of that day. A manuscript requires a minimum of 22 pages; exactly 22 satisfies this condition immediately. Track D submissions bypass R2 entirely but demand exactly 2 endorsements, where 1 proves insufficient and no other exemption applies there. Crucially, any open retraction notice blocks handling completely, overriding every provision including figure adjustments regardless of other compliance. Regarding time limits, Tier-1 venue presentations must occur strictly more than 18 months prior to the deadline; an exact match disqualifies the submission. Similarly, prior round acceptances require 5 full years elapsed since that round, with exactly 5 permitted but fewer prohibited.\\n\\nPaired submissions permit exactly 2 manuscripts maximum. Both independently satisfy length and format rules, yet only one needs meeting the venue timing requirement. Figure counts range from 8 minimum to 45 maximum generally; paired sets extend the upper limit to 70 while maintaining the same floor. Any submission below the minimum receives a padded verdict rather than return unless another rule fails simultaneously, in which case it returns outright. Withdrawals do not count as acceptances for prior rounds but reset venue clocks to the withdrawal date instead of the actual presentation date. Ensure figures exceeding maximums result in return regardless of padding eligibility. Never treat a retraction as a valid figure adjustment scenario.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":1307271433,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:49:33.132543+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:49:37.335117Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4196795209,\"load_duration\":1603959,\"prompt_eval_count\":383,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3243140000,\"eval_count\":8,\"eval_duration\":905838000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ5OjM3LjMzNTExN1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQxOTY3OTUyMDksImxvYWRfZHVyYXRpb24iOjE2MDM5NTksInByb21wdF9ldmFsX2NvdW50IjozODMsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMjQzMTQwMDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5MDU4MzgwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:49:37 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 74,
+  "state": "complete"
+}

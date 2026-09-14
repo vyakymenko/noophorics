@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:46:26.301293+00:00",
+  "item_id": "source-B-00",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nEnsure manuscripts meet the minimum length of 22 pages, with exactly that count satisfying the requirement. Regarding format, either the official template suffices or documented revision history must span at least 3 years. Track D submissions are exempt from this specific requirement but must instead carry exactly 2 endorsements, as 1 is insufficient; note this exemption applies only to the format rule. For venue overlap, a Tier-1 presentation before 18 months prior disqualifies the manuscript, though precisely 18 months does not qualify for exemption. Similarly, prior round acceptance bars handling if fewer than 5 years have elapsed, whereas exactly 5 years remains acceptable. Paired submissions require exactly 2 manuscripts where both independently satisfy length and format rules, yet only one needs venue compliance. Withdrawals reset the venue clock to the withdrawal date rather than actual presentation, but do not count as acceptances for prior round restrictions. An open retraction notice prevents handling regardless of other rules, overriding even figure adjustment provisions. Figure counts must fall between 8 and 45 inclusive for single submissions; paired ones allow up to 70. Submissions with fewer figures face padding rather than return if no other rule fails, yet any concurrent failure results in a return verdict instead of padding. More figures than the maximum mandates an immediate return. Ensure these boundaries are respected strictly when assigning verdicts.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":2906208690,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:46:17.475192+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:46:26.290778Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"A\\\"}\",\"thinking\":\"We need to classify passage as either \\\"CONNECTED PROSE\\\" (A) or \\\"A LIST\\\" (B). Connected prose: complete sentences that follow from one another, with relationships spelled out in words. A list: separate items stated one after another, with no wording that relates them, whether or not items are full sentences.\\n\\nWe need to see passage: It is a paragraph with many sentences, each stating a rule. Does it have relational words? It seems like a series of statements: \\\"Ensure manuscripts meet the minimum length... Regarding format, either... Track D submissions are exempt... For venue overlap, a Tier-1 presentation before 18 months prior disqualifies..., though precisely 18 months does not qualify for exemption. Similarly, prior round acceptance bars handling... Paired submissions require... Withdrawals reset... An open retraction notice prevents handling..., overriding even figure adjustment provisions. Figure counts must fall between... Submissions with fewer figures face padding rather than return if no other rule fails, yet any concurrent failure results in a return verdict instead of padding. More figures than the maximum mandates an immediate return. Ensure these boundaries are respected strictly when assigning verdicts.\\\"\\n\\nThese are sentences that are linked with transition words like \\\"Regarding\\\", \\\"Similarly\\\", \\\"yet\\\". They are connected prose, not a simple bullet list. So answer A.\\n\\nThus output \\\"A\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":8751599875,\"load_duration\":4595208,\"prompt_eval_count\":429,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":434154000,\"eval_count\":290,\"eval_duration\":8271367000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ2OjI2LjI5MDc3OFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQVwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBjbGFzc2lmeSBwYXNzYWdlIGFzIGVpdGhlciBcIkNPTk5FQ1RFRCBQUk9TRVwiIChBKSBvciBcIkEgTElTVFwiIChCKS4gQ29ubmVjdGVkIHByb3NlOiBjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgd2l0aCByZWxhdGlvbnNoaXBzIHNwZWxsZWQgb3V0IGluIHdvcmRzLiBBIGxpc3Q6IHNlcGFyYXRlIGl0ZW1zIHN0YXRlZCBvbmUgYWZ0ZXIgYW5vdGhlciwgd2l0aCBubyB3b3JkaW5nIHRoYXQgcmVsYXRlcyB0aGVtLCB3aGV0aGVyIG9yIG5vdCBpdGVtcyBhcmUgZnVsbCBzZW50ZW5jZXMuXG5cbldlIG5lZWQgdG8gc2VlIHBhc3NhZ2U6IEl0IGlzIGEgcGFyYWdyYXBoIHdpdGggbWFueSBzZW50ZW5jZXMsIGVhY2ggc3RhdGluZyBhIHJ1bGUuIERvZXMgaXQgaGF2ZSByZWxhdGlvbmFsIHdvcmRzPyBJdCBzZWVtcyBsaWtlIGEgc2VyaWVzIG9mIHN0YXRlbWVudHM6IFwiRW5zdXJlIG1hbnVzY3JpcHRzIG1lZXQgdGhlIG1pbmltdW0gbGVuZ3RoLi4uIFJlZ2FyZGluZyBmb3JtYXQsIGVpdGhlci4uLiBUcmFjayBEIHN1Ym1pc3Npb25zIGFyZSBleGVtcHQuLi4gRm9yIHZlbnVlIG92ZXJsYXAsIGEgVGllci0xIHByZXNlbnRhdGlvbiBiZWZvcmUgMTggbW9udGhzIHByaW9yIGRpc3F1YWxpZmllcy4uLiwgdGhvdWdoIHByZWNpc2VseSAxOCBtb250aHMgZG9lcyBub3QgcXVhbGlmeSBmb3IgZXhlbXB0aW9uLiBTaW1pbGFybHksIHByaW9yIHJvdW5kIGFjY2VwdGFuY2UgYmFycyBoYW5kbGluZy4uLiBQYWlyZWQgc3VibWlzc2lvbnMgcmVxdWlyZS4uLiBXaXRoZHJhd2FscyByZXNldC4uLiBBbiBvcGVuIHJldHJhY3Rpb24gbm90aWNlIHByZXZlbnRzIGhhbmRsaW5nLi4uLCBvdmVycmlkaW5nIGV2ZW4gZmlndXJlIGFkanVzdG1lbnQgcHJvdmlzaW9ucy4gRmlndXJlIGNvdW50cyBtdXN0IGZhbGwgYmV0d2Vlbi4uLiBTdWJtaXNzaW9ucyB3aXRoIGZld2VyIGZpZ3VyZXMgZmFjZSBwYWRkaW5nIHJhdGhlciB0aGFuIHJldHVybiBpZiBubyBvdGhlciBydWxlIGZhaWxzLCB5ZXQgYW55IGNvbmN1cnJlbnQgZmFpbHVyZSByZXN1bHRzIGluIGEgcmV0dXJuIHZlcmRpY3QgaW5zdGVhZCBvZiBwYWRkaW5nLiBNb3JlIGZpZ3VyZXMgdGhhbiB0aGUgbWF4aW11bSBtYW5kYXRlcyBhbiBpbW1lZGlhdGUgcmV0dXJuLiBFbnN1cmUgdGhlc2UgYm91bmRhcmllcyBhcmUgcmVzcGVjdGVkIHN0cmljdGx5IHdoZW4gYXNzaWduaW5nIHZlcmRpY3RzLlwiXG5cblRoZXNlIGFyZSBzZW50ZW5jZXMgdGhhdCBhcmUgbGlua2VkIHdpdGggdHJhbnNpdGlvbiB3b3JkcyBsaWtlIFwiUmVnYXJkaW5nXCIsIFwiU2ltaWxhcmx5XCIsIFwieWV0XCIuIFRoZXkgYXJlIGNvbm5lY3RlZCBwcm9zZSwgbm90IGEgc2ltcGxlIGJ1bGxldCBsaXN0LiBTbyBhbnN3ZXIgQS5cblxuVGh1cyBvdXRwdXQgXCJBXCIuIn0sImRvbmUiOnRydWUsImRvbmVfcmVhc29uIjoic3RvcCIsInRvdGFsX2R1cmF0aW9uIjo4NzUxNTk5ODc1LCJsb2FkX2R1cmF0aW9uIjo0NTk1MjA4LCJwcm9tcHRfZXZhbF9jb3VudCI6NDI5LCJwcm9tcHRfZXZhbF9jYWNoZWRfY291bnQiOjE0MCwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjQzNDE1NDAwMCwiZXZhbF9jb3VudCI6MjkwLCJldmFsX2R1cmF0aW9uIjo4MjcxMzY3MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:46:26 GMT"
+      ],
+      [
+        "Content-Length",
+        "1798"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 37,
+  "state": "complete"
+}

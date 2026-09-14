@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:42:39.848650+00:00",
+  "item_id": "control-prose-library",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe library closed early for repairs. As a result, Mira could not return her book there, so she used the return box outside instead. This allowed her to return it before the deadline.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":1353408265,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:42:36.519144+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:42:39.843856Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"A\\\"}\",\"thinking\":\"We need to classify passage as connected prose or a list. The passage: \\\"The library closed early for repairs. As a result, Mira could not return her book there, so she used the return box outside instead. This allowed her to return it before the deadline.\\\"\\n\\nThese are complete sentences that follow from one another, relationships spelled out (\\\"As a result\\\", \\\"so\\\", \\\"This allowed\\\"). So it's connected prose =\\u003e A.\\n\\nAnswer exactly one letter: \\\"A\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3322509208,\"load_duration\":1852458,\"prompt_eval_count\":196,\"prompt_eval_cached_count\":141,\"prompt_eval_duration\":305380000,\"eval_count\":111,\"eval_duration\":2979238000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQyOjM5Ljg0Mzg1NloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQVwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBjbGFzc2lmeSBwYXNzYWdlIGFzIGNvbm5lY3RlZCBwcm9zZSBvciBhIGxpc3QuIFRoZSBwYXNzYWdlOiBcIlRoZSBsaWJyYXJ5IGNsb3NlZCBlYXJseSBmb3IgcmVwYWlycy4gQXMgYSByZXN1bHQsIE1pcmEgY291bGQgbm90IHJldHVybiBoZXIgYm9vayB0aGVyZSwgc28gc2hlIHVzZWQgdGhlIHJldHVybiBib3ggb3V0c2lkZSBpbnN0ZWFkLiBUaGlzIGFsbG93ZWQgaGVyIHRvIHJldHVybiBpdCBiZWZvcmUgdGhlIGRlYWRsaW5lLlwiXG5cblRoZXNlIGFyZSBjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgcmVsYXRpb25zaGlwcyBzcGVsbGVkIG91dCAoXCJBcyBhIHJlc3VsdFwiLCBcInNvXCIsIFwiVGhpcyBhbGxvd2VkXCIpLiBTbyBpdCdzIGNvbm5lY3RlZCBwcm9zZSA9XHUwMDNlIEEuXG5cbkFuc3dlciBleGFjdGx5IG9uZSBsZXR0ZXI6IFwiQVwiLiJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6MzMyMjUwOTIwOCwibG9hZF9kdXJhdGlvbiI6MTg1MjQ1OCwicHJvbXB0X2V2YWxfY291bnQiOjE5NiwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50IjoxNDEsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMDUzODAwMDAsImV2YWxfY291bnQiOjExMSwiZXZhbF9kdXJhdGlvbiI6Mjk3OTIzODAwMH0=",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:42:39 GMT"
+      ],
+      [
+        "Content-Length",
+        "824"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 2,
+  "state": "complete"
+}

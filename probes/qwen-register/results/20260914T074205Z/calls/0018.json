@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:44:35.058585+00:00",
+  "item_id": "source-B-08",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nA manuscript must meet minimum length requirements of exactly 22 pages or more to pass R1. For format, either the official template applies or documented revision history spanning 3 years is required, unless Track D submission occurs where exactly 2 endorsements substitute the revision requirement instead. Note that Track D exemption applies only to this specific rule regarding revisions. Venue restrictions hinge on presentations occurring strictly more than 18 months before the deadline; exactly 18 months fails the condition completely. Prior acceptances bar submissions if 5 years have not yet elapsed since that round, though exactly 5 years remains acceptable. A withdrawal does not count as acceptance for prior rounds but resets the venue clock to the withdrawal date itself. Retracted manuscripts with open notices are never handled, overriding all other considerations including figure adjustments entirely. Paired submissions require precisely 2 manuscripts, both satisfying length and format independently, though only one needs to meet the venue restriction condition. Figure counts must fall between 8 and 45 inclusive for single entries, extending to 70 for pairs with the same lower bound applied. Submissions exceeding maximums return immediately, while those below minimums receive a padded verdict unless another rule fails, in which case they return outright. Track D exclusions do not extend beyond rule R2, preserving all other constraints for those manuscripts.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":1785109342,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:44:26.056559+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:44:35.056563Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to classify passage as CONNECTED PROSE (A) or A LIST (B). Connected prose: complete sentences that follow from one another, relationships spelled out in words. A list: separate items stated one after another, no wording relating them, even if full sentences.\\n\\nThe passage: It consists of many sentences separated by periods. They seem to be separate statements about rules. Are they linked with transitional words? They are somewhat independent but there are some connective words like \\\"Note that\\\", \\\"though\\\", \\\"but\\\". However each sentence seems like a separate rule, not a flowing narrative. But they are still sentences. The definition of list: separate items stated one after another, with no wording that relates them to each other. Does this passage have wording that relates them? There are some connectives: \\\"Note that Track D exemption applies only to this specific rule regarding revisions.\\\" That's a note linking to earlier. Also \\\"Prior acceptances bar submissions if 5 years have not yet elapsed since that round, though exactly 5 years remains acceptable.\\\" That's a contrast within sentence. But overall the passage is a series of rule statements; they don't form a cohesive argument; they are enumerated. Might be considered a list.\\n\\nConnected prose would have explicit relationships spelled out, e.g., \\\"First, ..., then ..., because ..., therefore ...\\\". This passage lacks such explicit ordering; each sentence is a rule. So likely B.\\n\\nThus answer \\\"B\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":8998029458,\"load_duration\":1960292,\"prompt_eval_count\":419,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":775480000,\"eval_count\":308,\"eval_duration\":8149216000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ0OjM1LjA1NjU2M1oiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQlwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBjbGFzc2lmeSBwYXNzYWdlIGFzIENPTk5FQ1RFRCBQUk9TRSAoQSkgb3IgQSBMSVNUIChCKS4gQ29ubmVjdGVkIHByb3NlOiBjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgcmVsYXRpb25zaGlwcyBzcGVsbGVkIG91dCBpbiB3b3Jkcy4gQSBsaXN0OiBzZXBhcmF0ZSBpdGVtcyBzdGF0ZWQgb25lIGFmdGVyIGFub3RoZXIsIG5vIHdvcmRpbmcgcmVsYXRpbmcgdGhlbSwgZXZlbiBpZiBmdWxsIHNlbnRlbmNlcy5cblxuVGhlIHBhc3NhZ2U6IEl0IGNvbnNpc3RzIG9mIG1hbnkgc2VudGVuY2VzIHNlcGFyYXRlZCBieSBwZXJpb2RzLiBUaGV5IHNlZW0gdG8gYmUgc2VwYXJhdGUgc3RhdGVtZW50cyBhYm91dCBydWxlcy4gQXJlIHRoZXkgbGlua2VkIHdpdGggdHJhbnNpdGlvbmFsIHdvcmRzPyBUaGV5IGFyZSBzb21ld2hhdCBpbmRlcGVuZGVudCBidXQgdGhlcmUgYXJlIHNvbWUgY29ubmVjdGl2ZSB3b3JkcyBsaWtlIFwiTm90ZSB0aGF0XCIsIFwidGhvdWdoXCIsIFwiYnV0XCIuIEhvd2V2ZXIgZWFjaCBzZW50ZW5jZSBzZWVtcyBsaWtlIGEgc2VwYXJhdGUgcnVsZSwgbm90IGEgZmxvd2luZyBuYXJyYXRpdmUuIEJ1dCB0aGV5IGFyZSBzdGlsbCBzZW50ZW5jZXMuIFRoZSBkZWZpbml0aW9uIG9mIGxpc3Q6IHNlcGFyYXRlIGl0ZW1zIHN0YXRlZCBvbmUgYWZ0ZXIgYW5vdGhlciwgd2l0aCBubyB3b3JkaW5nIHRoYXQgcmVsYXRlcyB0aGVtIHRvIGVhY2ggb3RoZXIuIERvZXMgdGhpcyBwYXNzYWdlIGhhdmUgd29yZGluZyB0aGF0IHJlbGF0ZXMgdGhlbT8gVGhlcmUgYXJlIHNvbWUgY29ubmVjdGl2ZXM6IFwiTm90ZSB0aGF0IFRyYWNrIEQgZXhlbXB0aW9uIGFwcGxpZXMgb25seSB0byB0aGlzIHNwZWNpZmljIHJ1bGUgcmVnYXJkaW5nIHJldmlzaW9ucy5cIiBUaGF0J3MgYSBub3RlIGxpbmtpbmcgdG8gZWFybGllci4gQWxzbyBcIlByaW9yIGFjY2VwdGFuY2VzIGJhciBzdWJtaXNzaW9ucyBpZiA1IHllYXJzIGhhdmUgbm90IHlldCBlbGFwc2VkIHNpbmNlIHRoYXQgcm91bmQsIHRob3VnaCBleGFjdGx5IDUgeWVhcnMgcmVtYWlucyBhY2NlcHRhYmxlLlwiIFRoYXQncyBhIGNvbnRyYXN0IHdpdGhpbiBzZW50ZW5jZS4gQnV0IG92ZXJhbGwgdGhlIHBhc3NhZ2UgaXMgYSBzZXJpZXMgb2YgcnVsZSBzdGF0ZW1lbnRzOyB0aGV5IGRvbid0IGZvcm0gYSBjb2hlc2l2ZSBhcmd1bWVudDsgdGhleSBhcmUgZW51bWVyYXRlZC4gTWlnaHQgYmUgY29uc2lkZXJlZCBhIGxpc3QuXG5cbkNvbm5lY3RlZCBwcm9zZSB3b3VsZCBoYXZlIGV4cGxpY2l0IHJlbGF0aW9uc2hpcHMgc3BlbGxlZCBvdXQsIGUuZy4sIFwiRmlyc3QsIC4uLiwgdGhlbiAuLi4sIGJlY2F1c2UgLi4uLCB0aGVyZWZvcmUgLi4uXCIuIFRoaXMgcGFzc2FnZSBsYWNrcyBzdWNoIGV4cGxpY2l0IG9yZGVyaW5nOyBlYWNoIHNlbnRlbmNlIGlzIGEgcnVsZS4gU28gbGlrZWx5IEIuXG5cblRodXMgYW5zd2VyIFwiQlwiLiJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6ODk5ODAyOTQ1OCwibG9hZF9kdXJhdGlvbiI6MTk2MDI5MiwicHJvbXB0X2V2YWxfY291bnQiOjQxOSwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50IjoxNDAsInByb21wdF9ldmFsX2R1cmF0aW9uIjo3NzU0ODAwMDAsImV2YWxfY291bnQiOjMwOCwiZXZhbF9kdXJhdGlvbiI6ODE0OTIxNjAwMH0=",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:44:35 GMT"
+      ],
+      [
+        "Content-Length",
+        "1853"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 18,
+  "state": "complete"
+}

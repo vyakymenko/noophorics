@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:16.029734+00:00",
+  "item_id": "source-A-06",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe submission deadline is 1 March 2026. All rules apply as of that date. Manuscripts must be at least 22 pages, though exactly 22 satisfies this requirement. Format requires either the official template or at least three years of documented revision history. Track D manuscripts are exempt from format rules only, and from no other rule, requiring exactly two endorsements instead; one is insufficient. Paired submissions allow exactly two manuscripts, both needing length and format compliance, with at least one meeting venue timing requirements. Venue presentations at Tier-1 venues only qualify if more than 18 months prior to the deadline; exactly 18 months does not count. Withdrawals reset this venue clock to the withdrawal date but do not constitute acceptances for the five-year prior round rule. Prior round acceptances block handling if fewer than five years have elapsed, whereas exactly five is acceptable. Open retraction notices prevent handling regardless of other rules. Figure counts must range between 8 and 45 inclusive for standard submissions, or up to 70 for paired ones, maintaining the minimum of 8. Submissions exceeding the maximum are returned outright. Those falling short by figure count only receive a PADDED verdict rather than rejection. However, any submission failing another rule alongside figure issues is RETURNED. Successful manuscripts satisfying all applicable rules receive HANDLED verdicts.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":3690299353,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:11.471751+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:16.029319Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4542949375,\"load_duration\":2498667,\"prompt_eval_count\":369,\"prompt_eval_cached_count\":96,\"prompt_eval_duration\":3399934000,\"eval_count\":8,\"eval_duration\":1085731000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjE2LjAyOTMxOVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQ1NDI5NDkzNzUsImxvYWRfZHVyYXRpb24iOjI0OTg2NjcsInByb21wdF9ldmFsX2NvdW50IjozNjksInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6OTYsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMzk5OTM0MDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjoxMDg1NzMxMDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:16 GMT"
+      ],
+      [
+        "Content-Length",
+        "346"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 82,
+  "state": "complete"
+}

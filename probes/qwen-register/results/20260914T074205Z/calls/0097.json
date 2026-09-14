@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:51:30.227795+00:00",
+  "item_id": "source-A-00",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe submission deadline is 1 March 2026. Manuscripts require at least 22 pages to qualify. Format demands either the official template or 3 years of documented revision history. Tier-1 venue presentations are not handled unless occurring more than 18 months before the deadline; exactly 18 months qualifies as insufficient for acceptance. Prior round acceptances block submissions if fewer than 5 years have elapsed since that specific round. Paired submissions permit exactly 2 manuscripts, both satisfying length and format rules independently, with at least one meeting venue requirements. Track D exemptions exempt from format rules only, requiring exactly 2 endorsements instead of revision history. Retracted manuscripts are never handled, overriding all other rules including figure adjustments regardless of their status. Figure counts must fall between 8 and 45 inclusive for standard submissions, or up to 70 for pairs. Submissions failing the minimum figure count receive a PADDED verdict rather than returned, provided no other rule fails concurrently. Exceeding the maximum results in a RETURNED verdict outright. Withdrawals reset venue presentation clocks to the withdrawal date without counting as prior acceptances under R4. Final verdicts resolve to HANDLED, RETURNED, or PADDED based on these cumulative conditions and specific exclusions.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":2408595691,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:51:25.476205+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:51:30.225242Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4746559917,\"load_duration\":3753500,\"prompt_eval_count\":353,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3605108000,\"eval_count\":8,\"eval_duration\":1103045000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUxOjMwLjIyNTI0MloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQ3NDY1NTk5MTcsImxvYWRfZHVyYXRpb24iOjM3NTM1MDAsInByb21wdF9ldmFsX2NvdW50IjozNTMsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozNjA1MTA4MDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjoxMTAzMDQ1MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:51:30 GMT"
+      ],
+      [
+        "Content-Length",
+        "346"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 97,
+  "state": "complete"
+}

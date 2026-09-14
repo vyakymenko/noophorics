@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:01.821171+00:00",
+  "item_id": "source-B-02",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nA manuscript must be at least 22 pages long; exactly 22 satisfies this requirement. For format, require either the official template or documented revision history spanning 3 years or more. Regarding Tier-1 venue presentations, exclude handling if the presentation occurred within the last 18 months or exactly on that threshold; only presentations older than 18 months qualify. Similarly, prior Meridian acceptances block handling if fewer than 5 years have elapsed since that round, though exactly 5 is permissible.\\n\\nPaired submissions involve exactly 2 manuscripts. Both independently require length and format compliance, yet only one need satisfy the venue restriction. Track D submissions bypass the format rule entirely but demand exactly 2 endorsements; 1 endorsement fails this condition. Note that Track D exemptions apply solely to R2, leaving all other rules intact.\\n\\nAn open retraction notice prohibits handling absolutely, overriding even figure adjustment protocols. Figure counts must remain between 8 and 45 inclusive for single manuscripts; paired submissions allow up to 70 figures while retaining the minimum of 8. Submissions exceeding maximums are returned outright. Those falling short of the minimum receive a PADDED verdict only if no other rule fails. Failure across multiple grounds results in RETURNED. Finally, prior withdrawals reset venue clocks to the withdrawal date rather than the actual presentation date, but do not count as acceptances for elapsed time calculations.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":1455324841,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:49:57.677525+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:01.820791Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4140730125,\"load_duration\":1714250,\"prompt_eval_count\":377,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3214853000,\"eval_count\":8,\"eval_duration\":887729000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjAxLjgyMDc5MVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQxNDA3MzAxMjUsImxvYWRfZHVyYXRpb24iOjE3MTQyNTAsInByb21wdF9ldmFsX2NvdW50IjozNzcsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMjE0ODUzMDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo4ODc3MjkwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:01 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 79,
+  "state": "complete"
+}

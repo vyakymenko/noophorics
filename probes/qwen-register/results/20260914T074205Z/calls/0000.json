@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:42:34.019882+00:00",
+  "item_id": "control-prose-rain",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nRain soaked the path overnight. Because the wet surface had become slippery, the walkers slowed down. Their slower pace meant that they reached the gate after noon.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":3603890114,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:42:05.629325+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:42:34.016576Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"A\\\"}\",\"thinking\":\"We need to determine if passage is connected prose (A) or a list (B). Passage: \\\"Rain soaked the path overnight. Because the wet surface had become slippery, the walkers slowed down. Their slower pace meant that they reached the gate after noon.\\\" These are complete sentences that follow from one another, with relationships spelled out (because, means). So it's connected prose. Answer \\\"A\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":28384686375,\"load_duration\":25248544834,\"prompt_eval_count\":189,\"prompt_eval_cached_count\":0,\"prompt_eval_duration\":258293000,\"eval_count\":97,\"eval_duration\":2842545000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQyOjM0LjAxNjU3NloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQVwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBkZXRlcm1pbmUgaWYgcGFzc2FnZSBpcyBjb25uZWN0ZWQgcHJvc2UgKEEpIG9yIGEgbGlzdCAoQikuIFBhc3NhZ2U6IFwiUmFpbiBzb2FrZWQgdGhlIHBhdGggb3Zlcm5pZ2h0LiBCZWNhdXNlIHRoZSB3ZXQgc3VyZmFjZSBoYWQgYmVjb21lIHNsaXBwZXJ5LCB0aGUgd2Fsa2VycyBzbG93ZWQgZG93bi4gVGhlaXIgc2xvd2VyIHBhY2UgbWVhbnQgdGhhdCB0aGV5IHJlYWNoZWQgdGhlIGdhdGUgYWZ0ZXIgbm9vbi5cIiBUaGVzZSBhcmUgY29tcGxldGUgc2VudGVuY2VzIHRoYXQgZm9sbG93IGZyb20gb25lIGFub3RoZXIsIHdpdGggcmVsYXRpb25zaGlwcyBzcGVsbGVkIG91dCAoYmVjYXVzZSwgbWVhbnMpLiBTbyBpdCdzIGNvbm5lY3RlZCBwcm9zZS4gQW5zd2VyIFwiQVwiLiJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6MjgzODQ2ODYzNzUsImxvYWRfZHVyYXRpb24iOjI1MjQ4NTQ0ODM0LCJwcm9tcHRfZXZhbF9jb3VudCI6MTg5LCJwcm9tcHRfZXZhbF9jYWNoZWRfY291bnQiOjAsInByb21wdF9ldmFsX2R1cmF0aW9uIjoyNTgyOTMwMDAsImV2YWxfY291bnQiOjk3LCJldmFsX2R1cmF0aW9uIjoyODQyNTQ1MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:42:34 GMT"
+      ],
+      [
+        "Content-Length",
+        "757"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 0,
+  "state": "complete"
+}

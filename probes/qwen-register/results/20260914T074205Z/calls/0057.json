@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:48:21.696627+00:00",
+  "item_id": "source-A-09",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe Meridian Review deadline is 1 March 2026. All rules apply as of that date. Manuscripts require at least twenty-two pages, with exactly twenty-two acceptable under R1. Format demands either the official template or three years of documented revision history per R2, though Track D submissions need only two endorsements instead; this exemption applies to R2 only, leaving other constraints intact. Venue presentations at Tier-1 venues prevent handling unless over eighteen months prior, whereas exact eighteen months disqualifies. Prior round acceptances block handling if fewer than five years elapsed, though withdrawals do not count as acceptances under R4, yet reset the venue clock treating the date as the withdrawal day rather than actual presentation. Paired submissions allow exactly two manuscripts requiring independent R1 and R2 compliance, with at least one satisfying R3. Figure counts must range between eight and forty-five inclusive, or up to seventy for pairs, maintaining a minimum of eight. Failures trigger specific verdicts: retractions ensure no handling regardless of other rules including R9. Insufficient figures result in padding rather than return if isolated, yielding PADDED; excess figures cause immediate return. Any submission failing multiple applicable rules is returned outright. Successful manuscripts receive HANDLED status, while those violating standards are RETURNED. Ensure exact compliance with all numerical thresholds and exemption scopes to determine the correct outcome.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":127685590,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:48:17.496172+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:48:21.696Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4171334250,\"load_duration\":2855542,\"prompt_eval_count\":376,\"prompt_eval_cached_count\":83,\"prompt_eval_duration\":3234869000,\"eval_count\":8,\"eval_duration\":900484000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ4OjIxLjY5NloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQxNzEzMzQyNTAsImxvYWRfZHVyYXRpb24iOjI4NTU1NDIsInByb21wdF9ldmFsX2NvdW50IjozNzYsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODMsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMjM0ODY5MDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5MDA0ODQwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:48:21 GMT"
+      ],
+      [
+        "Content-Length",
+        "342"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 57,
+  "state": "complete"
+}

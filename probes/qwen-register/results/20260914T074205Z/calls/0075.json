@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:49:41.572743+00:00",
+  "item_id": "source-B-04",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe deadline remains fixed at 1 March 2026 for all evaluations. Length must be at least twenty-two pages; exactly twenty-two satisfies R1. Format requires either the official template or documented revision history spanning three years minimum. For Track D, R2 is exempted entirely, replaced strictly by two endorsements; one endorsement fails this requirement. Single submissions require eight to forty-five figures; paired submissions allow up to seventy, retaining the minimum of eight. Fewer than eight figures triggers a PADDED verdict only if no other rule fails; exceeding the applicable maximum results in immediate RETURNED status regardless of other compliance.\\n\\nVenue restrictions operate differently depending on prior history. A Tier-1 presentation prevents handling unless occurring more than eighteen months before the deadline; exactly eighteen months disqualifies the manuscript. Withdrawals reset this clock to the withdrawal date rather than the actual presentation date, but withdrawals do not count as acceptances for the five-year rule governing prior rounds. Acceptance in a prior round blocks handling if fewer than five years have elapsed since that round concluded; exactly five years permits acceptance.\\n\\nPaired submissions require exactly two manuscripts, each independently satisfying length and format rules, with at least one meeting venue restrictions. An open retraction notice overrides all other provisions, ensuring non-handling even if figure adjustments would otherwise apply.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":2667893912,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:49:37.363002+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:49:41.572426Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4193708625,\"load_duration\":2298250,\"prompt_eval_count\":364,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3250136000,\"eval_count\":8,\"eval_duration\":905525000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ5OjQxLjU3MjQyNloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQxOTM3MDg2MjUsImxvYWRfZHVyYXRpb24iOjIyOTgyNTAsInByb21wdF9ldmFsX2NvdW50IjozNjQsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6ODIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMjUwMTM2MDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5MDU1MjUwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:49:41 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 75,
+  "state": "complete"
+}

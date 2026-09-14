@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:45:39.960306+00:00",
+  "item_id": "source-A-06",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe submission deadline is 1 March 2026. All rules apply as of that date. Manuscripts must be at least 22 pages, though exactly 22 satisfies this requirement. Format requires either the official template or at least three years of documented revision history. Track D manuscripts are exempt from format rules only, and from no other rule, requiring exactly two endorsements instead; one is insufficient. Paired submissions allow exactly two manuscripts, both needing length and format compliance, with at least one meeting venue timing requirements. Venue presentations at Tier-1 venues only qualify if more than 18 months prior to the deadline; exactly 18 months does not count. Withdrawals reset this venue clock to the withdrawal date but do not constitute acceptances for the five-year prior round rule. Prior round acceptances block handling if fewer than five years have elapsed, whereas exactly five is acceptable. Open retraction notices prevent handling regardless of other rules. Figure counts must range between 8 and 45 inclusive for standard submissions, or up to 70 for paired ones, maintaining the minimum of 8. Submissions exceeding the maximum are returned outright. Those falling short by figure count only receive a PADDED verdict rather than rejection. However, any submission failing another rule alongside figure issues is RETURNED. Successful manuscripts satisfying all applicable rules receive HANDLED verdicts.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":2707993742,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:45:32.462970+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:45:39.955196Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to determine if passage is \\\"connected prose\\\" (A) or \\\"a list\\\" (B). Connected prose: complete sentences that follow from one another, where relationships between points are spelled out in words. A list: separate items stated one after another, with no wording that relates them to each other, whether or not items are full sentences.\\n\\nThe passage consists of many sentences, each stating a rule. They seem like separate items, each rule; there is minimal connective wording. They are sentences but not really connected with transition words. It reads like a list of rules, each separate, no explicit relational words like \\\"first\\\", \\\"next\\\", \\\"also\\\". However there are some linking words: \\\"and\\\", \\\"or\\\", \\\"however\\\". But overall it's a list of rules, each separate. The instruction: separate items stated one after another, with no wording that relates them to each other. Does the passage have wording that relates them? It uses \\\"and\\\" within sentences, but not between sentences. Each sentence stands alone. So likely classification B (a list). So answer \\\"B\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":7482989000,\"load_duration\":3331458,\"prompt_eval_count\":426,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":535702000,\"eval_count\":239,\"eval_duration\":6903249000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ1OjM5Ljk1NTE5NloiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQlwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBkZXRlcm1pbmUgaWYgcGFzc2FnZSBpcyBcImNvbm5lY3RlZCBwcm9zZVwiIChBKSBvciBcImEgbGlzdFwiIChCKS4gQ29ubmVjdGVkIHByb3NlOiBjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgd2hlcmUgcmVsYXRpb25zaGlwcyBiZXR3ZWVuIHBvaW50cyBhcmUgc3BlbGxlZCBvdXQgaW4gd29yZHMuIEEgbGlzdDogc2VwYXJhdGUgaXRlbXMgc3RhdGVkIG9uZSBhZnRlciBhbm90aGVyLCB3aXRoIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0gdG8gZWFjaCBvdGhlciwgd2hldGhlciBvciBub3QgaXRlbXMgYXJlIGZ1bGwgc2VudGVuY2VzLlxuXG5UaGUgcGFzc2FnZSBjb25zaXN0cyBvZiBtYW55IHNlbnRlbmNlcywgZWFjaCBzdGF0aW5nIGEgcnVsZS4gVGhleSBzZWVtIGxpa2Ugc2VwYXJhdGUgaXRlbXMsIGVhY2ggcnVsZTsgdGhlcmUgaXMgbWluaW1hbCBjb25uZWN0aXZlIHdvcmRpbmcuIFRoZXkgYXJlIHNlbnRlbmNlcyBidXQgbm90IHJlYWxseSBjb25uZWN0ZWQgd2l0aCB0cmFuc2l0aW9uIHdvcmRzLiBJdCByZWFkcyBsaWtlIGEgbGlzdCBvZiBydWxlcywgZWFjaCBzZXBhcmF0ZSwgbm8gZXhwbGljaXQgcmVsYXRpb25hbCB3b3JkcyBsaWtlIFwiZmlyc3RcIiwgXCJuZXh0XCIsIFwiYWxzb1wiLiBIb3dldmVyIHRoZXJlIGFyZSBzb21lIGxpbmtpbmcgd29yZHM6IFwiYW5kXCIsIFwib3JcIiwgXCJob3dldmVyXCIuIEJ1dCBvdmVyYWxsIGl0J3MgYSBsaXN0IG9mIHJ1bGVzLCBlYWNoIHNlcGFyYXRlLiBUaGUgaW5zdHJ1Y3Rpb246IHNlcGFyYXRlIGl0ZW1zIHN0YXRlZCBvbmUgYWZ0ZXIgYW5vdGhlciwgd2l0aCBubyB3b3JkaW5nIHRoYXQgcmVsYXRlcyB0aGVtIHRvIGVhY2ggb3RoZXIuIERvZXMgdGhlIHBhc3NhZ2UgaGF2ZSB3b3JkaW5nIHRoYXQgcmVsYXRlcyB0aGVtPyBJdCB1c2VzIFwiYW5kXCIgd2l0aGluIHNlbnRlbmNlcywgYnV0IG5vdCBiZXR3ZWVuIHNlbnRlbmNlcy4gRWFjaCBzZW50ZW5jZSBzdGFuZHMgYWxvbmUuIFNvIGxpa2VseSBjbGFzc2lmaWNhdGlvbiBCIChhIGxpc3QpLiBTbyBhbnN3ZXIgXCJCXCIuIn0sImRvbmUiOnRydWUsImRvbmVfcmVhc29uIjoic3RvcCIsInRvdGFsX2R1cmF0aW9uIjo3NDgyOTg5MDAwLCJsb2FkX2R1cmF0aW9uIjozMzMxNDU4LCJwcm9tcHRfZXZhbF9jb3VudCI6NDI2LCJwcm9tcHRfZXZhbF9jYWNoZWRfY291bnQiOjE0MCwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjUzNTcwMjAwMCwiZXZhbF9jb3VudCI6MjM5LCJldmFsX2R1cmF0aW9uIjo2OTAzMjQ5MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:45:39 GMT"
+      ],
+      [
+        "Content-Length",
+        "1441"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 30,
+  "state": "complete"
+}

@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:35.287977+00:00",
+  "item_id": "source-A-11",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nMeridian Review submissions for the 2026 round are due by 1 March 2026, requiring strict adherence to these rules. A manuscript must be at least twenty-two pages long, though exactly that length satisfies the requirement. Regarding format, you need either the official template or three years of documented revision history. Venue presentations at Tier-1 venues prevent handling unless occurring more than eighteen months prior; exactly eighteen months does not qualify. Acceptances in prior Meridian rounds are blocked if fewer than five years have elapsed since, but exactly five is acceptable. Withdrawals reset venue clocks to the withdrawal date without counting as acceptances under the prior round rule. Paired submissions allow exactly two manuscripts, both needing R1 and R2 compliance, with at least one meeting R3 venue requirements. Track D exempts the format rule but demands exactly two endorsements instead. An open retraction notice overrides all other rules, preventing handling entirely. Figure counts must fall between eight and forty-five inclusive; paired submissions allow up to seventy figures with the same minimum. Submissions failing only by carrying fewer than the minimum are padded rather than returned, but exceeding the maximum results in return. A submission that would qualify for padding yet fails any other rule is returned outright. Final verdicts include handled, returned, or padded based strictly on these conditions.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":2145796870,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:30.735969+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:35.28255Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4542175584,\"load_duration\":1871667,\"prompt_eval_count\":366,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3288183000,\"eval_count\":9,\"eval_duration\":1212360000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjM1LjI4MjU1WiIsIm1lc3NhZ2UiOnsicm9sZSI6ImFzc2lzdGFudCIsImNvbnRlbnQiOiJ7XCJ2ZXJkaWN0XCI6IFwiQVwifSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NDU0MjE3NTU4NCwibG9hZF9kdXJhdGlvbiI6MTg3MTY2NywicHJvbXB0X2V2YWxfY291bnQiOjM2NiwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4MiwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjMyODgxODMwMDAsImV2YWxfY291bnQiOjksImV2YWxfZHVyYXRpb24iOjEyMTIzNjAwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:35 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 86,
+  "state": "complete"
+}

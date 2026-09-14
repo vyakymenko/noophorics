@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:49:57.669895+00:00",
+  "item_id": "source-C-07",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline 1 March 2026 rules evaluated date.\\nR1 length min 22 pages exactly 22 pages satisfies rule.\\nR2 format official template OR carry 3 years documented revision history.\\nR3 venue tier-1 presentation not handled unless presentation >18 months before deadline exactly 18 months does not qualify.\\nR4 prior rounds accepted prior round not handled fewer than 5 years elapsed since that round exactly 5 years elapsed is fine.\\nR5 paired submissions permitted exactly 2 manuscripts 3+ not permitted form both satisfy R1 R2 at least one satisfy R3 not required both do.\\nR6 track D exempt R2 carry exactly 2 endorsements 1 endorsement insufficient R6 exempts R2 only no other rule.\\nR7 retraction open retraction notice not handled regardless every other rule including R9.\\nR8 figures count between 8 and 45 inclusive paired submission max 70 figures minimum 8.\\nR9 figure adjustment fails R8 only carries fewer than minimum padded up verdict PADDED carries more than applicable maximum returned outright.\\nR10 withdrawals withdrawal prior round not acceptance under R4 resets R3 venue clock presentation treated withdrawal date rather than actual date.\\nVerdicts HANDLED satisfies all applicable rules RETURNED fails at least one applicable rule PADDED used only R9 case submission handled fewer figures minimum padded up verdict PADDED submission PADDED also fails another rule RETURNED.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":927234455,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:49:52.369007+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:49:57.669529Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{ \\\"verdict\\\": \\\"B\\\" }\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":5297745792,\"load_duration\":2275583,\"prompt_eval_count\":382,\"prompt_eval_cached_count\":89,\"prompt_eval_duration\":3657623000,\"eval_count\":11,\"eval_duration\":1598264000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ5OjU3LjY2OTUyOVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50IjoieyBcInZlcmRpY3RcIjogXCJCXCIgfSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NTI5Nzc0NTc5MiwibG9hZF9kdXJhdGlvbiI6MjI3NTU4MywicHJvbXB0X2V2YWxfY291bnQiOjM4MiwicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4OSwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjM2NTc2MjMwMDAsImV2YWxfY291bnQiOjExLCJldmFsX2R1cmF0aW9uIjoxNTk4MjY0MDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:49:57 GMT"
+      ],
+      [
+        "Content-Length",
+        "349"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 78,
+  "state": "complete"
+}

@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:51:52.856141+00:00",
+  "item_id": "source-A-04",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nThe submission deadline is 1 March 2026, with all rules evaluated as of that date. Manuscripts must be at least 22 pages; exactly 22 satisfies this rule. They require either the official template or three years documented revision history, though Track D submissions need exactly two endorsements instead of format compliance. Paired submissions allow two manuscripts only, requiring both to meet length and format rules while ensuring at least one satisfies the venue restriction: Tier-1 presentations older than eighteen months are handled, but exactly eighteen months does not qualify. Prior acceptances bar resubmission unless exactly five years elapsed since that round. Withdrawals reset the venue clock to the withdrawal date but do not count as prior acceptances for eligibility windows. An open retraction notice prevents handling regardless of other rules, overriding figure adjustments entirely. Figure counts range from eight to forty-five inclusive for single submissions, or up to seventy for paired ones. Submissions below the minimum are padded rather than returned unless another rule fails simultaneously. Exceeding maximum figures results in return outright. Final verdicts are handled for full compliance, returned for failure, or padded specifically for minor figure deficiencies where only that rule is violated. This system ensures every submission resolves clearly based on these strict criteria applied uniformly across all entries received by the deadline.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":1576982948,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:51:48.869725+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:51:52.852841Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\": \\\"A\\\"}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":3974327875,\"load_duration\":2680000,\"prompt_eval_count\":360,\"prompt_eval_cached_count\":92,\"prompt_eval_duration\":3001601000,\"eval_count\":8,\"eval_duration\":923863000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUxOjUyLjg1Mjg0MVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOiBcIkFcIn0ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjM5NzQzMjc4NzUsImxvYWRfZHVyYXRpb24iOjI2ODAwMDAsInByb21wdF9ldmFsX2NvdW50IjozNjAsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6OTIsInByb21wdF9ldmFsX2R1cmF0aW9uIjozMDAxNjAxMDAwLCJldmFsX2NvdW50Ijo4LCJldmFsX2R1cmF0aW9uIjo5MjM4NjMwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:51:52 GMT"
+      ],
+      [
+        "Content-Length",
+        "345"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 102,
+  "state": "complete"
+}

@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:46:13.420690+00:00",
+  "item_id": "source-D-04",
+  "rater": "gpt-oss:120b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nDeadline 1 March 2026 applies to all rules.\\nR1 minimum 22 pages exactly satisfying rule.\\nR2 requires official template or three years revision history.\\nR3 blocks Tier-1 venue presentations unless more than 18 months prior.\\nExactly 18 months fails R3 condition.\\nWithdrawals reset R3 venue clock to withdrawal rather actual presentation date.\\nWithdrawals do not count as acceptance under R4 rules.\\nR4 rejects prior round acceptances if fewer than 5 years elapsed since.\\nExactly five years passes R4 check.\\nPaired submissions limited to two manuscripts, three prohibited.\\nBoth paired manuscripts must satisfy R1 and R2 independently.\\nPair requires at least one member to satisfy R3 requirement.\\nTrack D exempt from R2 requires exactly two endorsements.\\nOne endorsement insufficient Track D.\\nRetraction notice overrides all other rules including R9 figure adjustments.\\nOpen retraction means manuscript not handled regardless conditions.\\nFigure counts range 8 to 45 inclusive standard submissions.\\nPaired submissions permit 70 figures max, min 8 applies.\\nFigures below minimum get padded verdict PADDED instead returned.\\nFigures exceeding maximum return outright rejected without padding opportunity.\\nVerdict PADDED only if R9 failure sole violation.\\nFailure elsewhere alongside figure shortage results in RETURNED verdict.\\nTrack D exemption applies R2 only, no other exceptions granted.\\nR7 retraction check happens before any other rule logic.\\nMinimum page count satisfied by exactly 22 page submission.\\nRejections occur if single violation exists across applicable rules.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"gpt-oss:120b\",\"options\":{\"seed\":1294944876,\"temperature\":0.7},\"stream\":false,\"think\":\"medium\"}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:46:09.291268+00:00",
+  "response": {
+    "body": "{\"model\":\"gpt-oss:120b\",\"created_at\":\"2026-09-14T07:46:13.420358Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\\"verdict\\\":\\\"B\\\"}\",\"thinking\":\"We need to decide if passage is \\\"CONNECTED PROSE\\\" (A) or \\\"A LIST\\\" (B). Connected prose: complete sentences that follow from one another, relationships spelled out in words. List: separate items stated one after another, with no wording that relates them, whether or not items are full sentences.\\n\\nThe passage consists of many short statements, each on separate line, often fragments or bullet-like statements, not clearly connected with transitional words. They seem like list items, each rule statement. They are not connected prose; they lack connective words. So classification B.\\n\\nThus answer \\\"B\\\".\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4114541208,\"load_duration\":3160791,\"prompt_eval_count\":458,\"prompt_eval_cached_count\":140,\"prompt_eval_duration\":394449000,\"eval_count\":138,\"eval_duration\":3634746000}",
+    "body_base64": "eyJtb2RlbCI6ImdwdC1vc3M6MTIwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjQ2OjEzLjQyMDM1OFoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1widmVyZGljdFwiOlwiQlwifSIsInRoaW5raW5nIjoiV2UgbmVlZCB0byBkZWNpZGUgaWYgcGFzc2FnZSBpcyBcIkNPTk5FQ1RFRCBQUk9TRVwiIChBKSBvciBcIkEgTElTVFwiIChCKS4gQ29ubmVjdGVkIHByb3NlOiBjb21wbGV0ZSBzZW50ZW5jZXMgdGhhdCBmb2xsb3cgZnJvbSBvbmUgYW5vdGhlciwgcmVsYXRpb25zaGlwcyBzcGVsbGVkIG91dCBpbiB3b3Jkcy4gTGlzdDogc2VwYXJhdGUgaXRlbXMgc3RhdGVkIG9uZSBhZnRlciBhbm90aGVyLCB3aXRoIG5vIHdvcmRpbmcgdGhhdCByZWxhdGVzIHRoZW0sIHdoZXRoZXIgb3Igbm90IGl0ZW1zIGFyZSBmdWxsIHNlbnRlbmNlcy5cblxuVGhlIHBhc3NhZ2UgY29uc2lzdHMgb2YgbWFueSBzaG9ydCBzdGF0ZW1lbnRzLCBlYWNoIG9uIHNlcGFyYXRlIGxpbmUsIG9mdGVuIGZyYWdtZW50cyBvciBidWxsZXQtbGlrZSBzdGF0ZW1lbnRzLCBub3QgY2xlYXJseSBjb25uZWN0ZWQgd2l0aCB0cmFuc2l0aW9uYWwgd29yZHMuIFRoZXkgc2VlbSBsaWtlIGxpc3QgaXRlbXMsIGVhY2ggcnVsZSBzdGF0ZW1lbnQuIFRoZXkgYXJlIG5vdCBjb25uZWN0ZWQgcHJvc2U7IHRoZXkgbGFjayBjb25uZWN0aXZlIHdvcmRzLiBTbyBjbGFzc2lmaWNhdGlvbiBCLlxuXG5UaHVzIGFuc3dlciBcIkJcIi4ifSwiZG9uZSI6dHJ1ZSwiZG9uZV9yZWFzb24iOiJzdG9wIiwidG90YWxfZHVyYXRpb24iOjQxMTQ1NDEyMDgsImxvYWRfZHVyYXRpb24iOjMxNjA3OTEsInByb21wdF9ldmFsX2NvdW50Ijo0NTgsInByb21wdF9ldmFsX2NhY2hlZF9jb3VudCI6MTQwLCJwcm9tcHRfZXZhbF9kdXJhdGlvbiI6Mzk0NDQ5MDAwLCJldmFsX2NvdW50IjoxMzgsImV2YWxfZHVyYXRpb24iOjM2MzQ3NDYwMDB9",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:46:13 GMT"
+      ],
+      [
+        "Content-Length",
+        "972"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 35,
+  "state": "complete"
+}

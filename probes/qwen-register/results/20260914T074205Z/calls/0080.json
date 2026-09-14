@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-09-14T07:50:06.680282+00:00",
+  "item_id": "source-D-02",
+  "rater": "llama3.3:70b",
+  "request": {
+    "body": "{\"format\":{\"additionalProperties\":false,\"properties\":{\"verdict\":{\"enum\":[\"A\",\"B\"],\"type\":\"string\"}},\"required\":[\"verdict\"],\"type\":\"object\"},\"messages\":[{\"content\":\"Read the passage below and classify how it is written.\\n\\nA. CONNECTED PROSE -- complete sentences that follow from one another, where the\\n   relationships between the points are spelled out in words.\\nB. A LIST -- separate items stated one after another, with no wording that\\n   relates them to each other, whether or not the items are full sentences.\\n\\nPASSAGE\\n-------\\nLength minimum 22 pages exactly satisfies requirement R1.\\nFormat requires official template OR 3 years documented revision history.\\nTier-1 venue presentation must exceed 18 months before deadline.\\nExactly 18 months fails R3 restriction condition specifically now.\\nPrior Meridian acceptance blocks handling if fewer than 5 years elapsed since round accepted for review.\\nExactly 5 years elapsed acceptable for prior round consideration only.\\nPaired submissions strictly limited to 2 manuscripts maximum permitted form only.\\nBoth paired manuscripts independently satisfy R1 and R2 rules.\\nAt least one paired manuscript must satisfy R3 requirement.\\nTrack D exempts from R2 requiring exactly 2 endorsements.\\nOne endorsement insufficient for Track D exemption status.\\nR6 exemption limited to R2 only no other provisions affected.\\nR6 exempts from R2 only Track D submissions not other tracks.\\nOpen retraction notice prevents handling regardless every other rule present including R9 overrides logic.\\nRetraction overrides including figure adjustment provisions and verdict PADDED logic.\\nFigure count minimum 8 inclusive maximum 45 standard submissions.\\nPaired submission figures allow up to 70 maintaining minimum 8.\\nFewer than minimum triggers PADDED verdict only without other failures.\\nExceeding applicable maximum results in RETURNED verdict immediately regardless.\\nWithdrawal prior round does not count as acceptance under R4.\\nWithdrawal resets R3 venue clock treating presentation as withdrawal date.\\nVerdicts HANDLED satisfies all applicable rules mutually exclusive outcomes defined here.\\nPADDED applies solely figure count below minimum without separate failures present.\\nSubmission qualifies PADDED but violates separate rule verdict returns instead strictly.\\nDeadline 1 March 2026 evaluation date applies every rule listed herein fully always.\\n\\nAnswer with exactly one letter: either \\\"A\\\" or \\\"B\\\".\",\"role\":\"user\"}],\"model\":\"llama3.3:70b\",\"options\":{\"seed\":1863274797,\"temperature\":0.7},\"stream\":false}",
+    "method": "POST",
+    "path": "/api/chat"
+  },
+  "reserved_at": "2026-09-14T07:50:01.884347+00:00",
+  "response": {
+    "body": "{\"model\":\"llama3.3:70b\",\"created_at\":\"2026-09-14T07:50:06.679919Z\",\"message\":{\"role\":\"assistant\",\"content\":\"{\\n\\n\\\"verdict\\\": \\\"A\\\"\\n\\n}\"},\"done\":true,\"done_reason\":\"stop\",\"total_duration\":4787623333,\"load_duration\":2051208,\"prompt_eval_count\":433,\"prompt_eval_cached_count\":82,\"prompt_eval_duration\":3315679000,\"eval_count\":11,\"eval_duration\":1442052000}",
+    "body_base64": "eyJtb2RlbCI6ImxsYW1hMy4zOjcwYiIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTE0VDA3OjUwOjA2LjY3OTkxOVoiLCJtZXNzYWdlIjp7InJvbGUiOiJhc3Npc3RhbnQiLCJjb250ZW50Ijoie1xuXG5cInZlcmRpY3RcIjogXCJBXCJcblxufSJ9LCJkb25lIjp0cnVlLCJkb25lX3JlYXNvbiI6InN0b3AiLCJ0b3RhbF9kdXJhdGlvbiI6NDc4NzYyMzMzMywibG9hZF9kdXJhdGlvbiI6MjA1MTIwOCwicHJvbXB0X2V2YWxfY291bnQiOjQzMywicHJvbXB0X2V2YWxfY2FjaGVkX2NvdW50Ijo4MiwicHJvbXB0X2V2YWxfZHVyYXRpb24iOjMzMTU2NzkwMDAsImV2YWxfY291bnQiOjExLCJldmFsX2R1cmF0aW9uIjoxNDQyMDUyMDAwfQ==",
+    "error": null,
+    "headers": [
+      [
+        "Content-Type",
+        "application/json; charset=utf-8"
+      ],
+      [
+        "Date",
+        "Mon, 14 Sep 2026 07:50:06 GMT"
+      ],
+      [
+        "Content-Length",
+        "355"
+      ],
+      [
+        "Connection",
+        "close"
+      ]
+    ],
+    "status": 200
+  },
+  "sequence": 80,
+  "state": "complete"
+}

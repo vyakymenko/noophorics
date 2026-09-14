@@ -1,0 +1,107 @@
+{
+  "analysis": "descriptive instrument counts only",
+  "attempted_calls": 104,
+  "calibration": {
+    "gpt-oss:120b": {
+      "attempted": 4,
+      "correct": 4,
+      "planned": 4,
+      "status": "passed",
+      "valid": 4
+    },
+    "llama3.3:70b": {
+      "attempted": 4,
+      "correct": 4,
+      "planned": 4,
+      "status": "passed",
+      "valid": 4
+    }
+  },
+  "cells": {
+    "A": {
+      "both_expected_register": 7,
+      "both_valid": 12,
+      "disagreement": 5,
+      "expected_register_by_rater": {
+        "gpt-oss:120b": 7,
+        "llama3.3:70b": 12
+      },
+      "expected_verdict": "A",
+      "in_band": 11,
+      "joint_acceptance": 7,
+      "joint_result_available": true,
+      "missing_any_rating": 0,
+      "observed_joint_acceptance": 7,
+      "total": 12,
+      "valid_ratings": {
+        "gpt-oss:120b": 12,
+        "llama3.3:70b": 12
+      }
+    },
+    "B": {
+      "both_expected_register": 8,
+      "both_valid": 12,
+      "disagreement": 4,
+      "expected_register_by_rater": {
+        "gpt-oss:120b": 8,
+        "llama3.3:70b": 12
+      },
+      "expected_verdict": "A",
+      "in_band": 12,
+      "joint_acceptance": 8,
+      "joint_result_available": true,
+      "missing_any_rating": 0,
+      "observed_joint_acceptance": 8,
+      "total": 12,
+      "valid_ratings": {
+        "gpt-oss:120b": 12,
+        "llama3.3:70b": 12
+      }
+    },
+    "C": {
+      "both_expected_register": 12,
+      "both_valid": 12,
+      "disagreement": 0,
+      "expected_register_by_rater": {
+        "gpt-oss:120b": 12,
+        "llama3.3:70b": 12
+      },
+      "expected_verdict": "B",
+      "in_band": 12,
+      "joint_acceptance": 12,
+      "joint_result_available": true,
+      "missing_any_rating": 0,
+      "observed_joint_acceptance": 12,
+      "total": 12,
+      "valid_ratings": {
+        "gpt-oss:120b": 12,
+        "llama3.3:70b": 12
+      }
+    },
+    "D": {
+      "both_expected_register": 5,
+      "both_valid": 12,
+      "disagreement": 7,
+      "expected_register_by_rater": {
+        "gpt-oss:120b": 12,
+        "llama3.3:70b": 5
+      },
+      "expected_verdict": "B",
+      "in_band": 11,
+      "joint_acceptance": 5,
+      "joint_result_available": true,
+      "missing_any_rating": 0,
+      "observed_joint_acceptance": 5,
+      "total": 12,
+      "valid_ratings": {
+        "gpt-oss:120b": 12,
+        "llama3.3:70b": 12
+      }
+    }
+  },
+  "complete": true,
+  "invalid_or_indeterminate_attempts": 0,
+  "max_calls": 104,
+  "not_experimental_data": true,
+  "usable": true
+}
