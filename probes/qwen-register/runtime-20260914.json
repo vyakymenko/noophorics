@@ -1,0 +1,9 @@
+{
+  "recorded_at": "2026-09-14T07:41:44.078502+00:00",
+  "service": "http://localhost:11434",
+  "runtime": {
+    "version": "0.34.0"
+  },
+  "plan_commit": "544e6fea192593405e9bf932bd4dfe9105557dc3",
+  "purpose": "runtime metadata before first register rating; no inference calls"
+}
