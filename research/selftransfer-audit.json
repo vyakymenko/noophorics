@@ -1,0 +1,268 @@
+{
+  "audit_date": "2026-09-09",
+  "status": "draft for human review; no formal retraction",
+  "analysis": "retrospective reconstruction of existing descriptive statistics",
+  "measure": {
+    "qualified_id": "RIVERSIDE-30@2e6afe2f3c92",
+    "probe_count": 30,
+    "all_arms_match_current_semantic_hash": true
+  },
+  "source_sha256": {
+    "probes/riverside-30/probes.json": "8825e20fb5ba161dce0e5db13039ffe671cbff75d1ee17beecbb96cc92d2ccb3",
+    "probes/riverside-30/briefs.json": "4f7df9c8a170d5469c28cdf394300f5a4e053e8f9a9a6880e2044e7b4613fcf8",
+    "probes/riverside-30/briefs-qwen.json": "125eafa6719691628a9ea53e020cade9c4ca544be0b09c56532c769c8c3de1b7",
+    "probes/riverside-30/PREDICTION-selftransfer.md": "d902414e353098dc8b4e3f953727de0e879bfc59765e1a473ee97c42cd890cb2",
+    "probes/riverside-30/RESULTS-selftransfer.md": "d79835d86001badaf264796f04a3858a73de79964f93a6fc1480de987f9dfa3b",
+    "probes/riverside-30/headroom_riverside.py": "974540a2c9387c4905e3177362102f096560ff82a283dd52840b2ddac6c4eac1",
+    "probes/riverside-30/headroom.json": "c28d22af9c0043f96e315fbf2ca03a193be35f70568c53896ba7ff5845b5898b",
+    "probes/riverside-30/headroom-qwen.json": "4a8cdb4f215cd2fb685f0e0bc79c61dfa5dcc364ea76536fbe25199e583dff2b",
+    "probes/riverside-30/cross-gptoss-on-qwenbriefs.json": "f563f4afb53c4b6a2c91aeba81f42b5652f4b29920e6f28dc03cb936960468e9",
+    "probes/riverside-30/self-qwen-on-qwenbriefs.json": "29ac53818fe025aa85945a8a56be84bcc512ff159c92b26f9ba7834adf9f2c9c",
+    "metrics/noophorics/probes.py": "cb5c492a32184c8295699cb023ebeced53289832088fa0be6fe5cc162312e62a",
+    "metrics/noophorics/divergence.py": "328be8b2eef5e480de868f6d13f450cd27501ea9ff29d2bab7782b5a90e6500d"
+  },
+  "current_brief_text_sha256": {
+    "briefs.json": {
+      "b0": "54460548bfc5c6f231b0c105f59fc21c233061e3497e971c91e60cc839026e7a",
+      "b1": "5ac356fac848821446e13a4353abee19add9a9989a6822ab952dd10f1a7a8d56",
+      "b2": "9059d0df6948dc801ed836f2c97c5d3074b964674720b2c7fc95d9922d8dbe5f"
+    },
+    "briefs-qwen.json": {
+      "b0": "35e656661fc346f7abe1790fdae4e0d95dbc6cb90fa89b06ce4d2cf25c820f43",
+      "b1": "6d117789dd1cd78c73ad217a656f5f0adbc70e11aa3764074b5e7a29ffade490",
+      "b2": "771b0d83dddd9562436dfa300a7fbc3d9cffbd042b56e332dac39eb2827ae610"
+    }
+  },
+  "brief_provenance_limit": "arm JSON stores brief IDs and word counts, not consumed-text hashes",
+  "arms": {
+    "gptoss_self": {
+      "source": "probes/riverside-30/headroom.json",
+      "reader": "gpt-oss:120b",
+      "composer": "gpt-oss:120b",
+      "composer_explicit_in_arm": false,
+      "timestamp_utc": "2026-08-25T07:22:26Z",
+      "not_experimental_data": true,
+      "draws_per_probe_per_party": 10,
+      "reference_draws": 300,
+      "receiver_draws": 900,
+      "reference_kind": "reader's own full-specification sender condition",
+      "reference_raw_sha256": "0e3ad4d7bb2f019d6b997a841e4455dd8e7fbe0daf7889b6bd5d1528f7ab5449",
+      "reference_modal_sha256": "8b5361248b313fb74a9875d56ce039b0063dc65661a3688179920deae852f0e6",
+      "diverged_counts": {
+        "b0": 9,
+        "b1": 9,
+        "b2": 12
+      },
+      "mean_diverged_count": 10,
+      "tied_modal_probes": {
+        "b0": 0,
+        "b1": 0,
+        "b2": 1,
+        "sender": 0
+      },
+      "word_counts": [
+        423,
+        389,
+        403
+      ],
+      "stored_summaries_match_raw": true
+    },
+    "qwen_cross": {
+      "source": "probes/riverside-30/headroom-qwen.json",
+      "reader": "qwen3.5:35b",
+      "composer": "gpt-oss:120b",
+      "composer_explicit_in_arm": false,
+      "timestamp_utc": "2026-08-27T09:51:26Z",
+      "not_experimental_data": true,
+      "draws_per_probe_per_party": 10,
+      "reference_draws": 300,
+      "receiver_draws": 900,
+      "reference_kind": "reader's own full-specification sender condition",
+      "reference_raw_sha256": "312bf257a905b3fec27eeb319e28810b4bee38c3b42b249d62b02eb8eff511f5",
+      "reference_modal_sha256": "eb32a4f4919f88e5572a081bf27bec0a028bcea5c985f9cd00881305bff20337",
+      "diverged_counts": {
+        "b0": 10,
+        "b1": 8,
+        "b2": 11
+      },
+      "mean_diverged_count": 9.666666666666666,
+      "tied_modal_probes": {
+        "b0": 0,
+        "b1": 0,
+        "b2": 0,
+        "sender": 0
+      },
+      "word_counts": [
+        423,
+        389,
+        403
+      ],
+      "stored_summaries_match_raw": true
+    },
+    "gptoss_cross": {
+      "source": "probes/riverside-30/cross-gptoss-on-qwenbriefs.json",
+      "reader": "gpt-oss:120b",
+      "composer": "qwen3.5:35b",
+      "composer_explicit_in_arm": true,
+      "timestamp_utc": "2026-08-30T06:33:50Z",
+      "not_experimental_data": true,
+      "draws_per_probe_per_party": 10,
+      "reference_draws": 300,
+      "receiver_draws": 900,
+      "reference_kind": "reader's own full-specification sender condition",
+      "reference_raw_sha256": "ef135266493ca9039c538b038c4972f6b8ba015654d737cf1d0606ca50dbfb20",
+      "reference_modal_sha256": "8b5361248b313fb74a9875d56ce039b0063dc65661a3688179920deae852f0e6",
+      "diverged_counts": {
+        "b0": 11,
+        "b1": 8,
+        "b2": 12
+      },
+      "mean_diverged_count": 10.333333333333334,
+      "tied_modal_probes": {
+        "b0": 1,
+        "b1": 0,
+        "b2": 0,
+        "sender": 0
+      },
+      "word_counts": [
+        240,
+        239,
+        241
+      ],
+      "stored_summaries_match_raw": true
+    },
+    "qwen_self": {
+      "source": "probes/riverside-30/self-qwen-on-qwenbriefs.json",
+      "reader": "qwen3.5:35b",
+      "composer": "qwen3.5:35b",
+      "composer_explicit_in_arm": true,
+      "timestamp_utc": "2026-08-30T10:28:26Z",
+      "not_experimental_data": true,
+      "draws_per_probe_per_party": 10,
+      "reference_draws": 300,
+      "receiver_draws": 900,
+      "reference_kind": "reader's own full-specification sender condition",
+      "reference_raw_sha256": "eed10c69164e8438d3f8a76f69082cc832bfeb0d3ae30d804f593a21f8a3727b",
+      "reference_modal_sha256": "eb32a4f4919f88e5572a081bf27bec0a028bcea5c985f9cd00881305bff20337",
+      "diverged_counts": {
+        "b0": 11,
+        "b1": 9,
+        "b2": 14
+      },
+      "mean_diverged_count": 11.333333333333334,
+      "tied_modal_probes": {
+        "b0": 0,
+        "b1": 0,
+        "b2": 1,
+        "sender": 0
+      },
+      "word_counts": [
+        240,
+        239,
+        241
+      ],
+      "stored_summaries_match_raw": true
+    }
+  },
+  "reference_comparisons": [
+    {
+      "arms": [
+        "gptoss_self",
+        "gptoss_cross"
+      ],
+      "same_reader": true,
+      "raw_draws_identical": false,
+      "modal_reference_mismatches": 0
+    },
+    {
+      "arms": [
+        "qwen_cross",
+        "qwen_self"
+      ],
+      "same_reader": true,
+      "raw_draws_identical": false,
+      "modal_reference_mismatches": 0
+    },
+    {
+      "arms": [
+        "gptoss_self",
+        "qwen_cross"
+      ],
+      "same_reader": false,
+      "raw_draws_identical": false,
+      "modal_reference_mismatches": 1
+    },
+    {
+      "arms": [
+        "gptoss_cross",
+        "qwen_self"
+      ],
+      "same_reader": false,
+      "raw_draws_identical": false,
+      "modal_reference_mismatches": 1
+    }
+  ],
+  "rows": [
+    {
+      "composer": "gpt-oss:120b",
+      "self_arm": "gptoss_self",
+      "cross_arm": "qwen_cross",
+      "self_mean": 10,
+      "cross_mean": 9.666666666666666,
+      "self_minus_cross": [
+        -1,
+        1,
+        1
+      ],
+      "mean_difference": 0.3333333333333333,
+      "absolute_row_mean_below_1_5": true
+    },
+    {
+      "composer": "qwen3.5:35b",
+      "self_arm": "qwen_self",
+      "cross_arm": "gptoss_cross",
+      "self_mean": 11.333333333333334,
+      "cross_mean": 10.333333333333334,
+      "self_minus_cross": [
+        0,
+        1,
+        2
+      ],
+      "mean_difference": 1,
+      "absolute_row_mean_below_1_5": true
+    }
+  ],
+  "six_pairs_descriptive_only": {
+    "differences": [
+      -1,
+      1,
+      1,
+      0,
+      1,
+      2
+    ],
+    "mean_difference": 0.6666666666666666,
+    "population_sd": 0.9428090415820634,
+    "sample_sd": 1.0327955589886446,
+    "absolute_per_brief_difference_at_least_1_5": 1
+  },
+  "reported_sign_calculation": {
+    "positive": 4,
+    "negative": 1,
+    "zero": 1,
+    "nonzero_n": 5,
+    "two_sided_p": 0.375,
+    "doubled_tail_numerator": 12,
+    "binomial_denominator": 32,
+    "assumption": "independent fair signs under the null, after excluding zeros",
+    "scope": "reproduction of reported arithmetic; population validity not established"
+  },
+  "prediction_wording": {
+    "both_absolute_row_means_below_1_5": true,
+    "sign_not_consistently_in_self_favour": true,
+    "row_signs_inconsistent": false,
+    "equivalence_established": false
+  },
+  "published_arithmetic_matches": true,
+  "new_model_calls": 0
+}
