@@ -79,11 +79,8 @@ def validate_item(item: object) -> dict:
         if not isinstance(item[field], str) or not ID_RE.fullmatch(item[field]):
             _reject("ITEM_ID", item_id)
     item_id = item["id"]
-    spec = {key: item[key] for key in item if key not in ("key", "spec_sha256")}
     if not isinstance(item["spec_sha256"], str) or not SHA_RE.fullmatch(item["spec_sha256"]):
         _reject("SPEC_HASH_FORMAT", item_id)
-    if canonical_sha256(spec) != item["spec_sha256"]:
-        _reject("SPEC_HASH_MISMATCH", item_id)
     initial = _fields(item["input"], set(REGISTERS), "INPUT_SHAPE", item_id)
     for value in initial.values():
         _integer(value, -9, 9, "INPUT_RANGE", item_id)
@@ -111,6 +108,11 @@ def validate_item(item: object) -> dict:
             _reject("OPERAND", item_id)
     if program[-1] != {"op": "mod", "dst": item["output_register"], "src": 4}:
         _reject("FINAL_NORMALIZATION", item_id)
+    # Validate the JSON types before encoding the spec. An escaped lone
+    # surrogate is legal JSON but cannot be encoded for the canonical hash.
+    spec = {key: item[key] for key in item if key not in ("key", "spec_sha256")}
+    if canonical_sha256(spec) != item["spec_sha256"]:
+        _reject("SPEC_HASH_MISMATCH", item_id)
     return item
 
 
@@ -312,7 +314,8 @@ def _unique_pairs(pairs: list[tuple[str, object]]) -> dict:
 
 
 def load_manifest(path: Path) -> tuple[dict, str]:
-    raw = path.read_bytes()
+    with path.open("rb") as source:
+        raw = source.read(MAX_JSON_BYTES + 1)
     if len(raw) > MAX_JSON_BYTES:
         _reject("MANIFEST_SIZE")
     try:

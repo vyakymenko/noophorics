@@ -30,7 +30,9 @@ initial registers, instruction list, output register, answer key, and SHA-256
 of its canonical item specification excluding the key and hash. The checker
 refuses duplicate JSON fields or item IDs, unexpected fields, malformed hashes,
 out-of-range values, wrong keys, wrong runtime or verifier identity, and
-out-of-scope provenance.
+out-of-scope provenance. It reads no more than 100,001 bytes before rejecting a
+manifest over 100,000 bytes. Wrongly typed or out-of-range item fields receive
+structured rejection before specification hashing.
 
 The runtime executes the bounded instructions and records every before/after
 state. A separate checker reconstructs each transition from the source item

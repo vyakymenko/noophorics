@@ -22,9 +22,20 @@ rejection code for **8 of 8 deliberately damaged copies**. The damaged cases
 include a wrong answer key, changed source hash, wrong runtime, false holdout
 claim, corrupt trace, unsupported operation, missing final normalization and
 state overflow. The [unit tests](../tools/test_verify_program_output.py) also
-inject faults into both execution and verification paths and passed **13 of
-13** checks. These are engineering checks on this finite fixture set. They do
+inject faults into both execution and verification paths and passed **15 of
+15** checks. These are engineering checks on this finite fixture set. They do
 not estimate performance on a task population.
+
+An adversarial input review found that a JSON escaped lone surrogate in an
+input register caused an uncaught `UnicodeEncodeError`: the verifier encoded
+the item specification for its hash before checking the input's type. The
+current version validates the specification fields first and returns the
+structured `INPUT_RANGE` rejection. The loader also now reads at most 100,001
+bytes before enforcing its 100,000-byte file limit; previously it read the
+whole file into memory before checking. Both failures have regression tests.
+This is an instrument correction, not a new observation about model behavior.
+The saved validation record has been regenerated against the corrected source
+and manifest hashes; the earlier record remains in git history.
 
 The fixtures and keys were authored together. The two code paths can catch an
 inconsistent trace or key, but cannot independently adjudicate whether a

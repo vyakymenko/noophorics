@@ -145,6 +145,36 @@ class ProgramOutputVerifierTest(unittest.TestCase):
                 verifier.load_manifest(path)
             self.assertEqual(caught.exception.code, "DUPLICATE_JSON_KEY")
 
+    def test_escaped_lone_surrogate_returns_structured_rejection(self):
+        self.manifest["items"][0]["input"]["a"] = "\ud800"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "surrogate.json"
+            path.write_text(json.dumps(self.manifest, ensure_ascii=True), encoding="utf-8")
+            with redirect_stdout(io.StringIO()) as output:
+                self.assertEqual(verifier.main([str(path)]), 1)
+            self.assertEqual(json.loads(output.getvalue()),
+                             {"status": "rejected", "code": "INPUT_RANGE",
+                              "item_id": "fixture-mixed-registers"})
+
+    def test_manifest_size_is_checked_with_a_bounded_read(self):
+        class GuardedReader:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self, size=-1):
+                self_size = verifier.MAX_JSON_BYTES + 1
+                if size != self_size:
+                    raise AssertionError(f"unbounded read: {size}")
+                return b" " * self_size
+
+        with patch.object(Path, "open", return_value=GuardedReader()):
+            with self.assertRaises(verifier.Rejection) as caught:
+                verifier.load_manifest(Path("unused.json"))
+        self.assertEqual(caught.exception.code, "MANIFEST_SIZE")
+
     def test_cli_reports_structured_acceptance_and_failure(self):
         with redirect_stdout(io.StringIO()) as output:
             self.assertEqual(verifier.main([str(FIXTURE), "--self-check"]), 0)

@@ -1,6 +1,6 @@
 {
   "accepted_fixture_count": 4,
-  "instrument_sha256": "3dcab797f93156711297b949d4436574700c9a3f99aae12b191bff98bea73ecc",
+  "instrument_sha256": "35c6519412c597366d16e31cbfd4735805009975bd86c3039481c924b5124c1f",
   "items": [
     {
       "id": "fixture-mixed-registers",
@@ -27,7 +27,7 @@
       "trace_sha256": "d32d23f9f5aeedc5891822e5bcc205dae0dcd00107d10325d9517e0a2efa9b5a"
     }
   ],
-  "manifest_sha256": "2dca6699cb6283cffa42951e420c7fb8c4eb24c411751f0890d5893264e5c7e3",
+  "manifest_sha256": "b621e3823d6f83b493dd0f77fa96b80452483974f8ab89ebb54abdf312ddcc5c",
   "negative_check_count": 8,
   "negative_checks": [
     {
