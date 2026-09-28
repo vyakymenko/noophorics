@@ -1,0 +1,325 @@
+{
+  "date": "2026-09-28",
+  "status": "retrospective sensitivity draft for human review; no new experiment or formal correction",
+  "analysis": "exhaustive choices among raw-draw modal ties with sender modes fixed",
+  "measure": "RIVERSIDE-30@2e6afe2f3c92",
+  "source_sha256": {
+    "probes/riverside-30/probes.json": "8825e20fb5ba161dce0e5db13039ffe671cbff75d1ee17beecbb96cc92d2ccb3",
+    "probes/riverside-30/briefs.json": "4f7df9c8a170d5469c28cdf394300f5a4e053e8f9a9a6880e2044e7b4613fcf8",
+    "probes/riverside-30/briefs-qwen.json": "125eafa6719691628a9ea53e020cade9c4ca544be0b09c56532c769c8c3de1b7",
+    "probes/riverside-30/PREDICTION-selftransfer.md": "d902414e353098dc8b4e3f953727de0e879bfc59765e1a473ee97c42cd890cb2",
+    "probes/riverside-30/RESULTS-selftransfer.md": "d79835d86001badaf264796f04a3858a73de79964f93a6fc1480de987f9dfa3b",
+    "probes/riverside-30/headroom_riverside.py": "974540a2c9387c4905e3177362102f096560ff82a283dd52840b2ddac6c4eac1",
+    "probes/riverside-30/headroom.json": "c28d22af9c0043f96e315fbf2ca03a193be35f70568c53896ba7ff5845b5898b",
+    "probes/riverside-30/headroom-qwen.json": "4a8cdb4f215cd2fb685f0e0bc79c61dfa5dcc364ea76536fbe25199e583dff2b",
+    "probes/riverside-30/cross-gptoss-on-qwenbriefs.json": "f563f4afb53c4b6a2c91aeba81f42b5652f4b29920e6f28dc03cb936960468e9",
+    "probes/riverside-30/self-qwen-on-qwenbriefs.json": "29ac53818fe025aa85945a8a56be84bcc512ff159c92b26f9ba7834adf9f2c9c",
+    "metrics/noophorics/probes.py": "cb5c492a32184c8295699cb023ebeced53289832088fa0be6fe5cc162312e62a",
+    "metrics/noophorics/divergence.py": "328be8b2eef5e480de868f6d13f450cd27501ea9ff29d2bab7782b5a90e6500d"
+  },
+  "raw_draws_and_published_arithmetic_checked": true,
+  "published_tie_rule": "lexicographically first co-mode",
+  "probe_count": 30,
+  "sender_probe_cells": 120,
+  "receiver_probe_cells": 360,
+  "tie_count": 3,
+  "ties": [
+    {
+      "arm": "gptoss_self",
+      "brief": "b2",
+      "probe_index_zero_based": 23,
+      "co_mode_count": 2,
+      "choice_divergences": [
+        1,
+        0
+      ],
+      "reference_among_co_modes": true,
+      "published_choice_index": 0
+    },
+    {
+      "arm": "gptoss_cross",
+      "brief": "b0",
+      "probe_index_zero_based": 29,
+      "co_mode_count": 2,
+      "choice_divergences": [
+        1,
+        0
+      ],
+      "reference_among_co_modes": true,
+      "published_choice_index": 0
+    },
+    {
+      "arm": "qwen_self",
+      "brief": "b2",
+      "probe_index_zero_based": 21,
+      "co_mode_count": 2,
+      "choice_divergences": [
+        1,
+        0
+      ],
+      "reference_among_co_modes": true,
+      "published_choice_index": 0
+    }
+  ],
+  "modal_configuration_count": 8,
+  "configurations": [
+    {
+      "tie_choice_indices": [
+        0,
+        0,
+        0
+      ],
+      "row_differences": [
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "row_mean_numerators_over_three": [
+        1,
+        3
+      ],
+      "both_absolute_means_below_1_5": true
+    },
+    {
+      "tie_choice_indices": [
+        0,
+        0,
+        1
+      ],
+      "row_differences": [
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "row_mean_numerators_over_three": [
+        1,
+        2
+      ],
+      "both_absolute_means_below_1_5": true
+    },
+    {
+      "tie_choice_indices": [
+        0,
+        1,
+        0
+      ],
+      "row_differences": [
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "row_mean_numerators_over_three": [
+        1,
+        4
+      ],
+      "both_absolute_means_below_1_5": true
+    },
+    {
+      "tie_choice_indices": [
+        0,
+        1,
+        1
+      ],
+      "row_differences": [
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "row_mean_numerators_over_three": [
+        1,
+        3
+      ],
+      "both_absolute_means_below_1_5": true
+    },
+    {
+      "tie_choice_indices": [
+        1,
+        0,
+        0
+      ],
+      "row_differences": [
+        [
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "row_mean_numerators_over_three": [
+        0,
+        3
+      ],
+      "both_absolute_means_below_1_5": true
+    },
+    {
+      "tie_choice_indices": [
+        1,
+        0,
+        1
+      ],
+      "row_differences": [
+        [
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "row_mean_numerators_over_three": [
+        0,
+        2
+      ],
+      "both_absolute_means_below_1_5": true
+    },
+    {
+      "tie_choice_indices": [
+        1,
+        1,
+        0
+      ],
+      "row_differences": [
+        [
+          -1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "row_mean_numerators_over_three": [
+        0,
+        4
+      ],
+      "both_absolute_means_below_1_5": true
+    },
+    {
+      "tie_choice_indices": [
+        1,
+        1,
+        1
+      ],
+      "row_differences": [
+        [
+          -1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "row_mean_numerators_over_three": [
+        0,
+        3
+      ],
+      "both_absolute_means_below_1_5": true
+    }
+  ],
+  "rows": [
+    {
+      "composer": "gpt-oss:120b",
+      "published_differences": [
+        -1,
+        1,
+        1
+      ],
+      "published_mean_fraction": "1/3",
+      "possible_differences_by_brief": [
+        [
+          -1
+        ],
+        [
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "possible_mean_fractions": [
+        "0",
+        "1/3"
+      ],
+      "minimum_mean_fraction": "0",
+      "maximum_mean_fraction": "1/3",
+      "strictly_positive_in_every_configuration": false,
+      "negative_in_any_configuration": false,
+      "absolute_mean_below_1_5_in_every_configuration": true
+    },
+    {
+      "composer": "qwen3.5:35b",
+      "published_differences": [
+        0,
+        1,
+        2
+      ],
+      "published_mean_fraction": "1",
+      "possible_differences_by_brief": [
+        [
+          0,
+          1
+        ],
+        [
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "possible_mean_fractions": [
+        "2/3",
+        "1",
+        "4/3"
+      ],
+      "minimum_mean_fraction": "2/3",
+      "maximum_mean_fraction": "4/3",
+      "strictly_positive_in_every_configuration": true,
+      "negative_in_any_configuration": false,
+      "absolute_mean_below_1_5_in_every_configuration": true
+    }
+  ],
+  "both_absolute_row_means_below_1_5_in_every_configuration": true,
+  "new_model_calls": 0
+}

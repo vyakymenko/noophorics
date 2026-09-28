@@ -36,6 +36,10 @@ OUT = os.path.join(DOCS, "journal")
 SOURCES: List[Tuple[str, str, str]] = [
     # (slug, source path, kind)
     ("research-september-2026", "research/README.md", "research overview"),
+    ("selftransfer-tie-sensitivity",
+     "research/2026-09-28-selftransfer-tie-sensitivity.md", "audit draft"),
+    ("program-output-verifier",
+     "research/2026-09-28-program-verifier.md", "instrument"),
     ("qwen-register-feasibility", "research/2026-09-14-register-feasibility.md",
      "instrument"),
     ("selftransfer-audit", "research/2026-09-09-selftransfer-audit.md", "audit draft"),

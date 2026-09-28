@@ -1,0 +1,140 @@
+{
+  "instrument_sha256": "3dcab797f93156711297b949d4436574700c9a3f99aae12b191bff98bea73ecc",
+  "items": [
+    {
+      "family_id": "synthetic-arithmetic",
+      "id": "fixture-mixed-registers",
+      "input": {
+        "a": 2,
+        "b": 3
+      },
+      "key": 3,
+      "output_register": "a",
+      "program": [
+        {
+          "dst": "a",
+          "op": "add",
+          "src": "b"
+        },
+        {
+          "dst": "b",
+          "op": "mul",
+          "src": 2
+        },
+        {
+          "dst": "a",
+          "op": "sub",
+          "src": "b"
+        },
+        {
+          "dst": "a",
+          "op": "mod",
+          "src": 4
+        }
+      ],
+      "spec_sha256": "c6fc59c32f5db11106d7cebeb2f46864d5e15b2f1feee672a0bb8d574668682f",
+      "template_id": "mixed-state-update"
+    },
+    {
+      "family_id": "synthetic-arithmetic",
+      "id": "fixture-set-followup",
+      "input": {
+        "a": 5,
+        "b": -1
+      },
+      "key": 0,
+      "output_register": "b",
+      "program": [
+        {
+          "dst": "b",
+          "op": "set",
+          "src": "a"
+        },
+        {
+          "dst": "b",
+          "op": "add",
+          "src": 3
+        },
+        {
+          "dst": "b",
+          "op": "mod",
+          "src": 4
+        }
+      ],
+      "spec_sha256": "334b11391eb8d3dfdcc50b5689edf95924a053e92b8e18e64cfd20c1ae6f30f9",
+      "template_id": "copy-then-increment"
+    },
+    {
+      "family_id": "synthetic-arithmetic",
+      "id": "fixture-negative-input",
+      "input": {
+        "a": -3,
+        "b": 2
+      },
+      "key": 1,
+      "output_register": "a",
+      "program": [
+        {
+          "dst": "a",
+          "op": "mul",
+          "src": "b"
+        },
+        {
+          "dst": "a",
+          "op": "add",
+          "src": 7
+        },
+        {
+          "dst": "a",
+          "op": "mod",
+          "src": 4
+        }
+      ],
+      "spec_sha256": "cc9b3813fb7bf5fd0d80ea3a1bb373e36b2d8baf1f868b8b2ab55ca17e5db964",
+      "template_id": "negative-product"
+    },
+    {
+      "family_id": "synthetic-arithmetic",
+      "id": "fixture-other-output",
+      "input": {
+        "a": 3,
+        "b": 8
+      },
+      "key": 2,
+      "output_register": "b",
+      "program": [
+        {
+          "dst": "b",
+          "op": "sub",
+          "src": "a"
+        },
+        {
+          "dst": "b",
+          "op": "mul",
+          "src": 2
+        },
+        {
+          "dst": "b",
+          "op": "mod",
+          "src": 4
+        }
+      ],
+      "spec_sha256": "f6393f6f119e5ebb85c9e221502cb0dcceb346e307a0fbf94878c5773f5d6d79",
+      "template_id": "subtract-and-double"
+    }
+  ],
+  "language": "two-register-arithmetic-v1",
+  "provenance": {
+    "author": "codex research instrument prototype",
+    "created_utc": "2026-09-28T08:46:46Z",
+    "holdout_eligible": false,
+    "independent_key_adjudication": false,
+    "purpose": "synthetic_fixture",
+    "source": "hand-authored synthetic arithmetic fixtures"
+  },
+  "runtime": {
+    "implementation": "CPython",
+    "version": "3.14.6"
+  },
+  "schema": "noophorics.offline_program_output.v1"
+}

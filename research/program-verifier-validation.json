@@ -1,0 +1,95 @@
+{
+  "accepted_fixture_count": 4,
+  "instrument_sha256": "3dcab797f93156711297b949d4436574700c9a3f99aae12b191bff98bea73ecc",
+  "items": [
+    {
+      "id": "fixture-mixed-registers",
+      "key": 3,
+      "steps": 4,
+      "trace_sha256": "133f41f044782c4940833c906f90b376d24edeed56dbbc66d59971d05aae94e9"
+    },
+    {
+      "id": "fixture-set-followup",
+      "key": 0,
+      "steps": 3,
+      "trace_sha256": "5312771399850db8c6e9ae4f029698df09deb96c2e0c661dc0698e039f36367a"
+    },
+    {
+      "id": "fixture-negative-input",
+      "key": 1,
+      "steps": 3,
+      "trace_sha256": "ed899f1763fc80ea7c52cc3c5d4e21060c37ca04b7083084611fa5789caf610c"
+    },
+    {
+      "id": "fixture-other-output",
+      "key": 2,
+      "steps": 3,
+      "trace_sha256": "d32d23f9f5aeedc5891822e5bcc205dae0dcd00107d10325d9517e0a2efa9b5a"
+    }
+  ],
+  "manifest_sha256": "2dca6699cb6283cffa42951e420c7fb8c4eb24c411751f0890d5893264e5c7e3",
+  "negative_check_count": 8,
+  "negative_checks": [
+    {
+      "case": "wrong-key",
+      "expected_rejection": "KEY_MISMATCH",
+      "observed_rejection": "KEY_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "changed-source-hash",
+      "expected_rejection": "SPEC_HASH_MISMATCH",
+      "observed_rejection": "SPEC_HASH_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "wrong-runtime",
+      "expected_rejection": "RUNTIME_MISMATCH",
+      "observed_rejection": "RUNTIME_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "unadjudicated-holdout",
+      "expected_rejection": "PROVENANCE_SCOPE",
+      "observed_rejection": "PROVENANCE_SCOPE",
+      "passed": true
+    },
+    {
+      "case": "corrupt-trace",
+      "expected_rejection": "TRACE_TRANSITION",
+      "observed_rejection": "TRACE_TRANSITION",
+      "passed": true
+    },
+    {
+      "case": "unsupported-operation",
+      "expected_rejection": "INSTRUCTION_NAME",
+      "observed_rejection": "INSTRUCTION_NAME",
+      "passed": true
+    },
+    {
+      "case": "missing-final-normalization",
+      "expected_rejection": "FINAL_NORMALIZATION",
+      "observed_rejection": "FINAL_NORMALIZATION",
+      "passed": true
+    },
+    {
+      "case": "state-limit",
+      "expected_rejection": "STATE_LIMIT",
+      "observed_rejection": "STATE_LIMIT",
+      "passed": true
+    }
+  ],
+  "provenance": {
+    "author": "codex research instrument prototype",
+    "created_utc": "2026-09-28T08:46:46Z",
+    "holdout_eligible": false,
+    "independent_key_adjudication": false,
+    "purpose": "synthetic_fixture",
+    "source": "hand-authored synthetic arithmetic fixtures"
+  },
+  "runtime": {
+    "implementation": "CPython",
+    "version": "3.14.6"
+  },
+  "status": "accepted"
+}
