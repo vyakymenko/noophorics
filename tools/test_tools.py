@@ -254,6 +254,24 @@ class TestCheckCounts(ToolTest):
                                 "are void. Nine of our own claims are "
                                 "withdrawn.</p>"),
             "docs/journal/one/index.html": "x",
+            "tools/fixtures/program_output/manifest.json": json.dumps(
+                {"items": [{}, {}, {}]}),
+            "research/program-verifier-validation.json": json.dumps({
+                "accepted_fixture_count": 3,
+                "items": [{}, {}, {}],
+                "negative_check_count": 2,
+                "negative_checks": [
+                    {"expected_rejection": "X", "observed_rejection": "X", "passed": True},
+                    {"expected_rejection": "Y", "observed_rejection": "Y", "passed": True},
+                ],
+            }),
+            "tools/test_verify_program_output.py": "    def test_a(): pass\n" * 4,
+            "research/2026-09-28-program-verifier.md": (
+                "**3 of 3 synthetic fixtures**; **2 of 2 deliberately damaged "
+                "copies**; passed **4 of 4** checks.\n"),
+            "docs/journal/program-output-verifier/index.html": (
+                "<strong>3 of 3 synthetic fixtures</strong>; 2 of 2 "
+                "deliberately damaged copies; passed <strong>4 of 4</strong> checks."),
             "docs/en/index.html": "x",
             # Two voided experiments and one that merely has a directory: the
             # count is files named VOID.md, not experiments that exist.
@@ -280,6 +298,32 @@ class TestCheckCounts(ToolTest):
         code, out = self.run_check(self.base(tests_n=7, readme_states=6))
         self.assertEqual(code, 1)
         self.assertIn("MISMATCH", out)
+
+    def test_program_verifier_counts_are_checked_in_source_and_site(self):
+        """A stale fixture, negative-check, or test count fails on each page."""
+        for rel in ("research/2026-09-28-program-verifier.md",
+                    "docs/journal/program-output-verifier/index.html"):
+            for old, stale in (("3 of 3", "2 of 3"), ("2 of 2", "1 of 2"),
+                               ("4 of 4", "3 of 4")):
+                with self.subTest(rel=rel, count=old):
+                    files = self.base(tests_n=7, readme_states=7)
+                    files[rel] = files[rel].replace(old, stale)
+                    code, out = self.run_check(files)
+                    self.assertEqual(code, 1, out)
+                    self.assertIn("MISMATCH", out)
+
+    def test_program_verifier_record_counts_are_checked(self):
+        """The saved summary must agree with its listed rows."""
+        for field in ("accepted_fixture_count", "negative_check_count"):
+            with self.subTest(field=field):
+                files = self.base(tests_n=7, readme_states=7)
+                rel = "research/program-verifier-validation.json"
+                record = json.loads(files[rel])
+                record[field] -= 1
+                files[rel] = json.dumps(record)
+                code, out = self.run_check(files)
+                self.assertEqual(code, 1, out)
+                self.assertIn("MISMATCH", out)
 
     def test_a_spelled_out_numeral_counts_as_a_claim(self):
         """"ten open problems" is a claim exactly as much as "10" is."""

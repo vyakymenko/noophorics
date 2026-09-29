@@ -37,6 +37,13 @@ This is an instrument correction, not a new observation about model behavior.
 The saved validation record has been regenerated against the corrected source
 and manifest hashes; the earlier record remains in git history.
 
+The count gate now checks both sides of the stated fixture and negative-check
+counts against the manifest and saved validation record, and the stated unit
+test count against defined test methods. It checks this source and the generated
+site page separately. A test deliberately makes each page's unit-test count
+stale and requires the gate to fail; the test suite itself must still be run to
+verify that those tests pass.
+
 The fixtures and keys were authored together. The two code paths can catch an
 inconsistent trace or key, but cannot independently adjudicate whether a
 model-facing text accurately specifies a program. The fixtures are therefore

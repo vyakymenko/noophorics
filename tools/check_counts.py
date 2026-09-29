@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Every count this repository states about itself, checked against the source.
+"""Registered count claims checked against their source files.
 
 A programme whose pitch is that its numbers are auditable cannot afford a stated
 count that disagrees with the file behind it -- and it had one for days: README
@@ -12,6 +12,7 @@ because a number in prose reads as true.
 from __future__ import annotations
 
 import os
+import json
 import re
 import sys
 
@@ -40,6 +41,8 @@ def _count_voids() -> int:
 def truth() -> dict:
     docs = os.path.join(ROOT, "docs")
     journal = os.path.join(docs, "journal")
+    program_manifest = json.loads(_read("tools/fixtures/program_output/manifest.json"))
+    program_record = json.loads(_read("research/program-verifier-validation.json"))
     return {
         "tests": len(re.findall(r"def test_", _read("metrics/tests/test_metrics.py"))),
         "laws": len(re.findall(r"^## L\d", _read("theory/laws.md"), re.M)),
@@ -56,6 +59,15 @@ def truth() -> dict:
         "voids": _count_voids(),
         "journal entries": len([d for d in os.listdir(journal)
                                 if os.path.isdir(os.path.join(journal, d))]),
+        "program fixtures": len(program_manifest["items"]),
+        "program accepted": len(program_record["items"]),
+        "program negatives": len(program_record["negative_checks"]),
+        "program negatives passed": sum(
+            check.get("passed") is True
+            and check.get("observed_rejection") == check.get("expected_rejection")
+            for check in program_record["negative_checks"]),
+        "program verifier tests": len(re.findall(
+            r"^\s*def test_", _read("tools/test_verify_program_output.py"), re.M)),
     }
 
 
@@ -91,7 +103,26 @@ CLAIMS = [
     # unchecked numeral here goes wrong in twenty places at once.
     ("docs/index.html", r"(Twenty-one|Twenty|Nineteen|Eighteen|Seventeen|Sixteen|Fifteen|Fourteen|Thirteen|Twelve|Eleven|Ten|Nine) of our own claims are withdrawn",
      "retractions"),
+    ("research/program-verifier-validation.json",
+     r'"accepted_fixture_count":\s*(\d+)', "program accepted"),
+    ("research/program-verifier-validation.json",
+     r'"negative_check_count":\s*(\d+)', "program negatives"),
 ]
+
+# These instrument counts appear in both the research source and its generated
+# site page. Check each side: a stale build must fail just as stale prose does.
+for _rel in ("research/2026-09-28-program-verifier.md",
+             "docs/journal/program-output-verifier/index.html"):
+    CLAIMS.extend([
+        (_rel, r"(\d+) of \d+ synthetic fixtures", "program accepted"),
+        (_rel, r"\d+ of (\d+) synthetic fixtures", "program fixtures"),
+        (_rel, r"(\d+) of \d+ deliberately damaged copies", "program negatives passed"),
+        (_rel, r"\d+ of (\d+) deliberately damaged copies", "program negatives"),
+        (_rel, r"passed (?:\*\*|<strong>)(\d+) of\s+\d+(?:\*\*|</strong>) checks",
+         "program verifier tests"),
+        (_rel, r"passed (?:\*\*|<strong>)\d+ of\s+(\d+)(?:\*\*|</strong>) checks",
+         "program verifier tests"),
+    ])
 
 # The alternation in CLAIMS above must list every word in here, or a
 # correct new count reads as PATTERN NOT FOUND. That is the check
