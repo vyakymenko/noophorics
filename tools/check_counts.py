@@ -38,6 +38,14 @@ def _count_voids() -> int:
                 if os.path.exists(os.path.join(base, d, "VOID.md"))])
 
 
+def _passed_negative_check(check: object) -> bool:
+    if not isinstance(check, dict):
+        return False
+    expected = check.get("expected_rejection")
+    return (check.get("passed") is True and isinstance(expected, str)
+            and bool(expected) and check.get("observed_rejection") == expected)
+
+
 def truth() -> dict:
     docs = os.path.join(ROOT, "docs")
     journal = os.path.join(docs, "journal")
@@ -63,9 +71,7 @@ def truth() -> dict:
         "program accepted": len(program_record["items"]),
         "program negatives": len(program_record["negative_checks"]),
         "program negatives passed": sum(
-            check.get("passed") is True
-            and check.get("observed_rejection") == check.get("expected_rejection")
-            for check in program_record["negative_checks"]),
+            _passed_negative_check(check) for check in program_record["negative_checks"]),
         "program verifier tests": len(re.findall(
             r"^\s*def test_", _read("tools/test_verify_program_output.py"), re.M)),
     }

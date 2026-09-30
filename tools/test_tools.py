@@ -325,6 +325,18 @@ class TestCheckCounts(ToolTest):
                 self.assertEqual(code, 1, out)
                 self.assertIn("MISMATCH", out)
 
+    def test_missing_negative_check_fields_cannot_count_as_passed(self):
+        """A passed flag with no expected or observed rejection is no check."""
+        files = self.base(tests_n=7, readme_states=7)
+        rel = "research/program-verifier-validation.json"
+        record = json.loads(files[rel])
+        record["negative_checks"][0].pop("expected_rejection")
+        record["negative_checks"][0].pop("observed_rejection")
+        files[rel] = json.dumps(record)
+        code, out = self.run_check(files)
+        self.assertEqual(code, 1, out)
+        self.assertIn("MISMATCH", out)
+
     def test_a_spelled_out_numeral_counts_as_a_claim(self):
         """"ten open problems" is a claim exactly as much as "10" is."""
         files = self.base(tests_n=7, readme_states=7)

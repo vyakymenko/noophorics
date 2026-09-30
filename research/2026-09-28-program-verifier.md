@@ -43,6 +43,12 @@ test count against defined test methods. It checks this source and the generated
 site page separately. A test deliberately makes each page's unit-test count
 stale and requires the gate to fail; the test suite itself must still be run to
 verify that those tests pass.
+An adversarial follow-up found that a damaged validation row with both rejection
+codes missing was counted as passing when its `passed` flag was true, because
+the two missing values compared equal. The gate now requires a nonempty expected
+rejection code and an identical observed code; a regression test demonstrates
+the former false green and the corrected refusal. The saved validation rows
+themselves were unchanged.
 
 The fixtures and keys were authored together. The two code paths can catch an
 inconsistent trace or key, but cannot independently adjudicate whether a
