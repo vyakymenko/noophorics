@@ -168,6 +168,22 @@ def _inline(text: str) -> str:
     return re.sub(r"\x00(\d+)\x00", lambda m: holds[int(m.group(1))], text)
 
 
+def plain_title(title: str) -> str:
+    """A heading's text for <title>, og:title and JSON-LD, which carry no markup.
+
+    E-001c's VOID.md corrected its own title in place --
+    `~~the fluent register has~~ **`gpt-oss:120b` has**` -- and the heading
+    was escaped rather than rendered, so from 2026-09-02 the page's <h1> showed
+    literal tildes and asterisks: the defect the 2026-09-08 journal records
+    having fixed once in the site's HTML. Metadata cannot strike, so the struck
+    words are dropped here, leaving the claim that stands; the page's own <h1>
+    keeps them, struck, through `_inline`.
+    """
+    text = re.sub(r"~~[^~]+~~", "", title)
+    text = text.replace("**", "").replace("`", "")
+    return " ".join(text.split())
+
+
 def _link(m) -> str:
     label, href = m.group(1), m.group(2)
     if href.startswith("http"):
@@ -504,14 +520,15 @@ def build() -> int:
         first_para = first_paragraph(rest)
         summary = summarise(first_para, rest)
         body = ('<p class="jn">%s · %s</p>\n<h1>%s</h1>\n%s'
-                % (kind, slug.replace("-", " "), html.escape(title), markdown(rest)))
+                % (kind, slug.replace("-", " "), _inline(title), markdown(rest)))
+        heading, title = title, plain_title(title)
         out_dir = os.path.join(OUT, slug)
         os.makedirs(out_dir, exist_ok=True)
         url = "https://noophorics.org/journal/%s/" % slug
         with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as fh:
             fh.write(page_shell(title, body, summary, url, style,
                                 structured_data(title, summary, url, kind, path)))
-        entries.append((slug, title, summary, kind, path))
+        entries.append((slug, heading, summary, kind, path))
 
     index_body = (
         '<p class="jn">Lab notebook</p>\n<h1>The record of being wrong</h1>\n'
@@ -525,7 +542,7 @@ def build() -> int:
             '<h2><a href="/journal/%s/">%s</a></h2>\n<p>%s…</p>\n'
             '<p style="font-size:.9rem;color:var(--soft)">'
             '%s · <a href="%s%s">source</a></p>\n'
-            % (slug, html.escape(title), html.escape(summary),
+            % (slug, _inline(title), html.escape(summary),
                html.escape(kind), REPO, path)
         )
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8") as fh:

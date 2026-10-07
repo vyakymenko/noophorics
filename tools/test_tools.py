@@ -639,6 +639,24 @@ class TestJournalPublication(ToolTest):
                     self.bj._inline("[source](%s)" % rel),
                     '<a href="%s%s">source</a>' % (self.bj.REPO, path))
 
+    def test_a_title_corrected_in_place_renders_struck_not_as_raw_markdown(self):
+        """E-001c's void page showed `~~...~~ **...**` in its <h1> for five weeks."""
+        title = "E-1 is void — ~~the register has~~ **`model` has** a floor"
+        self.assertEqual(
+            self.bj._inline(title),
+            "E-1 is void — <s>the register has</s> "
+            "<strong><code>model</code> has</strong> a floor")
+        plain = self.bj.plain_title(title)
+        self.assertEqual(plain, "E-1 is void — model has a floor")
+        self.assertNotIn("~", plain)
+        self.assertNotIn("*", plain)
+
+    def test_an_unmarked_title_is_unchanged_as_plain_text(self):
+        """The legitimate case nearest the defect: most titles carry no markup."""
+        title = "The ledger, read against the text"
+        self.assertEqual(self.bj.plain_title(title), title)
+        self.assertEqual(self.bj._inline(title), title)
+
     def test_section_links_keep_working_without_generated_heading_ids(self):
         self.assertEqual(
             self.bj._inline("[section](2026-09-14-register-feasibility.md#calibration)"),
