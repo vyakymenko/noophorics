@@ -339,6 +339,35 @@ agree in shape, which is what a defect *class* looks like. Naming the class is
 theory work: it is a statement about what makes a measurement report internally
 coherent, and this programme has no such statement.
 
+### Instrumented, 2026-10-07: the binding is expressible for what shared helpers compute
+
+The open part above has a partial answer. For statistics the shared
+`inference` helpers compute, [`tools/audit_estimand.py`](../tools/audit_estimand.py)
+wraps those helpers at run time and binds each interval and p-value they return
+to the call that produced it, by object identity, without rewriting a runner. It
+runs the E-002b and E-002c runners on synthetic draws. Run from the revisions
+that carried them, all three incidents above are flagged, each with its own
+code, and each clears on the commit that fixed it.
+
+On the runners as they stand it flags E-002b's registered H3 and E-002c's
+`recorded_conditional_asymmetry` in E-002b H4's shape, a paired interval beside
+an unpaired test. It also flags a record and a summary that can part: a
+hypothesis whose interval excludes zero is recorded as supported, and the
+terminal summary leaves it unmarked unless its Holm-corrected `p` is below 0.05
+too. Synthetic draws reach that region; no published record of the present
+runners does. Intervals computed inline stay unbound and are reported as such —
+E-002b's H5 and E-002c's H1–H3 among them. [The report](../research/2026-10-07-estimand-audit.md)
+is for human review and is not a gate.
+
+What is still open is the rule itself. This section's candidate compares only
+the value and the p-value, and does not decide the interval. E-001c's registered
+rule (its pre-registration, section 6, item 6) extends it to the interval:
+"effect, interval and p-value from the same array". That rule rejects corrected
+E-002c H3, whose interval bootstraps briefs jointly while its test sign-flips
+per-brief contributions. The tracer's weaker R1 accepts it. Choosing between
+them is the theory work this problem asks for. The E-001 family computes its
+statistics locally, where nothing here can see.
+
 
 ## 14. When is a modal answer over `n` draws a stable observable?
 

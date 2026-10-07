@@ -1,0 +1,405 @@
+{
+ "counts": {
+  "effects": 15,
+  "r4_seeds": 40,
+  "registered": 9,
+  "registered_untraced_intervals": 4,
+  "untraced_intervals": 7
+ },
+ "fixtures": [
+  {
+   "defect_rev": "a62d2d6",
+   "defect_status": "FAIL:unpaired-test-of-paired-differences",
+   "effect": "H4_sender_worse_than_receiver",
+   "expected_fail": "FAIL:unpaired-test-of-paired-differences",
+   "experiment": "E-002b",
+   "fixed_rev": "df0305b",
+   "fixed_status": "ok",
+   "green_on_fix": true,
+   "incident": "E-002b H4: paired interval, unpaired test",
+   "red_on_defect": true,
+   "rule": "R2",
+   "wrote_only_to_temp": true
+  },
+  {
+   "defect_rev": "cea9243",
+   "defect_status": "FAIL:different-quantity",
+   "effect": "H3_sender_less_responsive",
+   "expected_fail": "FAIL:different-quantity",
+   "experiment": "E-002c",
+   "fixed_rev": "c97005b",
+   "fixed_status": "ok",
+   "green_on_fix": true,
+   "incident": "E-002c H3: slope-difference interval, level-difference test",
+   "red_on_defect": true,
+   "rule": "R1",
+   "wrote_only_to_temp": true
+  },
+  {
+   "defect_rev": "549ff54",
+   "defect_status": "FAIL:mark-disagrees",
+   "effect": "H1_beta_below_half",
+   "expected_fail": "FAIL:mark-disagrees",
+   "experiment": "E-002c",
+   "fixed_rev": "cea9243",
+   "fixed_status": "ok",
+   "green_on_fix": true,
+   "incident": "E-002c H1: summary gated on a p-value H1 has by design none of",
+   "red_on_defect": true,
+   "rule": "R4",
+   "wrote_only_to_temp": true
+  }
+ ],
+ "worktree": [
+  {
+   "effects": {
+    "H1_bias_positive": {
+     "ci_source": "bootstrap_ci over 16 units",
+     "findings": [
+      [
+       "R1",
+       "ok",
+       "test statistic is the reported value"
+      ],
+      [
+       "R1b",
+       "ok",
+       "interval's point estimate is the reported value"
+      ],
+      [
+       "R2",
+       "one-sample-as-two-sample",
+       "two-sample permutation of 16 units against 16 zeros"
+      ],
+      [
+       "R4",
+       "ok",
+       "summary does not mark it; record says supported=False"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "permutation_diff over 16+16 units"
+    },
+    "H2_resolution_above_chance": {
+     "ci_source": "bootstrap_ci over 32 units",
+     "findings": [
+      [
+       "R1",
+       "ok",
+       "test statistic is the reported value"
+      ],
+      [
+       "R1b",
+       "ok",
+       "interval's point estimate is the reported value"
+      ],
+      [
+       "R2",
+       "one-sample-as-two-sample",
+       "two-sample permutation of 32 units against 32 zeros"
+      ],
+      [
+       "R4",
+       "FAIL:mark-disagrees",
+       "summary does not mark it; record says supported=True (synthetic seed 9)"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "permutation_diff over 32+32 units"
+    },
+    "H3_conditional_asymmetry": {
+     "ci_source": "bootstrap_ci over 32 units",
+     "findings": [
+      [
+       "R1",
+       "ok",
+       "test statistic is the reported value"
+      ],
+      [
+       "R1b",
+       "ok",
+       "interval's point estimate is the reported value"
+      ],
+      [
+       "R2",
+       "FAIL:unpaired-test-of-paired-differences",
+       "interval over 32 paired differences, test an unpaired two-sample permutation of the same 32 pairs"
+      ],
+      [
+       "R4",
+       "ok",
+       "summary marks it; record says supported=True"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "permutation_diff over 32+32 units"
+    },
+    "H4_sender_worse_than_receiver": {
+     "ci_source": "bootstrap_ci over 16 units",
+     "findings": [
+      [
+       "R1",
+       "ok",
+       "test statistic is the reported value"
+      ],
+      [
+       "R1b",
+       "ok",
+       "interval's point estimate is the reported value"
+      ],
+      [
+       "R2",
+       "ok",
+       "interval and test share one array of 16 units"
+      ],
+      [
+       "R4",
+       "ok",
+       "summary does not mark it; record says supported=False"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "paired_permutation over 16 units"
+    },
+    "H5_phi_rises_as_fidelity_falls": {
+     "ci_source": "untraced",
+     "findings": [
+      [
+       "R3",
+       "note",
+       "interval computed inline; untraced"
+      ],
+      [
+       "R3",
+       "note",
+       "p-value computed inline; untraced"
+      ],
+      [
+       "R4",
+       "ok",
+       "summary marks it; record says supported=True"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "untraced"
+    }
+   },
+   "experiment": "E-002b",
+   "r4_seeds": 40,
+   "revision": "worktree",
+   "summary_wrote_only_to_temp": true,
+   "synthetic_seed": 1,
+   "traced_calls": 8
+  },
+  {
+   "effects": {
+    "H1_beta_below_half": {
+     "ci_source": "untraced",
+     "findings": [
+      [
+       "R3",
+       "note",
+       "interval computed inline; untraced"
+      ],
+      [
+       "R4",
+       "ok",
+       "summary marks it; record says supported=True"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": false,
+     "p_source": null
+    },
+    "H2_beta_includes_zero": {
+     "ci_source": "untraced",
+     "findings": [
+      [
+       "R3",
+       "note",
+       "interval computed inline; untraced"
+      ],
+      [
+       "R4",
+       "ok",
+       "summary marks it; record says supported=True"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": false,
+     "p_source": null
+    },
+    "H3_sender_less_responsive": {
+     "ci_source": "untraced",
+     "findings": [
+      [
+       "R3",
+       "note",
+       "interval computed inline; untraced"
+      ],
+      [
+       "R1",
+       "ok",
+       "test statistic is the mean of 16 per-unit terms whose sum is the reported value"
+      ],
+      [
+       "R4",
+       "ok",
+       "summary does not mark it; record says supported=False"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "paired_permutation over 16 units"
+    },
+    "H4_resolution_survives_finer_grid": {
+     "ci_source": "bootstrap_ci over 32 units",
+     "findings": [
+      [
+       "R1",
+       "ok",
+       "test statistic is the reported value"
+      ],
+      [
+       "R1b",
+       "ok",
+       "interval's point estimate is the reported value"
+      ],
+      [
+       "R2",
+       "one-sample-as-two-sample",
+       "two-sample permutation of 32 units against 32 zeros"
+      ],
+      [
+       "R4",
+       "FAIL:mark-disagrees",
+       "summary does not mark it; record says supported=True (synthetic seed 9)"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "permutation_diff over 32+32 units"
+    },
+    "beta_pooled": {
+     "ci_source": "untraced",
+     "findings": [
+      [
+       "R3",
+       "note",
+       "interval computed inline; untraced"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": false,
+     "p_source": null
+    },
+    "beta_receiver": {
+     "ci_source": "untraced",
+     "findings": [
+      [
+       "R3",
+       "note",
+       "interval computed inline; untraced"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": false,
+     "p_source": null
+    },
+    "beta_sender": {
+     "ci_source": "untraced",
+     "findings": [
+      [
+       "R3",
+       "note",
+       "interval computed inline; untraced"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": false,
+     "p_source": null
+    },
+    "recorded_bias_positive": {
+     "ci_source": "bootstrap_ci over 16 units",
+     "findings": [
+      [
+       "R1",
+       "ok",
+       "test statistic is the reported value"
+      ],
+      [
+       "R1b",
+       "ok",
+       "interval's point estimate is the reported value"
+      ],
+      [
+       "R2",
+       "one-sample-as-two-sample",
+       "two-sample permutation of 16 units against 16 zeros"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "permutation_diff over 16+16 units"
+    },
+    "recorded_conditional_asymmetry": {
+     "ci_source": "bootstrap_ci over 32 units",
+     "findings": [
+      [
+       "R1",
+       "ok",
+       "test statistic is the reported value"
+      ],
+      [
+       "R1b",
+       "ok",
+       "interval's point estimate is the reported value"
+      ],
+      [
+       "R2",
+       "FAIL:unpaired-test-of-paired-differences",
+       "interval over 32 paired differences, test an unpaired two-sample permutation of the same 32 pairs"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "permutation_diff over 32+32 units"
+    },
+    "recorded_sender_worse_than_receiver": {
+     "ci_source": "bootstrap_ci over 16 units",
+     "findings": [
+      [
+       "R1",
+       "ok",
+       "test statistic is the reported value"
+      ],
+      [
+       "R1b",
+       "ok",
+       "interval's point estimate is the reported value"
+      ],
+      [
+       "R2",
+       "ok",
+       "interval and test share one array of 16 units"
+      ]
+     ],
+     "has_ci": true,
+     "has_p": true,
+     "p_source": "paired_permutation over 16 units"
+    }
+   },
+   "experiment": "E-002c",
+   "r4_seeds": 40,
+   "revision": "worktree",
+   "summary_wrote_only_to_temp": true,
+   "synthetic_seed": 1,
+   "traced_calls": 10
+  }
+ ]
+}

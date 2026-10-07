@@ -276,6 +276,15 @@ class TestCheckCounts(ToolTest):
                 "deliberately damaged copies; passed <strong>4 of 4</strong> checks."),
             "docs/en/index.html": "x",
             "docs/fr/index.html": "x",
+            "research/estimand-audit.json": json.dumps({"counts": {
+                "effects": 15, "untraced_intervals": 7, "registered": 9,
+                "registered_untraced_intervals": 4, "r4_seeds": 40}}),
+            "research/2026-10-07-estimand-audit.md": (
+                "over forty synthetic\ndraws. Seven of the fifteen effects'\n"
+                "intervals. Four of the nine registered\nhypotheses.\n"),
+            "docs/journal/estimand-audit/index.html": (
+                "<p>over forty synthetic draws. Seven of the fifteen effects' "
+                "intervals. Four of the nine registered hypotheses.</p>"),
             "AGENTS.md": ("the count moves and so do two translations.\n"
                           "translate the new sentence in all two languages.\n"),
             # Two voided experiments and one that merely has a directory: the
@@ -460,6 +469,19 @@ class TestCheckCounts(ToolTest):
                 code, out = self.run_check(files)
                 self.assertEqual(code, 1, out)
                 self.assertIn("MISMATCH", out)
+
+    def test_the_estimand_note_is_checked_against_its_saved_record(self):
+        """Counts read off a tool's output are claims like any other."""
+        for rel in ("research/2026-10-07-estimand-audit.md",
+                    "docs/journal/estimand-audit/index.html"):
+            for old, stale in (("Seven of", "Six of"), ("of the nine", "of the ten"),
+                               ("over forty", "over thirty")):
+                with self.subTest(rel=rel, stale=stale):
+                    files = self.base(tests_n=7, readme_states=7)
+                    files[rel] = files[rel].replace(old, stale)
+                    code, out = self.run_check(files)
+                    self.assertEqual(code, 1, out)
+                    self.assertIn("MISMATCH", out)
 
     def test_the_void_count_survives_a_repository_with_no_experiments(self):
         """A counter that raises instead of reporting is an outage, not an audit."""

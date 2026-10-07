@@ -1,10 +1,11 @@
-# Research continuation — September 2026
+# Research continuation — September and October 2026
 
 These materials separate a new instrument readout, an audit of existing data,
 and proposals for later work.
 
 | Material | What it supplies | Status |
 |---|---|---|
+| [Estimand audit](2026-10-07-estimand-audit.md) | A run-time tracer binding each interval and p-value the shared inference helpers return to the call and array it came from — inline estimators are reported as untraced — with Problem 13's three incidents as red/green fixtures. | Offline instrument and report for human review; no rule adopted, not a gate. |
 | [Self-transfer tie sensitivity](2026-09-28-selftransfer-tie-sensitivity.md) | Exhaustive retrospective check of the saved result under alternative modal-tie resolutions. | Descriptive audit draft for human review; reviewed 2026-10-07 and cited as ground (c) of [retraction 22](../RETRACTIONS.md). The original prediction remains as written. |
 | [Program-output verifier](2026-09-28-program-verifier.md) | Offline validation of a restricted deterministic task format on synthetic fixtures. | Instrument prototype; no E-003 subject data. |
 | [Qwen register readout](2026-09-14-register-feasibility.md) | Direct length-and-register counts from blind ratings of archived compositions, with raw requests and responses. | Instrument data; collection status is reported inside. |

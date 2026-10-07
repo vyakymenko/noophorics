@@ -132,6 +132,7 @@ python3 tools/build_og.py --check              # the social card matches the ver
 python3 tools/build_wiki.py --check            # /wiki/ matches the sources it maps
 python3 tools/audit_selftransfer.py --check     # self-transfer audit; retraction 22 stays struck
 python3 tools/test_audit_selftransfer_ties.py   # the audit's own red/green checks
+python3 tools/audit_estimand.py --check-record research/estimand-audit.json  # the record check_counts reads
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```
 

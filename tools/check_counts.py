@@ -51,6 +51,7 @@ def truth() -> dict:
     journal = os.path.join(docs, "journal")
     program_manifest = json.loads(_read("tools/fixtures/program_output/manifest.json"))
     program_record = json.loads(_read("research/program-verifier-validation.json"))
+    estimand = json.loads(_read("research/estimand-audit.json"))["counts"]
     return {
         "tests": len(re.findall(r"def test_", _read("metrics/tests/test_metrics.py"))),
         "laws": len(re.findall(r"^## L\d", _read("theory/laws.md"), re.M)),
@@ -74,6 +75,11 @@ def truth() -> dict:
             _passed_negative_check(check) for check in program_record["negative_checks"]),
         "program verifier tests": len(re.findall(
             r"^\s*def test_", _read("tools/test_verify_program_output.py"), re.M)),
+        "estimand effects": estimand["effects"],
+        "estimand untraced": estimand["untraced_intervals"],
+        "estimand registered": estimand["registered"],
+        "estimand reg untraced": estimand["registered_untraced_intervals"],
+        "estimand R4 seeds": estimand["r4_seeds"],
     }
 
 
@@ -93,6 +99,7 @@ for _unit, _n in (("one", 1), ("two", 2), ("three", 3), ("four", 4),
                   ("nine", 9)):
     WORDS["twenty-" + _unit] = 20 + _n
 WORDS["thirty"] = 30
+WORDS["forty"] = 40
 
 # Longest first, so "twenty-one" is tried before "twenty" and "nineteen" before
 # "nine"; case-insensitive, because a numeral that opens a sentence is
@@ -153,6 +160,19 @@ CLAIMS = [
     ("research/program-verifier-validation.json",
      r'"negative_check_count":\s*(\d+)', "program negatives"),
 ]
+
+# The estimand audit's counts are read from its saved record, which
+# `audit_estimand.py --check-record` recomputes; each is stated in the research
+# note and on its generated page, and both sides are checked.
+for _rel in ("research/2026-10-07-estimand-audit.md",
+             "docs/journal/estimand-audit/index.html"):
+    CLAIMS.extend([
+        (_rel, NUMERAL + r"\s+of\s+the\s+\w+\s+effects'\s+intervals", "estimand untraced"),
+        (_rel, r"of\s+the\s+" + NUMERAL + r"\s+effects'\s+intervals", "estimand effects"),
+        (_rel, NUMERAL + r"\s+of\s+the\s+\w+\s+registered\s+hypotheses", "estimand reg untraced"),
+        (_rel, r"of\s+the\s+" + NUMERAL + r"\s+registered\s+hypotheses", "estimand registered"),
+        (_rel, r"over\s+" + NUMERAL + r"\s+synthetic\s+draws", "estimand R4 seeds"),
+    ])
 
 # These instrument counts appear in both the research source and its generated
 # site page. Check each side: a stale build must fail just as stale prose does.
