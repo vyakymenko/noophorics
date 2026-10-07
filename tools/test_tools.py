@@ -275,6 +275,9 @@ class TestCheckCounts(ToolTest):
                 "<strong>3 of 3 synthetic fixtures</strong>; 2 of 2 "
                 "deliberately damaged copies; passed <strong>4 of 4</strong> checks."),
             "docs/en/index.html": "x",
+            "docs/fr/index.html": "x",
+            "AGENTS.md": ("the count moves and so do two translations.\n"
+                          "translate the new sentence in all two languages.\n"),
             # Two voided experiments and one that merely has a directory: the
             # count is files named VOID.md, not experiments that exist.
             "experiments/E-1/VOID.md": "void",
@@ -446,6 +449,17 @@ class TestCheckCounts(ToolTest):
         code, out = self.run_check(files)
         self.assertEqual(code, 1, out)
         self.assertIn("PATTERN NOT FOUND", out)
+
+    def test_the_translation_count_agents_are_told_is_checked(self):
+        """AGENTS.md said eleven translations while nineteen existed."""
+        for old, stale in (("two translations", "three translations"),
+                           ("all two languages", "all three languages")):
+            with self.subTest(stale=stale):
+                files = self.base(tests_n=7, readme_states=7)
+                files["AGENTS.md"] = files["AGENTS.md"].replace(old, stale)
+                code, out = self.run_check(files)
+                self.assertEqual(code, 1, out)
+                self.assertIn("MISMATCH", out)
 
     def test_the_void_count_survives_a_repository_with_no_experiments(self):
         """A counter that raises instead of reporting is an outage, not an audit."""

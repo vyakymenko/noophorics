@@ -16,8 +16,8 @@ was invisible to the other. That gap is now this file.
 
 **How it works.** Every `~~...~~` span in the markdown sources is a claim this
 repository has withdrawn. Each is normalised to a word sequence and its
-`--ngram`-word shingles are indexed. These are *struck spans*, not the eleven
-numbered entries in `RETRACTIONS.md` -- one withdrawal is often struck in
+`--ngram`-word shingles are indexed. These are *struck spans*, not the numbered
+entries in `RETRACTIONS.md` (eleven when this was written) -- one withdrawal is often struck in
 several files, so the two counts differ on purpose and are named differently. Then every HTML page is read with `<s>`
 regions removed -- what is left is text the site asserts *as true*. Any shingle
 of a withdrawn claim appearing in that remainder is a live restatement of a

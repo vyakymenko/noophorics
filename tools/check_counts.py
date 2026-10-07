@@ -142,6 +142,12 @@ CLAIMS = [
     # this sentence is the one carried into nineteen translations -- so an
     # unchecked numeral here goes wrong in twenty places at once.
     ("docs/index.html", NUMERAL + r" of our own claims are withdrawn", "retractions"),
+    # AGENTS.md is the file every agent reads before touching anything, and it
+    # told them a retraction moves "eleven translations" while there were
+    # nineteen -- the instruction for the one job that cannot be re-stamped
+    # undercounted the job by eight languages.
+    ("AGENTS.md", NUMERAL + r" translations\b", "languages"),
+    ("AGENTS.md", r"in all " + NUMERAL + r" languages", "languages"),
     ("research/program-verifier-validation.json",
      r'"accepted_fixture_count":\s*(\d+)', "program accepted"),
     ("research/program-verifier-validation.json",

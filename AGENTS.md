@@ -61,7 +61,7 @@ every `~~span~~` and fails if its wording appears anywhere outside an `<s>` or
 exactly as much as the striking discipline gives it. A correction written as
 prose instead of a strike is invisible to it. A file containing only survivors tells a flattering lie about how the field
 got here. `RETRACTIONS.md` is the index and its count is quoted on the front
-page; if you retract something, the count moves and so do eleven translations.
+page; if you retract something, the count moves and so do nineteen translations.
 
 **Never edit a pre-registration.** If results contradict it, the finding is
 added and the pre-registration stands as written. That contradiction is the
@@ -88,7 +88,7 @@ itself. Count what is left; do not conclude from what you changed.
 
 **Translations are re-translated, not re-stamped.** `python3
 tools/build_translations.py --check` fails when a watched passage moves. The fix
-is to translate the new sentence in all eleven languages. Re-running the build
+is to translate the new sentence in all nineteen languages. Re-running the build
 to clear the warning without touching the strings defeats the mechanism.
 
 **A count is not a cause.** Report the arithmetic; state the explanation
@@ -130,6 +130,8 @@ python3 tools/check_provenance.py              # gates cited to the experiment t
 python3 tools/build_translations.py --check    # must say "current"
 python3 tools/build_og.py --check              # the social card matches the version
 python3 tools/build_wiki.py --check            # /wiki/ matches the sources it maps
+python3 tools/audit_selftransfer.py --check     # self-transfer audit; retraction 22 stays struck
+python3 tools/test_audit_selftransfer_ties.py   # the audit's own red/green checks
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```
 
