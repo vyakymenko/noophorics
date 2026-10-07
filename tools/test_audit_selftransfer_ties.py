@@ -5,6 +5,7 @@ import copy
 from pathlib import Path
 import unittest
 
+import audit_selftransfer as base
 import audit_selftransfer_ties as ties
 
 
@@ -81,6 +82,32 @@ class TieSensitivityTests(unittest.TestCase):
         broken["rows"][0]["minimum_mean_fraction"] = "-1/3"
         with self.assertRaisesRegex(ValueError, "reviewed row ranges"):
             ties.render_markdown(broken)
+
+
+class AbsenceClaimGuardTests(unittest.TestCase):
+    """Retraction 22's struck claim must stay present, struck and closed."""
+
+    STRUCK = ("direction is not established; ~~what is established is the "
+              "absence of the naive\nadvantage.~~\n")
+
+    def test_struck_claim_wrapped_across_lines_passes(self):
+        self.assertTrue(base.absence_claim_struck(self.STRUCK))
+
+    def test_unstruck_claim_fails(self):
+        self.assertFalse(base.absence_claim_struck(self.STRUCK.replace("~~", "")))
+
+    def test_deleted_claim_fails(self):
+        self.assertFalse(base.absence_claim_struck("direction is not established.\n"))
+
+    def test_unclosed_strike_fails(self):
+        self.assertFalse(base.absence_claim_struck(
+            self.STRUCK.replace("advantage.~~", "advantage.")))
+
+    def test_the_real_results_file_passes(self):
+        root = Path(__file__).resolve().parents[1]
+        text = (root / "probes/riverside-30/RESULTS-selftransfer.md").read_text(
+            encoding="utf-8")
+        self.assertTrue(base.absence_claim_struck(text))
 
 
 if __name__ == "__main__":

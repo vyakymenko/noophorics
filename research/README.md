@@ -5,10 +5,10 @@ and proposals for later work.
 
 | Material | What it supplies | Status |
 |---|---|---|
-| [Self-transfer tie sensitivity](2026-09-28-selftransfer-tie-sensitivity.md) | Exhaustive retrospective check of the saved result under alternative modal-tie resolutions. | Descriptive audit draft for human review; the original prediction and result remain the historical record. |
+| [Self-transfer tie sensitivity](2026-09-28-selftransfer-tie-sensitivity.md) | Exhaustive retrospective check of the saved result under alternative modal-tie resolutions. | Descriptive audit draft for human review; reviewed 2026-10-07 and cited as ground (c) of [retraction 22](../RETRACTIONS.md). The original prediction remains as written. |
 | [Program-output verifier](2026-09-28-program-verifier.md) | Offline validation of a restricted deterministic task format on synthetic fixtures. | Instrument prototype; no E-003 subject data. |
 | [Qwen register readout](2026-09-14-register-feasibility.md) | Direct length-and-register counts from blind ratings of archived compositions, with raw requests and responses. | Instrument data; collection status is reported inside. |
-| [Self-transfer audit](2026-09-09-selftransfer-audit.md) | Reconstruction from saved draws and proposed narrower wording for the existing result. | Retrospective audit and correction draft for human review. |
+| [Self-transfer audit](2026-09-09-selftransfer-audit.md) | Reconstruction from saved draws and proposed narrower wording for the existing result. | Retrospective audit and correction draft; reviewed 2026-10-07, its wording adopted as [retraction 22](../RETRACTIONS.md). |
 | [Domain-selection design](2026-09-09-domain-selection.md) | Candidate task families, a bounded exploratory screen, and separation of selection from confirmation. | Design draft; not registered or run. |
 | [Methods supplement](2026-09-14-domain-methods.md) | Primary-source methods and limitations behind the proposed task families. | Literature review and engineering recommendation. |
 
@@ -17,9 +17,11 @@ committed before ratings. Its source compositions already existed; their length
 outcomes were known. It does not reopen E-001c or measure transfer fidelity.
 
 The self-transfer audit reproduces the arithmetic while distinguishing observed
-row means from evidence of equivalence. Its suggested correction has not been
-applied to the original result, journal, theory, or retraction ledger. The
-published prediction remains as written.
+row means from evidence of equivalence. ~~Its suggested correction has not been
+applied to the original result, journal, theory, or retraction ledger.~~ It was
+applied on 2026-10-07 as [retraction 22](../RETRACTIONS.md), struck in place in
+the result, the journal and Problem 9. The published prediction remains as
+written.
 
 The tie-sensitivity audit checks the saved self-transfer draws under every
 resolution of their observed modal ties. It reports which finite-data

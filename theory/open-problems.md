@@ -155,7 +155,10 @@ summary captured what mattered.
 *Personal note from the drafting agent: this is the problem I would most like
 solved.*
 
-### Measured, 2026-08-31: the naive answer does not survive
+### Measured, 2026-08-31: ~~the naive answer does not survive~~ the naive answer is not supported
+
+*Heading and verdict below withdrawn 2026-10-07, [retraction 22](../RETRACTIONS.md):
+the counts stand; what they were said to establish does not.*
 
 The composer × reader 2×2 on `RIVERSIDE-30`
 ([results](../probes/riverside-30/RESULTS-selftransfer.md)), predicted before the
@@ -167,9 +170,18 @@ deciding arms ran:
 | composed by `qwen` | 10.33 *(cross)* | **11.33** *(self)* |
 
 `self − cross` across six paired briefs: `−1, +1, +1, 0, +1, +2`, mean **+0.667**,
-sign test **`p = 0.375`**. **There is no self-transfer advantage**, and the point
-estimate runs the *other* way — a model reads its own compaction slightly worse
-than another model reads it, though not significantly so.
+sign test **`p = 0.375`**. ~~**There is no self-transfer advantage**~~, and the point
+estimate runs the *other* way — ~~a model reads its own compaction slightly worse
+than another model reads it~~, though not significantly so. **Withdrawn
+2026-10-07, [retraction 22](../RETRACTIONS.md).** A sign test at `p = 0.375` over
+six pairs that share composers, readers and briefs does not establish an
+absence, and the `gpt-oss`-composed row's positive sign depends on how one tied
+modal cell — the `gpt-oss` self-reader's `b2`, one of three ties in the run — is
+broken: under its other admissible co-mode that row's mean is 0. On these draws the means show no self advantage, both rows sit under the
+predicted 1.5 probes in every tie configuration, and neither equivalence nor the
+absence of an advantage is established beyond this design
+([audit](../research/2026-09-09-selftransfer-audit.md),
+[ties](../research/2026-09-28-selftransfer-tie-sensitivity.md)).
 
 So *"naively yes, since the priors match perfectly"* is not supported. The
 likeliest reason is on the instrument rather than in the agents: `RIVERSIDE-30`'s
@@ -255,10 +267,20 @@ defect in print: WOA "yields undefined values when the advice is equal to the
 judge's initial estimate." Their field's resolution is **exclusion plus
 truncation** — drop the undefined trials, clip the rest into [0, 1].
 
-We arrived at exactly those two workarounds independently, and their meta-analysis
+We arrived at ~~exactly those two workarounds~~ the same two kinds of workaround,
+exclusion and truncation — ours truncates at the top only, [retraction
+23](../RETRACTIONS.md) — independently, and their meta-analysis
 ([Bailey et al. 2022](prior-art.md), N = 17 296) reports that the truncation
-**biases estimates upward**. Our `min(1.0, …)` is the same truncation, so our
-numbers carry the same bias, in the same direction, for the same reason.
+**biases estimates upward**. ~~Our `min(1.0, …)` is the same truncation, so our
+numbers carry the same bias, in the same direction, for the same reason.~~
+**Withdrawn 2026-10-07, [retraction 23](../RETRACTIONS.md).** `min(1, x) ≤ x`, so
+our cap can only leave a value unchanged or lower it. The upward bias Bailey et al.
+report comes from JAS's *lower* clip, which `F*` does not have
+([prior-art §7](prior-art.md)). Our truncation is one-sided, and what it does to
+a number runs downward: E-002c's three briefs at exactly `1.0000` were values above
+1 cut to the cap — values pushed above 1 by the mismatched floor of [retraction
+17](../RETRACTIONS.md), so the capped `1.0000`s still sat above their corrected
+0.912–0.953. The defect is shared; the bias is not the same one.
 
 Two things are wanted and neither exists:
 
@@ -402,7 +424,9 @@ supporting it.
 
 The fluency line cannot step around this by choosing shorter messages.
 [E-001c](../experiments/E-001c-fluency-length-controlled/VOID.md) measured the
-fluent register's floor at 229–232 words in this generator — **47 words past the
+~~fluent register's floor~~ the fluent × declarative cell's floor at 229–232 words
+in this generator — the fluent row's, over both fluent cells, is 223
+([retraction 19](../RETRACTIONS.md); struck here 2026-10-07) — **47 words past the
 longest brief on which any of this was ever measured**, in the direction where
 observed agreement is climbing into its ceiling. Three experiments have now been
 designed to detect a fluency effect on `Φ` at lengths where `Φ` is collapsing,
@@ -456,16 +480,25 @@ were known. This is instrument data and it stays instrument data.
 Not every probe dies at 230 words. Six of the 34 still diverged on at least one
 of the six messages, and they are not a random six.
 
-**Every one of them is tagged `interaction`.**
+~~**Every one of them is tagged `interaction`.**~~ **Withdrawn with [retraction
+13](../RETRACTIONS.md); struck at the headline only on 2026-10-07.** It is true of
+the six messages it was counted on. Widened to twelve, three non-interaction
+probes diverge as well, and the property it was read as — that only interaction
+probes survive saturation — is the one row 13 withdrew.
 
 | | still diverges at 230 words |
 |---|---|
 | `interaction`-tagged | **6 of 9** |
 | everything else | ~~**0 of 25**~~ **3 of 25** |
 
-Fisher exact `p = 6.25e-05` on the six-message sample. ~~Across 150
+~~Fisher exact `p = 6.25e-05` on the six-message sample.~~ **Withdrawn
+2026-10-07, [retraction 24](../RETRACTIONS.md)**: it is the `p` of the struck
+0-of-25 cell, not of the table above it, and it treats `MERIDIAN-34`'s 34 probes —
+ten prompt clusters at 0.85 — as independent rows. The corrected table itself
+pairs two samples: **6 of 9** is the six-message count and **3 of 25** the
+twelve-message one, on which the interaction row is **5 of 9**. ~~Across 150
 probe-message pairs on non-interaction probes there were **zero**
-divergences.~~ **Withdrawn 2026-08-04, same day**, by widening the measurement
+divergences.~~ **Withdrawn ~~2026-08-04~~ 2026-08-05, same day**, by widening the measurement
 to all four cells and twelve messages
 ([`headroom-2x2.json`](../experiments/E-001c-fluency-length-controlled/headroom-2x2.json)):
 three non-interaction probes do diverge — `M02` (`R1, boundary`), `M12` (`R4`)
@@ -489,12 +522,19 @@ datasets are `M14`, `M25`, `M26`. All three are `interaction`.
 
 **And the tag is not a synonym for "cites two rules."** All nine interaction
 probes cite two or more rules, but so do seven probes that are not tagged
-interaction — and **none of those seven diverges**. Rule count alone gives
-`p = 0.006` against the tag's `6.25e-05`. What distinguishes them is that the
+interaction — and ~~**none of those seven diverges**~~. **Withdrawn with
+[retraction 13](../RETRACTIONS.md), struck here 2026-10-07:** the seven are among
+row 13's twenty-five, and the zero fell with it — `M29` cites `R6` and `R1`
+without the tag and diverged once the sample was widened to twelve.
+~~Rule count alone gives `p = 0.006` against the tag's `6.25e-05`.~~ **Withdrawn
+2026-10-07, [retraction 24](../RETRACTIONS.md)**, with the `p` above, and on the
+same grounds; comparing two `p`-values is in any case not a test of the
+difference between them. What distinguishes them is that the
 answer depends on the rules *combining*, not on both being mentioned. That is a
 harder thing to write, and it is also the thing the probe authors' hand-applied
 tag turns out to have captured — which is a small independent validation of the
-tag.
+tag. *(That reading rests on the six-message zero struck above, and has not been
+tested since.)*
 
 **The specification this yields.** Interaction probes diverge at **0.194 per
 probe per message** at these lengths — measured on twelve messages and 21

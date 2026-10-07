@@ -144,7 +144,8 @@ def summarize(a, enumeration):
         })
     return {
         "date": "2026-09-28",
-        "status": "retrospective sensitivity draft for human review; no new experiment or formal correction",
+        "status": ("retrospective sensitivity draft for human review; no new experiment; "
+                   "reviewed 2026-10-07 and cited as ground (c) of retraction 22"),
         "analysis": "exhaustive choices among raw-draw modal ties with sender modes fixed",
         "measure": a["measure"]["qualified_id"],
         "source_sha256": a["source_sha256"],
@@ -192,6 +193,10 @@ def render_markdown(report):
             and report["both_absolute_row_means_below_1_5_in_every_configuration"],
             "reviewed row ranges or threshold result changed; review prose")
     return f"""# Draft sensitivity audit: modal ties in RIVERSIDE-30 self-transfer
+
+**Reviewed 2026-10-07.** This note's finding that the `gpt-oss`-composed row
+mean is 0 under another admissible tie choice is ground (c) of
+[retraction 22](../RETRACTIONS.md). The note itself is unchanged.
 
 **2026-09-28 — retrospective check for human review.** This note analyzes the
 saved draws behind the [self-transfer result](../probes/riverside-30/RESULTS-selftransfer.md)

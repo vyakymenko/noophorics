@@ -1294,7 +1294,7 @@ main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 <h2>10. The vanishing denominator is not our problem alone, and nobody has solved it</h2>
 <p><code>F*</code> is undefined when <code>D_prior → D_floor</code>: there is no gap to close. The judge–advisor literature has the identical defect and has had it in print since at least 2006 — Gino &amp; Moore state that WOA "yields undefined values when the advice is equal to the judge's initial estimate."</p>
 <p>Their resolution is <strong>exclusion plus truncation</strong>: drop the undefined trials, clip the rest into [0, 1]. Ours is an ε-gate (exclusion) and <code>min(1.0, …)</code> (truncation). We arrived at the same two workarounds.</p>
-<p>Bailey et al.'s meta-analysis states that the truncation <strong>biases estimates upward</strong>. Ours is the same truncation.</p>
+<p>Bailey et al.'s meta-analysis states that the truncation <strong>biases estimates upward</strong>. <s>Ours is the same truncation.</s> <strong>Withdrawn 2026-10-07, <a href="/journal/retractions/">retraction 23</a>.</strong> Theirs clips at both ends and ours at the top only, and the upward bias comes from the bottom clip — §7 above says so. A cap at 1 can only lower a value, so where ours acts it acts downward.</p>
 <p>Recorded as <a href="https://github.com/vyakymenko/noophorics/blob/main/theory/open-problems.md">Problem 12</a>. <strong>Citing JAS as precedent for a fix is forbidden</strong>: they have the defect, not a solution.</p>
 <hr>
 <h2>11. The reader is a facet, and this programme fixed it without saying so</h2>

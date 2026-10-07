@@ -81,6 +81,8 @@ SOURCES: List[Tuple[str, str, str]] = [
      "journal/2026-08-28-the-good-instrument-was-sitting-unused.md", "observation"),
     ("measurement-already-in-the-repository",
      "journal/2026-09-08-the-measurement-was-already-in-the-repository.md", "audit"),
+    ("ledger-read-against-the-text",
+     "journal/2026-10-07-the-ledger-read-against-the-text.md", "audit"),
     ("retractions", "RETRACTIONS.md", "audit"),
     ("prior-art", "theory/prior-art.md", "audit"),
 ]

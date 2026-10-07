@@ -154,7 +154,7 @@ only.** Equalised further to the same six messages for both:
 
 | | wobble & diverges | wobble only | diverges only | neither | Fisher |
 |---|---|---|---|---|---|
-| `gpt-oss` | 6 | 1 | 3 | 22 | **`p = 0.00058`** |
+| `gpt-oss` | 6 | 1 | 3 | 22 | ~~**`p = 0.00058`**~~ |
 | `qwen` | 0 | 8 | 2 | 22 | `p = 1.0` |
 
 **`p = 1.0` here is not evidence of absence.** qwen has two diverging probes in
@@ -163,8 +163,13 @@ is what you expect either way. The test has no power on this reader, and saying
 "the association is absent for qwen" would be reading a null as a finding —
 [retraction 16](../../RETRACTIONS.md) was exactly that error, four hours earlier.
 
-What is established: the association is strong for `gpt-oss` at parity, and
-untestable for `qwen` until it has more divergence events. Obstacle 3 above is
+~~What is established: the association is strong for `gpt-oss` at parity~~, and
+untestable for `qwen` until it has more divergence events. **The `gpt-oss` `p`
+and the "established" it supported are struck 2026-10-07 under [retraction
+15](../../RETRACTIONS.md)**, which withdrew every Fisher exact `p` computed over
+`MERIDIAN-IX32`'s probes the day before this table was added: 32 probes are about
+nine prompt templates. The counts stand — 6 of 7 wobbling probes diverge, against
+3 of 25 that do not wobble. Obstacle 3 above is
 unchanged, and obstacle 1 is now discharged.
 
 ---

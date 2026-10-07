@@ -1,5 +1,9 @@
 # Draft sensitivity audit: modal ties in RIVERSIDE-30 self-transfer
 
+**Reviewed 2026-10-07.** This note's finding that the `gpt-oss`-composed row
+mean is 0 under another admissible tie choice is ground (c) of
+[retraction 22](../RETRACTIONS.md). The note itself is unchanged.
+
 **2026-09-28 — retrospective check for human review.** This note analyzes the
 saved draws behind the [self-transfer result](../probes/riverside-30/RESULTS-selftransfer.md)
 and its [arithmetic audit](2026-09-09-selftransfer-audit.md). It adds no model

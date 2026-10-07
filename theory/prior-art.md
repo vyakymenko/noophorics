@@ -313,7 +313,10 @@ clip the rest into [0, 1]. Ours is an ε-gate (exclusion) and `min(1.0, …)`
 (truncation). We arrived at the same two workarounds.
 
 Bailey et al.'s meta-analysis states that the truncation **biases estimates
-upward**. Ours is the same truncation.
+upward**. ~~Ours is the same truncation.~~ **Withdrawn 2026-10-07, [retraction
+23](../RETRACTIONS.md).** Theirs clips at both ends and ours at the top only, and
+the upward bias comes from the bottom clip — §7 above says so. A cap at 1 can only
+lower a value, so where ours acts it acts downward.
 
 Recorded as [Problem 12](open-problems.md). **Citing JAS as precedent for a fix
 is forbidden**: they have the defect, not a solution.

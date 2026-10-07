@@ -22,12 +22,20 @@ briefs per composer, ten draws per probe:
 | composed by `gpt-oss` | **10.00** *(self)* | 9.67 *(cross)* | **+0.33** |
 | composed by `qwen` | 10.33 *(cross)* | **11.33** *(self)* | **+1.00** |
 
-Self is *worse* on both rows, by +0.667 across all six pairings — four positive,
+~~Self is *worse* on both rows~~, by +0.667 across all six pairings — four positive,
 one negative, one tie, sign test **p = 0.375**. The prediction held; the direction
-is not established. What is established is the absence of the advantage everyone
-would assume, and the likeliest reason is the instrument rather than the agents:
+is not established. ~~What is established is the absence of the advantage everyone
+would assume~~, and the likeliest reason is the instrument rather than the agents:
 `RIVERSIDE-30`'s divergence is probe-attributable, and both readers always
 diverge on the same seven probes.
+
+*Both struck clauses withdrawn 2026-10-07, [retraction 22](../RETRACTIONS.md).
+The `gpt-oss` row's sign depends on how one tied modal cell, its self-reader's
+`b2`, is broken; under the other admissible choice its mean is 0. And `p = 0.375` over six pairs that
+share their composers, readers and briefs shows no observed advantage without
+establishing that there is none. "The prediction held" is true of its numerical
+clause and its main sentence; its outcome table's holding row also asked for
+inconsistent signs, and did not get them.*
 
 Between rows the comparison is confounded and was declared so beforehand:
 `gpt-oss` composed at 423/389/403 words against the same 230-word instruction

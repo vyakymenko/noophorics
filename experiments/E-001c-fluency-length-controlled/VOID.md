@@ -99,7 +99,10 @@ revive E-001c and exists so a successor knows what it is designing around:
 | C | terse · declarative | 184 | 210 | 232 | 11 / 12 |
 | D | terse · contrastive | 189 | 212 | 225 | 12 / 12 |
 
-**The floor belongs to the fluency axis.** Fluent cells put 5 of 24 messages
+~~**The floor belongs to the fluency axis.**~~ **Withdrawn with [retraction
+18](../../RETRACTIONS.md), struck at the headline 2026-10-07:** on `qwen3.5:35b`
+fluent and terse cells both land in band 23 of 24, so the floor is the
+generator's, not the axis's. The `gpt-oss` counts that follow stand. Fluent cells put 5 of 24 messages
 inside the band; terse cells put 23 of 24, Fisher exact `p = 1.2e-07`. Along the
 other axis — declarative 11 of 24 against contrastive 17 of 24 — `p = 0.14`. The
 fluency instruction moves the median length 24 words; the contrastiveness

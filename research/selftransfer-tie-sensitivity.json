@@ -1,6 +1,6 @@
 {
   "date": "2026-09-28",
-  "status": "retrospective sensitivity draft for human review; no new experiment or formal correction",
+  "status": "retrospective sensitivity draft for human review; no new experiment; reviewed 2026-10-07 and cited as ground (c) of retraction 22",
   "analysis": "exhaustive choices among raw-draw modal ties with sender modes fixed",
   "measure": "RIVERSIDE-30@2e6afe2f3c92",
   "source_sha256": {
@@ -8,7 +8,7 @@
     "probes/riverside-30/briefs.json": "4f7df9c8a170d5469c28cdf394300f5a4e053e8f9a9a6880e2044e7b4613fcf8",
     "probes/riverside-30/briefs-qwen.json": "125eafa6719691628a9ea53e020cade9c4ca544be0b09c56532c769c8c3de1b7",
     "probes/riverside-30/PREDICTION-selftransfer.md": "d902414e353098dc8b4e3f953727de0e879bfc59765e1a473ee97c42cd890cb2",
-    "probes/riverside-30/RESULTS-selftransfer.md": "5d2d60a324da0e57d4ab6a5415faec7556d5f5bcb407a182dcb68b46e59fa7e5",
+    "probes/riverside-30/RESULTS-selftransfer.md": "e4c3c1792a456a9d4db6fec86d2b1f46c881187da9281efcd723ab75b1d481b0",
     "probes/riverside-30/headroom_riverside.py": "974540a2c9387c4905e3177362102f096560ff82a283dd52840b2ddac6c4eac1",
     "probes/riverside-30/headroom.json": "c28d22af9c0043f96e315fbf2ca03a193be35f70568c53896ba7ff5845b5898b",
     "probes/riverside-30/headroom-qwen.json": "4a8cdb4f215cd2fb685f0e0bc79c61dfa5dcc364ea76536fbe25199e583dff2b",

@@ -1,4 +1,8 @@
-# Result: no self-transfer advantage, and if anything the sign runs the other way
+# Result: ~~no self-transfer advantage~~ no observed self-transfer advantage, and if anything the sign runs the other way
+
+*The verdict this file published is withdrawn as [retraction 22](../../RETRACTIONS.md),
+2026-10-07. Its counts stand. The struck sentences below say what it claimed
+beyond them.*
 
 **Completed 2026-08-31.** The composer × reader 2×2 on `RIVERSIDE-30`, four
 conditions, three briefs each, `n = 10`. Scored against [the prediction committed
@@ -27,26 +31,45 @@ Predicted: *"|self − cross| < 1.5 diverged probes in both rows, and the sign i
 not consistently in self's favour."*
 
 - **Row means +0.33 and +1.00 — both under 1.5. Met.**
-- **Self is never favoured on a row mean. Met**, and more strongly than the
+- **Self is never favoured on a row mean. Met**~~, and more strongly than the
   wording anticipated: self is *worse* in both rows rather than merely not
-  better.
+  better.~~ **Withdrawn 2026-10-07, [retraction 22](../../RETRACTIONS.md).** The
+  `gpt-oss` row's sign rests on the runner's lexicographic tie rule: three of 360
+  receiver cells tie, one of them — the `gpt-oss` self-reader's `b2` — in this
+  row, and under its other admissible co-mode that row's mean is
+  0 ([tie audit](../../research/2026-09-28-selftransfer-tie-sensitivity.md)). And
+  this scoring met the main sentence's weaker clause while passing over the
+  prediction's own outcome table, whose holding case is "both rows within 1.5,
+  signs inconsistent". Both rows are positive under the published rule, so that
+  row is not met.
 - **One per-brief comparison breached the threshold**: `qwen` on its own `b2`
   diverges 14 against `gpt-oss`'s 12, a gap of **+2**. The prediction's clause
   was written at the row level and is met there, but the per-brief spread is
   wider than 1.5 and that is recorded rather than smoothed into the mean.
 
-**There is no self-transfer advantage on this measure.** A model reads its own
-compaction no better than another model reads it, and the point estimate runs
+~~**There is no self-transfer advantage on this measure.** A model reads its own
+compaction no better than another model reads it~~, and the point estimate runs
 slightly the other way — self worse by 0.67 probes of 30. At `p = 0.375` that
-direction is not established; what is established is the absence of the naive
-advantage.
+direction is not established; ~~what is established is the absence of the naive
+advantage.~~
+
+**Withdrawn 2026-10-07, [retraction 22](../../RETRACTIONS.md).** A sign test at
+`p = 0.375` cannot establish an absence, and its six pairs share two composers,
+two readers, one measure and their briefs. The wording the
+[arithmetic audit](../../research/2026-09-09-selftransfer-audit.md) proposed, and
+the repository owner adopted: *on these saved draws, self has 0.33 and 1.00 more
+diverged probes than cross in the two composer rows. Both absolute row means
+satisfy the predicted 1.5-probe threshold. The descriptive means show no self
+advantage; they establish neither equivalence nor the absence of a self-transfer
+advantage beyond this design.*
 
 ## What this says about Problem 9
 
 [Problem 9](../../theory/open-problems.md) asks whether self-transfer is easier
 than cross-agent transfer and answers *"naively yes, since the priors match
-perfectly."* **It had no measurement. It has one now, and the naive answer does
-not survive it** — not reversed, but not supported either.
+perfectly."* **It had no measurement. It has one now, and ~~the naive answer does
+not survive it~~** — not reversed, but not supported either. *(The struck clause
+is withdrawn as retraction 22: "not supported" is what the data carry.)*
 
 The result is what the rest of this line predicted. `RIVERSIDE-30`'s divergence
 is probe-attributable: both readers always-diverge on the same seven probes at
@@ -93,8 +116,8 @@ cell A in band 11 of 12 against `gpt-oss`'s 0 of 12
 ([RESULTS-qwen-floor](../../experiments/E-001c-fluency-length-controlled/RESULTS-qwen-floor.md)).
 240.0 was `qwen`'s length under this file's different, uncalibrated instruction,
 and the two means above were never measured under one instruction. The ledger
-withdrew the claim on 2026-08-31 and this sentence went on stating it for five
-weeks, because `probes/` is not among the files the retraction checker reads.
+withdrew the claim on 2026-09-02 and this sentence went on stating it for five
+weeks; the retraction checker, which does not read `probes/`, could not catch it.
 
 What survives is a narrower and different fact. On the **identical** instruction
 and specification, `qwen` produced 240 where `gpt-oss` produced 405 — so the two

@@ -188,6 +188,18 @@ def check_published_arithmetic(result_text, rows, differences, sign):
             "published sign p differs")
 
 
+def absence_claim_struck(results_text):
+    """Whether retraction 22's absence claim is still present and struck.
+
+    Present, because deleting it would erase the correction; struck, because
+    unstriking it restates a withdrawn claim; and closed, because an opening
+    `~~` with no partner renders as literal tildes beside live text.
+    """
+    flat = " ".join(results_text.split())
+    return re.search(r"~~what is established is the absence of the naive "
+                     r"advantage\.~~", flat) is not None
+
+
 def build_audit(root):
     source = root / SOURCE
     read = lambda name: json.loads((source / name).read_text(encoding="utf-8"))
@@ -217,8 +229,14 @@ def build_audit(root):
     require("the sign is not consistently in self's favour" in prediction
             and "both rows within 1.5, signs inconsistent" in prediction,
             "reviewed prediction wording changed; revisit interpretation before regenerating")
-    require("what is established is the absence of the naive" in results,
-            "reviewed absence claim changed; revisit interpretation before regenerating")
+    # Until 2026-10-07 this required the absence claim to be present, so that a
+    # changed claim forced a re-review. The review happened: the claim was
+    # withdrawn as retraction 22 and struck in place. It must now be present
+    # *and struck* -- deleting it would erase the correction, and unstriking it
+    # would restate a withdrawn claim.
+    require(absence_claim_struck(results),
+            "the absence claim withdrawn as retraction 22 is no longer struck in "
+            "place; revisit interpretation before regenerating")
     source_paths = [SOURCE / name for name in (
         "probes.json", "briefs.json", "briefs-qwen.json", "PREDICTION-selftransfer.md",
         "RESULTS-selftransfer.md", "headroom_riverside.py", *(arm[1] for arm in ARMS))]
@@ -232,7 +250,10 @@ def build_audit(root):
             "raw_draws_identical": arms[a]["reference_raw_sha256"] == arms[b]["reference_raw_sha256"],
             "modal_reference_mismatches": sum(x != y for x, y in zip(references[a], references[b]))})
     return {
-        "audit_date": "2026-09-09", "status": "draft for human review; no formal retraction",
+        "audit_date": "2026-09-09",
+        "status": ("drafted 2026-09-09 for human review; reviewed 2026-10-07, when its "
+                   "suggested wording was adopted and the reviewed claim withdrawn as "
+                   "retraction 22"),
         "analysis": "retrospective reconstruction of existing descriptive statistics",
         "measure": {"qualified_id": qualified_measure(measure), "probe_count": len(measure["probes"]),
                     "all_arms_match_current_semantic_hash": True},
@@ -349,6 +370,11 @@ def render_markdown(a):
             arm["composer"], arm["reader"], counts["b0"], counts["b1"], counts["b2"],
             arm["mean_diverged_count"]))
     return f"""# Draft audit: RIVERSIDE-30 self-transfer arithmetic and claim scope
+
+**Reviewed 2026-10-07.** The repository owner adopted this audit's suggested
+wording, and the claim it reviews is withdrawn as
+[retraction 22](../RETRACTIONS.md). The text below is the 2026-09-09 draft as
+generated; regeneration refreshes only its source hashes.
 
 **2026-09-09 — draft for human review.** This audit adds no experimental result,
 changes no prediction, and makes no formal retraction. It reconstructs the

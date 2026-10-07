@@ -385,8 +385,12 @@ requires. Both local models answer it correctly from the source specification �
 `Â = 0.941–0.971` for `gpt-oss:120b` and `1.000` for `qwen3.5:35b`.
 [Problem 15](../../theory/open-problems.md) has the numbers.
 
-The only probes that survived that saturation were its **interaction**-tagged
-ones: 6 of 9, against 3 of the other 25, and the three that recur across two
+~~The only probes that survived that saturation were its **interaction**-tagged
+ones~~: 6 of 9, against 3 of the other 25 — *the struck clause is the property
+[retraction 13](../../RETRACTIONS.md) withdrew on 2026-08-05, two days before this
+sentence was written; its own "3 of the other 25" contradicts it. What stands is
+the proportion: 21 of 24 divergence events fell on the 9 interaction-tagged
+probes. Struck 2026-10-07.* The three that recur across two
 independent datasets are all interaction. This measure is that class and nothing
 else.
 

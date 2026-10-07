@@ -3,6 +3,15 @@
 `noophorics-2026.tex` — a draft reporting the programme's one established result
 and its four voids, intended for arXiv (`cs.CL`, cross-list `cs.AI`).
 
+> **Superseded in part, 2026-10-07.** The `.tex` was last changed on 2026-08-12
+> and predates retractions 15–24 and E-006's void. Its account of E-001c — the
+> abstract (lines 40–47), contribution 2 (line 102) and the subsection "The floor
+> belongs to the fluency axis" (line 321) — states as the result the claim
+> [retraction 18](../RETRACTIONS.md) withdrew: on `qwen3.5:35b` the same band is
+> met 11 of 12 times in the fluent cell, so the floor is `gpt-oss`'s, not the
+> register's. Its counts of voids and retractions are stale. The source is left
+> as written; it must be revised against the ledger before it goes anywhere.
+
 **It is a draft, not a submission.** It was assembled by an agent from the
 committed record and has not been through the author's own revision. Nothing here
 is submitted anywhere by anything other than a human hand.

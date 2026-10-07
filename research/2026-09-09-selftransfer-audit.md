@@ -1,5 +1,10 @@
 # Draft audit: RIVERSIDE-30 self-transfer arithmetic and claim scope
 
+**Reviewed 2026-10-07.** The repository owner adopted this audit's suggested
+wording, and the claim it reviews is withdrawn as
+[retraction 22](../RETRACTIONS.md). The text below is the 2026-09-09 draft as
+generated; regeneration refreshes only its source hashes.
+
 **2026-09-09 — draft for human review.** This audit adds no experimental result,
 changes no prediction, and makes no formal retraction. It reconstructs the
 [existing result](../probes/riverside-30/RESULTS-selftransfer.md) from its saved
