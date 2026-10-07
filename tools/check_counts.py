@@ -77,6 +77,31 @@ def truth() -> dict:
     }
 
 
+# Prose numerals the checker can compare. Until 2026-10-07 every claim below
+# carried its own hand-written alternation of these words and the comment here
+# said the lists "have to be extended together" -- and the front-page status
+# sentence's list stopped at Twenty-one, so the correct sentence for a twenty-
+# second retraction would have read as PATTERN NOT FOUND. The alternation is now
+# built from this table, so there is one list and nothing to keep in step.
+WORDS = {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+         "eight": 8, "nine": 9, "ten": 10,
+         "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
+         "fifteen": 15, "sixteen": 16,
+         "seventeen": 17, "eighteen": 18, "nineteen": 19, "twenty": 20}
+for _unit, _n in (("one", 1), ("two", 2), ("three", 3), ("four", 4),
+                  ("five", 5), ("six", 6), ("seven", 7), ("eight", 8),
+                  ("nine", 9)):
+    WORDS["twenty-" + _unit] = 20 + _n
+WORDS["thirty"] = 30
+
+# Longest first, so "twenty-one" is tried before "twenty" and "nineteen" before
+# "nine"; case-insensitive, because a numeral that opens a sentence is
+# capitalised; and anchored at a word boundary, so "often open problems" is not
+# read as "ten open problems".
+NUMERAL = r"\b((?i:%s))" % "|".join(
+    re.escape(w) for w in sorted(WORDS, key=len, reverse=True))
+
+
 # (file, regex capturing the number, which truth key it must equal)
 CLAIMS = [
     ("README.md", r"test_metrics\.py\s+#\s+(\d+) tests", "tests"),
@@ -86,14 +111,14 @@ CLAIMS = [
     # Added after the launch audit found README and CITATION advertising ten
     # open problems against twelve in the file. Prose numerals count: "ten" is a
     # claim exactly as much as "10" is, and greps for digits miss them.
-    ("README.md", r"(fifteen|fourteen|thirteen|twelve|eleven|ten|nine) open problems", "open problems"),
-    ("CITATION.cff", r"(fifteen|fourteen|thirteen|twelve|eleven|ten|nine) open problems", "open problems"),
+    ("README.md", NUMERAL + r" open problems", "open problems"),
+    ("CITATION.cff", NUMERAL + r" open problems", "open problems"),
     # The site says the count twice: once in the stat card above, once in prose
     # in the standing section. Only the card was checked, and the prose sat at
     # "ten open problems" against twelve in the file for as long as anyone had
     # been reading it. A number is a claim wherever it appears.
-    ("docs/index.html", r"(fifteen|fourteen|thirteen|twelve|eleven|ten|nine) open problems", "open problems"),
-    ("docs/index.html", r"(two|three|four|five) experiments are void", "voids"),
+    ("docs/index.html", NUMERAL + r" open problems", "open problems"),
+    ("docs/index.html", NUMERAL + r" experiments are void", "voids"),
     # RETRACTIONS.md opens by saying "a count nobody can audit is worse than no
     # count" and then carried an unaudited one: its standing tally still said
     # three experiments void after E-001c's VOID.md landed, and still said zero
@@ -101,14 +126,22 @@ CLAIMS = [
     # is checked here. The findings half is not -- an experiment with a
     # FINDINGS.md and no VOID.md is not the same thing as an established
     # result, and a counter that got that wrong would be worse than none.
-    ("RETRACTIONS.md", r"(two|three|four|five) experiments void", "voids"),
+    ("RETRACTIONS.md", NUMERAL + r" experiments void", "voids"),
+    # The same tally's first number -- claims withdrawn -- was not read at all,
+    # in the one file whose purpose is that count. It is the number every other
+    # retraction count is copied from, so it is checked against the rows of the
+    # ledger itself rather than against any of its copies.
+    ("RETRACTIONS.md", r"Standing tally: (\d+|[A-Za-z-]+) claims withdrawn", "retractions"),
+    # open-problems.md opened "Ten problems" for as long as it held eleven,
+    # twelve and then fifteen. The README, CITATION and the site were all
+    # checked; the file they count was not checked against itself.
+    ("theory/open-problems.md", r"(?m)^(\d+|[A-Za-z-]+) problems\b", "open problems"),
     # The retraction count is on the front page twice: as a stat card, which was
     # checked, and in the status sentence, which was not. The void count had the
     # same shape and the same fix. A number is a claim wherever it appears, and
     # this sentence is the one carried into nineteen translations -- so an
     # unchecked numeral here goes wrong in twenty places at once.
-    ("docs/index.html", r"(Twenty-one|Twenty|Nineteen|Eighteen|Seventeen|Sixteen|Fifteen|Fourteen|Thirteen|Twelve|Eleven|Ten|Nine) of our own claims are withdrawn",
-     "retractions"),
+    ("docs/index.html", NUMERAL + r" of our own claims are withdrawn", "retractions"),
     ("research/program-verifier-validation.json",
      r'"accepted_fixture_count":\s*(\d+)', "program accepted"),
     ("research/program-verifier-validation.json",
@@ -129,17 +162,6 @@ for _rel in ("research/2026-09-28-program-verifier.md",
         (_rel, r"passed (?:\*\*|<strong>)\d+ of\s+(\d+)(?:\*\*|</strong>) checks",
          "program verifier tests"),
     ])
-
-# The alternation in CLAIMS above must list every word in here, or a
-# correct new count reads as PATTERN NOT FOUND. That is the check
-# behaving properly -- a claim it can no longer find is a claim it can no
-# longer guard -- but the two lists have to be extended together.
-WORDS = {"two": 2, "three": 3, "four": 4, "five": 5, "nine": 9, "ten": 10,
-         "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
-         "fifteen": 15, "sixteen": 16,
-         "seventeen": 17, "eighteen": 18, "nineteen": 19, "twenty": 20,
-         "twenty-one": 21}
-
 
 def main() -> int:
     t = truth()

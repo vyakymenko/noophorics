@@ -233,8 +233,10 @@ class TestCheckCounts(ToolTest):
             # Nine, not two: check_counts only reads numerals it can compare,
             # and its vocabulary starts at "nine". A fixture that uses a word
             # outside it tests the vocabulary, not the count.
+            # The opening line is read as a claim too, so the fixture states it.
             "theory/open-problems.md":
-                "".join("## %d. p\n" % i for i in range(1, 10)),
+                "# Open Problems\n\nNine problems. Stated.\n\n"
+                + "".join("## %d. p\n" % i for i in range(1, 10)),
             "PRINCIPIA.md": "**A1 — x.**\n**A2 — y.**\n",
             # The tally line is part of the fixture because check_counts now
             # reads it. Two, to match the two VOID.md files below. Nine rows
@@ -394,6 +396,56 @@ class TestCheckCounts(ToolTest):
         code, out = self.run_check(self.base(tests_n=7, readme_states=7))
         self.assertEqual(code, 0)
         self.assertNotIn("MISMATCH", out)
+
+    def test_a_stale_withdrawn_claim_tally_is_caught(self):
+        """The tally's first number is the one every other copy is taken from.
+
+        Its void half was checked and its claims half was not, in the one file
+        that exists so the claims count can be audited.
+        """
+        files = self.base(tests_n=7, readme_states=7)
+        files["RETRACTIONS.md"] = files["RETRACTIONS.md"].replace(
+            "nine claims withdrawn", "ten claims withdrawn")
+        code, out = self.run_check(files)
+        self.assertEqual(code, 1, out)
+        self.assertIn("MISMATCH", out)
+
+    def test_the_problem_file_is_checked_against_its_own_headings(self):
+        """open-problems.md said "Ten problems" above fifteen headings."""
+        files = self.base(tests_n=7, readme_states=7)
+        rel = "theory/open-problems.md"
+        files[rel] = files[rel].replace("Nine problems.", "Ten problems.")
+        code, out = self.run_check(files)
+        self.assertEqual(code, 1, out)
+        self.assertIn("MISMATCH", out)
+
+    def test_a_count_past_twenty_one_is_read_not_lost(self):
+        """The legitimate case the old hand-written alternation would have failed.
+
+        The status sentence's word list stopped at "Twenty-one", so a correct
+        "Twenty-four" read as PATTERN NOT FOUND -- loud, but for the wrong
+        reason. Every copy of the count is moved to twenty-four together here,
+        in digits and in words, and must pass.
+        """
+        files = self.base(tests_n=7, readme_states=7)
+        files["RETRACTIONS.md"] = ("**Standing tally: 24 claims withdrawn, two "
+                                   "experiments void.**\n| # | Claim |\n|---|---|\n"
+                                   + "".join("| %d | a |\n" % i for i in range(1, 25)))
+        files["docs/index.html"] = (files["docs/index.html"]
+                                    .replace("<a href=x>9</a>", "<a href=x>24</a>")
+                                    .replace("Nine of our own claims",
+                                             "Twenty-four of our own claims"))
+        code, out = self.run_check(files)
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("PATTERN NOT FOUND", out)
+
+    def test_a_numeral_inside_a_word_is_not_a_count(self):
+        """"often open problems" must not be read as "ten open problems"."""
+        files = self.base(tests_n=7, readme_states=7)
+        files["CITATION.cff"] = "often open problems\n"
+        code, out = self.run_check(files)
+        self.assertEqual(code, 1, out)
+        self.assertIn("PATTERN NOT FOUND", out)
 
     def test_the_void_count_survives_a_repository_with_no_experiments(self):
         """A counter that raises instead of reporting is an outage, not an audit."""

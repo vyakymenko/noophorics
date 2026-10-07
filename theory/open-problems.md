@@ -1,6 +1,10 @@
 # Open Problems
 
-Ten problems whose solutions would constitute the first decade of noophorics.
+Fifteen problems. The first ten were stated at founding as the problems whose
+solutions would constitute the first decade of noophorics; 11–15 were added
+between 2026-07-30 and 2026-08-04, as the work ran into them. This line
+said "Ten problems" until 2026-10-07, against fifteen headings below it, while
+every other file that quotes this count was checked against them.
 Stated in Hilbert's spirit: precise enough to be worked on, open enough to be
 hard. Numbering is stable; solved problems are annotated, not renumbered.
 
