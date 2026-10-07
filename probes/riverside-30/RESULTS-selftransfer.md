@@ -85,21 +85,34 @@ written, on arithmetic that was available when it was written.**
 E-001c's band is **182–231** words. `qwen`'s 240/239/241 are all *above* the
 ceiling, so it does not satisfy the band either. Worse for the claim: E-001c's
 cell A on `gpt-oss` under its **calibrated** instruction has a mean of **242.1**
-words, and `qwen` here has a mean of **240.0**. The two models land in the same
-place, which is the opposite of a model-specific void.
+words, and `qwen` here has a mean of **240.0**. ~~The two models land in the same
+place, which is the opposite of a model-specific void.~~ **Withdrawn under
+[retraction 18](../../RETRACTIONS.md), struck here 2026-10-07.** The void *is*
+model-specific: under E-001c's own calibrated instruction `qwen3.5:35b` puts
+cell A in band 11 of 12 against `gpt-oss`'s 0 of 12
+([RESULTS-qwen-floor](../../experiments/E-001c-fluency-length-controlled/RESULTS-qwen-floor.md)).
+240.0 was `qwen`'s length under this file's different, uncalibrated instruction,
+and the two means above were never measured under one instruction. The ledger
+withdrew the claim on 2026-08-31 and this sentence went on stating it for five
+weeks, because `probes/` is not among the files the retraction checker reads.
 
 What survives is a narrower and different fact. On the **identical** instruction
 and specification, `qwen` produced 240 where `gpt-oss` produced 405 — so the two
 differ sharply in *length-instruction compliance*. That is not what E-001c
 voided on, and it does not revive the E-001 line: a proper test would run
 E-001c's own calibrated cell-A instruction against `qwen` and count how many of
-40 land inside 182–231, and that has not been done.
+40 land inside 182–231, and that has not been done. *(It was done the same day,
+at 12 compositions per cell rather than 40: 11 of 12 in band —
+[RESULTS-qwen-floor](../../experiments/E-001c-fluency-length-controlled/RESULTS-qwen-floor.md).)*
 
-The coincidence of 240 and 242.1 across two models, two specifications and two
+~~The coincidence of 240 and 242.1 across two models, two specifications and two
 instructions is worth more than the retracted claim was: it suggests ~240 words
 may be a **floor for this kind of compressed briefing regardless of reader**,
-which would *strengthen* E-001c's void rather than undermine it. Three
-compositions is not a basis for asserting that.
+which would *strengthen* E-001c's void rather than undermine it.~~ **Withdrawn
+under [retraction 18](../../RETRACTIONS.md), struck here 2026-10-07:** under the
+calibrated instruction `qwen`'s cell-A compositions run 197–232 words, mean 216.6,
+so there is no ~240-word floor common to both generators, and the void is not
+strengthened. Three compositions is not a basis for asserting that.
 
 ---
 

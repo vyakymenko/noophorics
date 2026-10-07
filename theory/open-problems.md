@@ -566,7 +566,11 @@ the prediction recorded **per probe, in the probe file**, before any of them ran
 | predicted **not** to | 4 | **0.000** | 0 of 4 |
 
 Thirteen events against zero, over 24 probe-message pairs on the second group.
-Fisher exact `p = 0.0339`. And the structure is sharper than the rate: **all nine
+~~Fisher exact `p = 0.0339`.~~ **Withdrawn 2026-08-18, [retraction
+15](../RETRACTIONS.md)** — the probes are not independent rows — and struck here
+only on 2026-10-07: the probe file's copy was struck the day the retraction was
+filed and this one went on stating it live. The thirteen-to-zero count is
+unaffected. And the structure is sharper than the rate: **all nine
 probes that ever discriminated turn on the paired regime (`R5`, seven of nine) or
 on verdict precedence (`R9`, four).** Across 32 probes and six messages, not one
 categorical override discriminated.
@@ -586,7 +590,10 @@ only if it returns the key at margin ≥ 8 in **every** pass — it rejects four
 probes: `X06`, `X17`, `X21`, `X22`.
 
 **All four are among the nine that ever discriminated. None of the twenty-three
-that never discriminated was rejected.** Fisher exact `p = 0.0035`.
+that never discriminated was rejected.** ~~Fisher exact `p = 0.0035`.~~
+**Withdrawn 2026-08-18, [retraction 15](../RETRACTIONS.md), struck here
+2026-10-07**, on the same grounds and with the same delay as the `p` above. The
+counts stand.
 
 On the 28 survivors the measure gives **2.00 diverged per message** at a
 per-probe rate of **0.071** — still above `MERIDIAN-34`'s 0.049, and **below the

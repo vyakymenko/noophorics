@@ -38,7 +38,8 @@ of `qwen`'s compositions are *above* the ceiling.
 
 ## The fluent floor belonged to one model
 
-E-001c died saying the fluent register's length floor sits above the band's
+E-001c died saying, in words [retraction 18](../RETRACTIONS.md) has since
+withdrawn, that the fluent register's length floor sits above the band's
 ceiling, so the manipulation was unsatisfiable rather than underpowered. Same
 script, same specification, same calibrated instruction, same band, one model
 changed:
