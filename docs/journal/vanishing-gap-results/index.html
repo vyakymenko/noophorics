@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F* near a vanishing gap: the simulation's results — Noophorics</title>
+<meta name="description" content="2026-10-16 · results of the offline simulation registered in the plan, which was committed before the simulation code, itself committed before its registered run.">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://noophorics.org/journal/vanishing-gap-results/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="F* near a vanishing gap: the simulation's results — Noophorics">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://noophorics.org/journal/vanishing-gap-results/">
+<meta property="og:image" content="https://noophorics.org/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Noophorics — a dark card reading NOOPHORICS above the line “Understanding is measured by behavioural convergence toward a declared reference”, footed with Φ phantom agreement and the version.">
+<meta name="twitter:image" content="https://noophorics.org/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://noophorics.org/journal/vanishing-gap-results/#article","headline":"F* near a vanishing gap: the simulation's results","description":"2026-10-16 · results of the offline simulation registered in the plan, which was committed before the simulation code, itself committed before its registered run.","url":"https://noophorics.org/journal/vanishing-gap-results/","inLanguage":"en","isPartOf":{"@id":"https://noophorics.org/#website"},"license":"https://creativecommons.org/licenses/by/4.0/","author":{"@type":"Person","name":"Valentyn Yakymenko","url":"https://github.com/vyakymenko"},"publisher":{"@type":"Organization","name":"Noophorics","url":"https://noophorics.org/"},"isAccessibleForFree":true,"creativeWorkStatus":"Published"}</script>
+<style>
+/* ---------------------------------------------------------------
+   NOOPHORICS.ORG
+   Typographic system: scholarly serif for prose, mono for quantities.
+   Colour: plate + ink, with one accent — measurement red — reserved
+   for phantom agreement, claimed values, and the annotator's mark.
+   --------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+
+  --plate:        #e7e8e3;
+  --field:        #ddded8;
+  --ink:          #12161a;
+  --graphite:     #5c6369;
+  --rule:         #c5c7c0;
+  --rule-soft:    #d5d6d0;
+  --phantom:      #a3291d;
+  --phantom-wash: rgba(163, 41, 29, 0.11);
+  --accent:       var(--phantom);
+  --soft:         var(--graphite);
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter,
+           "Bitstream Charter", "Book Antiqua", Georgia, "Times New Roman", serif;
+  --mono:  ui-monospace, "SF Mono", SFMono-Regular, Menlo, "DejaVu Sans Mono",
+           "Liberation Mono", Consolas, monospace;
+
+  --measure: 40rem;
+  --rail: 11rem;
+  --gutter: 3rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --plate:        #0f1317;
+    --field:        #161b20;
+    --ink:          #d7d9d4;
+    --graphite:     #8c9299;
+    --rule:         #262c32;
+    --rule-soft:    #1d2329;
+    --phantom:      #e0705f;
+    --phantom-wash: rgba(224, 112, 95, 0.14);
+  }
+}
+
+/* Explicit toggle must win over the media query, in both directions. */
+:root[data-theme="dark"] {
+  --plate:        #0f1317;
+  --field:        #161b20;
+  --ink:          #d7d9d4;
+  --graphite:     #8c9299;
+  --rule:         #262c32;
+  --rule-soft:    #1d2329;
+  --phantom:      #e0705f;
+  --phantom-wash: rgba(224, 112, 95, 0.14);
+}
+:root[data-theme="light"] {
+  --plate:        #e7e8e3;
+  --field:        #ddded8;
+  --ink:          #12161a;
+  --graphite:     #5c6369;
+  --rule:         #c5c7c0;
+  --rule-soft:    #d5d6d0;
+  --phantom:      #a3291d;
+  --phantom-wash: rgba(163, 41, 29, 0.11);
+}
+
+/* ---- skip link ------------------------------------------------ */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--accent);
+  color:var(--plate);padding:.7rem 1.1rem;text-decoration:none;
+  font:500 1rem/1 ui-monospace,Menlo,monospace}
+.skip:focus{left:0}
+main{display:block}
+
+/* ---- base ---------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--plate);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  -webkit-text-size-adjust: 100%;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+p { margin: 0; text-wrap: pretty; }
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--phantom);
+}
+a:hover { color: var(--phantom); }
+
+:focus-visible {
+  outline: 2px solid var(--phantom);
+  outline-offset: 3px;
+}
+
+em { font-style: italic; }
+strong { font-weight: 600; }
+
+/* ---- layout band --------------------------------------------- */
+
+.band {
+  display: grid;
+  grid-template-columns:
+    [rail] minmax(0, var(--rail))
+    [text] minmax(0, var(--measure))
+    [end];
+  column-gap: var(--gutter);
+  row-gap: 0;
+  max-width: calc(var(--rail) + var(--gutter) + var(--measure) + 3rem);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.col  { grid-column: text; min-width: 0; }
+
+/* ---- marginal rail ------------------------------------------- */
+
+.rail {
+  grid-column: rail;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  text-align: right;
+  padding-top: 0.55rem;
+}
+.rail b {
+  display: block;
+  font-weight: 400;
+  color: var(--ink);
+}
+.rail .gloss {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: var(--serif);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--graphite);
+}
+.rail .sym {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 2.4rem;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--phantom);
+}
+
+/* ---- masthead ------------------------------------------------ */
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--rule);
+  background: var(--plate);
+  padding-block: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.masthead .band {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+.masthead .mark {
+  color: var(--ink);
+  text-decoration: none;
+}
+.mast-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.85rem;
+}
+.mast-actions > a { white-space: nowrap; }
+
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 80;
+  height: 2px;
+  background: transparent;
+  pointer-events: none;
+}
+.reading-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--phantom);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.theme-toggle,
+.site-menu summary {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--graphite);
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+.theme-toggle:hover,
+.site-menu summary:hover { color: var(--phantom); }
+.theme-toggle {
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+}
+.site-menu { position: relative; }
+.site-menu summary {
+  list-style: none;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-color: var(--phantom);
+}
+.site-menu summary::-webkit-details-marker { display: none; }
+.site-menu[open] summary { color: var(--phantom); }
+.menu-panel {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  width: min(24rem, calc(100vw - 3rem));
+  padding: 1rem 1.1rem 1.15rem;
+  border: 1px solid var(--rule);
+  background: var(--field);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.12);
+  color: var(--ink);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.menu-panel h2 {
+  margin: 0 0 0.55rem;
+  font: 400 0.625rem/1.4 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.menu-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem 1rem;
+}
+.menu-sections a,
+.menu-languages a {
+  text-decoration: none;
+  line-height: 1.55;
+}
+.menu-sections a:hover,
+.menu-languages a:hover { text-decoration: underline; }
+.menu-languages {
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule);
+}
+.menu-languages p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.9rem;
+  font-family: var(--serif);
+  font-size: 0.875rem;
+}
+.section-nav {
+  margin-top: 0.8rem;
+  border-top: 1px solid var(--rule-soft);
+}
+.section-nav-list {
+  display: flex;
+  gap: 1.1rem;
+  max-width: calc(var(--rail) + var(--gutter) + var(--measure) + 3rem);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  white-space: nowrap;
+}
+.section-nav-list::-webkit-scrollbar { display: none; }
+.section-nav a {
+  display: block;
+  min-height: 2.2rem;
+  padding-block: 0.55rem 0.45rem;
+  color: var(--graphite);
+  text-decoration: none;
+}
+.section-nav a:hover { color: var(--ink); }
+.section-nav a[aria-current="location"] {
+  color: var(--ink);
+  box-shadow: inset 0 -2px var(--phantom);
+}
+
+/* ---- front matter -------------------------------------------- */
+
+.front { padding-top: clamp(3rem, 8vw, 6rem); }
+.front .hero-rail { padding-top: 0.45rem; }
+.front .hero-rail .sym { margin-top: 1.35rem; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  margin-bottom: 1.4rem;
+}
+
+.wordmark {
+  font-size: clamp(2.5rem, 10vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+.etym {
+  margin-top: 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--graphite);
+}
+
+.hero-claim {
+  margin-top: clamp(2.4rem, 6vw, 4rem);
+  max-width: 38rem;
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  line-height: 1.04;
+  letter-spacing: -0.018em;
+}
+
+.deck {
+  margin-top: 1.5rem;
+  max-width: 37rem;
+  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+  line-height: 1.42;
+}
+
+.hero-status {
+  margin-top: 1.4rem;
+  max-width: 36rem;
+  display: flex;
+  gap: 0.65rem;
+  color: var(--graphite);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.hero-status::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.48rem;
+  border-radius: 50%;
+  background: var(--phantom);
+}
+
+.hero-actions {
+  margin-top: 1.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+.action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.7rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.action:hover {
+  border-color: var(--phantom);
+  color: var(--phantom);
+}
+.action-primary {
+  border-color: var(--phantom);
+  background: var(--phantom);
+  color: var(--plate);
+}
+.action-primary:hover {
+  background: transparent;
+  color: var(--phantom);
+}
+
+.thesis {
+  margin-top: 3rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule);
+  font-size: clamp(1.3rem, 3.2vw, 1.75rem);
+  line-height: 1.36;
+}
+.thesis .mark {
+  text-decoration: underline;
+  text-decoration-color: var(--phantom);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.16em;
+}
+.thesis-src {
+  margin-top: 1rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+/* ---- instrument ---------------------------------------------- */
+
+.instrument-sec { padding-top: clamp(3.5rem, 8vw, 6rem); }
+.instrument-card {
+  margin-top: 1.8rem;
+  border: 1px solid var(--rule);
+  background: var(--field);
+}
+.instrument-hd {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.instrument-hd .live { color: var(--phantom); }
+.handoff-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.4rem 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.agent-node {
+  min-width: 0;
+  border: 1px solid var(--rule);
+  padding: 0.8rem;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.agent-node b {
+  display: block;
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.artifact-node {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 10rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.artifact-node::before,
+.artifact-node::after {
+  content: "";
+  height: 1px;
+  background: var(--rule);
+}
+.signal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid var(--rule);
+}
+.signal {
+  min-width: 0;
+  padding: 1rem;
+  border-right: 1px solid var(--rule);
+}
+.signal:last-child { border-right: 0; }
+.signal span {
+  display: block;
+  min-height: 2.8em;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.signal b {
+  display: block;
+  margin-top: 0.35rem;
+  font: 400 clamp(1.5rem, 4vw, 2.25rem)/1 var(--mono);
+}
+.signal-phi b,
+.signal-phi span { color: var(--phantom); }
+.agreement-plot { padding: 1.15rem 1rem 1.25rem; }
+.plot-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr 3rem;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.65rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.plot-track {
+  height: 0.65rem;
+  background: var(--plate);
+  border: 1px solid var(--rule);
+}
+.plot-fill {
+  width: var(--value);
+  height: 100%;
+  background: var(--ink);
+}
+.plot-row.claimed .plot-fill { background: var(--phantom); }
+.instrument-note {
+  padding: 0.85rem 1rem 1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--graphite);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.instrument-note strong { color: var(--ink); }
+
+/* ---- entry points -------------------------------------------- */
+
+.boundary-grid,
+.available-grid {
+  display: grid;
+  gap: 1px;
+  margin-top: 1.7rem;
+  border: 1px solid var(--rule);
+  background: var(--rule);
+}
+.boundary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.available-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.boundary,
+.available {
+  min-width: 0;
+  padding: 1.2rem;
+  background: var(--plate);
+}
+.boundary .id,
+.available .id {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--phantom);
+}
+.boundary h3,
+.available h3 {
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+.boundary p,
+.available p {
+  margin-top: 0.55rem;
+  color: var(--graphite);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.available a {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.entry-actions {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---- metadata block ------------------------------------------ */
+
+.meta {
+  margin-top: 3rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding-block: 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem 1.5rem;
+  font-family: var(--mono);
+}
+.meta div { display: flex; flex-direction: column; gap: 0.28rem; }
+.meta dt {
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+.meta dd {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+.meta .zero { color: var(--phantom); }
+
+/* ---- contents ------------------------------------------------ */
+
+.contents { margin-top: 2.6rem; }
+.contents ol { display: grid; gap: 0.1rem; }
+.contents li {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  align-items: baseline;
+  padding-block: 0.38rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.contents .n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--graphite);
+  font-variant-numeric: tabular-nums;
+}
+.contents a { text-decoration: none; }
+.contents a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* ---- sections ------------------------------------------------ */
+
+.sec {
+  padding-top: clamp(3.5rem, 8vw, 6rem);
+  scroll-margin-top: 6.5rem;
+}
+#refuted { scroll-margin-top: 6.5rem; }
+.sec > .col > * + * { margin-top: 1.15rem; }
+
+.sec h2 {
+  font-size: clamp(1.5rem, 3.6vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--rule);
+}
+.sec h3 {
+  font-size: 1.0625rem;
+  letter-spacing: 0.005em;
+}
+.sec .lead { font-size: 1.125rem; line-height: 1.5; }
+
+.note {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--graphite);
+}
+
+/* ---- pull statement ------------------------------------------ */
+
+.pull {
+  margin-block: 2rem;
+  padding: 1.5rem 0 1.5rem 1.6rem;
+  border-left: 2px solid var(--phantom);
+  font-size: clamp(1.15rem, 2.8vw, 1.45rem);
+  line-height: 1.34;
+}
+.pull cite {
+  display: block;
+  margin-top: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+/* ---- generic mono bits --------------------------------------- */
+
+.q {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  letter-spacing: -0.01em;
+}
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  border: 1px solid var(--rule);
+  padding: 0.14rem 0.42rem;
+  white-space: nowrap;
+}
+.tag-alert { color: var(--phantom); border-color: var(--phantom); }
+
+.scroll {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.data-table:focus-visible,
+.plate:focus-visible { outline-offset: 5px; }
+
+.formula {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  white-space: pre;
+  background: var(--field);
+  border: 1px solid var(--rule);
+  padding: 1.1rem 1.25rem;
+  color: var(--ink);
+}
+
+/* ---- figures ------------------------------------------------- */
+
+.figure {
+  margin: 2.4rem 0 0;
+  border: 1px solid var(--rule);
+  background: var(--field);
+}
+/* plates break out of the measure into the marginal rail */
+@media (min-width: 62rem) {
+  .figure { margin-left: calc(-1 * (var(--rail) + var(--gutter))); }
+}
+.plate { overflow-x: auto; }
+.figure svg { display: block; width: 100%; min-width: 32rem; height: auto; }
+.figure figcaption {
+  border-top: 1px solid var(--rule);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--graphite);
+}
+.figure figcaption b {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-right: 0.5rem;
+}
+
+.fig-line   { fill: none; stroke: var(--ink);      stroke-width: 2; }
+.fig-line-p { fill: none; stroke: var(--phantom);  stroke-width: 2; }
+.fig-gap    { fill: var(--phantom-wash); stroke: none; }
+.fig-hatch  { stroke: var(--rule); stroke-width: 1; }
+.fig-axis   { fill: none; stroke: var(--rule); stroke-width: 1; }
+.fig-dash   { fill: none; stroke: var(--graphite); stroke-width: 1; stroke-dasharray: 4 5; }
+.fig-box    { fill: none; stroke: var(--ink); stroke-width: 1.25; }
+.fig-t      { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; fill: var(--graphite); }
+.fig-t-ink  { fill: var(--ink); letter-spacing: 0.04em; }
+.fig-t-p    { fill: var(--phantom); }
+.fig-big    { font-family: var(--mono); font-size: 20px; fill: var(--ink); letter-spacing: 0; }
+.fig-phi    { font-family: var(--mono); font-size: 34px; fill: var(--phantom); letter-spacing: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes trace { from { stroke-dasharray: 0 1400; } to { stroke-dasharray: 1400 0; } }
+  @keyframes wash  { from { opacity: 0; } to { opacity: 1; } }
+  .anim-a { animation: trace 1.5s cubic-bezier(.22,.61,.36,1) both; }
+  .anim-b { animation: trace 1.5s cubic-bezier(.22,.61,.36,1) 0.25s both; }
+  .anim-w { animation: wash 1.1s ease-out 1.2s both; }
+}
+
+/* ---- tables -------------------------------------------------- */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 34rem;
+  text-align: left;
+}
+caption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  padding-bottom: 0.7rem;
+}
+th {
+  font-weight: 400;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 0.9rem 0.5rem 0;
+  vertical-align: bottom;
+}
+td {
+  border-bottom: 1px solid var(--rule-soft);
+  padding: 0.75rem 0.9rem 0.75rem 0;
+  vertical-align: baseline;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+th:last-child, td:last-child { padding-right: 0; }
+.t-sym {
+  font-family: var(--mono);
+  font-size: 1.0625rem;
+  white-space: nowrap;
+  width: 5.5rem;
+}
+.t-name { width: 11rem; }
+.t-name span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  margin-top: 0.2rem;
+}
+.hero-sym { color: var(--phantom); }
+
+/* ---- law list ------------------------------------------------ */
+
+.laws { margin-top: 2rem; display: grid; }
+.law {
+  display: grid;
+  grid-template-columns: 3rem 1fr 7rem;
+  align-items: baseline;
+  gap: 0 1rem;
+  padding-block: 0.85rem;
+  border-top: 1px solid var(--rule-soft);
+}
+.law .tag { justify-self: end; }
+.law:last-child { border-bottom: 1px solid var(--rule-soft); }
+.law .id {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--graphite);
+}
+.law .txt { font-size: 0.9375rem; line-height: 1.5; }
+.law .txt i { color: var(--graphite); font-style: normal; }
+
+.law-major {
+  margin-top: 2.4rem;
+  border-top: 2px solid var(--ink);
+  padding-top: 1.3rem;
+}
+.law-major + .law-major { margin-top: 2.4rem; }
+.law-major .hd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.9rem;
+  margin-bottom: 0.9rem;
+}
+.law-major .hd .id {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--phantom);
+}
+.law-major .hd h3 { font-size: 1.125rem; }
+.law-major .claim {
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  padding-left: 1.1rem;
+  border-left: 1px solid var(--rule);
+}
+.law-major p { margin-top: 0.95rem; }
+.kill {
+  margin-top: 0.95rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: var(--graphite);
+}
+.kill b { color: var(--ink); font-weight: 400; }
+
+/* ---- problem groups ------------------------------------------ */
+
+.groups { margin-top: 1.8rem; display: grid; gap: 2.2rem; }
+.group h3 {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.group p { margin-top: 0.7rem; }
+.problems { margin-top: 0.9rem; display: grid; }
+.problem {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0 0.8rem;
+  padding-block: 0.6rem;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.problem .n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--graphite);
+  font-variant-numeric: tabular-nums;
+}
+.problem b { font-weight: 600; }
+.problem i { font-style: normal; color: var(--graphite); }
+
+/* ---- experiment ledger --------------------------------------- */
+
+.ledger { margin-top: 1.8rem; border-top: 1px solid var(--rule); }
+.exp {
+  padding-block: 1.05rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.exp .hd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem 0.9rem;
+}
+.exp .id {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+}
+.exp .nm { font-size: 1rem; }
+.exp .at {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--graphite);
+}
+.exp p {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--graphite);
+}
+.exp p b { color: var(--ink); font-weight: 400; }
+
+/* ---- falsifiers ---------------------------------------------- */
+
+.falsifiers { margin-top: 1.4rem; display: grid; }
+.falsifiers li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0 0.8rem;
+  padding-block: 0.62rem;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.falsifiers li:first-child { border-top: 1px solid var(--rule-soft); }
+.falsifiers .n {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--phantom);
+}
+
+/* ---- closing / footer ---------------------------------------- */
+
+.closer {
+  margin-top: 2.6rem;
+  padding-top: 1.6rem;
+  border-top: 2px solid var(--ink);
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  line-height: 1.32;
+}
+
+.foot {
+  margin-top: clamp(4rem, 9vw, 7rem);
+  border-top: 1px solid var(--rule);
+  padding-block: 2.2rem 4rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.75;
+  color: var(--graphite);
+}
+.foot .cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1.6rem 2rem;
+}
+.foot .cols > div { overflow-wrap: break-word; }
+.foot h2 {
+  margin: 0 0 0.5rem;
+  font-weight: 400;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.foot .cite {
+  margin-top: 2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule-soft);
+  font-family: var(--serif);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  max-width: 34rem;
+}
+
+/* ---- narrow -------------------------------------------------- */
+
+@media (max-width: 62rem) {
+  .band {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 44rem;
+  }
+  .col, .rail { grid-column: 1; }
+  .rail {
+    text-align: left;
+    padding-top: 0;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.9rem;
+  }
+  .rail b { display: inline; }
+  .rail .gloss, .rail .sym { display: none; }
+  .masthead .band { grid-template-columns: 1fr auto; }
+  .front .hero-rail { padding-bottom: 0.5rem; }
+  .scroll,
+  .plate {
+    scrollbar-width: thin;
+    scrollbar-color: var(--phantom) var(--field);
+  }
+  .scroll:not(.data-table)::before,
+  .plate::before {
+    content: "scroll \2194";
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    display: block;
+    width: max-content;
+    margin-bottom: 0.45rem;
+    padding: 0.15rem 0.4rem;
+    background: var(--phantom);
+    color: var(--plate);
+    font: 400 0.5625rem/1.4 var(--mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 42rem) {
+  .scroll.data-table {
+    overflow: visible;
+  }
+  .scroll.data-table::before { display: none; }
+  .table-cards {
+    display: block;
+    min-width: 0;
+  }
+  .table-cards thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+    overflow: hidden;
+  }
+  .table-cards caption,
+  .table-cards tbody { display: block; }
+  .table-cards tr {
+    display: block;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--rule);
+    background: var(--field);
+  }
+  .table-cards tr + tr { margin-top: 0.75rem; }
+  .table-cards td {
+    display: block;
+    position: relative;
+    width: auto;
+    min-height: 2.1rem;
+    border: 0;
+    padding: 0.35rem 0 0.35rem 6.4rem;
+  }
+  .table-cards td::before {
+    position: absolute;
+    left: 0;
+    width: 5.55rem;
+    font: 400 0.5625rem/1.45 var(--mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--graphite);
+  }
+  .table-prior td:nth-child(1)::before { content: "Field"; }
+  .table-prior td:nth-child(2)::before { content: "What it gives"; }
+  .table-prior td:nth-child(3)::before { content: "Where it stops"; }
+  .table-timeline td:nth-child(1)::before { content: "Year"; }
+  .table-timeline td:nth-child(2)::before { content: "Instrument"; }
+  .table-timeline td:nth-child(3)::before { content: "Effect"; }
+  .table-quantities td:nth-child(1)::before { content: "Symbol"; }
+  .table-quantities td:nth-child(2)::before { content: "Name"; }
+  .table-quantities td:nth-child(3)::before { content: "Definition"; }
+  .table-phi td:nth-child(1)::before { content: "Sign"; }
+  .table-phi td:nth-child(2)::before { content: "Reading"; }
+  .table-phi td:nth-child(3)::before { content: "Meaning"; }
+  .table-cards .t-sym,
+  .table-cards .t-name { width: auto; }
+}
+
+@media (max-width: 34rem) {
+  body { font-size: 1rem; }
+  .mast-actions { gap: 0.55rem; }
+  .mast-secondary,
+  .mast-repository { display: none; }
+  .menu-sections { grid-template-columns: 1fr; }
+  .hero-claim { font-size: clamp(2rem, 12vw, 3rem); }
+  .hero-actions { display: grid; }
+  .action { justify-content: center; }
+  .handoff-flow { grid-template-columns: 1fr; }
+  .artifact-node {
+    min-width: 0;
+    grid-template-columns: 1fr;
+    padding-block: 0.25rem;
+  }
+  .artifact-node::before,
+  .artifact-node::after { display: none; }
+  .signal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .signal:nth-child(2) { border-right: 0; }
+  .signal:nth-child(-n + 2) { border-bottom: 1px solid var(--rule); }
+  .plot-row { grid-template-columns: 4.5rem 1fr 2.5rem; }
+  .boundary-grid,
+  .available-grid { grid-template-columns: 1fr; }
+  .law { grid-template-columns: 2.6rem 1fr; }
+  .law .tag { grid-column: 2; justify-self: start; margin-top: 0.4rem; }
+  .formula { font-size: 0.75rem; }
+}
+</style>
+<style>
+main{max-width:40rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) 1.25rem 5rem}
+.jn{font-family:ui-monospace,Menlo,monospace;font-size:.82rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--soft);margin:0 0 .8rem}
+main h1{font-size:clamp(1.9rem,1.4rem + 2.2vw,2.7rem);font-weight:400;
+  margin:0 0 2rem;line-height:1.15;letter-spacing:-.01em}
+main h2{font-size:1.35rem;font-weight:400;margin:2.6rem 0 .9rem;
+  padding-bottom:.4rem;border-bottom:1px solid var(--rule)}
+main h3{font-size:1.1rem;font-weight:600;margin:2rem 0 .7rem}
+main p{margin:0 0 1.25rem}
+main ul,main ol{margin:0 0 1.25rem;padding-inline-start:1.3rem;list-style:revert}
+main li{margin-bottom:.5rem}
+main blockquote{margin:1.6rem 0;padding-inline-start:1.1rem;
+  border-inline-start:3px solid var(--accent);color:var(--ink)}
+main blockquote p{margin:0}
+main pre{background:var(--code-bg,rgba(128,128,128,.1));padding:1rem 1.1rem;
+  overflow-x:auto;font-size:.86rem;line-height:1.5;margin:0 0 1.4rem}
+main code{font-family:ui-monospace,Menlo,monospace;font-size:.88em}
+main table{border-collapse:collapse;width:100%;font-size:.92rem;margin:0 0 1.4rem}
+main th,main td{text-align:start;padding:.5rem .8rem;border-bottom:1px solid var(--rule);
+  vertical-align:top}
+main th{font-family:ui-monospace,Menlo,monospace;font-size:.78rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--soft);font-weight:400}
+main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
+.back{display:block;margin-top:3.5rem;padding-top:1.4rem;
+  border-top:1px solid var(--rule);font-size:.92rem;color:var(--soft)}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<main id="content">
+<p class="jn">methods note · vanishing gap results</p>
+<h1>F* near a vanishing gap: the simulation's results</h1>
+<p><strong>2026-10-16 · results of the offline simulation registered in <a href="/journal/vanishing-gap-plan/">the plan</a></strong>, which was committed before the <a href="https://github.com/vyakymenko/noophorics/blob/main/metrics/validation/vanishing_gap.py">simulation code</a>, itself committed before its registered run. No model was called. Every number below is in the <a href="https://github.com/vyakymenko/noophorics/blob/main/research/vanishing-gap.json">saved record</a>; the tables are generated from it and checked against it. <strong>P1, the prediction held least firmly, failed — and its criterion failed for every variant</strong>, which is the branch where the plan said the report would say so and Problem 12 would stay exactly as open as it is. It does.</p>
+<h2>The predictions</h2>
+<p>P1 failed: the library-default (V0) Fieller set fell below 0.93 coverage in 10 of 48 cells. Re-read for the other variants from the same record, the criterion also fails for V1 (26 cells) and V2 (6). P2, P3 and P4 held, and P2 and P3 hold for every variant (Table 1). P1 stands as written.</p>
+<p>The V0 and V2 failures are not where Problem 12 lives. V0's are all at the two widest gaps, <code>g = 0</code> and <code>g = 0.6</code>; V2's are all at <code>g = 0</code>. Where the gap shrinks toward the floor — <code>g ≥ 0.8</code> — the V0 set covered the true <code>F*</code> in 0.9525–1.00 of trials in every cell, and V2's in 0.9825–1.00. V1's did not: it fell as low as 0.37 there.</p>
+<h2>Choices fixed in the code before the registered run</h2>
+<p>The plan left four things open, and the code fixed them, in the commit that predates the run: the present report is scored as its capped percentile interval, given only when the point passes the epsilon gate, with a refusal counted as a miss; percentile intervals use the bootstrap replicates whose denominator is positive, and a trial with none scores a miss (no trial had none); the floor is the exact hypergeometric sum, as the plan specified; and P2's "capped or not" is read strictly, so both versions must fail somewhere. <code>score()</code> reads P2 and P3 from V0; that reading was not listed among the four, and the per-variant column of Table 1 shows it changes nothing. Before the code was committed, a smoke run of four cells at 20 trials each — including the <code>n = 16</code> antinoophor cell P4 is scored on — was executed for timing.</p>
+<h2>What the present report does where the gap vanishes</h2>
+<p>At <code>g ≥ 0.95</code> the epsilon gate passes at most 0.155 of trials, and the present report covers the true <code>F*</code> in 0.00–0.1025 of them (Table 2); at <code>g = 0.9</code>, 0.0325–0.24. That is P2. Its coverage never exceeds its gate's pass rate in any of the 48 cells, which follows from scoring a refusal as a miss. Where it does report, it mostly covers: at <code>λ = 0.25</code> and <code>g ≥ 0.95</code> the reported intervals covered in every trial, and the same capped percentile interval without the gate covered 0.9775–0.995.</p>
+<p>It also misses where the gap is wide. At <code>λ = 1</code>, where the true <code>F*</code> is 1, the percentile interval, capped or not, covers it in 0.045–0.105 of trials at every gap including the widest. That is a count; why the bootstrap distribution sits below the truth there is not tested here.</p>
+<p>Among the trials it reports, the gated, capped point is biased upward in 32 of the 47 cells where it reports anything and downward in 15 — all twelve <code>λ = 1</code> cells among them, where the cap acts, at −0.006 to −0.269. At <code>g ≥ 0.6</code> with <code>λ &lt; 1</code> the bias runs from −0.079 to +0.533. At <code>g = 0</code>, where the gate passes every trial and so selects nothing, it is already +0.024 to +0.069 for <code>λ &lt; 1</code>. No sign was predicted for it, and none is attributed here.</p>
+<h2>The V0 and V2 Fieller sets widen as the gap closes, and hold coverage there</h2>
+<p>The share of V0 sets that are bounded intervals is 1.00 at <code>g = 0</code>, 0.9575–1.00 at <code>g = 0.6</code>, 0.24–0.985 at <code>g = 0.8</code>, 0.0325–0.47 at <code>g = 0.9</code>, and 0.0025–0.0125 at <code>g = 0.98</code>. Across the grid that report widens without bound as the evidence for a gap disappears, instead of switching from a number to a refusal — which is the first thing Problem 12 asked for — and from <code>g = 0.8</code> on its coverage is never below 0.9525. The exception is the zero-gap antinoophor cells, where the true gap is exactly zero and V0's set is still bounded in 0.695–0.74 of trials; the floor-convention section below shows why that set has something to be bounded around.</p>
+<h2>…and lose coverage at the widest gap, by what their centre's bias predicts</h2>
+<p>At <code>g = 0</code> the V0 set covers 0.7125–0.995, lowest at <code>λ = 0.75</code>; V2's covers 0.735–0.995. Table 4 fits the simplest model of that loss: a set of the observed width, centred on the uncapped ratio <code>M̂/Ĝ</code> with its observed bias. At <code>g = 0</code> with <code>λ &lt; 1</code> it reproduces the observed coverage within 0.03 in every cell, for both variants. At <code>g = 0.6</code> it predicts up to 0.06 too little, and at <code>λ = 1</code>, where the truth sits on the cap, it predicts 0.95 against an observed 0.9875–1.00. Table 4 omits the two <code>n = 10</code>, <code>g = 0.6</code> cells where V0 fails, because there not every trial is reported or not every set is bounded; the same model, applied anyway, gives 0.883 against an observed 0.905 and 0.897 against 0.92 in them. So for the V0 and V2 sets, a set of the right width around a biased centre reproduces the failures without appeal to any property of the Fieller construction. Where the ratio's bias comes from is not tested here. The model does not reproduce V1's losses: it predicts 0.95 where V1 covers 0.085 at <code>n = 10</code>, <code>g = 0</code>, <code>λ = 1</code>.</p>
+<h2>The floor convention changes which gap is being estimated</h2>
+<p><em>This section rests on fields added to the record after the first registered run (see Limits).</em> The simulation has three estimator variants over two floor conventions; Table 5 shows the denominator itself where the true gap is small.</p>
+<ul><li><strong>V0</strong>, with the floor on <code>(sender, post)</code>, estimates a gap that moves with the receiver. At <code>g = 0.95</code> and <code>n = 10</code> the true gap is 0.0074–0.0075 in every cell, and V0's mean estimate runs from 0.0044 at <code>λ = 0.25</code> to 0.0104 at <code>λ = 1</code>. At a true gap of zero, with a receiver that moved away from the sender, V0's estimated gap is negative in 0.995–1.00 of trials (Table 5), and its Fieller set is bounded in 0.695–0.74 of them (Table 3): it reports a gap that is not there.</li><li><strong>V1 and V2</strong>, with the floor on <code>(sender, prior)</code>, do not move with the receiver, and at zero gap their sets are bounded in at most 0.01 of trials. But their mean estimate sits below the true gap at <code>g ≥ 0.9</code> — 0.0047–0.0071 against 0.0165–0.0169 at <code>g = 0.9</code>.</li><li><strong>V1</strong> leaves the numerator uncorrected while correcting the denominator, and its set covers the truth in as little as 0.085 of trials at <code>λ = 1</code>.</li></ul>
+<p>This is evidence for the question <code>fidelity_from_draws</code> leaves open, of which pair the floor belongs to. It settles nothing: V2 behaves best of the three and still fails at the widest gap, <code>g = 0</code> (six cells, as low as 0.735), and neither convention estimates a small gap accurately.</p>
+<h2>Want 2: the movement interval works; the gap beside it does not</h2>
+<p>At a true gap of zero <code>F*</code> is undefined. The movement <code>M = D_prior − D_post</code>, with its own percentile interval, is not (Table 3). That is P4: with a receiver that moved away, the interval excluded zero on the side of moving away in 0.99–1.00 of trials; with nothing moved, it excluded zero in at most 0.005. Across the grid it covered the true movement in 0.78–1.00 of trials, below 0.93 in six cells, all at <code>g ≤ 0.6</code>: five with <code>λ ≥ 0.75</code> and one at <code>λ = 0.25</code>. No cause is attributed to those six.</p>
+<p>The plan's report for want 2 puts the movement <em>beside the gap and its interval</em>, and the plan registered no measurement of that gap interval. It was computed after the registered run (Table 6), and it fails. The percentile interval for <code>Ĝ</code> covers the true gap in 0.07–0.92 of trials under V0 and 0.0875–0.94 under V1 across the grid, and in 0.07–0.67 at <code>g ≥ 0.9</code>. The basic interval does no better (0.0425–0.815, 0.005–0.4675). In the zero-gap null cells the percentile interval lies wholly above zero in 0.835–0.96 of trials: it reports a gap that is not there.</p>
+<p>So this simulation supports reporting the movement with its interval, and does not support the gap that the plan's report pairs with it. Whether a movement below zero at zero gap should be called an antinoophor is a separate question: <code>lexicon.md</code> defines one by <code>F* &lt; 0</code>, which is undefined there, so the name is a definition for the owner, not a finding.</p>
+<h2>What this does and does not change</h2>
+<p><strong>Nothing in the estimator library (<code>metrics/noophorics/</code>) changes, and no published <code>F*</code> is recomputed.</strong> The plan said a proposal would follow if P1 held, and it did not.</p>
+<p>What the run shows is where each piece works and where it does not. Near the vanishing gap, the V0 and V2 Fieller sets widen without bound and hold their coverage, and the movement interval detects a receiver that moved, which the ratio cannot express. At the widest gap the V0 and V2 sets lose coverage by about what a biased centre predicts. The gap's own interval fails throughout. Whatever the next step is, the evidence here points at the bias of the divergence estimates rather than at the shape of the interval. Choosing it, like any change to how <code>F*</code> is reported, belongs to the owner of the definitions.</p>
+<h2>Limits</h2>
+<ul><li>Synthetic agents with three options, independent draws within a probe, and uniform weights; one generator of distributions. Real draws may be dependent.</li><li>The frame is fixed. Nothing here bears on whether <code>F*</code> is stable across probe measures.</li><li>400 trials per cell: a coverage of 0.95 has a Monte Carlo standard error of about 0.011.</li><li><strong>Fields added after the first registered run.</strong> The first run showed V0's sets bounded at zero gap, and the estimated gap was then added to the record (Table 5). A same-model review of this note then asked for the gap's own interval (Table 6) and the bias of the uncapped ratio (Table 4's centre), and found that a linear case of the Fieller inequality returned the whole line where it should return a half-line; that case never occurred in the run. The full run was repeated after each change, and every field of the first run came out byte-for-byte identical both times.</li></ul>
+<h2>Reproduce</h2>
+<pre><code>python3 metrics/validation/test_vanishing_gap.py
+python3 metrics/validation/vanishing_gap.py --out research/vanishing-gap.json
+python3 metrics/validation/vanishing_gap_report.py --check</code></pre>
+<p>The second command takes about six minutes on sixteen processes and rewrites the record; the third checks these tables against it.</p>
+<p><strong>Exposure.</strong> <code>claude-opus-5-5</code> wrote the plan, its predictions, the simulation and this report, and scored its own predictions. The scoring is mechanical (<code>score()</code> in the simulation, run as registered), and the predictions are in a commit that predates the code. A same-model review checked this note before it was committed, including an independent reproduction of point estimates through the library's <code>fidelity_from_draws</code>. See <a href="https://github.com/vyakymenko/noophorics/blob/main/EXPOSURE.md">EXPOSURE.md</a>.</p>
+<p>&lt;!-- tables:start --&gt; <strong>Table 1 — the predictions, scored as registered.</strong> <code>score()</code> reads P2 and P3 from V0; the last column re-reads every prediction for each variant from the same record.</p>
+<div class="scroll"><table><thead><tr><th>prediction</th><th>held?</th><th>the numbers it turned on</th><th>per variant</th></tr></thead><tbody><tr><td>P1: V0 Fieller set covers ≥ 0.93 wherever <code>F*</code> is defined</td><td><strong>no</strong></td><td>below 0.93 in 10 of 48 grid cells, lowest 0.7125</td><td>below 0.93 in V0 10, V1 26, V2 6 cells</td></tr><tr><td>P2: percentile intervals fall below 0.93 at some <code>g ≥ 0.9</code>, capped and uncapped; the present report below 0.93 at every <code>g ≥ 0.95</code></td><td><strong>yes</strong></td><td>capped below in 18 cells, uncapped in 18; present report covers 0.0000–0.1025 at <code>g ≥ 0.95</code></td><td>V0 holds, V1 holds, V2 holds</td></tr><tr><td>P3: bounded share of Fieller sets lower at <code>g = 0.98</code> than at <code>g = 0</code>, and below one half</td><td><strong>yes</strong></td><td>1.0000–1.0000 at <code>g = 0</code>; 0.0025–0.0125 at <code>g = 0.98</code></td><td>V0 holds, V1 holds, V2 holds</td></tr><tr><td>P4: zero-gap antinoophor detected ≥ 0.8 at <code>n = 16</code>; null cells exclude zero ≤ 0.08</td><td><strong>yes</strong></td><td>0.9975; nulls 0.0025 and 0.0050</td><td>does not depend on the variant</td></tr></tbody></table></div>
+<p><strong>Table 2 — every grid cell.</strong> Coverage of the true <code>F*</code> at nominal 0.95; <code>present</code> is the gated, capped percentile interval with a refusal counted as a miss. Bias is of the gated, capped V0 point, among trials it reports.</p>
+<div class="scroll"><table><thead><tr><th><code>n</code></th><th><code>g</code></th><th><code>λ</code></th><th>true gap</th><th>V0 gate pass</th><th>V0 bounded</th><th>Fieller V0</th><th>Fieller V1</th><th>Fieller V2</th><th>percentile, capped</th><th>present</th><th>V0 point bias</th><th>movement cover</th></tr></thead><tbody><tr><td>10</td><td>0.0</td><td>0.25</td><td>0.3384</td><td>1.0000</td><td>1.0000</td><td>0.9125</td><td>0.9075</td><td>0.9175</td><td>0.9450</td><td>0.9450</td><td>+0.036</td><td>0.9275</td></tr><tr><td>10</td><td>0.0</td><td>0.5</td><td>0.3387</td><td>1.0000</td><td>1.0000</td><td>0.8450</td><td>0.8175</td><td>0.8525</td><td>0.9700</td><td>0.9700</td><td>+0.068</td><td>0.9325</td></tr><tr><td>10</td><td>0.0</td><td>0.75</td><td>0.3390</td><td>1.0000</td><td>1.0000</td><td>0.7125</td><td>0.4825</td><td>0.7500</td><td>0.9525</td><td>0.9525</td><td>+0.069</td><td>0.8750</td></tr><tr><td>10</td><td>0.0</td><td>1.0</td><td>0.3391</td><td>1.0000</td><td>1.0000</td><td>0.9950</td><td>0.0850</td><td>0.9950</td><td>0.0850</td><td>0.0850</td><td>-0.008</td><td>0.7800</td></tr><tr><td>10</td><td>0.6</td><td>0.25</td><td>0.0906</td><td>0.9950</td><td>0.9575</td><td>0.9500</td><td>0.9425</td><td>0.9725</td><td>0.9700</td><td>0.9650</td><td>+0.102</td><td>0.9500</td></tr><tr><td>10</td><td>0.6</td><td>0.5</td><td>0.0894</td><td>0.9975</td><td>0.9800</td><td>0.9050</td><td>0.8100</td><td>0.9575</td><td>0.9675</td><td>0.9650</td><td>+0.178</td><td>0.9625</td></tr><tr><td>10</td><td>0.6</td><td>0.75</td><td>0.0909</td><td>1.0000</td><td>0.9950</td><td>0.9200</td><td>0.4975</td><td>0.9675</td><td>0.7875</td><td>0.7875</td><td>+0.099</td><td>0.9500</td></tr><tr><td>10</td><td>0.6</td><td>1.0</td><td>0.0904</td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>0.1800</td><td>1.0000</td><td>0.0925</td><td>0.0925</td><td>-0.032</td><td>0.9300</td></tr><tr><td>10</td><td>0.8</td><td>0.25</td><td>0.0384</td><td>0.5550</td><td>0.2400</td><td>0.9950</td><td>0.9850</td><td>1.0000</td><td>0.9950</td><td>0.5550</td><td>+0.298</td><td>1.0000</td></tr><tr><td>10</td><td>0.8</td><td>0.5</td><td>0.0385</td><td>0.7125</td><td>0.4100</td><td>0.9675</td><td>0.8775</td><td>0.9950</td><td>0.9275</td><td>0.6875</td><td>+0.226</td><td>0.9750</td></tr><tr><td>10</td><td>0.8</td><td>0.75</td><td>0.0387</td><td>0.8775</td><td>0.6425</td><td>0.9900</td><td>0.7175</td><td>0.9975</td><td>0.6050</td><td>0.5550</td><td>+0.076</td><td>0.9850</td></tr><tr><td>10</td><td>0.8</td><td>1.0</td><td>0.0382</td><td>0.9525</td><td>0.8400</td><td>1.0000</td><td>0.4875</td><td>1.0000</td><td>0.0775</td><td>0.0725</td><td>-0.083</td><td>0.9525</td></tr><tr><td>10</td><td>0.9</td><td>0.25</td><td>0.0167</td><td>0.1500</td><td>0.0325</td><td>0.9825</td><td>0.9775</td><td>0.9975</td><td>0.9725</td><td>0.1475</td><td>+0.462</td><td>0.9875</td></tr><tr><td>10</td><td>0.9</td><td>0.5</td><td>0.0169</td><td>0.2475</td><td>0.0750</td><td>0.9850</td><td>0.9400</td><td>1.0000</td><td>0.9000</td><td>0.2400</td><td>+0.245</td><td>0.9875</td></tr><tr><td>10</td><td>0.9</td><td>0.75</td><td>0.0166</td><td>0.3800</td><td>0.1400</td><td>0.9925</td><td>0.8850</td><td>0.9975</td><td>0.5050</td><td>0.2350</td><td>+0.041</td><td>0.9900</td></tr><tr><td>10</td><td>0.9</td><td>1.0</td><td>0.0168</td><td>0.5275</td><td>0.2675</td><td>0.9900</td><td>0.8025</td><td>0.9900</td><td>0.0775</td><td>0.0375</td><td>-0.135</td><td>0.9825</td></tr><tr><td>10</td><td>0.95</td><td>0.25</td><td>0.0074</td><td>0.1025</td><td>0.0300</td><td>0.9825</td><td>0.9750</td><td>0.9925</td><td>0.9800</td><td>0.1025</td><td>+0.439</td><td>0.9850</td></tr><tr><td>10</td><td>0.95</td><td>0.5</td><td>0.0074</td><td>0.0875</td><td>0.0300</td><td>0.9975</td><td>0.9900</td><td>0.9975</td><td>0.8575</td><td>0.0825</td><td>+0.202</td><td>1.0000</td></tr><tr><td>10</td><td>0.95</td><td>0.75</td><td>0.0074</td><td>0.1275</td><td>0.0275</td><td>0.9900</td><td>0.9400</td><td>0.9975</td><td>0.4225</td><td>0.0725</td><td>-0.016</td><td>0.9900</td></tr><tr><td>10</td><td>0.95</td><td>1.0</td><td>0.0075</td><td>0.1550</td><td>0.0550</td><td>0.9975</td><td>0.9150</td><td>0.9975</td><td>0.1050</td><td>0.0075</td><td>-0.189</td><td>0.9875</td></tr><tr><td>10</td><td>0.98</td><td>0.25</td><td>0.0025</td><td>0.0300</td><td>0.0050</td><td>0.9950</td><td>0.9925</td><td>0.9950</td><td>0.9775</td><td>0.0300</td><td>+0.455</td><td>0.9850</td></tr><tr><td>10</td><td>0.98</td><td>0.5</td><td>0.0025</td><td>0.0375</td><td>0.0025</td><td>0.9975</td><td>0.9850</td><td>1.0000</td><td>0.8225</td><td>0.0325</td><td>+0.102</td><td>0.9950</td></tr><tr><td>10</td><td>0.98</td><td>0.75</td><td>0.0025</td><td>0.0325</td><td>0.0075</td><td>1.0000</td><td>0.9875</td><td>0.9975</td><td>0.3750</td><td>0.0150</td><td>-0.079</td><td>0.9975</td></tr><tr><td>10</td><td>0.98</td><td>1.0</td><td>0.0025</td><td>0.0400</td><td>0.0050</td><td>1.0000</td><td>0.9800</td><td>1.0000</td><td>0.0600</td><td>0.0025</td><td>-0.269</td><td>0.9975</td></tr><tr><td>16</td><td>0.0</td><td>0.25</td><td>0.3433</td><td>1.0000</td><td>1.0000</td><td>0.9250</td><td>0.9250</td><td>0.9275</td><td>0.9600</td><td>0.9600</td><td>+0.024</td><td>0.9325</td></tr><tr><td>16</td><td>0.0</td><td>0.5</td><td>0.3400</td><td>1.0000</td><td>1.0000</td><td>0.8975</td><td>0.8975</td><td>0.8875</td><td>0.9450</td><td>0.9450</td><td>+0.039</td><td>0.9350</td></tr><tr><td>16</td><td>0.0</td><td>0.75</td><td>0.3405</td><td>1.0000</td><td>1.0000</td><td>0.7225</td><td>0.6725</td><td>0.7350</td><td>0.9500</td><td>0.9500</td><td>+0.047</td><td>0.8925</td></tr><tr><td>16</td><td>0.0</td><td>1.0</td><td>0.3380</td><td>1.0000</td><td>1.0000</td><td>0.9875</td><td>0.1800</td><td>0.9875</td><td>0.0525</td><td>0.0525</td><td>-0.006</td><td>0.7900</td></tr><tr><td>16</td><td>0.6</td><td>0.25</td><td>0.0908</td><td>1.0000</td><td>1.0000</td><td>0.9525</td><td>0.9550</td><td>0.9675</td><td>0.9700</td><td>0.9700</td><td>+0.068</td><td>0.9725</td></tr><tr><td>16</td><td>0.6</td><td>0.5</td><td>0.0904</td><td>1.0000</td><td>1.0000</td><td>0.9075</td><td>0.8450</td><td>0.9425</td><td>0.9500</td><td>0.9500</td><td>+0.110</td><td>0.9575</td></tr><tr><td>16</td><td>0.6</td><td>0.75</td><td>0.0904</td><td>1.0000</td><td>1.0000</td><td>0.9150</td><td>0.5900</td><td>0.9575</td><td>0.8625</td><td>0.8625</td><td>+0.101</td><td>0.9800</td></tr><tr><td>16</td><td>0.6</td><td>1.0</td><td>0.0904</td><td>1.0000</td><td>1.0000</td><td>0.9925</td><td>0.1925</td><td>0.9925</td><td>0.0800</td><td>0.0800</td><td>-0.023</td><td>0.9250</td></tr><tr><td>16</td><td>0.8</td><td>0.25</td><td>0.0388</td><td>0.7425</td><td>0.6850</td><td>0.9725</td><td>0.9600</td><td>0.9850</td><td>0.9775</td><td>0.7375</td><td>+0.218</td><td>0.9750</td></tr><tr><td>16</td><td>0.8</td><td>0.5</td><td>0.0382</td><td>0.7975</td><td>0.7525</td><td>0.9525</td><td>0.8775</td><td>0.9825</td><td>0.9175</td><td>0.7675</td><td>+0.191</td><td>0.9850</td></tr><tr><td>16</td><td>0.8</td><td>0.75</td><td>0.0382</td><td>0.9100</td><td>0.8925</td><td>0.9775</td><td>0.6900</td><td>0.9925</td><td>0.6350</td><td>0.6000</td><td>+0.095</td><td>0.9800</td></tr><tr><td>16</td><td>0.8</td><td>1.0</td><td>0.0386</td><td>0.9900</td><td>0.9850</td><td>0.9975</td><td>0.3700</td><td>0.9975</td><td>0.0600</td><td>0.0600</td><td>-0.047</td><td>0.9700</td></tr><tr><td>16</td><td>0.9</td><td>0.25</td><td>0.0167</td><td>0.0975</td><td>0.0925</td><td>0.9900</td><td>0.9850</td><td>1.0000</td><td>0.9925</td><td>0.0975</td><td>+0.437</td><td>0.9875</td></tr><tr><td>16</td><td>0.9</td><td>0.5</td><td>0.0167</td><td>0.1550</td><td>0.1575</td><td>0.9925</td><td>0.9450</td><td>1.0000</td><td>0.9150</td><td>0.1475</td><td>+0.230</td><td>0.9925</td></tr><tr><td>16</td><td>0.9</td><td>0.75</td><td>0.0165</td><td>0.3125</td><td>0.3375</td><td>0.9950</td><td>0.8400</td><td>1.0000</td><td>0.5550</td><td>0.2000</td><td>+0.073</td><td>0.9850</td></tr><tr><td>16</td><td>0.9</td><td>1.0</td><td>0.0169</td><td>0.4100</td><td>0.4700</td><td>0.9950</td><td>0.6925</td><td>0.9950</td><td>0.0800</td><td>0.0325</td><td>-0.096</td><td>0.9875</td></tr><tr><td>16</td><td>0.95</td><td>0.25</td><td>0.0075</td><td>0.0300</td><td>0.0350</td><td>0.9850</td><td>0.9725</td><td>0.9975</td><td>0.9800</td><td>0.0300</td><td>+0.533</td><td>0.9850</td></tr><tr><td>16</td><td>0.95</td><td>0.5</td><td>0.0074</td><td>0.0225</td><td>0.0300</td><td>0.9950</td><td>0.9850</td><td>1.0000</td><td>0.8700</td><td>0.0225</td><td>+0.222</td><td>1.0000</td></tr><tr><td>16</td><td>0.95</td><td>0.75</td><td>0.0074</td><td>0.0225</td><td>0.0325</td><td>1.0000</td><td>0.9500</td><td>1.0000</td><td>0.4100</td><td>0.0125</td><td>+0.044</td><td>0.9875</td></tr><tr><td>16</td><td>0.95</td><td>1.0</td><td>0.0075</td><td>0.1050</td><td>0.1175</td><td>0.9975</td><td>0.8825</td><td>0.9975</td><td>0.0800</td><td>0.0025</td><td>-0.172</td><td>0.9925</td></tr><tr><td>16</td><td>0.98</td><td>0.25</td><td>0.0025</td><td>0.0000</td><td>0.0025</td><td>0.9975</td><td>0.9975</td><td>0.9975</td><td>0.9950</td><td>0.0000</td><td>–</td><td>0.9975</td></tr><tr><td>16</td><td>0.98</td><td>0.5</td><td>0.0025</td><td>0.0050</td><td>0.0050</td><td>0.9925</td><td>0.9900</td><td>0.9975</td><td>0.8275</td><td>0.0050</td><td>+0.384</td><td>0.9950</td></tr><tr><td>16</td><td>0.98</td><td>0.75</td><td>0.0025</td><td>0.0125</td><td>0.0125</td><td>1.0000</td><td>0.9900</td><td>1.0000</td><td>0.3350</td><td>0.0075</td><td>-0.049</td><td>0.9975</td></tr><tr><td>16</td><td>0.98</td><td>1.0</td><td>0.0025</td><td>0.0075</td><td>0.0050</td><td>0.9975</td><td>0.9875</td><td>0.9975</td><td>0.0450</td><td>0.0000</td><td>-0.143</td><td>0.9925</td></tr></tbody></table></div>
+<p><strong>Table 3 — the zero-gap cells.</strong> The true gap is 0 and <code>F*</code> is undefined; what can be reported is the movement.</p>
+<div class="scroll"><table><thead><tr><th><code>n</code></th><th>cell</th><th>true movement</th><th>movement interval excludes 0</th><th>…on the side of moving away</th><th>movement cover</th><th>Fieller bounded, V0 / V1 / V2</th><th>gate pass, V0 / V1</th></tr></thead><tbody><tr><td>10</td><td>null</td><td>+0.0000</td><td>0.0025</td><td>0.0000</td><td>0.9975</td><td>0.0150 / 0.0075 / 0.0075</td><td>0.0400 / 0.0350</td></tr><tr><td>10</td><td>antinoophor</td><td>-0.0621</td><td>0.9900</td><td>0.9900</td><td>0.9550</td><td>0.7400 / 0.0025 / 0.0025</td><td>0.0000 / 0.0075</td></tr><tr><td>16</td><td>null</td><td>+0.0000</td><td>0.0050</td><td>0.0050</td><td>0.9950</td><td>0.0025 / 0.0000 / 0.0000</td><td>0.0000 / 0.0000</td></tr><tr><td>16</td><td>antinoophor</td><td>-0.0634</td><td>0.9975</td><td>0.9975</td><td>0.9600</td><td>0.6950 / 0.0100 / 0.0100</td><td>0.0000 / 0.0025</td></tr></tbody></table></div>
+<p><strong>Table 4 — the simplest model of the Fieller sets' coverage loss.</strong> A set of the observed median width, centred on the uncapped ratio with its observed bias, would cover with the probability shown. For each variant, the cells where every trial is reported and every set of that variant is bounded.</p>
+<div class="scroll"><table><thead><tr><th><code>n</code></th><th><code>g</code></th><th><code>λ</code></th><th>variant</th><th>bias of <code>M̂/Ĝ</code></th><th>SE from width</th><th>predicted cover</th><th>observed cover</th></tr></thead><tbody><tr><td>10</td><td>0.0</td><td>0.25</td><td>V0</td><td>+0.0358</td><td>0.0828</td><td>0.9283</td><td>0.9125</td></tr><tr><td>10</td><td>0.0</td><td>0.25</td><td>V2</td><td>+0.0344</td><td>0.0828</td><td>0.9301</td><td>0.9175</td></tr><tr><td>10</td><td>0.0</td><td>0.5</td><td>V0</td><td>+0.0681</td><td>0.0653</td><td>0.8193</td><td>0.8450</td></tr><tr><td>10</td><td>0.0</td><td>0.5</td><td>V2</td><td>+0.0653</td><td>0.0662</td><td>0.8332</td><td>0.8525</td></tr><tr><td>10</td><td>0.0</td><td>0.75</td><td>V0</td><td>+0.0690</td><td>0.0474</td><td>0.6926</td><td>0.7125</td></tr><tr><td>10</td><td>0.0</td><td>0.75</td><td>V2</td><td>+0.0660</td><td>0.0490</td><td>0.7295</td><td>0.7500</td></tr><tr><td>10</td><td>0.0</td><td>1.0</td><td>V0</td><td>+0.0009</td><td>0.0341</td><td>0.9499</td><td>0.9950</td></tr><tr><td>10</td><td>0.0</td><td>1.0</td><td>V2</td><td>+0.0011</td><td>0.0389</td><td>0.9499</td><td>0.9950</td></tr><tr><td>10</td><td>0.6</td><td>1.0</td><td>V0</td><td>+0.0071</td><td>0.1375</td><td>0.9497</td><td>1.0000</td></tr><tr><td>16</td><td>0.0</td><td>0.25</td><td>V0</td><td>+0.0237</td><td>0.0601</td><td>0.9320</td><td>0.9250</td></tr><tr><td>16</td><td>0.0</td><td>0.25</td><td>V2</td><td>+0.0242</td><td>0.0603</td><td>0.9314</td><td>0.9275</td></tr><tr><td>16</td><td>0.0</td><td>0.5</td><td>V0</td><td>+0.0388</td><td>0.0467</td><td>0.8679</td><td>0.8975</td></tr><tr><td>16</td><td>0.0</td><td>0.5</td><td>V2</td><td>+0.0392</td><td>0.0466</td><td>0.8658</td><td>0.8875</td></tr><tr><td>16</td><td>0.0</td><td>0.75</td><td>V0</td><td>+0.0473</td><td>0.0344</td><td>0.7204</td><td>0.7225</td></tr><tr><td>16</td><td>0.0</td><td>0.75</td><td>V2</td><td>+0.0463</td><td>0.0347</td><td>0.7333</td><td>0.7350</td></tr><tr><td>16</td><td>0.0</td><td>1.0</td><td>V0</td><td>-0.0002</td><td>0.0238</td><td>0.9500</td><td>0.9875</td></tr><tr><td>16</td><td>0.0</td><td>1.0</td><td>V2</td><td>-0.0002</td><td>0.0256</td><td>0.9500</td><td>0.9875</td></tr><tr><td>16</td><td>0.6</td><td>0.25</td><td>V0</td><td>+0.0684</td><td>0.2104</td><td>0.9378</td><td>0.9525</td></tr><tr><td>16</td><td>0.6</td><td>0.25</td><td>V2</td><td>+0.0608</td><td>0.2098</td><td>0.9403</td><td>0.9675</td></tr><tr><td>16</td><td>0.6</td><td>0.5</td><td>V0</td><td>+0.1104</td><td>0.1563</td><td>0.8913</td><td>0.9075</td></tr><tr><td>16</td><td>0.6</td><td>0.5</td><td>V2</td><td>+0.0916</td><td>0.1658</td><td>0.9143</td><td>0.9425</td></tr><tr><td>16</td><td>0.6</td><td>0.75</td><td>V0</td><td>+0.1065</td><td>0.1193</td><td>0.8548</td><td>0.9150</td></tr><tr><td>16</td><td>0.6</td><td>0.75</td><td>V2</td><td>+0.0947</td><td>0.1396</td><td>0.8959</td><td>0.9575</td></tr><tr><td>16</td><td>0.6</td><td>1.0</td><td>V0</td><td>+0.0030</td><td>0.0899</td><td>0.9499</td><td>0.9925</td></tr><tr><td>16</td><td>0.6</td><td>1.0</td><td>V2</td><td>+0.0043</td><td>0.1243</td><td>0.9499</td><td>0.9925</td></tr></tbody></table></div>
+<p><strong>Table 5 — the gap each floor convention estimates</strong>, where the true gap is small. <em>Added after the first registered run</em> (see Limits). V1 and V2 share a denominator. A gap estimate that moves with <code>λ</code> at fixed <code>g</code> is one the receiver is changing.</p>
+<div class="scroll"><table><thead><tr><th><code>n</code></th><th>cell</th><th><code>g</code></th><th><code>λ</code></th><th>true gap</th><th>mean <code>Ĝ</code>, V0</th><th>share <code>Ĝ &lt; 0</code>, V0</th><th>mean <code>Ĝ</code>, V1 = V2</th><th>share <code>Ĝ &lt; 0</code>, V1 = V2</th></tr></thead><tbody><tr><td>10</td><td>grid</td><td>0.9</td><td>0.25</td><td>0.0167</td><td>+0.0074</td><td>0.2875</td><td>+0.0047</td><td>0.3100</td></tr><tr><td>10</td><td>grid</td><td>0.9</td><td>0.5</td><td>0.0169</td><td>+0.0121</td><td>0.1600</td><td>+0.0052</td><td>0.3250</td></tr><tr><td>10</td><td>grid</td><td>0.9</td><td>0.75</td><td>0.0166</td><td>+0.0161</td><td>0.0750</td><td>+0.0047</td><td>0.3025</td></tr><tr><td>10</td><td>grid</td><td>0.9</td><td>1.0</td><td>0.0168</td><td>+0.0209</td><td>0.0375</td><td>+0.0053</td><td>0.3025</td></tr><tr><td>10</td><td>grid</td><td>0.95</td><td>0.25</td><td>0.0074</td><td>+0.0044</td><td>0.3750</td><td>+0.0019</td><td>0.4525</td></tr><tr><td>10</td><td>grid</td><td>0.95</td><td>0.5</td><td>0.0074</td><td>+0.0055</td><td>0.3150</td><td>+0.0012</td><td>0.4725</td></tr><tr><td>10</td><td>grid</td><td>0.95</td><td>0.75</td><td>0.0074</td><td>+0.0084</td><td>0.2275</td><td>+0.0018</td><td>0.4050</td></tr><tr><td>10</td><td>grid</td><td>0.95</td><td>1.0</td><td>0.0075</td><td>+0.0104</td><td>0.1375</td><td>+0.0016</td><td>0.4550</td></tr><tr><td>10</td><td>grid</td><td>0.98</td><td>0.25</td><td>0.0025</td><td>+0.0011</td><td>0.4825</td><td>+0.0002</td><td>0.5325</td></tr><tr><td>10</td><td>grid</td><td>0.98</td><td>0.5</td><td>0.0025</td><td>+0.0011</td><td>0.4975</td><td>-0.0005</td><td>0.5625</td></tr><tr><td>10</td><td>grid</td><td>0.98</td><td>0.75</td><td>0.0025</td><td>+0.0026</td><td>0.3750</td><td>-0.0001</td><td>0.5250</td></tr><tr><td>10</td><td>grid</td><td>0.98</td><td>1.0</td><td>0.0025</td><td>+0.0033</td><td>0.3925</td><td>-0.0001</td><td>0.5375</td></tr><tr><td>16</td><td>grid</td><td>0.9</td><td>0.25</td><td>0.0167</td><td>+0.0089</td><td>0.1450</td><td>+0.0065</td><td>0.1600</td></tr><tr><td>16</td><td>grid</td><td>0.9</td><td>0.5</td><td>0.0167</td><td>+0.0117</td><td>0.0775</td><td>+0.0069</td><td>0.1175</td></tr><tr><td>16</td><td>grid</td><td>0.9</td><td>0.75</td><td>0.0165</td><td>+0.0161</td><td>0.0250</td><td>+0.0071</td><td>0.1225</td></tr><tr><td>16</td><td>grid</td><td>0.9</td><td>1.0</td><td>0.0169</td><td>+0.0189</td><td>0.0050</td><td>+0.0062</td><td>0.1750</td></tr><tr><td>16</td><td>grid</td><td>0.95</td><td>0.25</td><td>0.0075</td><td>+0.0042</td><td>0.2725</td><td>+0.0021</td><td>0.3650</td></tr><tr><td>16</td><td>grid</td><td>0.95</td><td>0.5</td><td>0.0074</td><td>+0.0055</td><td>0.2175</td><td>+0.0019</td><td>0.4275</td></tr><tr><td>16</td><td>grid</td><td>0.95</td><td>0.75</td><td>0.0074</td><td>+0.0067</td><td>0.1425</td><td>+0.0014</td><td>0.3950</td></tr><tr><td>16</td><td>grid</td><td>0.95</td><td>1.0</td><td>0.0075</td><td>+0.0097</td><td>0.0925</td><td>+0.0020</td><td>0.3775</td></tr><tr><td>16</td><td>grid</td><td>0.98</td><td>0.25</td><td>0.0025</td><td>+0.0009</td><td>0.4475</td><td>+0.0002</td><td>0.5100</td></tr><tr><td>16</td><td>grid</td><td>0.98</td><td>0.5</td><td>0.0025</td><td>+0.0021</td><td>0.3875</td><td>+0.0002</td><td>0.5125</td></tr><tr><td>16</td><td>grid</td><td>0.98</td><td>0.75</td><td>0.0025</td><td>+0.0025</td><td>0.3425</td><td>+0.0001</td><td>0.5300</td></tr><tr><td>16</td><td>grid</td><td>0.98</td><td>1.0</td><td>0.0025</td><td>+0.0038</td><td>0.2700</td><td>+0.0006</td><td>0.4875</td></tr><tr><td>10</td><td>null</td><td>1.0</td><td>–</td><td>0.0000</td><td>-0.0001</td><td>0.5300</td><td>-0.0000</td><td>0.5275</td></tr><tr><td>10</td><td>antinoophor</td><td>1.0</td><td>–</td><td>0.0000</td><td>-0.0320</td><td>1.0000</td><td>-0.0000</td><td>0.5175</td></tr><tr><td>16</td><td>null</td><td>1.0</td><td>–</td><td>0.0000</td><td>+0.0001</td><td>0.4875</td><td>+0.0002</td><td>0.5325</td></tr><tr><td>16</td><td>antinoophor</td><td>1.0</td><td>–</td><td>0.0000</td><td>-0.0209</td><td>0.9950</td><td>+0.0009</td><td>0.4725</td></tr></tbody></table></div>
+<p><strong>Table 6 — the gap's own interval</strong>, which the plan's report for want 2 puts beside the movement but whose coverage the plan did not register. <em>Computed after the registered run</em> (see Limits). <code>percentile</code> is the 2.5th–97.5th percentile of <code>G*</code>; <code>basic</code> reflects it about <code>Ĝ</code>. Coverage is of the true gap; <code>above 0</code> is the share of trials whose whole interval lies above zero.</p>
+<div class="scroll"><table><thead><tr><th><code>n</code></th><th>cell</th><th><code>g</code></th><th><code>λ</code></th><th>true gap</th><th>V0 percentile</th><th>V0 basic</th><th>V1 percentile</th><th>V1 basic</th><th>V0 percentile above 0</th><th>V1 percentile above 0</th></tr></thead><tbody><tr><td>10</td><td>grid</td><td>0.0</td><td>0.25</td><td>0.3384</td><td>0.8300</td><td>0.2275</td><td>0.8450</td><td>0.2300</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.0</td><td>0.5</td><td>0.3387</td><td>0.8225</td><td>0.1750</td><td>0.8775</td><td>0.2100</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.0</td><td>0.75</td><td>0.3390</td><td>0.6300</td><td>0.3325</td><td>0.8600</td><td>0.2125</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.0</td><td>1.0</td><td>0.3391</td><td>0.3175</td><td>0.7700</td><td>0.8425</td><td>0.2250</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.6</td><td>0.25</td><td>0.0906</td><td>0.8150</td><td>0.0875</td><td>0.8700</td><td>0.0525</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.6</td><td>0.5</td><td>0.0894</td><td>0.6650</td><td>0.1000</td><td>0.8575</td><td>0.0200</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.6</td><td>0.75</td><td>0.0909</td><td>0.5225</td><td>0.2275</td><td>0.8800</td><td>0.0225</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.6</td><td>1.0</td><td>0.0904</td><td>0.3000</td><td>0.5525</td><td>0.9150</td><td>0.0200</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.8</td><td>0.25</td><td>0.0384</td><td>0.6900</td><td>0.0425</td><td>0.7975</td><td>0.0050</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.8</td><td>0.5</td><td>0.0385</td><td>0.5175</td><td>0.1350</td><td>0.7725</td><td>0.0175</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.8</td><td>0.75</td><td>0.0387</td><td>0.3250</td><td>0.2350</td><td>0.7725</td><td>0.0125</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.8</td><td>1.0</td><td>0.0382</td><td>0.1450</td><td>0.5825</td><td>0.7075</td><td>0.0125</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.9</td><td>0.25</td><td>0.0167</td><td>0.4975</td><td>0.0925</td><td>0.5200</td><td>0.0200</td><td>0.9650</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.9</td><td>0.5</td><td>0.0169</td><td>0.3825</td><td>0.1775</td><td>0.5150</td><td>0.0250</td><td>0.9900</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.9</td><td>0.75</td><td>0.0166</td><td>0.2250</td><td>0.2675</td><td>0.4925</td><td>0.0300</td><td>1.0000</td><td>1.0000</td></tr><tr><td>10</td><td>grid</td><td>0.9</td><td>1.0</td><td>0.0168</td><td>0.1375</td><td>0.4325</td><td>0.5200</td><td>0.0375</td><td>1.0000</td><td>0.9975</td></tr><tr><td>10</td><td>grid</td><td>0.95</td><td>0.25</td><td>0.0074</td><td>0.2875</td><td>0.2050</td><td>0.2425</td><td>0.0750</td><td>0.9350</td><td>0.9850</td></tr><tr><td>10</td><td>grid</td><td>0.95</td><td>0.5</td><td>0.0074</td><td>0.2375</td><td>0.2200</td><td>0.2350</td><td>0.0725</td><td>0.9675</td><td>0.9850</td></tr><tr><td>10</td><td>grid</td><td>0.95</td><td>0.75</td><td>0.0074</td><td>0.1700</td><td>0.3125</td><td>0.2200</td><td>0.0575</td><td>0.9825</td><td>0.9950</td></tr><tr><td>10</td><td>grid</td><td>0.95</td><td>1.0</td><td>0.0075</td><td>0.1200</td><td>0.3650</td><td>0.2475</td><td>0.0650</td><td>0.9975</td><td>0.9875</td></tr><tr><td>10</td><td>grid</td><td>0.98</td><td>0.25</td><td>0.0025</td><td>0.2300</td><td>0.2375</td><td>0.1250</td><td>0.1375</td><td>0.8825</td><td>0.9700</td></tr><tr><td>10</td><td>grid</td><td>0.98</td><td>0.5</td><td>0.0025</td><td>0.2000</td><td>0.2200</td><td>0.1650</td><td>0.1250</td><td>0.8875</td><td>0.9300</td></tr><tr><td>10</td><td>grid</td><td>0.98</td><td>0.75</td><td>0.0025</td><td>0.1475</td><td>0.2650</td><td>0.1525</td><td>0.1350</td><td>0.9200</td><td>0.9375</td></tr><tr><td>10</td><td>grid</td><td>0.98</td><td>1.0</td><td>0.0025</td><td>0.1525</td><td>0.3100</td><td>0.1300</td><td>0.1225</td><td>0.9200</td><td>0.9525</td></tr><tr><td>16</td><td>grid</td><td>0.0</td><td>0.25</td><td>0.3433</td><td>0.8575</td><td>0.4375</td><td>0.8550</td><td>0.4525</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.0</td><td>0.5</td><td>0.3400</td><td>0.8675</td><td>0.3675</td><td>0.8850</td><td>0.4275</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.0</td><td>0.75</td><td>0.3405</td><td>0.7525</td><td>0.4175</td><td>0.8325</td><td>0.4300</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.0</td><td>1.0</td><td>0.3380</td><td>0.4200</td><td>0.8150</td><td>0.8425</td><td>0.4675</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.6</td><td>0.25</td><td>0.0908</td><td>0.9200</td><td>0.0700</td><td>0.9400</td><td>0.0575</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.6</td><td>0.5</td><td>0.0904</td><td>0.8150</td><td>0.1425</td><td>0.8950</td><td>0.1025</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.6</td><td>0.75</td><td>0.0904</td><td>0.7075</td><td>0.2050</td><td>0.9225</td><td>0.0725</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.6</td><td>1.0</td><td>0.0904</td><td>0.3475</td><td>0.6400</td><td>0.9225</td><td>0.0775</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.8</td><td>0.25</td><td>0.0388</td><td>0.7750</td><td>0.0575</td><td>0.8475</td><td>0.0150</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.8</td><td>0.5</td><td>0.0382</td><td>0.6600</td><td>0.0925</td><td>0.8525</td><td>0.0100</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.8</td><td>0.75</td><td>0.0382</td><td>0.4475</td><td>0.1875</td><td>0.8650</td><td>0.0225</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.8</td><td>1.0</td><td>0.0386</td><td>0.2200</td><td>0.5250</td><td>0.8675</td><td>0.0100</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.9</td><td>0.25</td><td>0.0167</td><td>0.5450</td><td>0.0750</td><td>0.5975</td><td>0.0200</td><td>0.9975</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.9</td><td>0.5</td><td>0.0167</td><td>0.4150</td><td>0.1125</td><td>0.6100</td><td>0.0175</td><td>0.9975</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.9</td><td>0.75</td><td>0.0165</td><td>0.2050</td><td>0.2575</td><td>0.5450</td><td>0.0200</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.9</td><td>1.0</td><td>0.0169</td><td>0.1575</td><td>0.3750</td><td>0.6700</td><td>0.0075</td><td>1.0000</td><td>1.0000</td></tr><tr><td>16</td><td>grid</td><td>0.95</td><td>0.25</td><td>0.0075</td><td>0.3000</td><td>0.1200</td><td>0.3175</td><td>0.0475</td><td>0.9800</td><td>0.9975</td></tr><tr><td>16</td><td>grid</td><td>0.95</td><td>0.5</td><td>0.0074</td><td>0.2350</td><td>0.1575</td><td>0.3075</td><td>0.0525</td><td>0.9875</td><td>0.9975</td></tr><tr><td>16</td><td>grid</td><td>0.95</td><td>0.75</td><td>0.0074</td><td>0.1800</td><td>0.2125</td><td>0.3175</td><td>0.0425</td><td>0.9900</td><td>0.9950</td></tr><tr><td>16</td><td>grid</td><td>0.95</td><td>1.0</td><td>0.0075</td><td>0.0875</td><td>0.3375</td><td>0.3100</td><td>0.0475</td><td>1.0000</td><td>0.9900</td></tr><tr><td>16</td><td>grid</td><td>0.98</td><td>0.25</td><td>0.0025</td><td>0.1850</td><td>0.1550</td><td>0.1350</td><td>0.1100</td><td>0.9425</td><td>0.9800</td></tr><tr><td>16</td><td>grid</td><td>0.98</td><td>0.5</td><td>0.0025</td><td>0.1450</td><td>0.2275</td><td>0.1350</td><td>0.0975</td><td>0.9475</td><td>0.9875</td></tr><tr><td>16</td><td>grid</td><td>0.98</td><td>0.75</td><td>0.0025</td><td>0.1225</td><td>0.1875</td><td>0.1300</td><td>0.0800</td><td>0.9650</td><td>0.9875</td></tr><tr><td>16</td><td>grid</td><td>0.98</td><td>1.0</td><td>0.0025</td><td>0.0700</td><td>0.3125</td><td>0.0875</td><td>0.1050</td><td>0.9825</td><td>0.9850</td></tr><tr><td>10</td><td>null</td><td>1.0</td><td>–</td><td>0.0000</td><td>0.1650</td><td>0.2700</td><td>0.0625</td><td>0.2050</td><td>0.8350</td><td>0.9375</td></tr><tr><td>10</td><td>antinoophor</td><td>1.0</td><td>–</td><td>0.0000</td><td>0.9700</td><td>0.0000</td><td>0.0775</td><td>0.1950</td><td>0.0275</td><td>0.9225</td></tr><tr><td>16</td><td>null</td><td>1.0</td><td>–</td><td>0.0000</td><td>0.1175</td><td>0.2500</td><td>0.0400</td><td>0.2075</td><td>0.8825</td><td>0.9600</td></tr><tr><td>16</td><td>antinoophor</td><td>1.0</td><td>–</td><td>0.0000</td><td>0.9600</td><td>0.0025</td><td>0.0600</td><td>0.2475</td><td>0.0275</td><td>0.9400</td></tr></tbody></table></div>
+<p>&lt;!-- tables:end --&gt;</p>
+<hr>
+<p><em>Prose: CC BY 4.0. Code: Apache-2.0.</em></p>
+<p class="back"><a href="/journal/">All journal entries</a> · <a href="/wiki/">Reference</a> · <a href="/">Noophorics</a> · <a href="https://github.com/vyakymenko/noophorics">Repository</a></p>
+</main>
+</body>
+</html>

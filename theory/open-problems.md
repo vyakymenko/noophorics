@@ -298,6 +298,30 @@ and the theory currently gates both ends by declining to measure.
 *Citing the judge–advisor literature as precedent for a **fix** is forbidden:
 they have the defect, not a solution.*
 
+### Simulated, 2026-10-16: where the vanishing gap's reports work, and where they do not
+
+A [pre-registered simulation](../research/2026-10-16-vanishing-gap-results.md)
+on synthetic agents, where the true `F*` is exact, set the present report beside
+Fieller confidence sets for the ratio and a separate interval for the movement
+`D_prior − D_post`. The present report was scored as its capped bootstrap
+interval with a refusal counted as a miss. Where the gap was smallest
+(`g ≥ 0.95` in the simulation's terms) it covered the truth in at most about a
+tenth of trials. The library-default (V0) Fieller set, and the one with both
+terms floor-corrected (V2), widened without bound instead and kept coverage at
+0.95 or above from `g = 0.8` on; the third variant's did not, and at a true gap
+of zero with a receiver that moved, the V0 set stayed bounded in about 70% of
+trials. The movement
+interval detected a receiver that moved away on a zero-gap measure in at least
+99% of trials. The prediction that the V0 set would hold 0.93 coverage
+everywhere **failed**, at the widest gaps, and its criterion failed for every
+variant; for V0 and V2, a set of the observed width centred on the biased ratio
+reproduces that loss. The gap's own interval, which a two-number report would
+need beside the movement, failed throughout, and at a true gap of zero it lay
+wholly above zero in most trials. The two floor conventions estimate different
+gaps, and neither estimates a small one accurately. The problem is not solved.
+The evidence points at the bias of the divergence estimates rather than at the
+shape of the interval; that is a direction, not a tested cause.
+
 ---
 
 ## Contributing a problem

@@ -96,6 +96,14 @@ class FiellerTests(unittest.TestCase):
         self.assertTrue(vg.in_set(shape, -1e6))
         self.assertFalse(vg.in_set(shape, 0.0))
 
+    def test_a_linear_inequality_is_a_half_line_not_the_whole_line(self):
+        """g^2 == z^2·vgg makes the quadratic linear; it is a half-line."""
+        g, vgg = 0.05, (0.05 / vg.Z) ** 2
+        shape = vg.fieller(0.1, g, 0.001, 0.0, vgg)
+        self.assertIn(shape[0], ("below", "above"))
+        self.assertTrue(vg.in_set(shape, 0.1 / g))
+        self.assertFalse(vg.in_set(shape, -1e6) and vg.in_set(shape, 1e6))
+
     def test_the_set_always_holds_the_point_estimate(self):
         rng = random.Random(9)
         for _ in range(2000):

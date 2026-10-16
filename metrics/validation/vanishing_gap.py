@@ -10,8 +10,9 @@ which reports cover the truth.
     python3 metrics/validation/vanishing_gap.py --out research/vanishing-gap.json
     python3 metrics/validation/vanishing_gap.py --quick      # a smoke run
 
-Three decisions made while writing this file, before any run, because the plan
-left them open; each is reported with the results:
+Four decisions made while writing this file, before the registered run, because
+the plan left them open; each is reported with the results. (This line said
+"Three" above four items when it was committed; corrected 2026-10-16.)
 
 1. **The present report's interval.** The plan's P2 speaks of "the present
    gated report" falling below a coverage level. A point has no coverage, so
@@ -205,10 +206,18 @@ def fieller(m: float, g: float, vmm: float, vmg: float, vgg: float,
     b = -2.0 * (m * g - z * z * vmg)
     c = m * m - z * z * vmm
     disc = b * b - 4.0 * a * c
+    if a == 0:
+        # Linear: b·r + c <= 0. Unreachable in the registered run, which needs
+        # g^2 == z^2·vgg exactly in floats; handled so the shape is never wrong.
+        if b > 0:
+            return ("below", None, -c / b)
+        if b < 0:
+            return ("above", -c / b, None)
+        return ("line", None, None) if c <= 0 else ("empty", None, None)
     if a > 0:
         root = math.sqrt(max(0.0, disc))
         return ("bounded", (-b - root) / (2 * a), (-b + root) / (2 * a))
-    if disc <= 0 or a == 0:
+    if disc <= 0:
         return ("line", None, None)
     root = math.sqrt(disc)
     lo, hi = sorted(((-b - root) / (2 * a), (-b + root) / (2 * a)))
@@ -219,8 +228,14 @@ def in_set(shape: Tuple[str, Optional[float], Optional[float]], r: float) -> boo
     kind, lo, hi = shape
     if kind == "line":
         return True
+    if kind == "empty":
+        return False
     if kind == "bounded":
         return lo <= r <= hi
+    if kind == "below":
+        return r <= hi
+    if kind == "above":
+        return r >= lo
     return r <= lo or r >= hi
 
 
@@ -275,7 +290,12 @@ def run_trial(cell: Dict, trial: int) -> Dict:
         point = min(1.0, m / g) if reported else None
         uncapped = (_percentile(ratios, 0.025), _percentile(ratios, 0.975)) if ratios else None
         capped = ((min(1.0, uncapped[0]), min(1.0, uncapped[1])) if uncapped else None)
-        rec = {"reported": reported, "point": point,
+        gsorted = sorted(gs)
+        g_lo, g_hi = _percentile(gsorted, 0.025), _percentile(gsorted, 0.975)
+        rec = {"reported": reported, "point": point, "g_hat": g,
+               # Added after the registered run (see the results note): the
+               # interval the plan's want-2 report puts beside the movement.
+               "gap_pct": (g_lo, g_hi), "gap_basic": (2 * g - g_hi, 2 * g - g_lo),
                "at_cap": bool(reported and m / g >= 1.0),
                "fieller": shape[0],
                "fieller_width": (shape[2] - shape[1]) if shape[0] == "bounded" else None}
@@ -286,6 +306,9 @@ def run_trial(cell: Dict, trial: int) -> Dict:
                 "cover_pct_capped": bool(capped and capped[0] <= t_f <= capped[1]),
                 "cover_present": bool(reported and capped and capped[0] <= t_f <= capped[1]),
                 "error": (point - t_f) if reported else None,
+                # Added after the registered run: the Fieller set is built
+                # around m/g, not around the capped point.
+                "error_uncapped": (m / g - t_f) if reported else None,
             })
         out["variants"][v] = rec
     moves = sorted(boot_move)
@@ -347,6 +370,21 @@ def summarise(cell: Dict, trials: List[Dict]) -> Dict:
             "point_rmse_given_reported": (math.sqrt(statistics.fmean(e * e for e in errs))
                                           if errs else None),
             "at_cap_given_reported": _share([r["at_cap"] for r in rep]),
+            # Added after the first registered run, to record a pattern seen in
+            # it: the estimated gap itself. Every other field is unchanged.
+            "g_hat_mean": statistics.fmean(r["g_hat"] for r in recs),
+            "g_hat_negative": _share([r["g_hat"] < 0 for r in recs]),
+            # Added after the registered run, with the fields in run_trial.
+            "uncapped_bias_given_reported": (
+                statistics.fmean(r["error_uncapped"] for r in rep) if rep else None),
+            "fieller_half": _share([r["fieller"] in ("below", "above") for r in recs]),
+            "gap_cover_pct": _share([t["variants"][v]["gap_pct"][0] <= t["true_gap"]
+                                     <= t["variants"][v]["gap_pct"][1] for t in trials]),
+            "gap_cover_basic": _share([t["variants"][v]["gap_basic"][0] <= t["true_gap"]
+                                       <= t["variants"][v]["gap_basic"][1] for t in trials]),
+            "gap_pct_above_zero": _share([t["variants"][v]["gap_pct"][0] > 0 for t in trials]),
+            "gap_basic_above_zero": _share([t["variants"][v]["gap_basic"][0] > 0
+                                            for t in trials]),
         }
     moves = [t["move"] for t in trials]
     out["move"] = {"cover": _share([m["cover"] for m in moves]),
