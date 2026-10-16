@@ -404,6 +404,8 @@ main blockquote p{margin:0}
 main pre{background:var(--code-bg,rgba(128,128,128,.1));padding:1rem 1.1rem;
   overflow-x:auto;font-size:.86rem;line-height:1.5;margin:0 0 1.4rem}
 main code{font-family:ui-monospace,Menlo,monospace;font-size:.88em}
+main .scroll{overflow-x:auto;max-width:100%%;margin:0 0 1.4rem}
+main .scroll table{margin:0}
 main table{border-collapse:collapse;width:100%%;font-size:.92rem;margin:0 0 1.4rem}
 main th,main td{text-align:start;padding:.5rem .8rem;border-bottom:1px solid var(--rule);
   vertical-align:top}
