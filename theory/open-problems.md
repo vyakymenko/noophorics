@@ -654,6 +654,14 @@ clears the gate does not.
 
 ### Discriminating power and stable observability are anti-correlated
 
+*Read as a count, 2026-10-07: four of the nine probes that ever discriminated
+were rejected for instability, against none of the twenty-three that never did.
+The significance level that once stood beside it is withdrawn ([retraction
+15](../RETRACTIONS.md)), because the 32 probes are about nine prompt templates,
+so the heading states a direction in these counts and is not a tested
+association. Kept rather than struck, by the repository owner's decision, as the
+probe file's author kept it.*
+
 The admission gate had been applied once. Applied five times — a probe admitted
 only if it returns the key at margin ≥ 8 in **every** pass — it rejects four
 probes: `X06`, `X17`, `X21`, `X22`.
