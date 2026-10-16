@@ -5,6 +5,7 @@ and proposals for later work.
 
 | Material | What it supplies | Status |
 |---|---|---|
+| [Vanishing-gap plan](2026-10-16-vanishing-gap-plan.md) | Prospective plan for a simulation of `F*` near a vanishing gap: Fieller confidence sets against the present gated, capped report, with recorded predictions. | Plan committed before the simulation code and any result; offline, no model calls. |
 | [Estimand audit](2026-10-07-estimand-audit.md) | A run-time tracer binding each interval and p-value the shared inference helpers return to the call and array it came from — inline estimators are reported as untraced — with Problem 13's three incidents as red/green fixtures. | Offline instrument and report for human review; no rule adopted, not a gate. |
 | [Self-transfer tie sensitivity](2026-09-28-selftransfer-tie-sensitivity.md) | Exhaustive retrospective check of the saved result under alternative modal-tie resolutions. | Descriptive audit draft for human review; reviewed 2026-10-07 and cited as ground (c) of [retraction 22](../RETRACTIONS.md). The original prediction remains as written. |
 | [Program-output verifier](2026-09-28-program-verifier.md) | Offline validation of a restricted deterministic task format on synthetic fixtures. | Instrument prototype; no E-003 subject data. |
