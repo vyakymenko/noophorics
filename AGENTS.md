@@ -135,6 +135,8 @@ python3 tools/test_audit_selftransfer_ties.py   # the audit's own red/green chec
 python3 tools/audit_estimand.py --check-record research/estimand-audit.json  # the record check_counts reads
 python3 metrics/validation/test_vanishing_gap.py                  # the simulation's own checks
 python3 metrics/validation/vanishing_gap_report.py --check        # its tables vs its record
+python3 metrics/validation/test_bias_corrected.py                 # the follow-up's own checks
+python3 metrics/validation/bias_corrected_report.py --check       # its tables vs its record
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```
 

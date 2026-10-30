@@ -322,6 +322,23 @@ gaps, and neither estimates a small one accurately. The problem is not solved.
 The evidence points at the bias of the divergence estimates rather than at the
 shape of the interval; that is a direction, not a tested cause.
 
+**Bias-corrected, 2026-10-22.** [A registered follow-up](../research/2026-10-22-bias-corrected-results.md)
+tested that direction on the same harness and seeds. With divergences corrected
+by a two-sample jackknife and no floor, the Fieller set covered the true `F*` in
+at least 0.95 of trials in every cell, including the widest-gap cells where the
+plug-in sets had covered as little as 0.71, at about the same width or narrower, and still widened
+without bound as the gap closed. The registered Miller–Madow form did not, and as
+registered it is not first-order corrected for this divergence. Two other
+predictions failed: the jackknife's gap estimate was closer to the truth than the
+floor-corrected one in 37 of 48 cells, not the predicted 40, and still sits about
+0.003–0.005 above a gap of zero; and both registered intervals for the gap failed
+in every cell. After the run they were found to be centred where the bootstrap
+puts the uncorrected divergence; a Wald interval, chosen after that was seen,
+covered the gap in 0.8875–0.9925 of trials and the movement in 0.935–0.9975. By
+the plan's rule nothing is proposed, and the problem stays as open as it was. A
+jackknife-Fieller report with Wald intervals is an untested candidate, which only
+a new registration on a different generator could test.
+
 ---
 
 ## Contributing a problem

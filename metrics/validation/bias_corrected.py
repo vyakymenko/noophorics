@@ -118,7 +118,8 @@ def _interval(xs: List[float]) -> Tuple[float, float]:
     return vg._percentile(xs, 0.025), vg._percentile(xs, 0.975)
 
 
-def _report(m: float, g: float, ms: List[float], gs: List[float], t: Dict) -> Dict:
+def _report(m: float, g: float, ms: List[float], gs: List[float], t: Dict,
+            d_plug: float = None) -> Dict:
     shape = vg.fieller(m, g, vg._cov(ms, ms), vg._cov(ms, gs), vg._cov(gs, gs))
     g_lo, g_hi = _interval(gs)
     m_lo, m_hi = _interval(ms)
@@ -134,6 +135,19 @@ def _report(m: float, g: float, ms: List[float], gs: List[float], t: Dict) -> Di
         "move_excludes_zero": m_hi < 0 or m_lo > 0,
         "move_excludes_zero_away": m_hi < 0,
     }
+    # Added after the registered run, to test why the percentile gap interval
+    # failed: Wald intervals take their centre from the point and only their
+    # spread from the bootstrap, and the shifts locate the bootstrap's centre.
+    gsd, msd = statistics.stdev(gs), statistics.stdev(ms)
+    rec.update({
+        "gap_cover_wald": g - vg.Z * gsd <= t["true_gap"] <= g + vg.Z * gsd,
+        "gap_wald_above_zero": g - vg.Z * gsd > 0,
+        "move_cover_wald": m - vg.Z * msd <= t["true_move"] <= m + vg.Z * msd,
+        "move_wald_excludes_zero": m + vg.Z * msd < 0 or m - vg.Z * msd > 0,
+        "move_wald_excludes_zero_away": m + vg.Z * msd < 0,
+        "boot_shift_from_point": statistics.fmean(gs) - g,
+        "boot_shift_from_plugin": (statistics.fmean(gs) - d_plug) if d_plug is not None else None,
+    })
     if t["true_f"] is not None:
         rec["cover_fieller"] = vg.in_set(shape, t["true_f"])
         rec["ratio_error"] = (m / g - t["true_f"]) if g > vg.EPSILON else None
@@ -171,7 +185,8 @@ def run_trial(cell: Dict, trial: int) -> Dict:
             boot[e][1].append(g)
 
     out = dict(truth)
-    out["reports"] = {k: _report(point[k][0], point[k][1], boot[k][0], boot[k][1], truth)
+    d_plug = vg.components(s, p, q)["d_prior"]
+    out["reports"] = {k: _report(point[k][0], point[k][1], boot[k][0], boot[k][1], truth, d_plug)
                       for k in point}
     return out
 
@@ -211,6 +226,14 @@ def summarise(cell: Dict, trials: List[Dict]) -> Dict:
             "move_cover": _share(r["move_cover"] for r in recs),
             "move_excludes_zero": _share(r["move_excludes_zero"] for r in recs),
             "move_excludes_zero_away": _share(r["move_excludes_zero_away"] for r in recs),
+            # Added after the registered run (see _report).
+            "gap_cover_wald": _share(r["gap_cover_wald"] for r in recs),
+            "gap_wald_above_zero": _share(r["gap_wald_above_zero"] for r in recs),
+            "move_cover_wald": _share(r["move_cover_wald"] for r in recs),
+            "move_wald_excludes_zero": _share(r["move_wald_excludes_zero"] for r in recs),
+            "move_wald_excludes_zero_away": _share(r["move_wald_excludes_zero_away"] for r in recs),
+            "boot_shift_from_point_mean": statistics.fmean(r["boot_shift_from_point"] for r in recs),
+            "boot_shift_from_plugin_mean": statistics.fmean(r["boot_shift_from_plugin"] for r in recs),
         }
     return out
 
@@ -286,7 +309,8 @@ def main() -> int:
     if not args.quick:
         with open(args.previous, encoding="utf-8") as fh:
             bad = check_reproduction(summary, json.load(fh))
-        record["reproduction"] = {"matches_previous_record": not bad, "mismatches": bad[:50]}
+        record["reproduction"] = {"matches_previous_record": not bad,
+                                  "mismatch_count": len(bad), "mismatches": bad[:50]}
         record["predictions"] = score(summary)
         print("reproduction of V0/V2 against the previous record: %s"
               % ("exact" if not bad else "%d MISMATCHES" % len(bad)))

@@ -80,6 +80,31 @@ class EstimatorTests(unittest.TestCase):
         expected = h(pooled, 20) - 0.5 * (h(a, 10) + h(b, 10))
         self.assertAlmostEqual(bc.jsd_mm(a, b), expected, places=12)
 
+    def test_miller_madow_counts_only_the_options_seen(self):
+        """k is the number of options observed, not the size of the space."""
+        a, b = (7, 3, 0), (4, 4, 2)
+
+        def h(c, n):
+            return (-sum((x / n) * math.log2(x / n) for x in c if x)
+                    + (sum(1 for x in c if x) - 1) / (2 * n * math.log(2)))
+        expected = h((11, 7, 2), 20) - 0.5 * (h(a, 10) + h(b, 10))
+        self.assertAlmostEqual(bc.jsd_mm(a, b), expected, places=12)
+
+    def test_the_jackknife_matches_an_explicit_leave_one_out(self):
+        """Drop each answer in turn, recompute, and form the two-sample jackknife."""
+        from noophorics import jensen_shannon, to_distribution
+        labels = vg.OPTIONS
+        for a, b in (((2, 1, 0), (1, 1, 1)), ((7, 3, 0), (4, 4, 2))):
+            da = [lab for lab, c in zip(labels, a) for _ in range(c)]
+            db = [lab for lab, c in zip(labels, b) for _ in range(c)]
+            js = lambda x, y: jensen_shannon(to_distribution(x), to_distribution(y))
+            theta = js(da, db)
+            ma = sum(js(da[:i] + da[i + 1:], db) for i in range(len(da))) / len(da)
+            mb = sum(js(da, db[:i] + db[i + 1:]) for i in range(len(db))) / len(db)
+            expected = theta - (len(da) - 1) * (ma - theta) - (len(db) - 1) * (mb - theta)
+            with self.subTest(a=a, b=b):
+                self.assertAlmostEqual(bc.jsd_jk(a, b), expected, places=12)
+
     def test_miller_madow_refuses_unequal_sizes(self):
         with self.assertRaises(ValueError):
             bc.jsd_mm((5, 3, 2), (4, 4, 3))
@@ -106,6 +131,10 @@ class ReproductionTests(unittest.TestCase):
                     for v in bc.PLUGIN:
                         self.assertEqual(mine[v]["g_hat"], theirs[v]["g_hat"])
                         self.assertEqual(mine[v]["fieller"], theirs[v]["fieller"])
+                        # The width depends on the bootstrap draws, so a change
+                        # in their order shows here even when shape and cover
+                        # do not; without it this test passed a swapped loop.
+                        self.assertEqual(mine[v]["fieller_width"], theirs[v]["fieller_width"])
                         self.assertEqual(mine[v].get("cover_fieller"),
                                          theirs[v].get("cover_fieller"))
         finally:
