@@ -339,6 +339,28 @@ the plan's rule nothing is proposed, and the problem stays as open as it was. A
 jackknife-Fieller report with Wald intervals is an untested candidate, which only
 a new registration on a different generator could test.
 
+**Confirmation, 2026-10-30.** [A registered confirmation](../research/2026-10-30-candidate-confirmation-results.md)
+froze that candidate and tested it on a new generator: Dirichlet distributions,
+three and five options, and answers that do or do not persist from one to the
+next. It was not confirmed: three of its five predictions failed. With
+independent answers:
+
+- The Fieller set fell below 0.93 in 2 of 24 cells, with the lowest at 0.9075,
+  so C1 failed.
+- The movement's Wald interval fell below 0.93 in one cell, at five options, by
+  one trial in 400.
+- At `n = 16`, against a receiver moved away, the movement's interval excluded
+  zero on the away side in 0.6775–0.75 of trials, against the registered 0.80.
+- The gap's Wald interval fell below 0.90 in 7 of 24 cells, all at five options.
+  A diagnostic added after the run finds the jackknife gap off-centre at five
+  options, in passing cells as well as failing ones. That locates the loss
+  without explaining it.
+
+At three options every coverage clause held. With persistent answers the Fieller
+set fell below 0.93 in all 24 cells, as predicted, and as low as 0.0825. The
+gap's interval reported a gap where there was none in 0.66–0.97 of null trials.
+By the plan's rule nothing is proposed, and the problem stays as open as it was.
+
 ---
 
 ## Contributing a problem

@@ -159,6 +159,9 @@ def run_trial(cell: Dict, trial: int) -> Dict:
         "move_excludes_zero_away": m + Z * msd < 0,
         "gap_cover": g - Z * gsd <= t_gap <= g + Z * gsd,
         "gap_above_zero": g - Z * gsd > 0,
+        # Added after the registered run, to say whether a failing interval was
+        # off-centre or too narrow: the bootstrap's spread, kept per trial.
+        "m_boot_sd": msd, "g_boot_sd": gsd,
     }
     if t_f is not None:
         rec["cover_fieller"] = vg.in_set(shape, t_f)
@@ -210,6 +213,16 @@ def summarise(cell: Dict, trials: List[Dict]) -> Dict:
         "gap_cover": _share(t["gap_cover"] for t in trials),
         "gap_above_zero": _share(t["gap_above_zero"] for t in trials),
         "g_error_mean": statistics.fmean(t["g_hat"] - t["true_gap"] for t in trials),
+    })
+    # Added after the registered run: the errors' actual spread across trials
+    # beside the bootstrap's mean estimate of it, and the true movement's size.
+    out.update({
+        "true_move_mean": statistics.fmean(t["true_move"] for t in trials),
+        "m_error_mean": statistics.fmean(t["m_hat"] - t["true_move"] for t in trials),
+        "m_error_sd": statistics.stdev(t["m_hat"] - t["true_move"] for t in trials),
+        "g_error_sd": statistics.stdev(t["g_hat"] - t["true_gap"] for t in trials),
+        "m_boot_sd_mean": statistics.fmean(t["m_boot_sd"] for t in trials),
+        "g_boot_sd_mean": statistics.fmean(t["g_boot_sd"] for t in trials),
     })
     return out
 

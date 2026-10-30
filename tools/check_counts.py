@@ -52,6 +52,7 @@ def truth() -> dict:
     program_manifest = json.loads(_read("tools/fixtures/program_output/manifest.json"))
     program_record = json.loads(_read("research/program-verifier-validation.json"))
     estimand = json.loads(_read("research/estimand-audit.json"))["counts"]
+    candidate = json.loads(_read("research/candidate-confirmation.json"))["predictions"]
     return {
         "tests": len(re.findall(r"def test_", _read("metrics/tests/test_metrics.py"))),
         "laws": len(re.findall(r"^## L\d", _read("theory/laws.md"), re.M)),
@@ -80,6 +81,11 @@ def truth() -> dict:
         "estimand registered": estimand["registered"],
         "estimand reg untraced": estimand["registered_untraced_intervals"],
         "estimand R4 seeds": estimand["r4_seeds"],
+        "cand C1 below": len(candidate["C1"]["cells_below_0.93"]),
+        "cand C1 held": 24 - len(candidate["C1"]["cells_below_0.93"]),
+        "cand C2 below": len(candidate["C2"]["grid_cells_below_0.93"]),
+        "cand C3 below": len(candidate["C3"]["grid_cells_below_0.90"]),
+        "cand C4 below": candidate["C4"]["dependent_cells_below_0.93"],
     }
 
 
@@ -89,7 +95,7 @@ def truth() -> dict:
 # sentence's list stopped at Twenty-one, so the correct sentence for a twenty-
 # second retraction would have read as PATTERN NOT FOUND. The alternation is now
 # built from this table, so there is one list and nothing to keep in step.
-WORDS = {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
          "eight": 8, "nine": 9, "ten": 10,
          "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
          "fifteen": 15, "sixteen": 16,
@@ -188,6 +194,27 @@ for _rel in ("research/2026-09-28-program-verifier.md",
         (_rel, r"passed (?:\*\*|<strong>)\d+ of\s+(\d+)(?:\*\*|</strong>) checks",
          "program verifier tests"),
     ])
+
+# The candidate confirmation's counts are read from its saved record, whose
+# predictions `confirm_candidate_report.py --check` rescores; each is stated in
+# the results note, on its generated page and in Problem 12.
+for _rel in ("research/2026-10-30-candidate-confirmation-results.md",
+             "docs/journal/candidate-confirmation-results/index.html"):
+    CLAIMS.extend([
+        (_rel, r"C1 failed in " + NUMERAL + r" of 24 cells", "cand C1 below"),
+        (_rel, r"in at least 0\.93 in (\d+) of\s+the 24 grid cells", "cand C1 held"),
+        (_rel, r"below 0\.93 in " + NUMERAL + r" cell \(five options", "cand C2 below"),
+        (_rel, r"C3 failed in " + NUMERAL + r" of 24 cells", "cand C3 below"),
+        (_rel, r"C4 held in all (\d+) cells", "cand C4 below"),
+    ])
+CLAIMS.extend([
+    ("theory/open-problems.md", r"fell below 0\.93 in (\d+) of 24 cells", "cand C1 below"),
+    ("theory/open-problems.md", r"fell below 0\.93 in " + NUMERAL + r" cell, at five options",
+     "cand C2 below"),
+    ("theory/open-problems.md", r"fell below 0\.90 in (\d+) of 24 cells", "cand C3 below"),
+    ("theory/open-problems.md", r"fell below 0\.93 in all (\d+) cells", "cand C4 below"),
+])
+
 
 def main() -> int:
     t = truth()

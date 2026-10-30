@@ -236,7 +236,10 @@ class TestCheckCounts(ToolTest):
             # The opening line is read as a claim too, so the fixture states it.
             "theory/open-problems.md":
                 "# Open Problems\n\nNine problems. Stated.\n\n"
-                + "".join("## %d. p\n" % i for i in range(1, 10)),
+                + "".join("## %d. p\n" % i for i in range(1, 10))
+                + ("fell below 0.93 in 2 of 24 cells. fell below 0.93 in one cell, "
+                   "at five options. fell below 0.90 in 7 of 24 cells. fell below "
+                   "0.93 in all 24 cells.\n"),
             "PRINCIPIA.md": "**A1 — x.**\n**A2 — y.**\n",
             # The tally line is part of the fixture because check_counts now
             # reads it. Two, to match the two VOID.md files below. Nine rows
@@ -285,6 +288,20 @@ class TestCheckCounts(ToolTest):
             "docs/journal/estimand-audit/index.html": (
                 "<p>over forty synthetic draws. Seven of the fifteen effects' "
                 "intervals. Four of the nine registered hypotheses.</p>"),
+            "research/candidate-confirmation.json": json.dumps({"predictions": {
+                "C1": {"cells_below_0.93": [[5, 10], [5, 10]]},
+                "C2": {"grid_cells_below_0.93": [[5, 10]]},
+                "C3": {"grid_cells_below_0.90": [[5, 10]] * 7},
+                "C4": {"dependent_cells_below_0.93": 24}}}),
+            "research/2026-10-30-candidate-confirmation-results.md": (
+                "**C1 failed in two of 24 cells.** in at least 0.93 in 22 of\n"
+                "  the 24 grid cells. below 0.93 in one cell (five options, n = 10).\n"
+                "**C3 failed in seven of 24 cells.** **C4 held in all 24 cells.**\n"),
+            "docs/journal/candidate-confirmation-results/index.html": (
+                "<p><strong>C1 failed in two of 24 cells.</strong> in at least 0.93 in "
+                "22 of the 24 grid cells. below 0.93 in one cell (five options, n = 10). "
+                "<strong>C3 failed in seven of 24 cells.</strong> "
+                "<strong>C4 held in all 24 cells.</strong></p>"),
             "AGENTS.md": ("the count moves and so do two translations.\n"
                           "translate the new sentence in all two languages.\n"),
             # Two voided experiments and one that merely has a directory: the
@@ -482,6 +499,30 @@ class TestCheckCounts(ToolTest):
                     code, out = self.run_check(files)
                     self.assertEqual(code, 1, out)
                     self.assertIn("MISMATCH", out)
+
+    def test_the_candidate_confirmation_is_checked_against_its_saved_record(self):
+        """Each prediction count in the note, its page and Problem 12 is a claim."""
+        cases = [(rel, old, stale)
+                 for rel in ("research/2026-10-30-candidate-confirmation-results.md",
+                             "docs/journal/candidate-confirmation-results/index.html")
+                 for old, stale in (("C1 failed in two", "C1 failed in three"),
+                                    ("22 of", "21 of"),
+                                    ("in one cell (five", "in two cell (five"),
+                                    ("seven of 24", "six of 24"),
+                                    ("all 24 cells", "all 23 cells"))]
+        cases += [("theory/open-problems.md", old, stale)
+                  for old, stale in (("in 2 of 24", "in 3 of 24"),
+                                     ("in one cell,", "in two cell,"),
+                                     ("in 7 of 24", "in 6 of 24"),
+                                     ("in all 24 cells", "in all 20 cells"))]
+        for rel, old, stale in cases:
+            with self.subTest(rel=rel, stale=stale):
+                files = self.base(tests_n=7, readme_states=7)
+                self.assertIn(old, files[rel])
+                files[rel] = files[rel].replace(old, stale)
+                code, out = self.run_check(files)
+                self.assertEqual(code, 1, out)
+                self.assertIn("MISMATCH", out)
 
     def test_the_void_count_survives_a_repository_with_no_experiments(self):
         """A counter that raises instead of reporting is an outage, not an audit."""

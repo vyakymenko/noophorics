@@ -2,9 +2,12 @@
 """Checks on the confirmation's generator and scoring, before its results are read.
 
 Each check is paired with the case it must reject: the Dirichlet test tells the
-two registered concentrations apart, the persistence test tells correlated from
-independent answers by an exact variance, and the scoring tests sit on each
-registered threshold from both sides.
+module's two concentrations apart, the constants test pins them and the rest of
+the plan's numbers, the persistence test tells correlated from independent
+answers by an exact variance, every per-trial field is rebuilt from its parts,
+and the scoring tests sit on each registered threshold from both sides. The
+candidate tests were added after the registered run, at a same-model review's
+request; they test the committed code, which did not change.
 """
 
 import os
@@ -130,6 +133,83 @@ class TrialTests(unittest.TestCase):
         self.assertEqual([c["index"] for c in cs], list(range(64)))
         self.assertEqual(len({(c["k"], c["rho"], c["n"], c["kind"], c["g"], c["lam"])
                               for c in cs}), 64)
+
+
+class CandidateTests(unittest.TestCase):
+    """The frozen report itself: constants, bootstrap, Wald and Fieller, per trial."""
+
+    def test_constants_are_the_plan_s(self):
+        self.assertEqual((cc.N_PROBES, cc.TRIALS, cc.BOOT), (33, 400, 400))
+        self.assertEqual((cc.ALPHA_SENDER, cc.ALPHA_DIFFUSE, cc.ANTI_MU), (0.4, 1.5, 0.3))
+        self.assertEqual((cc.KS, cc.RHOS, cc.NS, cc.GS, cc.LAMS), ((3, 5), (0.0, 0.3), (10, 16), (0.0, 0.8, 0.95), (0.25, 0.75)))
+        self.assertEqual(cc.Z, 1.959963984540054)
+
+    def test_each_trial_field_is_rebuilt_from_its_parts(self):
+        cs = cc.cells()
+        picks = [next(c for c in cs if c["kind"] == kind and c["rho"] == 0.0 and c["n"] == 16 and c["k"] == 3)
+                 for kind in ("null", "antinoophor")] + [cs[0]]
+        for cell in picks:
+            for trial in range(30):
+                with self.subTest(cell=cell["index"], trial=trial):
+                    rec = cc.run_trial(cell, trial)
+                    rng = random.Random(7_000_003 * cell["index"] + trial)
+                    sender, prior, post = cc.truth_for(rng, cell)
+                    n, rho = cell["n"], cell["rho"]
+                    s = [cc.persistent_counts(rng, n, d, rho) for d in sender]
+                    p = [cc.persistent_counts(rng, n, d, rho) for d in prior]
+                    q = [cc.persistent_counts(rng, n, d, rho) for d in post]
+                    m, g = bc.corrected(bc.jsd_jk, s, p, q)
+                    ms, gs = [], []
+                    for _ in range(400):
+                        boot = [[vg.multinomial(rng, n, [x / n for x in c]) for c in party]
+                                for party in (s, p, q)]
+                        bm, bg = bc.corrected(bc.jsd_jk, *boot)
+                        ms.append(bm)
+                        gs.append(bg)
+                    msd, gsd = statistics.stdev(ms), statistics.stdev(gs)
+                    z = 1.959963984540054
+                    t_gap = sum(vg.jsd(a, b) for a, b in zip(sender, prior)) / 33
+                    t_move = t_gap - sum(vg.jsd(a, b) for a, b in zip(sender, post)) / 33
+                    self.assertEqual((rec["m_boot_sd"], rec["g_boot_sd"]), (msd, gsd))
+                    self.assertEqual(rec["move_cover"], m - z * msd <= t_move <= m + z * msd)
+                    self.assertEqual(rec["move_excludes_zero"], abs(m) > z * msd)
+                    self.assertEqual(rec["move_excludes_zero_away"], m + z * msd < 0)
+                    self.assertEqual(rec["gap_cover"], g - z * gsd <= t_gap <= g + z * gsd)
+                    self.assertEqual(rec["gap_above_zero"], g - z * gsd > 0)
+                    shape = vg.fieller(m, g, vg._cov(ms, ms), vg._cov(ms, gs), vg._cov(gs, gs))
+                    self.assertEqual(rec["fieller"], shape[0])
+                    if t_gap > 0:
+                        self.assertEqual(rec["cover_fieller"], vg.in_set(shape, t_move / t_gap))
+                    else:
+                        self.assertNotIn("cover_fieller", rec)
+                    self.assertEqual(rec["fieller_width"], shape[2] - shape[1] if shape[0] == "bounded" else None)
+
+    def test_truth_mixes_as_registered(self):
+        for kind, g, lam in (("grid", 0.8, 0.25), ("antinoophor", 1.0, None)):
+            cell = {"index": 0, "k": 5, "rho": 0.0, "n": 10, "kind": kind, "g": g, "lam": lam}
+            s, p, q = cc.truth_for(random.Random(21), cell)
+            rng = random.Random(21)
+            for a0, p0, q0 in zip(s, p, q):
+                a, b = cc.dirichlet(rng, 0.4, 5), cc.dirichlet(rng, 1.5, 5)
+                self.assertEqual(a0, a)
+                if kind == "grid":
+                    self.assertEqual(p0, vg.mix(b, a, g))
+                    self.assertEqual(q0, vg.mix(p0, a, lam))
+                else:
+                    w = cc.dirichlet(rng, 1.5, 5)
+                    self.assertEqual((p0, q0), (a, vg.mix(a, w, 0.3)))
+
+    def test_summarise_counts_fieller_only_where_f_is_defined(self):
+        base = {"true_gap": 0.1, "true_move": 0.0, "g_hat": 0.1, "m_hat": 0.0, "fieller": "bounded",
+                "fieller_width": 1.0, "move_cover": True, "move_excludes_zero": False,
+                "move_excludes_zero_away": False, "gap_cover": True, "gap_above_zero": True,
+                "m_boot_sd": 0.01, "g_boot_sd": 0.01}
+        trials = [dict(base, true_f=0.0, cover_fieller=False), dict(base, true_f=None),
+                  dict(base, true_f=0.0, cover_fieller=True), dict(base, true_f=0.0, cover_fieller=True,
+                  gap_cover=False, move_cover=False, fieller="unbounded", fieller_width=None)]
+        out = cc.summarise(cc.cells()[0], trials)
+        self.assertEqual(out["cover_fieller"], 2 / 3)
+        self.assertEqual((out["gap_cover"], out["move_cover"], out["fieller_bounded"]), (0.75, 0.75, 0.75))
 
 
 def summary(over=None):
