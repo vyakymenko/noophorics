@@ -140,6 +140,8 @@ python3 metrics/validation/bias_corrected_report.py --check       # its tables v
 python3 metrics/validation/test_confirm_candidate.py              # the confirmation's own checks
 python3 metrics/validation/confirm_candidate_report.py --check    # its tables vs its record
 python3 tools/test_audit_draw_dependence.py      # the draw-dependence audit's own checks
+python3 tools/audit_draw_dependence.py --check   # its observed counts vs the caches; tables; quoted numbers
+python3 tools/audit_draw_dependence.py --check-full   # its p-values and bounds, by seeded rerun
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```
 

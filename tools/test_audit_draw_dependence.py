@@ -11,6 +11,7 @@ import itertools
 import json
 import os
 import random
+import shutil
 import sys
 import tempfile
 import unittest
@@ -199,14 +200,58 @@ class RecordTests(unittest.TestCase):
             self.assertEqual(record["dedupe"]["kept"], 120)
             self.assertEqual(set(record["families"]), {"gpt-oss:120b", "qwen3.5:35b"})
 
-    def test_check_is_green_on_its_record_and_red_on_a_change(self):
+    def write(self, root, record, note_tables=None):
+        os.makedirs(os.path.join(root, "research"), exist_ok=True)
+        with open(os.path.join(root, ad.RECORD), "w") as fh:
+            json.dump(record, fh)
+        tables = ad.render(record) if note_tables is None else note_tables
+        with open(os.path.join(root, ad.NOTE), "w") as fh:
+            fh.write("prose\n" + ad.START + "\n" + tables + ad.END + "\n")
+
+    def test_check_goes_red_on_each_observed_field_a_missing_model_and_the_note(self):
+        with tempfile.TemporaryDirectory() as root:
+            self.tree(root)
+            record = ad.audit(root, workers=1, permutations=200)
+            self.write(root, record)
+            self.assertEqual(ad.check(root), [])
+            edits = [lambda r: r["families"]["qwen3.5:35b"].__setitem__("sequences", 61),
+                     lambda r: r["families"]["gpt-oss:120b"].__setitem__("draws", 1),
+                     lambda r: r["families"]["gpt-oss:120b"].__setitem__("rho_hat", 0.3),
+                     lambda r: r["families"]["gpt-oss:120b"].__setitem__("drift", -1),
+                     lambda r: r["by_source"][0].__setitem__("rho_hat", 0.3),
+                     lambda r: r["families"].pop("qwen3.5:35b")]
+            for i, edit in enumerate(edits):
+                tampered = json.loads(json.dumps(record))
+                edit(tampered)
+                tampered["predictions"] = json.loads(json.dumps(ad.score(tampered["families"])))
+                self.write(root, tampered)
+                with self.subTest(edit=i):
+                    self.assertTrue(ad.check(root))
+            self.write(root, record, note_tables=ad.render(record).replace("| **yes** |", "| **no** |", 1)
+                       if "| **yes** |" in ad.render(record) else ad.render(record) + "x\n")
+            self.assertIn("the note's tables differ from the record", ad.check(root))
+            os.remove(os.path.join(root, ad.NOTE))
+            self.assertIn("the results note is missing", ad.check(root))
+
+    def test_a_seeded_rerun_reproduces_its_record_and_catches_an_edited_bound(self):
         with tempfile.TemporaryDirectory() as root:
             self.tree(root)
             record = ad.audit(root, workers=1, permutations=200)
             os.makedirs(os.path.join(root, "research"))
+            with open(os.path.join(root, ad.RECORD), "w") as fh:
+                fh.write(json.dumps(record, indent=1, sort_keys=True) + "\n")
+            self.assertEqual(ad.check_full(root, workers=1, permutations=200), [])
+            record["families"]["gpt-oss:120b"]["p_holm"] = 0.04
+            with open(os.path.join(root, ad.RECORD), "w") as fh:
+                fh.write(json.dumps(record, indent=1, sort_keys=True) + "\n")
+            self.assertTrue(ad.check_full(root, workers=1, permutations=200))
+
+    def test_check_is_green_on_its_record_and_red_on_a_change(self):
+        with tempfile.TemporaryDirectory() as root:
+            self.tree(root)
+            record = ad.audit(root, workers=1, permutations=200)
+            self.write(root, record)
             path = os.path.join(root, ad.RECORD)
-            with open(path, "w") as fh:
-                json.dump(record, fh)
             self.assertEqual(ad.check(root), [])
             tampered = json.loads(json.dumps(record))
             tampered["predictions"]["P4"]["holds"] = not tampered["predictions"]["P4"]["holds"]
@@ -224,6 +269,39 @@ class RecordTests(unittest.TestCase):
             with open(cache, "w") as fh:
                 json.dump(data, fh)
             self.assertTrue(ad.check(root))
+
+
+class ProseTests(unittest.TestCase):
+    """The numbers quoted in prose, on the repository's own files and record."""
+
+    FILES = (ad.NOTE, "theory/open-problems.md", "research/README.md")
+
+    def copy(self, root):
+        for rel in self.FILES + (ad.RECORD,):
+            os.makedirs(os.path.dirname(os.path.join(root, rel)), exist_ok=True)
+            shutil.copy(os.path.join(ad.ROOT, rel), os.path.join(root, rel))
+        with open(os.path.join(root, ad.RECORD)) as fh:
+            return json.load(fh)
+
+    def test_quoted_numbers_are_green_as_written_and_red_when_changed_or_moved(self):
+        with tempfile.TemporaryDirectory() as root:
+            record = self.copy(root)
+            self.assertEqual(ad.prose_problems(root, record), [])
+            for rel, old, new in ((ad.NOTE, "raw p **0.033**", "raw p **0.003**"),
+                                  (ad.NOTE, "All four predictions held", "Three of four predictions held"),
+                                  ("theory/open-problems.md", "They rest on 537,", "They rest on 538,"),
+                                  ("research/README.md", "raw p 0.033 before", "raw p 0.03 before"),
+                                  (ad.NOTE, "Its power against `ρ = 0.05` is", "Its power at `ρ = 0.05` is")):
+                path = os.path.join(root, rel)
+                with open(path) as fh:
+                    text = fh.read()
+                self.assertIn(old, text)
+                with open(path, "w") as fh:
+                    fh.write(text.replace(old, new))
+                with self.subTest(new=new):
+                    self.assertTrue(ad.prose_problems(root, record))
+                with open(path, "w") as fh:
+                    fh.write(text)
 
 
 if __name__ == "__main__":

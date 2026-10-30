@@ -361,6 +361,19 @@ set fell below 0.93 in all 24 cells, as predicted, and as low as 0.0825. The
 gap's interval reported a gap where there was none in 0.66–0.97 of null trials.
 By the plan's rule nothing is proposed, and the problem stays as open as it was.
 
+**Real draws, 2026-10-30.** [A registered audit](../research/2026-10-30-draw-dependence-results.md)
+tested whether the repository's real draws persist from one to the next, as the
+simulated answers that broke the candidate did. None of the three models' draws
+showed persistence on the registered test. The simulated upper bounds on
+persistence were 0.00 for gpt-oss:120b, 0.23 for qwen3.5:35b and 0.24 for
+claude-opus-4-8, all below the 0.3 that was simulated. They rest on 537, 10 and
+27 sequences that held more than one answer. For qwen3.5:35b and
+claude-opus-4-8, persistence up to those bounds is not ruled out, and the
+candidate was not simulated under it. For claude-opus-4-8 the test was also
+narrow: its raw p-value was 0.033 and its Holm-adjusted p-value 0.0999. The
+correlated-answer failure is a limit these draws do not show at the simulated
+strength. The problem's open part is the failures with independent answers.
+
 ---
 
 ## Contributing a problem

@@ -53,6 +53,7 @@ def truth() -> dict:
     program_record = json.loads(_read("research/program-verifier-validation.json"))
     estimand = json.loads(_read("research/estimand-audit.json"))["counts"]
     candidate = json.loads(_read("research/candidate-confirmation.json"))["predictions"]
+    draws = json.loads(_read("research/draw-dependence.json"))
     return {
         "tests": len(re.findall(r"def test_", _read("metrics/tests/test_metrics.py"))),
         "laws": len(re.findall(r"^## L\d", _read("theory/laws.md"), re.M)),
@@ -86,6 +87,16 @@ def truth() -> dict:
         "cand C2 below": len(candidate["C2"]["grid_cells_below_0.93"]),
         "cand C3 below": len(candidate["C3"]["grid_cells_below_0.90"]),
         "cand C4 below": candidate["C4"]["dependent_cells_below_0.93"],
+        "draws dropped": draws["dedupe"]["dropped"],
+        "draws gpt informative": draws["families"]["gpt-oss:120b"]["informative"],
+        "draws qwen informative": draws["families"]["qwen3.5:35b"]["informative"],
+        "draws claude informative": draws["families"]["claude-opus-4-8"]["informative"],
+        "draws gpt uninformative": (draws["families"]["gpt-oss:120b"]["sequences"]
+                                    - draws["families"]["gpt-oss:120b"]["informative"]),
+        "draws qwen uninformative": (draws["families"]["qwen3.5:35b"]["sequences"]
+                                     - draws["families"]["qwen3.5:35b"]["informative"]),
+        "draws claude uninformative": (draws["families"]["claude-opus-4-8"]["sequences"]
+                                       - draws["families"]["claude-opus-4-8"]["informative"]),
     }
 
 
@@ -207,7 +218,26 @@ for _rel in ("research/2026-10-30-candidate-confirmation-results.md",
         (_rel, r"C3 failed in " + NUMERAL + r" of 24 cells", "cand C3 below"),
         (_rel, r"C4 held in all (\d+) cells", "cand C4 below"),
     ])
+# The draw-dependence audit's counts are read from its record, which
+# `audit_draw_dependence.py --check` recomputes from the caches.
+for _rel in ("research/2026-10-30-draw-dependence-results.md",
+             "docs/journal/draw-dependence-results/index.html"):
+    CLAIMS.extend([
+        (_rel, r"read, (\d+) were dropped as imported", "draws dropped"),
+        (_rel, r"The test rests on the\s+rest: (\d+),", "draws gpt informative"),
+        (_rel, r"The test rests on the\s+rest: \d+,\s+(\d+) and", "draws qwen informative"),
+        (_rel, r"The test rests on the\s+rest: \d+,\s+\d+ and (\d+)\s+sequences", "draws claude informative"),
+        (_rel, r"throughout in (\d+) of gpt-oss:120b's", "draws gpt uninformative"),
+        (_rel, r"(\d+) of qwen3\.5:35b's", "draws qwen uninformative"),
+        (_rel, r"(\d+) of claude-opus-4-8's", "draws claude uninformative"),
+    ])
 CLAIMS.extend([
+    ("theory/open-problems.md", r"They rest on (\d+), \d+ and\s+\d+ sequences that held",
+     "draws gpt informative"),
+    ("theory/open-problems.md", r"They rest on \d+, (\d+) and\s+\d+ sequences that held",
+     "draws qwen informative"),
+    ("theory/open-problems.md", r"They rest on \d+, \d+ and\s+(\d+) sequences that held",
+     "draws claude informative"),
     ("theory/open-problems.md", r"fell below 0\.93 in (\d+) of 24 cells", "cand C1 below"),
     ("theory/open-problems.md", r"fell below 0\.93 in " + NUMERAL + r" cell, at five options",
      "cand C2 below"),

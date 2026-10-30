@@ -9,18 +9,26 @@ answer beyond what its own counts imply, against permutations of each sequence.
     python3 tools/audit_draw_dependence.py --out research/draw-dependence.json
     python3 tools/audit_draw_dependence.py --write-tables
     python3 tools/audit_draw_dependence.py --check
+    python3 tools/audit_draw_dependence.py --check-full
 
 Nothing here prints or records an answer, a probe or a condition's text: the
 record holds counts and statistics only, so the agent that runs the audit sees
-aggregates. ``--check`` recomputes every observed quantity from the caches and
-rescores the predictions from the record; the permutation and simulation
-quantities are reproduced by a full run, which is seeded.
+aggregates. ``--check`` recomputes the observed quantities from the caches
+(dedupe counts; per model and per source: sequences, informative, draws, excess
+repeats, rho-hat, drift, grouped), rescores the predictions, compares the
+results note's tables with the record, and compares the numbers the note,
+Problem 12 and the research index quote with the record. ``--check-full`` reruns
+the seeded audit in memory and compares it with the saved record byte for byte,
+which is what covers the p-values, bounds and power.
 
 Details the plan does not fix, settled here before any run: a sequence's
 answers are compared as values (a non-string value by its JSON form); a model
 named ``a/b`` in a condition is ``b``; permutations run in 20 chunks of 500 with
 seeds fixed per chunk, so the result does not depend on the number of
 processes; the null's 95th percentile is its ``ceil(0.95 N)``-th smallest value.
+Two more were made in the code before the run and written here only after a
+review: a duplicate is matched by the full cache key (model and fingerprint
+included), and the rebuilt-sequence diagnostic is per model and source.
 
 Standard library only.
 """
@@ -448,8 +456,18 @@ def render(record: Dict) -> str:
     return "\n".join(out) + "\n"
 
 
+def _differs(a, b) -> bool:
+    if a is None or b is None:
+        return (a is None) != (b is None)
+    return abs(a - b) > 1e-9
+
+
+def _rho(o: Dict) -> Optional[float]:
+    return _excess(o) / o["room"] if o["room"] > 0 else None
+
+
 def check(root: str = ROOT) -> List[str]:
-    """Problems with the saved record against the caches and the scoring."""
+    """Problems with the saved record against the caches, the scoring and the note's tables."""
     problems = []
     with open(os.path.join(root, RECORD), encoding="utf-8") as fh:
         record = json.load(fh)
@@ -468,21 +486,30 @@ def check(root: str = ROOT) -> List[str]:
         if r is None:
             continue
         for field, value in (("sequences", o["sequences"]), ("informative", o["informative"]),
-                             ("draws", o["draws"]), ("excess_repeats", _excess(o))):
-            if abs(r[field] - value) > 1e-9:
+                             ("draws", o["draws"]), ("excess_repeats", _excess(o)),
+                             ("rho_hat", _rho(o))):
+            if _differs(r[field], value):
                 problems.append("%s/%s %s differs" % (k[0], k[1], field))
         if "drift" in r and r["drift"] != o["drift"]:
             problems.append("%s/%s drift differs" % k)
         if "grouped" in r and r["grouped"] != o["grouped"]:
             problems.append("%s/%s grouped differs" % k)
-    for fam, f in record["families"].items():
-        o = _sum([obs[k] for k in obs if k[0] == fam])
-        if abs(f["excess_repeats"] - _excess(o)) > 1e-9 or f["informative"] != o["informative"]:
-            problems.append("%s family totals differ" % fam)
+    fams = {k[0] for k in obs}
+    if set(record["families"]) != fams:
+        problems.append("the models differ")
+    for fam in sorted(fams & set(record["families"])):
+        f, o = record["families"][fam], _sum([obs[k] for k in obs if k[0] == fam])
+        for field, value in (("sequences", o["sequences"]), ("informative", o["informative"]),
+                             ("draws", o["draws"]), ("excess_repeats", _excess(o)),
+                             ("drift", o["drift"]), ("rho_hat", _rho(o))):
+            if _differs(f[field], value):
+                problems.append("%s family %s differs" % (fam, field))
     if json.loads(json.dumps(score(record["families"]))) != record["predictions"]:
         problems.append("predictions differ from score(families)")
     note = os.path.join(root, NOTE)
-    if os.path.exists(note):
+    if not os.path.exists(note):
+        problems.append("the results note is missing")
+    else:
         with open(note, encoding="utf-8") as fh:
             text = fh.read()
         i, j = text.index(START) + len(START), text.index(END)
@@ -491,12 +518,136 @@ def check(root: str = ROOT) -> List[str]:
     return problems
 
 
+def _sign(x: float, fmt: str) -> str:
+    return (fmt % x).replace("-", "\u2212")
+
+
+def _wilson(k: int, n: int) -> Tuple[float, float]:
+    z = 1.959963984540054
+    p = k / n
+    den = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / den
+    h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / den
+    return c - h, c + h
+
+
+def prose_claims(record: Dict) -> List[Tuple[str, str, Tuple[str, ...]]]:
+    """(file, regex, the strings its groups must equal), every one from the record.
+
+    The numbers the results note, Problem 12 and the research index quote in
+    prose, outside the generated tables. A pattern that stops matching is a
+    problem, not a pass: the claim moved.
+    """
+    f = record["families"]
+    g, q, c = f["gpt-oss:120b"], f["qwen3.5:35b"], f["claude-opus-4-8"]
+    src = {(r["family"], r["source"]): r for r in record["by_source"]}
+    c4, c1 = src[("claude-opus-4-8", "E-004")], src[("claude-opus-4-8", "E-001")]
+    room4, room1 = c4["excess_repeats"] / c4["rho_hat"], c1["excess_repeats"] / c1["rho_hat"]
+    grouped_min = min((r for r in record["by_source"] if "p_grouped" in r),
+                      key=lambda r: r["p_grouped"])
+    bound = lambda x: "%.2f" % x["rho_upper"]["value"]
+    above = lambda x: "%.2f" % (x["rho_upper"]["value"] + 0.01)
+    share = lambda x, r: x["share_at_or_below_observed"][r]
+    k01 = round(share(g, "0.01") * DATASETS)
+    lo, hi = _wilson(k01, DATASETS)
+    d = record["dedupe"]
+    held = sum(1 for v in record["predictions"].values() if v["holds"])
+    comma = lambda n: "{:,}".format(n)
+    draws_kept = sum(x["draws"] for x in f.values())
+    uninf = lambda x: str(x["sequences"] - x["informative"])
+    return [
+        (NOTE, r"\*\*(\w+ \w+) predictions held\.", ("All four" if held == 4 else "%d of four" % held,)),
+        (NOTE, r"Of ([\d,]+) answer-draw sequences\s+read, ([\d,]+) were dropped[^,]*, and\s+([\d,]+) were kept",
+         (comma(d["read"]), comma(d["dropped"]), comma(d["kept"]))),
+        (NOTE, r"throughout in (\d+) of gpt-oss:120b's ([\d,]+) sequences, (\d+) of qwen3\.5:35b's (\d+) and\s+"
+               r"(\d+) of claude-opus-4-8's (\d+)\.",
+         (uninf(g), comma(g["sequences"]), uninf(q), str(q["sequences"]), uninf(c), str(c["sequences"]))),
+        (NOTE, r"rests on the\s+rest: (\d+), (\d+) and (\d+) sequences",
+         (str(g["informative"]), str(q["informative"]), str(c["informative"]))),
+        (NOTE, r"gpt-oss:120b has ([\d.]+) \*fewer\*", ("%.1f" % -g["excess_repeats"],)),
+        (NOTE, r"Its `ρ̂` is (\S+) and its p-value (\S+)\.", (_sign(g["rho_hat"], "%+.4f"), "%.2f" % g["p"])),
+        (NOTE, r"Its\s+simulated bound is (\S+), the floor", (bound(g),)),
+        (NOTE, r"At `ρ = 0\.01`, (\S+) of\s+simulated", ("%.3f" % share(g, "0.01"),)),
+        (NOTE, r"That is (\d+) of (\d+) datasets, with a Wilson 95% interval\s+of (\S+)–(\S+), so",
+         (str(k01), str(DATASETS), "%.3f" % lo, "%.3f" % hi)),
+        (NOTE, r"`ρ = 0\.02` the share is (\S+)\.", ("%.3f" % share(g, "0.02"),)),
+        (NOTE, r"Its power against `ρ = 0\.05` is (\S+)\.", ("%.3f" % g["power"]["0.05"],)),
+        (NOTE, r"qwen3\.5:35b: `ρ̂` (\S+), Holm-adjusted p (\S+), bound (\S+)\.",
+         (_sign(q["rho_hat"], "%+.3f"), "%.2f" % q["p_holm"], bound(q))),
+        (NOTE, r"Its power against `ρ = 0\.1` is (\S+) at the unadjusted\s+0\.05 level, as registered; at",
+         ("%.3f" % q["power"]["0.1"],)),
+        (NOTE, r"claude-opus-4-8: `ρ̂`\s+(\S+), raw p \*\*(\S+)\*\*, Holm-adjusted p (\S+), bound (\S+)\.",
+         (_sign(c["rho_hat"], "%+.3f"), "%.3f" % c["p"], "%.4f" % c["p_holm"], bound(c))),
+        (NOTE, r"E-004 alone, which the plan registers only as\s+a description, has (\S+)\.",
+         ("%.3f" % c4["p_persistence"],)),
+        (NOTE, r"Its power\s+against `ρ = 0\.1` is (\S+) at the unadjusted 0\.05 level, as registered, and",
+         ("%.3f" % c["power"]["0.1"],)),
+        (NOTE, r"persistence of (\S+) or less\.", (bound(c),)),
+        (NOTE, r"p (\S+) \(gpt-oss:120b\), (\S+)\s+\(qwen3\.5:35b\) and (\S+) \(claude-opus-4-8\)",
+         ("%.2f" % g["p_drift"], "%.2f" % q["p_drift"], "%.2f" % c["p_drift"])),
+        (NOTE, r"Its smallest p-value was\s+(\S+): (\S+) in (\S+), with (\d+) fully grouped sequences against "
+               r"(\S+)\s+expected",
+         ("%.2f" % grouped_min["p_grouped"], grouped_min["family"], grouped_min["source"],
+          str(grouped_min["grouped"]), "%.2f" % grouped_min["grouped_null_mean"])),
+        (NOTE, r"E-004 sequences hold (\d+)% of its room for repeats and (\S+) of its (\S+) excess",
+         ("%d" % round(100 * room4 / (room4 + room1)), "%+.2f" % c4["excess_repeats"],
+          "%+.2f" % c["excess_repeats"])),
+        (NOTE, r"Its `ρ̂` is (\S+) there and (\S+) in E-001, with uncorrected p-values of (\S+)\s+and (\S+)\.",
+         (_sign(c4["rho_hat"], "%+.3f"), _sign(c1["rho_hat"], "%+.3f"), "%.3f" % c4["p_persistence"],
+          "%.2f" % c1["p_persistence"])),
+        (NOTE, r"made ([\d,]+) of the ([\d,]+) draws kept", (comma(g["draws"]), comma(draws_kept))),
+        (NOTE, r"\*\*gpt-oss:120b\*\*,[^:]*: persistence of (\S+) or more", (above(g),)),
+        (NOTE, r"\*\*qwen3\.5:35b\*\*: persistence of (\S+) or more", (above(q),)),
+        (NOTE, r"\*\*claude-opus-4-8\*\*: persistence of (\S+) or more", (above(c),)),
+        (NOTE, r"bounds rest on (\d+) and (\d+) sequences", (str(q["informative"]), str(c["informative"]))),
+        (NOTE, r"excess sat at the (\d+)th percentile[^(]*\((\S+) at or below it\)",
+         ("%d" % round(100 * share(g, "0.0")), "%.3f" % share(g, "0.0"))),
+        (NOTE, r"and (\d+) of the (\d+)\s+informative ones are E-004's",
+         (str(c4["informative"]), str(c["informative"]))),
+        ("theory/open-problems.md",
+         r"persistence were (\S+) for gpt-oss:120b, (\S+) for qwen3\.5:35b and (\S+) for\s+claude-opus-4-8",
+         (bound(g), bound(q), bound(c))),
+        ("theory/open-problems.md", r"They rest on (\d+), (\d+) and\s+(\d+) sequences that held",
+         (str(g["informative"]), str(q["informative"]), str(c["informative"]))),
+        ("theory/open-problems.md", r"narrow: its raw p-value was (\S+) and its Holm-adjusted p-value (\S+)\.",
+         ("%.3f" % c["p"], "%.4f" % c["p_holm"])),
+        ("research/README.md",
+         r"upper bounds are (\S+) \(gpt-oss:120b, from (\d+) sequences with more than one answer\), (\S+) "
+         r"\(qwen3\.5:35b, from (\d+)\) and (\S+) \(claude-opus-4-8, from (\d+); raw p (\S+) before correction\)",
+         (bound(g), str(g["informative"]), bound(q), str(q["informative"]), bound(c), str(c["informative"]),
+          "%.3f" % c["p"])),
+    ]
+
+
+def prose_problems(root: str, record: Dict) -> List[str]:
+    import re
+    problems, texts = [], {}
+    for rel, pattern, want in prose_claims(record):
+        if rel not in texts:
+            with open(os.path.join(root, rel), encoding="utf-8") as fh:
+                texts[rel] = fh.read()
+        m = re.search(pattern, texts[rel])
+        if m is None:
+            problems.append("%s: a quoted number moved (%s)" % (rel, pattern[:40]))
+        elif m.groups() != want:
+            problems.append("%s: states %s, the record gives %s" % (rel, m.groups(), want))
+    return problems
+
+
+def check_full(root: str = ROOT, workers: int = 4, permutations: int = PERMUTATIONS) -> List[str]:
+    with open(os.path.join(root, RECORD), encoding="utf-8") as fh:
+        saved = fh.read()
+    fresh = json.dumps(audit(root, workers, permutations), indent=1, sort_keys=True) + "\n"
+    return [] if fresh == saved else ["a seeded rerun differs from the saved record"]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     mode = ap.add_mutually_exclusive_group(required=True)
     mode.add_argument("--out", help="run the audit and write the record here")
     mode.add_argument("--write-tables", action="store_true")
     mode.add_argument("--check", action="store_true")
+    mode.add_argument("--check-full", action="store_true")
     ap.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) - 2))
     args = ap.parse_args()
     if args.out:
@@ -516,11 +667,21 @@ def main() -> int:
             fh.write(text[:i] + "\n" + tables + text[j:])
         print("wrote tables into %s" % NOTE)
         return 0
+    if args.check_full:
+        problems = check_full(ROOT, args.workers)
+        if problems:
+            print("audit_draw_dependence: " + "; ".join(problems))
+            return 1
+        print("audit_draw_dependence: a seeded rerun reproduces the record byte for byte")
+        return 0
     problems = check(ROOT)
+    with open(os.path.join(ROOT, RECORD), encoding="utf-8") as fh:
+        problems += prose_problems(ROOT, json.load(fh))
     if problems:
         print("audit_draw_dependence: " + "; ".join(problems))
         return 1
-    print("audit_draw_dependence: record current against the caches; predictions rescored")
+    print("audit_draw_dependence: record current against the caches; predictions rescored; "
+          "tables and quoted numbers current")
     return 0
 
 

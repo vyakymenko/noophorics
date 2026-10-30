@@ -239,7 +239,8 @@ class TestCheckCounts(ToolTest):
                 + "".join("## %d. p\n" % i for i in range(1, 10))
                 + ("fell below 0.93 in 2 of 24 cells. fell below 0.93 in one cell, "
                    "at five options. fell below 0.90 in 7 of 24 cells. fell below "
-                   "0.93 in all 24 cells.\n"),
+                   "0.93 in all 24 cells. They rest on 537, 10 and\n27 sequences that "
+                   "held more than one answer.\n"),
             "PRINCIPIA.md": "**A1 — x.**\n**A2 — y.**\n",
             # The tally line is part of the fixture because check_counts now
             # reads it. Two, to match the two VOID.md files below. Nine rows
@@ -302,6 +303,21 @@ class TestCheckCounts(ToolTest):
                 "22 of the 24 grid cells. below 0.93 in one cell (five options, n = 10). "
                 "<strong>C3 failed in seven of 24 cells.</strong> "
                 "<strong>C4 held in all 24 cells.</strong></p>"),
+            "research/draw-dependence.json": json.dumps({
+                "dedupe": {"dropped": 297},
+                "families": {"gpt-oss:120b": {"informative": 537, "sequences": 1519},
+                             "qwen3.5:35b": {"informative": 10, "sequences": 63},
+                             "claude-opus-4-8": {"informative": 27, "sequences": 241}}}),
+            "research/2026-10-30-draw-dependence-results.md": (
+                "Of 2,120 read, 297 were dropped as imported copies. throughout in 982 of "
+                "gpt-oss:120b's 1,519, 53 of qwen3.5:35b's 63 "
+                "and 214 of claude-opus-4-8's 241. The test rests on the rest: 537,\n"
+                "10 and 27 sequences (Table 2).\n"),
+            "docs/journal/draw-dependence-results/index.html": (
+                "<p>Of 2,120 read, 297 were dropped as imported copies. throughout in 982 of "
+                "gpt-oss:120b's 1,519, 53 of qwen3.5:35b's 63 "
+                "and 214 of claude-opus-4-8's 241. The test rests on the rest: 537, "
+                "10 and 27 sequences (Table 2).</p>"),
             "AGENTS.md": ("the count moves and so do two translations.\n"
                           "translate the new sentence in all two languages.\n"),
             # Two voided experiments and one that merely has a directory: the
@@ -515,6 +531,28 @@ class TestCheckCounts(ToolTest):
                                      ("in one cell,", "in two cell,"),
                                      ("in 7 of 24", "in 6 of 24"),
                                      ("in all 24 cells", "in all 20 cells"))]
+        for rel, old, stale in cases:
+            with self.subTest(rel=rel, stale=stale):
+                files = self.base(tests_n=7, readme_states=7)
+                self.assertIn(old, files[rel])
+                files[rel] = files[rel].replace(old, stale)
+                code, out = self.run_check(files)
+                self.assertEqual(code, 1, out)
+                self.assertIn("MISMATCH", out)
+
+    def test_the_draw_dependence_note_is_checked_against_its_record(self):
+        """Every registered count in the note, its page and Problem 12 can go red."""
+        cases = [(rel, old, stale)
+                 for rel in ("research/2026-10-30-draw-dependence-results.md",
+                             "docs/journal/draw-dependence-results/index.html")
+                 for old, stale in (("297 were", "296 were"), ("rest: 537,", "rest: 538,"),
+                                    ("10 and 27", "11 and 27"),
+                                    ("and 27 sequences", "and 26 sequences"),
+                                    ("53 of qwen", "52 of qwen"), ("214 of claude", "213 of claude"),
+                                    ("in 982 of", "in 981 of"))]
+        cases += [("theory/open-problems.md", old, stale)
+                  for old, stale in (("rest on 537,", "rest on 536,"), (", 10 and\n27", ", 11 and\n27"),
+                                     ("and\n27 sequences", "and\n28 sequences"))]
         for rel, old, stale in cases:
             with self.subTest(rel=rel, stale=stale):
                 files = self.base(tests_n=7, readme_states=7)
