@@ -232,6 +232,12 @@ def markdown(src: str) -> str:
             i += 1
             continue
 
+        # A whole-line HTML comment is a marker for a generator (the results
+        # notes' tables:start/end), not text: it was rendered as a paragraph.
+        if re.match(r"^\s*<!--.*-->\s*$", line):
+            i += 1
+            continue
+
         if re.match(r"^---+\s*$", line):
             out.append("<hr>")
             i += 1
@@ -283,7 +289,7 @@ def markdown(src: str) -> str:
         para = [line]
         i += 1
         while i < n and lines[i].strip() and not re.match(
-                r"^(#{1,4} |[-*] |\d+\. |> |\||```|---+\s*$)", lines[i]):
+                r"^(#{1,4} |[-*] |\d+\. |> |\||```|---+\s*$|\s*<!--.*-->\s*$)", lines[i]):
             para.append(lines[i])
             i += 1
         out.append("<p>%s</p>" % _inline(" ".join(para)))
@@ -415,6 +421,7 @@ main th,main td{text-align:start;padding:.5rem .8rem;border-bottom:1px solid var
   vertical-align:top}
 main th{font-family:ui-monospace,Menlo,monospace;font-size:.78rem;
   letter-spacing:.06em;text-transform:uppercase;color:var(--soft);font-weight:400}
+main th code{text-transform:none}
 main hr{border:0;border-top:1px solid var(--rule);margin:2.4rem 0}
 .back{display:block;margin-top:3.5rem;padding-top:1.4rem;
   border-top:1px solid var(--rule);font-size:.92rem;color:var(--soft)}
