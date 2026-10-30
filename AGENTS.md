@@ -137,6 +137,7 @@ python3 metrics/validation/test_vanishing_gap.py                  # the simulati
 python3 metrics/validation/vanishing_gap_report.py --check        # its tables vs its record
 python3 metrics/validation/test_bias_corrected.py                 # the follow-up's own checks
 python3 metrics/validation/bias_corrected_report.py --check       # its tables vs its record
+python3 metrics/validation/test_confirm_candidate.py              # the confirmation's own checks
 python3 tools/build_journal.py                 # regenerate if sources moved
 ```
 
