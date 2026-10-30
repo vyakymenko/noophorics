@@ -5,6 +5,7 @@ and proposals for later work.
 
 | Material | What it supplies | Status |
 |---|---|---|
+| [Draw dependence plan](2026-10-30-draw-dependence-plan.md) | Prospective plan: do real model draws persist from one to the next, as the simulated answers that broke the candidate report did? A within-sequence permutation test on every answer-draw sequence on disk, per model. Predictions P1–P4. | Plan committed before the code and before any answer is read; offline, no model calls. |
 | [Candidate confirmation results](2026-10-30-candidate-confirmation-results.md) | The confirmation's results: C1–C3 failed, C4 and C5 held, so the frozen candidate is not confirmed. At five options its gap is off-centre, and with correlated answers it reports a gap where there is none. | Offline simulation results for human review; no change to the estimators in `metrics/noophorics/`. |
 | [Candidate confirmation plan](2026-10-30-candidate-confirmation-plan.md) | Prospective plan: does the jackknife-Fieller report, frozen as found, hold on a new generator — Dirichlet distributions, 3 and 5 options, correlated answers? Predictions C1–C5. | Plan committed before the code and any result; offline, no model calls. |
 | [Bias-corrected results](2026-10-22-bias-corrected-results.md) | The follow-up's results: B2 and B4 held, B1 and B3 failed; a jackknife-corrected Fieller set holds coverage across the grid, and the gap's interval is the piece still missing. | Offline simulation results for human review; no change to the estimators in `metrics/noophorics/`. |
