@@ -5,6 +5,7 @@ and proposals for later work.
 
 | Material | What it supplies | Status |
 |---|---|---|
+| [Candidate confirmation plan](2026-10-30-candidate-confirmation-plan.md) | Prospective plan: does the jackknife-Fieller report, frozen as found, hold on a new generator — Dirichlet distributions, 3 and 5 options, correlated answers? Predictions C1–C5. | Plan committed before the code and any result; offline, no model calls. |
 | [Bias-corrected results](2026-10-22-bias-corrected-results.md) | The follow-up's results: B2 and B4 held, B1 and B3 failed; a jackknife-corrected Fieller set holds coverage across the grid, and the gap's interval is the piece still missing. | Offline simulation results for human review; no change to the estimators in `metrics/noophorics/`. |
 | [Bias-corrected plan](2026-10-22-bias-corrected-plan.md) | Prospective plan: do jackknife- and Miller–Madow-corrected divergences repair the vanishing-gap simulation's failures? Recorded predictions B1–B4. | Plan committed before the code and any result; offline, no model calls. |
 | [Vanishing-gap results](2026-10-16-vanishing-gap-results.md) | The registered simulation's results: P1 failed for every variant, P2–P4 held; Fieller sets, a movement interval and the gap's own interval near a vanishing gap, three estimator variants over two floor conventions. | Offline simulation results for human review; no change to the estimators in `metrics/noophorics/` and no published result recomputed. |
